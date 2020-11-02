@@ -695,12 +695,6 @@ print 'It took ' + i + ' iterations to sort the deck.';
   </div>
 </template>
 
-<!-- These scripts where in the original elements.html, right before end of the body -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/skel.min.js"></script>
-<script src="/js/util.js"></script>
-<script src="/js/main.js"></script>
-
 <script>
 import MyHeader from '@/components/MyHeader.vue'
 export default {

@@ -10,9 +10,9 @@
           <router-link to="/community">Community</router-link>
           <router-link to="/about">About</router-link>
         </nav>
-        <a href="#navPanel" class="navPanelToggle"
-          ><span class="fa fa-bars"></span
-        ></a>
+        <a href="#navPanel" class="navPanelToggle">
+          <span class="fa fa-bars"> </span>
+        </a>
       </div>
     </header>
   </div>
