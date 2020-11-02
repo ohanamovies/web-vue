@@ -65,11 +65,10 @@ export default {
     listType(type) {
       var auxx = []
       this.data.forEach(e => {
-        if (e.data.tagged) {
-          if (Object.keys(e.data.tagged).length > 0) {
-            if (e.data.metadata.type == type) {
-              auxx.push(e)
-            }
+        //TODO: check if tagged content
+        {
+          if (e.data.metadata.type == type) {
+            auxx.push(e)
           }
         }
       })
@@ -96,7 +95,7 @@ export default {
 div.posters_wrapper {
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   flex-wrap: wrap;
 }
 
