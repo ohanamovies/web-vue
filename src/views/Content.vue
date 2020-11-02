@@ -21,13 +21,17 @@
         <div class="posters_wrapper">
           <div class="poster_card" v-for="(item, index) in items" :key="index">
             <div class="image">
+              <!-- poster_path -->
               <img
+                v-if="item.data.metadata.poster_path"
                 :src="
                   'https://image.tmdb.org/t/p/w300' +
                     item.data.metadata.poster_path
                 "
                 alt=""
               />
+              <!-- poster a secas -->
+              <img v-else :src="item.data.metadata.poster" alt="" />
             </div>
             <b>{{ item.data.metadata.title }}</b>
           </div>
