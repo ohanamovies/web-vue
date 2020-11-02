@@ -94,9 +94,8 @@
         </div>
         <footer>
           <router-link to="community" class="button special"
-            >Meeeet the community</router-link
+            >Meet the community</router-link
           >
-          <a href="community.html" class="button special">Meet the community</a>
         </footer>
       </div>
     </section>
@@ -141,9 +140,8 @@
 
 <script>
 // @ is an alias to /src
-import MyHeader from '@/components/MyHeader.vue'
+//import MyHeader from '@/components/MyHeader.vue' //now imported globally!
 export default {
-  name: 'Home',
-  components: { MyHeader }
+  name: 'Home'
 }
 </script>

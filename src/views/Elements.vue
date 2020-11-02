@@ -578,7 +578,7 @@
                 </div>
                 <div class="4u">
                   <span class="image fit"
-                    ><img src="images/pic01.jpg" alt=""
+                    ><img src="images/pic02.jpg" alt=""
                   /></span>
                 </div>
                 <div class="4u$">
@@ -696,11 +696,7 @@ print 'It took ' + i + ' iterations to sort the deck.';
 </template>
 
 <script>
-import MyHeader from '@/components/MyHeader.vue'
 export default {
-  components: {
-    MyHeader
-  },
   data() {
     return {
       key: 'value'

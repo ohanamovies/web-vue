@@ -13,9 +13,12 @@
 </template>
 
 <script>
-import MyHeader from '@/components/MyHeader.vue'
 export default {
-  components: { MyHeader }
+  data() {
+    return {
+      key: 'value'
+    }
+  }
 }
 </script>
 
