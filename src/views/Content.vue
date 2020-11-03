@@ -52,27 +52,33 @@
         <div v-if="loading">Loading...</div>
         <div class="posters_wrapper">
           <div class="poster_card" v-for="(item, index) in items" :key="index">
-            <div class="image">
+            <div class="image" style="width:100%">
               <!-- poster_path -->
               <img
-                v-if="item.data.metadata.poster_path"
+                v-if="item.metadata.poster_path"
                 :src="
-                  'https://image.tmdb.org/t/p/w300' +
-                    item.data.metadata.poster_path
+                  'https://image.tmdb.org/t/p/w200' + item.metadata.poster_path
                 "
                 alt=""
               />
               <!-- poster a secas -->
-              <img v-else :src="item.data.metadata.poster" alt="" />
+              <img v-else :src="item.metadata.poster" alt="" />
               <!-- note: icons based on https://cdn.dribbble.com/users/368135/screenshots/3828960/d-protected.png -->
               <div class="shield" v-if="caringTags.length > 0">
                 <img :src="getShieldImage(item)" alt="" width="50px" />
               </div>
             </div>
             <div class="content">
-              <b>{{ item.data.metadata.title }}</b>
+              <b>{{ item.metadata.title }}</b>
               <br />
-              {{ getCaringScenes(item) }}
+              <ul>
+                <li
+                  v-for="(cs, index) in Object.keys(getCaringScenes(item))"
+                  :key="index"
+                >
+                  {{ cs }}: {{ getCaringScenes(item)[cs] }}
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -111,27 +117,26 @@ export default {
   },
   methods: {
     getCaringScenes(item) {
-      //return 'kaixo there' + item.data.metadata.title
+      //return 'kaixo there' + item.metadata.title
       var caringScenes = {}
-      if (item.data) {
-        if (item.data.scenes) {
-          item.data.scenes.forEach(scene => {
-            this.caringTags.forEach(ct => {
-              if (scene.tags.includes(ct)) {
-                if (!caringScenes[ct]) {
-                  caringScenes[ct] = 0
-                }
-                caringScenes[ct] = caringScenes[ct] + 1
+
+      if (item.scenes) {
+        item.scenes.forEach(scene => {
+          this.caringTags.forEach(ct => {
+            if (scene.tags.includes(ct)) {
+              if (!caringScenes[ct]) {
+                caringScenes[ct] = 0
               }
-            })
+              caringScenes[ct] = caringScenes[ct] + 1
+            }
           })
-        }
+        })
       }
 
       var taggedAux = {}
       this.caringTags.forEach(ct => {
-        if (item.data.tagged[ct]) {
-          taggedAux[ct] = item.data.tagged[ct].status
+        if (item.tagged[ct]) {
+          taggedAux[ct] = item.tagged[ct].status
         }
       })
 
@@ -144,15 +149,15 @@ export default {
     getShield(item) {
       var finalStatus = 3 //1:missing, 2: unknown, 3:protected
 
-      if (!item.data.tagged) {
+      if (!item.tagged) {
         finalStatus = 2
       } else {
         this.caringTags.forEach(ct => {
           var auxx
-          if (!item.data.tagged[ct]) {
+          if (!item.tagged[ct]) {
             auxx = 2
           } else {
-            var s = item.data.tagged[ct].status
+            var s = item.tagged[ct].status
             auxx = s == 'done' ? 3 : s == 'missing' ? 1 : 2
           }
           if (auxx < finalStatus) {
@@ -176,7 +181,7 @@ export default {
       this.data.forEach(e => {
         //TODO: check if tagged content
         {
-          if (e.data.metadata.type == type) {
+          if (e.metadata.type == type) {
             auxx.push(e)
           }
         }
@@ -185,6 +190,7 @@ export default {
     },
     getData() {
       this.loading = true
+
       var murl = 'https://arrietaeguren.es/movies/app/get_all'
       fetch(murl)
         .then(response => response.json())
@@ -228,10 +234,9 @@ div.posters_wrapper div.poster_card {
 
   /*width: calc(((100vw - 80px - 260px - 128px) / 4));*/
   /*width: calc(((100vw - 260px - 80px - 64px) / 2));*/
-  /*width: calc((100vw - 20.7px * 2 - 5px * 4) / 2);*/
   width: calc(
     (100% - 10px * 4) / 2
-  ); /* 100% of the div, minus margins*4, and /2 (so at least 2 posters fit the width*/
+  ); /* 100% of the div, minus margins*4, and /2 (so at min, 2 posters fit the width)*/
   max-width: 208px;
   /*min-width: 10px;*/
 }
@@ -259,6 +264,7 @@ div.posters_wrapper div.poster_card div.image div.shield {
   width: 38px;
   height: 38px;
   box-sizing: border-box;
+  z-index: 99999; /* make sure it stays on top of content*/
 }
 
 .poster_card > .content {
