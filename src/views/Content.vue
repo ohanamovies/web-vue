@@ -50,6 +50,7 @@
         </div>
 
         <div v-if="loading">Loading...</div>
+
         <div class="posters_wrapper">
           <div class="poster_card" v-for="(item, index) in items" :key="index">
             <div class="image" style="width:100%">
@@ -264,7 +265,7 @@ div.posters_wrapper div.poster_card div.image div.shield {
   width: 38px;
   height: 38px;
   box-sizing: border-box;
-  z-index: 99999; /* make sure it stays on top of content*/
+  z-index: 9999; /* make sure it stays on top of content*/
 }
 
 .poster_card > .content {
@@ -273,7 +274,7 @@ div.posters_wrapper div.poster_card div.image div.shield {
   opacity: 0;
   height: 100%;
   color: white;
-  z-index: 9999;
+  z-index: 9998;
 }
 
 .poster_card > .content:hover {
