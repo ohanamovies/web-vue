@@ -49,6 +49,7 @@
           </p>
         </div>
 
+        <div v-if="loading">Loading...</div>
         <div class="posters_wrapper">
           <div class="poster_card" v-for="(item, index) in items" :key="index">
             <div class="image">
@@ -65,7 +66,7 @@
               <img v-else :src="item.data.metadata.poster" alt="" />
             </div>
             <div class="content">
-              <div class="shield">
+              <div class="shield" v-if="caringTags.length > 0">
                 <img :src="getShieldImage(item)" alt="" width="50px" />
               </div>
               <b>{{ item.data.metadata.title }}</b>
