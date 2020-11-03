@@ -4,9 +4,11 @@
     <section class="wrapper" id="main">
       <div class="inner">
         <h4>Discover content</h4>
-        <p>Please, first check the kind of content that you want to avoid</p>
+        <p style="margin-bottom:0px">
+          Please, first check the kind of content that you want to avoid:
+        </p>
 
-        <div id="your-filters" class="row">
+        <div id="your-filters" class="row" style="margin-top:0px">
           <div
             v-for="(tag, index) in tags"
             :key="index"
@@ -36,13 +38,13 @@
             <span
               style="text-decoration:underline; cursor:pointer"
               @click="type = 'movie'"
-              >Movies</span
+              >Movies ({{ movies.length }})</span
             >
             |
             <span
               style="text-decoration:underline;cursor:pointer"
               @click="type = 'show'"
-              >Shows</span
+              >Episodes ({{ shows.length }})</span
             >
           </p>
         </div>
