@@ -64,11 +64,12 @@
               />
               <!-- poster a secas -->
               <img v-else :src="item.data.metadata.poster" alt="" />
-            </div>
-            <div class="content">
+              <!-- note: icons based on https://cdn.dribbble.com/users/368135/screenshots/3828960/d-protected.png -->
               <div class="shield" v-if="caringTags.length > 0">
                 <img :src="getShieldImage(item)" alt="" width="50px" />
               </div>
+            </div>
+            <div class="content">
               <b>{{ item.data.metadata.title }}</b>
               <br />
               {{ getCaringScenes(item) }}
@@ -250,13 +251,27 @@ div.posters_wrapper div.poster_card div.content {
   flex-wrap: wrap;
 }
 
-div.posters_wrapper div.poster_card div.content div.shield {
+div.posters_wrapper div.poster_card div.image div.shield {
   position: absolute;
-  top: -25px;
+  bottom: 0px;
   right: 0px;
 
   width: 38px;
   height: 38px;
   box-sizing: border-box;
+}
+
+.poster_card > .content {
+  position: absolute !important;
+  background: black;
+  opacity: 0;
+  height: 100%;
+  color: white;
+  z-index: 9999;
+}
+
+.poster_card > .content:hover {
+  opacity: 0.95;
+  transition: opacity 0.3s;
 }
 </style>
