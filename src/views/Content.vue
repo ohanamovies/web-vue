@@ -4,7 +4,7 @@
     <section class="wrapper" id="main">
       <div class="inner">
         <h4>Discover content</h4>
-        <p style="margin-bottom:0px">
+        <p style="margin-bottom:5px">
           Please, first check the kind of content that you want to avoid:
         </p>
 
