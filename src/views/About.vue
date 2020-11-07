@@ -5,8 +5,8 @@
 
     <section id="main" class="wrapper">
       <div class="inner">
-        <h1>This could be an about page</h1>
-        <h2>Scroll to see next section</h2>
+        <h1>Want to know more?</h1>
+        <h2>Wait a few days for us to add more content here</h2>
       </div>
     </section>
   </div>

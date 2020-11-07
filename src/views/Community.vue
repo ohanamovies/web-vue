@@ -6,28 +6,37 @@
     <section id="three" class="wrapper">
       <div class="inner">
         <header class="align-center">
-          <h2>Nunc Dignissim</h2>
-          <p>Aliquam erat volutpat nam dui</p>
+          <h2>Community</h2>
+          <p>Our heart and engine</p>
         </header>
+        <!--
         <div class="image round left">
           <img src="images/pic01.jpg" alt="Pic 01" />
         </div>
+        -->
         <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-          dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed
-          quia non numquam eius modi tempora incidunt ut labore et dolore magnam
-          aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-          exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex
-          ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-          ea voluptate velit esse quam nihil molestiae consequatur, vel illum
-          qui dolorem eum fugiat quo voluptas nulla pariatur?
+          A strong community is what makes the difference in a project like
+          this. We need your help building the first open database of films'
+          scenes. With your help, anyone in the world will be able to skip the
+          undesired content in any film.
         </p>
 
+        <div>
+          <p>
+            You can join the community and start contributing by downloading our
+            Chrome extension.
+          </p>
+          <footer>
+            <a
+              href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
+              class="button special"
+              target="_blank"
+              >Download</a
+            >
+          </footer>
+        </div>
+
+        <!--
         <div class="image round right">
           <img src="images/pic02.jpg" alt="Pic 02" />
         </div>
@@ -75,6 +84,7 @@
           voluptatibus maiores alias consequatur aut perferendis doloribus
           asperiores repellat.
         </p>
+        -->
       </div>
     </section>
   </div>

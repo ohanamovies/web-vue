@@ -22,14 +22,14 @@
 
           <div>
             <span class="icon fa-bug"></span>
-            <h3>Freedom</h3>
+            <h3>Your way</h3>
             <p>You decide what you watch</p>
           </div>
 
           <div>
             <span class="icon fa-heart"></span>
-            <h3>Values</h3>
-            <p>Nulla vitae mauris non felis</p>
+            <h3>Community</h3>
+            <p>Built by people like you</p>
           </div>
         </div>
 
@@ -60,9 +60,8 @@
               <h3>Simplicity<br /></h3>
             </header>
             <p>
-              We are a community of developers and movie fans like you, silently
-              working in the background so that skipping unwanted content is as
-              easy as pressing play.
+              We are in the 21st Century... we believe that skipping unwanted
+              content has to be as easy as pressing play
             </p>
           </article>
           <article>
@@ -70,7 +69,7 @@
               <img src="images/freedom.jpg" height="150px" alt="Freedom" />
             </div>
             <header>
-              <h3>Freedom<br /></h3>
+              <h3>Your way<br /></h3>
             </header>
             <p>
               Watch what you want, and only what you want. We will never tell
@@ -83,12 +82,11 @@
               <img src="images/values.jpg" height="150px" alt="Values" />
             </div>
             <header>
-              <h3>Values<br /></h3>
+              <h3>Community<br /></h3>
             </header>
             <p>
-              We believe in freedom, women rights, no-discrimination, education
-              and the importance of the family. We work hard to make it
-              possible.
+              We are a community of developers and movie fans like you,
+              passionately working to make Family Cinema possible.
             </p>
           </article>
         </div>
@@ -104,12 +102,21 @@
       <div class="inner" style="border-top: none">
         <header>
           <h1>Filter content on your favourity providers</h1>
+          <p>*As of now, only available when you watch using Chrome browser</p>
         </header>
 
-        <div class="flex flex-3">
-          <div>
+        <div
+          class="flex flex-3"
+          style="font-size: 190%; font-weight: bold; color: white; text-decoration: underline; "
+        >
+          <div>Netflix</div>
+          <div>HBO</div>
+          <div>Disney+</div>
+          <div>Movistar+</div>
+
+          <!-- <div>
             <span class="icon fa-play-circle"></span>
-            <h3>Netflix</h3>
+            <h1>Netflix</h>
           </div>
 
           <div>
@@ -126,6 +133,7 @@
             <span class="icon fa-heart"></span>
             <h3>Movistarplus</h3>
           </div>
+          -->
         </div>
 
         <footer>
