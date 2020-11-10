@@ -60,26 +60,55 @@
                 :src="
                   'https://image.tmdb.org/t/p/w200' + item.metadata.poster_path
                 "
-                alt=""
+                :alt="'Poster - ' + item.metadata.title"
               />
               <!-- poster a secas -->
-              <img v-else :src="item.metadata.poster" alt="" />
+              <img
+                v-else
+                :src="item.metadata.poster"
+                :alt="'Poster - ' + item.metadata.title"
+              />
               <!-- note: icons based on https://cdn.dribbble.com/users/368135/screenshots/3828960/d-protected.png -->
               <div class="shield" v-if="caringTags.length > 0">
                 <img :src="getShieldImage(item)" alt="" width="50px" />
               </div>
             </div>
             <div class="content">
-              <b>{{ item.metadata.title }}</b>
+              <span style="font-size:20px">{{ item.metadata.title }}</span>
+
               <br />
+              <br />
+
               <ul>
                 <li
                   v-for="(cs, index) in Object.keys(getCaringScenes(item))"
                   :key="index"
+                  :style="{
+                    color:
+                      getCaringScenes(item)[cs].status == 'missing'
+                        ? 'red'
+                        : getCaringScenes(item)[cs].status == 'done'
+                        ? 'green'
+                        : 'yellow',
+                    lineHeight: 'normal'
+                  }"
                 >
-                  {{ cs }}: {{ getCaringScenes(item)[cs] }}
+                  <span style="position:relative; left:-10px">
+                    {{ cs }}:
+                    {{ translateStatus(getCaringScenes(item)[cs].status) }}
+                    <span
+                      style="font-size: 75%"
+                      v-if="getCaringScenes(item)[cs].count"
+                    >
+                      ({{ getCaringScenes(item)[cs].count }} scenes)
+                    </span>
+                  </span>
                 </li>
               </ul>
+
+              <span style="position: absolute; bottom: 5px">{{
+                item.metadata.provider
+              }}</span>
             </div>
           </div>
         </div>
@@ -117,8 +146,19 @@ export default {
     }
   },
   methods: {
+    translateStatus(status) {
+      switch (status) {
+        case 'done':
+          return 'filtered'
+        case 'missing':
+          return 'pending'
+
+        default:
+          return 'unknown'
+      }
+    },
     getCaringScenes(item) {
-      //return 'kaixo there' + item.metadata.title
+      //returns JSON with {tagName: status}, only for the tags user cares.
       var caringScenes = {}
 
       if (item.scenes) {
@@ -129,6 +169,7 @@ export default {
                 caringScenes[ct] = 0
               }
               caringScenes[ct] = caringScenes[ct] + 1
+              console.log('aaaaa', caringScenes[ct] + 1)
             }
           })
         })
@@ -137,7 +178,10 @@ export default {
       var taggedAux = {}
       this.caringTags.forEach(ct => {
         if (item.tagged[ct]) {
-          taggedAux[ct] = item.tagged[ct].status
+          taggedAux[ct] = {
+            status: item.tagged[ct].status,
+            count: caringScenes[ct]
+          }
         }
       })
 
@@ -273,7 +317,8 @@ div.posters_wrapper div.poster_card div.image div.shield {
   background: black;
   opacity: 0;
   height: 100%;
-  color: white;
+  font-size: 90%;
+  color: white !important;
   z-index: 9998;
 }
 
