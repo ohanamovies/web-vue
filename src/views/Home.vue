@@ -107,33 +107,27 @@
 
         <div
           class="flex flex-3"
-          style="font-size: 190%; font-weight: bold; color: white; text-decoration: underline; "
         >
-          <div>Netflix</div>
-          <div>HBO</div>
-          <div>Disney+</div>
-          <div>Movistar+</div>
 
-          <!-- <div>
-            <span class="icon fa-play-circle"></span>
-            <h1>Netflix</h>
+          <div>
+            <!--<span class="icon fa-play-circle"></span>-->
+            <h3>Netflix</h3>
           </div>
 
           <div>
-            <span class="icon fa-bug"></span>
+            <!--<span class="icon fa-play-circle"></span>-->
             <h3>HBO</h3>
           </div>
 
           <div>
-            <span class="icon fa-heart"></span>
-            <h3>Disneyplus</h3>
+            <!--<span class="icon fa-play-circle"></span>-->
+            <h3>Disney+</h3>
           </div>
 
           <div>
-            <span class="icon fa-heart"></span>
-            <h3>Movistarplus</h3>
+            <!--<span class="icon fa-play-circle"></span>-->
+            <h3>Movistar+</h3>
           </div>
-          -->
         </div>
 
         <footer>

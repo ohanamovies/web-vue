@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section>
+    <div>
       <footer id="footer">
         <div class="inner">
           <!--
@@ -56,7 +56,7 @@
           </div>
         </div>
       </footer>
-    </section>
+    </div>
   </div>
 </template>
 
