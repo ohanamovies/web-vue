@@ -105,10 +105,7 @@
           <p>*As of now, only available when you watch using Chrome browser</p>
         </header>
 
-        <div
-          class="flex flex-3"
-        >
-
+        <div class="flex flex-3">
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
             <h3>Netflix</h3>
