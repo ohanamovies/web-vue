@@ -74,7 +74,9 @@
               </div>
             </div>
             <div class="content">
-              <span style="font-size:20px">{{ item.metadata.title }}</span>
+              <span style="font-size:20px; line-height:normal">{{
+                item.metadata.title
+              }}</span>
 
               <br />
               <br />
