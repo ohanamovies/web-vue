@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     sendMessage() {
-      var murl = 'http://www.arrietaeguren.es/movies/app/email.php'
+      var murl = 'https://www.arrietaeguren.es/movies/app/email.php'
 
       if (this.email == '' || this.name == '' || this.message == '') {
         this.infoText = 'Please, fill all the data'
