@@ -50,6 +50,7 @@
       <button @click="sendMessage()" style="background-color:white">
         Send
       </button>
+      <br />
       <span>{{ infoText }}</span>
       <br />
       <br />
