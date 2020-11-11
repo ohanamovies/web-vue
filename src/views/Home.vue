@@ -60,8 +60,8 @@
               <h3>Simplicity<br /></h3>
             </header>
             <p>
-              We are in the 21st Century... we believe that skipping unwanted
-              content has to be as easy as pressing play
+              We are in the 21st Century... We believe it's time for unwanted
+              content to be skipped as easily as pressing play.
             </p>
           </article>
           <article>
@@ -73,7 +73,7 @@
             </header>
             <p>
               Watch what you want, and only what you want. We will never tell
-              you what you skip or what to watch. We classify scenes and build
+              you what to skip or what to watch. We classify scenes and build
               the software to make skips possible, you decide what to watch.
             </p>
           </article>
