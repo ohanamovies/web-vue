@@ -1,63 +1,67 @@
 <template>
-  <div>
-    <div>
-      <footer id="footer">
-        <div class="inner">
-          <!--
-          <h3>Get in touch</h3>
+  <footer id="footer">
+    <div class="inner">
+      <h3 style="margin-bottom:10px !important">Get in touch</h3>
+      <p style="font-size: 90%; opacity:0.6">
+        We'd love to hear from you
+      </p>
 
-          <form action="#" method="post">
-            <div class="field half first">
-              <label for="name">Name</label>
-              <input
-                name="name"
-                id="name"
-                type="text"
-                placeholder="Name"
-                v-model="name"
-              />
-            </div>
-            <div class="field half">
-              <label for="email">Email</label>
-              <input
-                name="email"
-                id="email"
-                type="email"
-                placeholder="Email"
-                v-model="email"
-              />
-            </div>
-            <div class="field">
-              <label for="message">Message</label>
-              <textarea
-                name="message"
-                id="message"
-                rows="6"
-                placeholder="Message"
-                v-model="message"
-              ></textarea>
-            </div>
+      <form action="#" method="post">
+        <div class="field half first">
+          <label for="name">Name</label>
+          <input
+            name="name"
+            id="name"
+            type="text"
+            placeholder="Name"
+            v-model="name"
+          />
+        </div>
+        <div class="field half">
+          <label for="email">Email</label>
+          <input
+            name="email"
+            id="email"
+            type="email"
+            placeholder="Email"
+            v-model="email"
+          />
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea
+            name="message"
+            id="message"
+            rows="6"
+            placeholder="Message"
+            v-model="message"
+          ></textarea>
+        </div>
+        <!--
             <ul class="actions">
               <li>
                 <input value="Send Message" class="button" type="submit" />
               </li>
             </ul>
-            <button class="button special" @click="sendMessage()">
-              Download
-            </button>
-            <p>{{ sentText }}</p>
-          </form>
-          -->
+            -->
+      </form>
+      <!-- class="button"-->
 
-          <div class="copyright">
-            &copy; Family Cinema. Design:
-            <a href="https://templated.co">TEMPLATED</a>. Images:
-            <a href="https://unsplash.com">Unsplash</a>.
-          </div>
-        </div>
-      </footer>
+      <button @click="sendMessage()" style="background-color:white">
+        Send
+      </button>
+      <span>{{ infoText }}</span>
+      <br />
+      <br />
+      <br />
+
+      <div class="copyright">
+        &copy; Family Cinema. Design:
+        <a href="https://templated.co">TEMPLATED</a>. Images:
+        <a href="https://unsplash.com">Unsplash</a>.
+      </div>
     </div>
-  </div>
+  </footer>
 </template>
 
 <script>
@@ -67,27 +71,38 @@ export default {
       email: '',
       name: '',
       message: '',
-      sentText: ''
+      infoText: ''
     }
   },
   methods: {
     sendMessage() {
       var murl = 'http://www.arrietaeguren.es/movies/app/email.php'
-      var jsonn = {
-        name: this.name,
-        email: this.email,
-        message: this.message
+
+      if (this.email == '' || this.name == '' || this.message == '') {
+        this.infoText = 'Please, fill all the data'
+        return
       }
+
+      if (!this.email.includes('@')) {
+        this.infoText = 'Invalid email. Please, fix and try again.'
+        return
+      }
+
+      var fd = new FormData()
+      fd.append('email', this.email)
+      fd.append('name', this.name)
+      fd.append('message', this.message)
+
       fetch(murl, {
         method: 'post',
-        body: JSON.stringify(jsonn)
+        body: fd
       })
         .then(response => {
           return response.json()
         })
         .then(myJson => {
           console.log(myJson) //message sent
-          this.sentText = 'Thank you!'
+          this.infoText = 'Message sent. Thank you!'
         })
     }
   }
