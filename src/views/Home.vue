@@ -101,7 +101,7 @@
     <section class="banner" style="background-image: url(images/providers.jpg)">
       <div class="inner" style="border-top: none">
         <header>
-          <h1>Filter content on your favourity providers</h1>
+          <h1>Filter content on your favourite providers</h1>
           <p>*As of now, only available when you watch using Chrome browser</p>
         </header>
 
