@@ -63,31 +63,31 @@ var content = [
     title: 'Violence/Gore',
     description: '',
     color: 'red',
-    severity_title: 'How graphic/gore is it?',
+    severity_title: 'How graphic/gory is it?',
     types_title: 'Does it contain any of the following?',
     severity: [
       {
-        value: 'Non gore',
-        title: 'Non gore',
+        value: 'Not gory',
+        title: 'Not gory',
         description: 'Violence is implied but nothing is shown'
       },
       {
-        value: 'Slightly gore',
-        title: 'Slightly gore',
+        value: 'Slightly gory',
+        title: 'Slightly gory',
         description:
-          'Slightly gore or graphic scene, eg: mild verbal violence, punching'
+          'Slightly gory or graphic scene, eg: mild verbal violence, punching'
       },
       {
-        value: 'Moderately gore',
-        title: 'Moderately gore',
+        value: 'Moderately gory',
+        title: 'Moderately gory',
         description:
-          'Moderately gore or graphic scene, eg: extensive bleeding, broken bones...'
+          'Moderately gory or graphic scene, eg: extensive bleeding, broken bones...'
       },
       {
-        value: 'Very gore',
-        title: 'Very gore',
+        value: 'Very gory',
+        title: 'Very gory',
         description:
-          'Very gore or graphic scene, eg: blood splattered, open wounds, guts...'
+          'Very gory or graphic scene, eg: blood splattered, open wounds, guts...'
       }
     ],
     types: [
