@@ -3,7 +3,7 @@
     <header id="header">
       <div class="inner">
         <router-link to="/" class="logo"
-          ><strong>Family Cinema</strong></router-link
+          ><strong>Ohana</strong></router-link
         >
         <nav id="nav">
           <router-link to="/">Home</router-link>

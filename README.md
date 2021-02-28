@@ -1,4 +1,4 @@
-# familycinema-web
+# Ohana's
 
 ## Project setup
 ```

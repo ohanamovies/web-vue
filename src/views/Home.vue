@@ -10,7 +10,7 @@
     >
       <div class="inner" style="border-top: none">
         <header>
-          <h1>Welcome to Family Cinema</h1>
+          <h1>Welcome to Ohana</h1>
         </header>
 
         <div class="flex">
@@ -86,7 +86,7 @@
             </header>
             <p>
               We are a community of developers and movie fans like you,
-              passionately working to make Family Cinema possible.
+              passionately working to make Ohana possible.
             </p>
           </article>
         </div>
