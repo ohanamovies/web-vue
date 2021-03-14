@@ -353,7 +353,6 @@ textarea {
 }
 
 .slider {
-  /*-webkit-appearance: none;*/
   width: 100%;
   height: 15px;
   border-radius: 5px;
@@ -366,7 +365,7 @@ textarea {
 
 /* Mouse-over effects */
 .slider:hover {
-  opacity: 1; /* Fully shown on mouse-over */
+  opacity: 1;
 }
 
 .slider::-webkit-slider-thumb {
