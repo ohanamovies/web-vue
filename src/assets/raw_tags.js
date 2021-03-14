@@ -5,13 +5,12 @@ var content = [
     description: '',
     color: 'green',
     severity_title: 'How graphic or erotic is it?',
-    types_title: 'Does it contain any of the following?',
+    types_title: 'Does it contain any of these?',
     severity: [
       {
         value: 'Non erotic',
         title: 'Non erotic',
-        description:
-          "Nudity with no erotic purpose, eg: Michelangelo's David, human corpse..."
+        description: "Nudity with no erotic purpose, eg: Michelangelo's David, human corpse..."
       },
       {
         value: 'Slightly erotic',
@@ -28,16 +27,14 @@ var content = [
       {
         value: 'Very erotic',
         title: 'Very erotic',
-        description:
-          'Very erotic or graphic scene, eg: sex, foreplay, moaning...'
+        description: 'Very erotic or graphic scene, eg: sex, foreplay, moaning...'
       }
     ],
     types: [
       {
         value: 'No consent',
         title: 'No consent',
-        description:
-          'Lack or inability to consent, eg: rape, child molestation, harassment...'
+        description: 'Lack or inability to consent, eg: rape, child molestation, harassment...'
       },
       {
         value: 'Unloving/objectifying',
@@ -63,51 +60,45 @@ var content = [
     title: 'Violence/Gore',
     description: '',
     color: 'red',
-    severity_title: 'How graphic/gory is it?',
-    types_title: 'Does it contain any of the following?',
+    severity_title: 'How graphic/gore is it?',
+    types_title: 'Does it contain any of these?',
     severity: [
       {
-        value: 'Not gory',
-        title: 'Not gory',
+        value: 'Non gore',
+        title: 'Non gore',
         description: 'Violence is implied but nothing is shown'
       },
       {
-        value: 'Slightly gory',
-        title: 'Slightly gory',
-        description:
-          'Slightly gory or graphic scene, eg: mild verbal violence, punching'
+        value: 'Slightly gore',
+        title: 'Slightly gore',
+        description: 'Slightly gore or graphic scene, eg: mild verbal violence, punching'
       },
       {
-        value: 'Moderately gory',
-        title: 'Moderately gory',
-        description:
-          'Moderately gory or graphic scene, eg: extensive bleeding, broken bones...'
+        value: 'Moderately gore',
+        title: 'Moderately gore',
+        description: 'Moderately gore or graphic scene, eg: extensive bleeding, broken bones...'
       },
       {
-        value: 'Very gory',
-        title: 'Very gory',
-        description:
-          'Very gory or graphic scene, eg: blood splattered, open wounds, guts...'
+        value: 'Very gore',
+        title: 'Very gore',
+        description: 'Very gore or graphic scene, eg: blood splattered, open wounds, guts...'
       }
     ],
     types: [
       {
         value: 'Discrimination',
         title: 'Discrimination',
-        description:
-          'Verbal of physical violence due to race, sex, religion, disability...'
+        description: 'Verbal of physical violence due to race, sex, religion, disability...'
       },
       {
         value: 'Cruelty',
         title: 'Cruelty',
-        description:
-          'One of the parties is significantly weaker or have no chance of winning'
+        description: 'One of the parties is significantly weaker or have no chance of winning'
       },
       {
         value: 'Power imbalance',
         title: 'Power imbalance',
-        description:
-          'One of the parties is significantly weaker or have no chance of winning'
+        description: 'One of the parties is significantly weaker or have no chance of winning'
       },
       {
         value: 'Self harm',
@@ -148,8 +139,7 @@ var content = [
       {
         value: 'Illegal drugs',
         title: 'Illegal drugs',
-        description:
-          'Consumption or dealing of illegal drugs, eg: weed, cocaine...'
+        description: 'Consumption or dealing of illegal drugs, eg: weed, cocaine...'
       }
     ]
   }
@@ -158,16 +148,8 @@ var content = [
 var actions = {
   types_title: 'Anything else?',
   types: [
-    {
-      value: 'Sound only',
-      title: 'Sound only',
-      description: 'Tags apply only to sound'
-    },
-    {
-      value: 'Video only',
-      title: 'Video only',
-      description: 'Tags apply only to video.'
-    },
+    { value: 'Sound only', title: 'Sound only', description: 'Tags apply only to sound' },
+    { value: 'Video only', title: 'Video only', description: 'Tags apply only to video.' },
     {
       value: 'Local',
       title: 'Local',
@@ -186,7 +168,14 @@ var actions = {
   ]
 }
 
+var categories = content.map(x => x.value)
+var severities = content.map(x => x.severity.map(y => y.value))
+var context = content.map(x => x.types.map(y => y.value))
+
 module.exports = {
   content,
-  actions
+  actions,
+  categories,
+  severities,
+  context
 }

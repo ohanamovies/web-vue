@@ -4,16 +4,85 @@
     <section class="wrapper" id="main">
       <div class="inner">
         <h4>Discover content</h4>
+
         <p style="margin-bottom:5px">
-          Please, first check the kind of content that you want to avoid:
+          What do you want to skip?
         </p>
 
-        <div id="your-filters" class="row" style="margin-top:0px">
-          <div
-            v-for="(tag, index) in tags"
-            :key="index"
-            class="3u 6u(medium) 6u$(small)"
-          >
+        <div class="row inputs">
+          <div class="4u 6u(medium) 12u$(small)" style="text-align: center">
+            <b>Sex/Nudity</b>
+            <div class="protection">
+              <span>No protection</span>
+              <span>Full protection</span>
+            </div>
+            <input type="range" min="1" max="5" v-model="sexSlider" class="slider" />
+            <div class="sliderticks">
+              <p :class="{ strike: sexSlider > 1 }">Severe</p>
+              <p :class="{ strike: sexSlider > 2 }">Moderate</p>
+              <p :class="{ strike: sexSlider > 3 }">Mild</p>
+              <p :class="{ strike: sexSlider > 4 }">Slight</p>
+            </div>
+          </div>
+
+          <div class="4u 6u(medium) 12u$(small)" style="text-align: center">
+            <b>Violence/Gore</b>
+            <div class="protection">
+              <span>No protection</span>
+              <span>Full protection</span>
+            </div>
+            <input type="range" min="1" max="5" v-model="vioSlider" class="slider" />
+            <div class="sliderticks">
+              <p :class="{ strike: vioSlider > 1 }">Severe</p>
+              <p :class="{ strike: vioSlider > 2 }">Moderate</p>
+              <p :class="{ strike: vioSlider > 3 }">Mild</p>
+              <p :class="{ strike: vioSlider > 4 }">Slight</p>
+            </div>
+          </div>
+
+          <div class="4u 6u(medium) 12u$(small)" style="text-align: center">
+            <b>Other</b>
+            <div class="protection">
+              <span>No protection</span>
+              <span>Full protection</span>
+            </div>
+            <input type="range" min="1" max="5" v-model="oSlider" class="slider" />
+            <div class="sliderticks">
+              <p :class="{ strike: oSlider > 1 }">Severe</p>
+              <p :class="{ strike: oSlider > 2 }">Moderate</p>
+              <p :class="{ strike: oSlider > 3 }">Mild</p>
+              <p :class="{ strike: oSlider > 4 }">Slight</p>
+            </div>
+          </div>
+
+          <div class="4u 6u(medium) 6u$(small)">
+            <b>Title</b>
+            <input type="text" v-model="title" />
+          </div>
+
+          <div class="4u 6u(medium) 6u$(small)">
+            <b>Genres</b>
+            <select v-model="genres">
+              <option>Dog</option>
+              <option>Cat</option>
+              <option>Rabbit</option>
+            </select>
+          </div>
+
+          <div class="4u 6u(medium) 6u$(small)">
+            <b>Providers</b>
+            <select v-model="providers">
+              <option>Netflix</option>
+              <option>Amazon</option>
+              <option>HBO</option>
+            </select>
+          </div>
+        </div>
+
+        <a class="button" @click='getData'>Search!</a>
+
+        <!--<div id="your-filters" class="row" style="margin-top:0px">
+          <div v-for="(tag, index) in tags" :key="index" class="3u 6u(medium) 6u$(small)">
             <div v-if="tag.severity.length > 0">
               <b>{{ tag.title }}</b>
               <div v-for="(sev, index) in tag.severity" :key="index">
@@ -30,20 +99,16 @@
             </div>
           </div>
 
-          <!-- <p>{{ caringTags }}</p> -->
-        </div>
+          <!- - <p>{{ caringTags }}</p> - ->
+        </div>-->
 
         <div id="typeContent">
           <p style="margin-bottom:0px">
-            <span
-              style="text-decoration:underline; cursor:pointer"
-              @click="type = 'movie'"
+            <span style="text-decoration:underline; cursor:pointer" @click="type = 'movie'"
               >Movies ({{ movies.length }})</span
             >
             |
-            <span
-              style="text-decoration:underline;cursor:pointer"
-              @click="type = 'show'"
+            <span style="text-decoration:underline;cursor:pointer" @click="type = 'show'"
               >Episodes ({{ shows.length }})</span
             >
           </p>
@@ -57,26 +122,18 @@
               <!-- poster_path -->
               <img
                 v-if="item.metadata.poster_path"
-                :src="
-                  'https://image.tmdb.org/t/p/w200' + item.metadata.poster_path
-                "
+                :src="'https://image.tmdb.org/t/p/w200' + item.metadata.poster_path"
                 :alt="'Poster - ' + item.metadata.title"
               />
               <!-- poster a secas -->
-              <img
-                v-else
-                :src="item.metadata.poster"
-                :alt="'Poster - ' + item.metadata.title"
-              />
+              <img v-else :src="item.metadata.poster" :alt="'Poster - ' + item.metadata.title" />
               <!-- note: icons based on https://cdn.dribbble.com/users/368135/screenshots/3828960/d-protected.png -->
               <div class="shield" v-if="caringTags.length > 0">
                 <img :src="getShieldImage(item)" alt="" width="50px" />
               </div>
             </div>
             <div class="content">
-              <span style="font-size:20px; line-height:normal">{{
-                item.metadata.title
-              }}</span>
+              <span style="font-size:20px; line-height:normal">{{ item.metadata.title }}</span>
 
               <br />
               <br />
@@ -98,19 +155,14 @@
                   <span style="position:relative; left:-10px">
                     {{ cs }}:
                     {{ translateStatus(getCaringScenes(item)[cs].status) }}
-                    <span
-                      style="font-size: 75%"
-                      v-if="getCaringScenes(item)[cs].count"
-                    >
+                    <span style="font-size: 75%" v-if="getCaringScenes(item)[cs].count">
                       ({{ getCaringScenes(item)[cs].count }} scenes)
                     </span>
                   </span>
                 </li>
               </ul>
 
-              <span style="position: absolute; bottom: 5px">{{
-                item.metadata.provider
-              }}</span>
+              <span style="position: absolute; bottom: 5px">{{ item.metadata.provider }}</span>
             </div>
           </div>
         </div>
@@ -120,23 +172,30 @@
 </template>
 
 <script>
-//rawTags = require('../js/raw_tags')
+const rawTags = require('../assets/raw_tags')
 export default {
   data() {
     return {
       data: [],
-      loading: false,
+      loading: true,
+      sexSlider: 2,
+      vioSlider: 2,
+      oSlider: 2,
+      title: '',
+      providers: [],
+      genres: [],
       type: 'movie',
-      tags: require('@/assets/raw_tags').content,
-      caringTags: []
-    }
-  },
-  watch: {
-    caringTags(newValue) {
-      localStorage.caringTags = JSON.stringify(newValue)
     }
   },
   computed: {
+    caringTags() {
+      var sex = rawTags.severities[0].slice(5-this.sexSlider, 4)
+      var vio = rawTags.severities[1].slice(5-this.vioSlider, 4)
+      var oth = rawTags.severities[2].slice(5-this.oSlider, 4)
+      var tags = [...sex, ... vio, ...oth]
+      localStorage.caringTags = JSON.stringify(tags)
+      return tags
+    },
     items() {
       return this.listType(this.type)
     },
@@ -148,13 +207,13 @@ export default {
     }
   },
   methods: {
+
     translateStatus(status) {
       switch (status) {
         case 'done':
           return 'filtered'
         case 'missing':
           return 'pending'
-
         default:
           return 'unknown'
       }
@@ -215,12 +274,7 @@ export default {
 
       //console.log(finalStatus, item)
       //getShield(item)
-      var shield =
-        finalStatus == 3
-          ? 'protected'
-          : finalStatus == 1
-          ? 'missing'
-          : 'unknown'
+      var shield = finalStatus == 3 ? 'protected' : finalStatus == 1 ? 'missing' : 'unknown'
       return shield
     },
     listType(type) {
@@ -235,13 +289,33 @@ export default {
       })
       return auxx
     },
-    getData() {
-      this.loading = true
 
-      var murl = 'https://arrietaeguren.es/movies/app/get_all'
-      fetch(murl)
+    buildURL(query) {
+      // Build url
+      var out = []
+      for (var key in query) {
+        out.push(key + '=' + encodeURIComponent(query[key]))
+      }
+      var url = 'https://api.ohanamovies.org/dev?' + out.join('&')
+      console.log(query,url)
+      return url
+    },
+
+    getData() {
+
+      
+
+      var url = this.buildURL({
+        action: 'findMovies',
+        title: this.title,
+        tagged: JSON.stringify(this.caringTags),
+        providers: JSON.stringify(this.providers)
+      })
+
+      fetch(url)
         .then(response => response.json())
         .then(data => {
+          console.log(data)
           this.data = data
           this.loading = false
         })
@@ -251,13 +325,114 @@ export default {
     this.getData()
     var xx = localStorage.caringTags
     if (xx && xx != 'undefined') {
-      this.caringTags = JSON.parse(xx)
+      xx = JSON.parse(xx)
+      this.sexSlider = xx.filter(tag => tag.includes('erotic')).length
+      this.vioSlider = xx.filter(tag => tag.includes('gore')).length
+      this.oSlider = xx.filter(tag => tag.includes('...')).length
     }
+    
   }
 }
 </script>
 
 <style scoped>
+input[type='text'],
+input[type='password'],
+input[type='email'],
+input[type='tel'],
+select,
+textarea {
+  background: white;
+  color: inherit;
+}
+
+.inputs > div {
+  padding-bottom: 20px;
+  /*margin: 0 10px;*/
+}
+
+.slider {
+  /*-webkit-appearance: none;*/
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4caf50;
+  cursor: pointer;
+}
+
+.sliderticks {
+  display: flex;
+  justify-content: space-around;
+  padding: 0 10px;
+}
+
+.sliderticks p {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 1px;
+  background: #d3d3d3;
+  height: 6px;
+  font-size: 85%;
+  line-height: 30px;
+  margin: 0 0 20px 0;
+}
+
+.sliderticks p:not(.strike):before {
+  content: url('https://api.iconify.design/mdi:eye.svg?height=15');
+  opacity: 0.5;
+  padding-top: 3px;
+}
+
+
+.strike {
+  /*text-decoration: line-through;*/
+  opacity: 0.75;
+}
+
+.strike:before {
+  content: url('https://api.iconify.design/mdi:eye-off.svg?height=15');
+  opacity: 0.5;
+  padding-top: 3px;
+}
+
+.protection {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 75%;
+  margin-bottom: -5px;
+  padding-left: 5px;
+}
+
+
 div.posters_wrapper {
   width: 100%;
   display: flex;
