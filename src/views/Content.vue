@@ -55,18 +55,21 @@
             </div>
           </div>
 
-          <div class="4u 6u(medium) 6u$(small)">
+          <!--<div class="4u 6u(medium) 6u$(small)">
             <b>Title</b>
             <input type="text" v-model="title" />
           </div>
 
           <div class="4u 6u(medium) 6u$(small)">
             <b>Genres</b>
-            <select v-model="genres">
-              <option>Dog</option>
-              <option>Cat</option>
-              <option>Rabbit</option>
-            </select>
+            <v-select
+              v-model="genres"
+              :items="['dog', 'cat']"
+              attach
+              chips
+              label="Genres"
+              multiple
+            ></v-select>
           </div>
 
           <div class="4u 6u(medium) 6u$(small)">
@@ -77,9 +80,10 @@
               <option>HBO</option>
             </select>
           </div>
+          <a class="button" @click="getData">Search!</a>-->
         </div>
 
-        <a class="button" @click='getData'>Search!</a>
+        
 
         <!--<div id="your-filters" class="row" style="margin-top:0px">
           <div v-for="(tag, index) in tags" :key="index" class="3u 6u(medium) 6u$(small)">
@@ -184,15 +188,15 @@ export default {
       title: '',
       providers: [],
       genres: [],
-      type: 'movie',
+      type: 'movie'
     }
   },
   computed: {
     caringTags() {
-      var sex = rawTags.severities[0].slice(5-this.sexSlider, 4)
-      var vio = rawTags.severities[1].slice(5-this.vioSlider, 4)
-      var oth = rawTags.severities[2].slice(5-this.oSlider, 4)
-      var tags = [...sex, ... vio, ...oth]
+      var sex = rawTags.severities[0].slice(5 - this.sexSlider, 4)
+      var vio = rawTags.severities[1].slice(5 - this.vioSlider, 4)
+      var oth = rawTags.severities[2].slice(5 - this.oSlider, 4)
+      var tags = [...sex, ...vio, ...oth]
       localStorage.caringTags = JSON.stringify(tags)
       return tags
     },
@@ -207,7 +211,6 @@ export default {
     }
   },
   methods: {
-
     translateStatus(status) {
       switch (status) {
         case 'done':
@@ -297,14 +300,11 @@ export default {
         out.push(key + '=' + encodeURIComponent(query[key]))
       }
       var url = 'https://api.ohanamovies.org/dev?' + out.join('&')
-      console.log(query,url)
+      console.log(query, url)
       return url
     },
 
     getData() {
-
-      
-
       var url = this.buildURL({
         action: 'findMovies',
         title: this.title,
@@ -321,16 +321,17 @@ export default {
         })
     }
   },
+
   mounted() {
     this.getData()
     var xx = localStorage.caringTags
     if (xx && xx != 'undefined') {
       xx = JSON.parse(xx)
+      console.log(xx)
       this.sexSlider = xx.filter(tag => tag.includes('erotic')).length
       this.vioSlider = xx.filter(tag => tag.includes('gore')).length
       this.oSlider = xx.filter(tag => tag.includes('...')).length
     }
-    
   }
 }
 </script>
@@ -411,7 +412,6 @@ textarea {
   padding-top: 3px;
 }
 
-
 .strike {
   /*text-decoration: line-through;*/
   opacity: 0.75;
@@ -431,7 +431,6 @@ textarea {
   margin-bottom: -5px;
   padding-left: 5px;
 }
-
 
 div.posters_wrapper {
   width: 100%;
