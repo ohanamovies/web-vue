@@ -5,10 +5,6 @@
       <div class="inner">
         <h4>Discover content</h4>
 
-        <p style="margin-bottom:5px">
-          What do you want to skip?
-        </p>
-
         <div class="row inputs">
           <div class="4u 6u(medium) 12u$(small)" style="text-align: center">
             <b>Protection level for Sex/Nudity</b>
@@ -365,12 +361,12 @@ textarea {
 
 /* Mouse-over effects */
 .slider:hover {
-  opacity: 1;
+  opacity: 0.8;
 }
 
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
+  /*-webkit-appearance: none;
+  appearance: none;*/
   width: 25px;
   height: 25px;
   border-radius: 50%;
@@ -400,26 +396,28 @@ textarea {
   width: 1px;
   background: #d3d3d3;
   height: 6px;
-  font-size: 80%;
-  line-height: 30px;
-  margin: 0 0 20px 0;
+  font-size: 75%;
+  line-height: 28px;
+  margin: -5px 0 20px 0;
 }
 
 .sliderticks p:not(.strike):before {
-  content: url('https://api.iconify.design/mdi:eye.svg?height=15');
-  opacity: 0.5;
+  /*content: url('https://api.iconify.design/mdi:eye.svg?height=14');
+  opacity: 0.4;
   padding-top: 3px;
+  padding-right: 2px;*/
 }
 
 .strike {
-  /*text-decoration: line-through;*/
-  opacity: 0.75;
+  /*text-decoration: line-through;
+  opacity: 0.75;*/
 }
 
 .strike:before {
-  content: url('https://api.iconify.design/mdi:eye-off.svg?height=15');
-  opacity: 0.5;
+  content: url('https://api.iconify.design/mdi:eye-off.svg?height=14');
+  opacity: 0.4;
   padding-top: 3px;
+  padding-right: 2px;
 }
 
 .protection {
