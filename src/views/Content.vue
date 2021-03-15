@@ -11,7 +11,7 @@
 
         <div class="row inputs">
           <div class="4u 6u(medium) 12u$(small)" style="text-align: center">
-            <b>Sex/Nudity</b>
+            <b>Protection level for Sex/Nudity</b>
             <div class="protection">
               <span>No protection</span>
               <span>Full protection</span>
@@ -26,7 +26,7 @@
           </div>
 
           <div class="4u 6u(medium) 12u$(small)" style="text-align: center">
-            <b>Violence/Gore</b>
+            <b>Protection level for Violence/Gore</b>
             <div class="protection">
               <span>No protection</span>
               <span>Full protection</span>
@@ -41,7 +41,7 @@
           </div>
 
           <div class="4u 6u(medium) 12u$(small)" style="text-align: center">
-            <b>Other</b>
+            <b>Protection level for Profanity</b>
             <div class="protection">
               <span>No protection</span>
               <span>Full protection</span>
@@ -400,7 +400,7 @@ textarea {
   width: 1px;
   background: #d3d3d3;
   height: 6px;
-  font-size: 85%;
+  font-size: 80%;
   line-height: 30px;
   margin: 0 0 20px 0;
 }
