@@ -15,16 +15,14 @@
         </div>
         -->
         <p>
-          A strong community is what makes the difference in a project like
-          this. We need your help building the first open database of films'
-          scenes. With your help, anyone in the world will be able to skip the
-          undesired content in any film.
+          A strong community is what makes the difference in a project like this. We need your help
+          building the first open database of films' scenes. With your help, anyone in the world
+          will be able to skip the undesired content in any film.
         </p>
 
         <div>
           <p>
-            You can join the community and start contributing by downloading our
-            Chrome extension.
+            You can join the community and start contributing by downloading our Chrome extension.
           </p>
           <footer>
             <a

@@ -2,9 +2,7 @@
   <div>
     <header id="header">
       <div class="inner">
-        <router-link to="/" class="logo"
-          ><strong>Ohana</strong></router-link
-        >
+        <router-link to="/" class="logo"><strong>Ohana</strong></router-link>
         <nav id="nav">
           <router-link to="/">Home</router-link>
           <router-link to="/content">Content</router-link>

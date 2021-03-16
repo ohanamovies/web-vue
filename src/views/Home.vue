@@ -4,10 +4,7 @@
     <my-header></my-header>
 
     <!-- Banner -->
-    <section
-      class="banner"
-      style="background-image: url(images/banner.jpg); min-height: 100vh"
-    >
+    <section class="banner" style="background-image: url(images/banner.jpg); min-height: 100vh">
       <div class="inner" style="border-top: none">
         <header>
           <h1>Welcome to Ohana</h1>
@@ -50,18 +47,14 @@
         <div class="flex flex-3">
           <article>
             <div class="image round">
-              <img
-                src="images/simplicity.jpg"
-                height="150px"
-                alt="Simplicity"
-              />
+              <img src="images/simplicity.jpg" height="150px" alt="Simplicity" />
             </div>
             <header>
               <h3>Simplicity<br /></h3>
             </header>
             <p>
-              We are in the 21st Century... We believe it's time for unwanted
-              content to be skipped as easily as pressing play.
+              We are in the 21st Century... We believe it's time for unwanted content to be skipped
+              as easily as pressing play.
             </p>
           </article>
           <article>
@@ -72,9 +65,9 @@
               <h3>Your way<br /></h3>
             </header>
             <p>
-              Watch what you want, and only what you want. We will never tell
-              you what to skip or what to watch. We classify scenes and build
-              the software to make skips possible, you decide what to watch.
+              Watch what you want, and only what you want. We will never tell you what to skip or
+              what to watch. We classify scenes and build the software to make skips possible, you
+              decide what to watch.
             </p>
           </article>
           <article>
@@ -85,15 +78,13 @@
               <h3>Community<br /></h3>
             </header>
             <p>
-              We are a community of developers and movie fans like you,
-              passionately working to make Ohana possible.
+              We are a community of developers and movie fans like you, passionately working to make
+              Ohana possible.
             </p>
           </article>
         </div>
         <footer>
-          <router-link to="community" class="button special"
-            >Meet the community</router-link
-          >
+          <router-link to="community" class="button special">Meet the community</router-link>
         </footer>
       </div>
     </section>
@@ -128,9 +119,7 @@
         </div>
 
         <footer>
-          <router-link to="content" class="button special"
-            >Discover content</router-link
-          >
+          <router-link to="content" class="button special">Discover content</router-link>
         </footer>
       </div>
     </section>
