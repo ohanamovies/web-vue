@@ -9,23 +9,11 @@
       <form action="#" method="post">
         <div class="field half first">
           <label for="name">Name</label>
-          <input
-            name="name"
-            id="name"
-            type="text"
-            placeholder="Name"
-            v-model="name"
-          />
+          <input name="name" id="name" type="text" placeholder="Name" v-model="name" />
         </div>
         <div class="field half">
           <label for="email">Email</label>
-          <input
-            name="email"
-            id="email"
-            type="email"
-            placeholder="Email"
-            v-model="email"
-          />
+          <input name="email" id="email" type="email" placeholder="Email" v-model="email" />
         </div>
         <div class="field">
           <label for="message">Message</label>
@@ -58,8 +46,9 @@
 
       <div class="copyright">
         &copy; Ohana. Design:
-        <a href="https://templated.co">TEMPLATED</a>. Images:
-        <a href="https://unsplash.com">Unsplash</a>.
+        <a href="https://templated.co">TEMPLATED</a>.
+        <!-- Images: <a href="https://unsplash.com">Unsplash</a>. -->
+        <!-- Template and elements: https://templated.co/projection -->
       </div>
     </div>
   </footer>
