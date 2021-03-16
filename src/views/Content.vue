@@ -399,8 +399,10 @@ export default {
       var xx = []
       this.items.forEach(item => {
         var s = item.metadata.title
-        if (searchMatch(this.title, s)) {
-          xx.push(item)
+        if (s) {
+          if (searchMatch(this.title, s)) {
+            xx.push(item)
+          }
         }
       })
       return xx
