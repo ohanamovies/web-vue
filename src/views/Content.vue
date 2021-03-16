@@ -17,17 +17,22 @@
               name="search"
               label="Search titles"
               v-model="title"
-              :autocomplete="false"
+              autocomplete="off"
               prepend-inner-icon="mdi-magnify"
-              @focus="$event.target.select()"
               clearable
               :hint="filteredList.length + ' results'"
               class="pa-0"
+              append-outer-icon="mdi-filter-menu"
+              @focus="
+                $event.target.select()
+                showFilters = true
+              "
+              @click:append-outer="showFilters = !showFilters"
             ></v-text-field>
           </div>
 
           <!-- Expansion list with tags and filters -->
-          <v-container class="px-0">
+          <v-container class="px-0" v-if="showFilters">
             <v-expansion-panels accordion id="vexpansionpannel" class="px-0 mx-0">
               <!-- Expansion panel 1: Tags (protection levels)-->
               <v-expansion-panel>
@@ -267,6 +272,7 @@
         </div>-->
 
         <div id="typeContent">
+          <br />
           <p style="margin-bottom:0px">
             <span style="text-decoration:underline; cursor:pointer" @click="type = 'movie'"
               >Movies ({{ movies.length }})</span
@@ -345,6 +351,7 @@ export default {
     return {
       data: [],
       loading: true,
+      showFilters: false,
 
       sexSlider: 2,
       vioSlider: 2,
@@ -541,7 +548,7 @@ export default {
 <style>
 /* Note: i had to remove the "scoped" keyword after style to override the input styles*/
 
-.mdi-close {
+.mdi {
   all: initial;
 }
 #searchBox {
