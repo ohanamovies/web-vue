@@ -33,243 +33,136 @@
 
           <!-- Expansion list with tags and filters -->
           <v-container class="px-0" v-if="showFilters">
-            <v-expansion-panels accordion id="vexpansionpannel" class="px-0 mx-0">
-              <!-- Expansion panel 1: Tags (protection levels)-->
+            <!--<v-expansion-panels accordion id="vexpansionpannel" class="px-0 mx-0">
+              <!- - Expansion panel 1: Tags (protection levels)- ->
               <v-expansion-panel>
                 <v-expansion-panel-header
                   ><b style="color: #4bae77">Protection levels</b></v-expansion-panel-header
                 >
-                <v-expansion-panel-content>
-                  <v-row>
-                    <v-col cols="12" md="4">
-                      <div classe="4u 6u(medium) 12u$(small)" style="text-align: center">
-                        <b>For Sex/Nudity</b>
-                        <div class="protection">
-                          <span>No protection</span>
-                          <span>Full protection</span>
-                        </div>
-                        <input type="range" min="1" max="5" v-model="sexSlider" class="slider" />
-                        <div class="sliderticks">
-                          <p :class="{ strike: sexSlider > 1 }">Severe</p>
-                          <p :class="{ strike: sexSlider > 2 }">Moderate</p>
-                          <p :class="{ strike: sexSlider > 3 }">Mild</p>
-                          <p :class="{ strike: sexSlider > 4 }">Slight</p>
-                        </div>
-                      </div>
-                    </v-col>
-                    <v-col cols="12" md="4">
-                      <div classe="4u 6u(medium) 12u$(small)" style="text-align: center">
-                        <b>For Violence/Gore</b>
-                        <div class="protection">
-                          <span>No protection</span>
-                          <span>Full protection</span>
-                        </div>
-                        <input type="range" min="1" max="5" v-model="vioSlider" class="slider" />
-                        <div class="sliderticks">
-                          <p :class="{ strike: vioSlider > 1 }">Severe</p>
-                          <p :class="{ strike: vioSlider > 2 }">Moderate</p>
-                          <p :class="{ strike: vioSlider > 3 }">Mild</p>
-                          <p :class="{ strike: vioSlider > 4 }">Slight</p>
-                        </div>
-                      </div>
-                    </v-col>
+                <v-expansion-panel-content>-->
+            <v-row>
+              <v-col cols="12" sm="6" md="4">
+                <b>Sex/Nudity: </b> <span>What do you want to skip? </span>
+                <div class="sliderticks">
+                  <v-chip
+                    label
+                    :class="{ skip: sexSlider > 1 }"
+                    @click="sexSlider = sexSlider > 1 ? 1 : 2"
+                    >Severe</v-chip
+                  >
+                  <v-chip
+                    label
+                    :class="{ skip: sexSlider > 2 }"
+                    @click="sexSlider = sexSlider > 2 ? 2 : 3"
+                    >Moderate</v-chip
+                  >
+                  <v-chip
+                    label
+                    :class="{ skip: sexSlider > 3 }"
+                    @click="sexSlider = sexSlider > 3 ? 3 : 4"
+                    >Mild</v-chip
+                  >
+                  <v-chip
+                    label
+                    :class="{ skip: sexSlider > 4 }"
+                    @click="sexSlider = sexSlider > 4 ? 4 : 5"
+                    >Slight</v-chip
+                  >
+                </div>
+              </v-col><v-col cols="12" sm="6" md="4">
+                <b>Violence/Gore: </b> <span>What do you want to skip? </span>
+                <div class="sliderticks">
+                  <v-chip
+                    label
+                    :class="{ skip: vioSlider > 1 }"
+                    @click="vioSlider = vioSlider > 1 ? 1 : 2"
+                    >Severe</v-chip
+                  >
+                  <v-chip
+                    label
+                    :class="{ skip: vioSlider > 2 }"
+                    @click="vioSlider = vioSlider > 2 ? 2 : 3"
+                    >Moderate</v-chip
+                  >
+                  <v-chip
+                    label
+                    :class="{ skip: vioSlider > 3 }"
+                    @click="vioSlider = vioSlider > 3 ? 3 : 4"
+                    >Mild</v-chip
+                  >
+                  <v-chip
+                    label
+                    :class="{ skip: vioSlider > 4 }"
+                    @click="vioSlider = vioSlider > 4 ? 4 : 5"
+                    >Slight</v-chip
+                  >
+                </div>
+              </v-col>
 
-                    <v-col cols="12" md="4">
-                      <div classe="4u 6u(medium) 12u$(small)" style="text-align: center">
-                        <b>For Profanity</b>
-                        <div class="protection">
-                          <span>No protection</span>
-                          <span>Full protection</span>
-                        </div>
-                        <input type="range" min="1" max="5" v-model="oSlider" class="slider" />
-                        <div class="sliderticks">
-                          <p :class="{ strike: oSlider > 1 }">Severe</p>
-                          <p :class="{ strike: oSlider > 2 }">Moderate</p>
-                          <p :class="{ strike: oSlider > 3 }">Mild</p>
-                          <p :class="{ strike: oSlider > 4 }">Slight</p>
-                        </div>
-                      </div>
-                    </v-col>
-                  </v-row>
-                </v-expansion-panel-content>
-              </v-expansion-panel>
+              <v-col cols="12" sm="6" md="4">
+                <b>Profanity: </b> <span>What do you want to skip? </span>
+                <div class="sliderticks">
+                  <v-chip
+                    label
+                    :class="{ skip: oSlider > 1 }"
+                    @click="oSlider = oSlider > 1 ? 1 : 2"
+                    >Severe</v-chip
+                  >
+                  <v-chip
+                    label
+                    :class="{ skip: oSlider > 2 }"
+                    @click="oSlider = oSlider > 2 ? 2 : 3"
+                    >Moderate</v-chip
+                  >
+                  <v-chip
+                    label
+                    :class="{ skip: oSlider > 3 }"
+                    @click="oSlider = oSlider > 3 ? 3 : 4"
+                    >Mild</v-chip
+                  >
+                  <v-chip
+                    label
+                    :class="{ skip: oSlider > 4 }"
+                    @click="oSlider = oSlider > 4 ? 4 : 5"
+                    >Slight</v-chip
+                  >
+                </div>
+              </v-col>
 
-              <!-- Expanion panel 2: Other filters-->
-              <v-expansion-panel>
-                <v-expansion-panel-header
-                  ><b style="color: #4bae77">Filtery by...</b></v-expansion-panel-header
+              <v-col cols="12" md="6">
+                <v-select
+                  id="vselect"
+                  v-model="genres"
+                  :items="availableGenres"
+                  :menu-props="{ maxHeight: '400' }"
+                  label="Filter by Genre"
+                  multiple
+                  chips
+                  persistent-hint
                 >
-                <v-expansion-panel-content style="z-index:9999;">
-                  <v-row>
-                    <v-col cols="12" md="6">
-                      <v-select
-                        id="vselect"
-                        v-model="genres"
-                        :items="availableGenres"
-                        :menu-props="{ maxHeight: '400' }"
-                        label="Filter by Genre"
-                        multiple
-                        chips
-                        persistent-hint
-                      >
-                      </v-select>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                      <v-select
-                        id="vselect"
-                        v-model="providers"
-                        chips
-                        :items="['Netflix', 'HBO', 'Movistar', 'Disney Plus', 'Rakuten']"
-                        :menu-props="{ maxHeight: '400' }"
-                        label="Filter by provider"
-                        multiple
-                        persistent-hint
-                      ></v-select>
-                    </v-col>
-                  </v-row>
-                  <v-row>
-                    <v-col cols="12">
-                      <a class="button" @click="getData()" style="width: 100%">Search!</a>
-                    </v-col>
-                  </v-row>
-                </v-expansion-panel-content>
+                </v-select>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-select
+                  id="vselect"
+                  v-model="providers"
+                  chips
+                  :items="['Netflix', 'HBO', 'Movistar', 'Disney Plus', 'Rakuten']"
+                  :menu-props="{ maxHeight: '400' }"
+                  label="Filter by provider"
+                  multiple
+                  persistent-hint
+                ></v-select>
+              </v-col>
+              <v-col cols="12">
+                <a class="button" @click="getData()" style="width: 100%">Search!</a>
+              </v-col>
+            </v-row>
+            <!--</v-expansion-panel-content>
               </v-expansion-panel>
-            </v-expansion-panels>
+            </v-expansion-panels>-->
           </v-container>
         </div>
-
-        <!--
-        <div class="row inputs" style="z-index:9999;">
-    
-          <v-container class="px-0">
-            <v-row>
-              <v-expansion-panels accordion id="vexpansionpannel">
-                <v-col cols="12" md="6">
-                  <v-expansion-panel>
-                    <v-expansion-panel-header
-                      >Protection level for Sex/Nudity</v-expansion-panel-header
-                    >
-                    <v-expansion-panel-content>
-                      
-                      <div class="protection">
-                        <span>No protection</span>
-                        <span>Full protection</span>
-                      </div>
-                      <v-slider
-                        v-model="sexSlider"
-                        :tick-labels="['Severe', 'Moderate', 'Mild', 'Slight']"
-                        :max="3"
-                        step="1"
-                        ticks="always"
-                        tick-size="8"
-                      ></v-slider>
-                    </v-expansion-panel-content>
-                  </v-expansion-panel>
-                </v-col>
-                <v-col cols="12" md="6">
-                  <v-expansion-panel>
-                    <v-expansion-panel-header
-                      >Protection level for Profanity</v-expansion-panel-header
-                    >
-                    <v-expansion-panel-content>
-                      <div class="protection">
-                        <span>No protection</span>
-                        <span>Full protection</span>
-                      </div>
-                      <v-slider
-                        v-model="oSlider"
-                        :tick-labels="['Severe', 'Moderate', 'Mild', 'Slight']"
-                        :max="3"
-                        step="1"
-                        ticks="always"
-                        tick-size="8"
-                      ></v-slider>
-                    </v-expansion-panel-content>
-                  </v-expansion-panel>
-                </v-col>
-                <v-col cols="12" md="6">
-                  <v-expansion-panel>
-                    <v-expansion-panel-header
-                      >Protection level for Violence/Gore</v-expansion-panel-header
-                    >
-                    <v-expansion-panel-content>
-                      <div class="protection">
-                        <span>No protection</span>
-                        <span>Full protection</span>
-                      </div>
-                      <v-slider
-                        v-model="vioSlider"
-                        :tick-labels="['Severe', 'Moderate', 'Mild', 'Slight']"
-                        :max="3"
-                        step="1"
-                        ticks="always"
-                        tick-size="8"
-                      ></v-slider>
-                    </v-expansion-panel-content>
-                  </v-expansion-panel>
-                </v-col>
-              </v-expansion-panels>
-            </v-row>
-
-            <v-row>
-              <v-expansion-panels accordion id="vexpansionpannel2">
-                <v-expansion-panel>
-                  <v-expansion-panel-header>Genre/Provider</v-expansion-panel-header>
-                  <v-expansion-panel-content>
-                    <v-col cols="12" md="6">
-                      <v-select
-                        id="vselect"
-                        v-model="genres"
-                        :items="availableGenres"
-                        :menu-props="{ maxHeight: '400' }"
-                        label="Filter by Genre"
-                        multiple
-                        hint="Pick your favorite genres"
-                        persistent-hint
-                      ></v-select>
-                    </v-col>
-                    <v-col cols="12" md="6">
-                      <v-select
-                        id="vselect"
-                        v-model="providers"
-                        :items="['Netflix', 'HBO', 'Movistar']"
-                        :menu-props="{ maxHeight: '400' }"
-                        label="Filter by provider"
-                        multiple
-                        hint="Pick your favorite providers"
-                        persistent-hint
-                      ></v-select>
-                    </v-col>
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
-            </v-row>
-          </v-container>
-
-        
-        </div>
-        -->
-
-        <!--<div id="your-filters" class="row" style="margin-top:0px">
-          <div v-for="(tag, index) in tags" :key="index" class="3u 6u(medium) 6u$(small)">
-            <div v-if="tag.severity.length > 0">
-              <b>{{ tag.title }}</b>
-              <div v-for="(sev, index) in tag.severity" :key="index">
-                <input
-                  type="checkbox"
-                  :id="sev.value"
-                  :value="sev.value"
-                  :name="sev.value"
-                  v-model="caringTags"
-                />
-
-                <label :for="sev.value">{{ sev.title }}</label>
-              </div>
-            </div>
-          </div>
-
-          <!- - <p>{{ caringTags }}</p> - ->
-        </div>-->
 
         <div id="typeContent">
           <br />
@@ -304,7 +197,7 @@
               <p style="font-size:20px; line-height:normal">{{ item.title }}</p>
 
               <p>
-                <a v-if="item.watch_url" target="_blanck" :href="item.watch_url">Watch!</a>
+                <a v-if="item.watch_url" target="_blanck" :href="item.watch_url">Watch</a>
               </p>
               <p
                 v-for="(cs, index) in Object.keys(getCaringScenes(item))"
@@ -314,32 +207,9 @@
                   lineHeight: 'normal'
                 }"
               >
-                <span style='text-transform: capitalize'>{{ cs }}:</span>
+                <span style="text-transform: capitalize">{{ cs }}:</span>
                 {{ getCaringScenes(item)[cs].join(', ') }}
               </p>
-              <!--<ul><li
-                  v-for="(cs, index) in Object.keys(getCaringScenes(item))"
-                  :key="index"
-                  :style="{
-                    color:
-                      getCaringScenes(item)[cs].status == 'missing'
-                        ? 'red'
-                        : getCaringScenes(item)[cs].status == 'done'
-                        ? 'green'
-                        : 'yellow',
-                    lineHeight: 'normal'
-                  }"
-                >
-                  <span style="position:relative; left:-10px">
-                    {{ cs }}:
-                    {{ translateStatus(getCaringScenes(item)[cs].status) }}
-                    <span style="font-size: 75%" v-if="getCaringScenes(item)[cs].count">
-                      ({{ getCaringScenes(item)[cs].count }} scenes)
-                    </span>
-                  </span>
-                </li>
-              </ul>-->
-
               <span style="position: absolute; bottom: 5px">{{ item.provider }}</span>
             </div>
           </div>
@@ -455,7 +325,7 @@ export default {
       var taggedAux = {}
       this.caringTags.forEach(ct => {
         let label = ct
-        if (caringScenes[ct]) label += '('+caringScenes[ct]+')'
+        if (caringScenes[ct]) label += '(' + caringScenes[ct] + ')'
         if (item.tags_missing.includes(ct)) {
           if (!taggedAux.pending) taggedAux.pending = []
           taggedAux.pending.push(label)
@@ -596,85 +466,34 @@ textarea {
   /*margin: 0 10px;*/
 }
 
-.slider {
-  width: 100%;
-  height: 15px;
-  border-radius: 5px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
-}
-
-/* Mouse-over effects */
-.slider:hover {
-  opacity: 0.8;
-}
-
-.slider::-webkit-slider-thumb {
-  /*-webkit-appearance: none;
-  appearance: none;*/
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #4caf50;
-  cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #4caf50;
-  cursor: pointer;
-}
 
 .sliderticks {
   display: flex;
   justify-content: space-around;
-  padding: 0 10px;
+  padding: 0px;
 }
 
-.sliderticks p {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  width: 1px;
-  background: #d3d3d3;
-  height: 6px;
-  font-size: 75%;
-  line-height: 28px;
-  margin: -5px 0 20px 0;
-}
 
-.sliderticks p:not(.strike):before {
-  /*content: url('https://api.iconify.design/mdi:eye.svg?height=14');
-  opacity: 0.4;
-  padding-top: 3px;
-  padding-right: 2px;*/
-}
-
-.strike {
-  /*text-decoration: line-through;
-  opacity: 0.75;*/
-}
-
-.strike:before {
-  content: url('https://api.iconify.design/mdi:eye-off.svg?height=14');
+.skip .v-chip__content:before {
+  content: url('https://api.iconify.design/mdi:eye-off.svg?height=12');
+  color: white !important;
   opacity: 0.4;
   padding-top: 3px;
   padding-right: 2px;
 }
 
-.protection {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  font-size: 75%;
-  margin-bottom: -5px;
-  padding-left: 5px;
+.skip {
+  background-color: #9e9e9e !important;
+  border-color: #9e9e9e !important;
+}
+
+.v-chip.v-size--default {
+  min-width: 70px !important;
+  font-size: 75% !important;
+}
+
+.v-chip__content{
+  margin: auto;
 }
 
 div.posters_wrapper {
