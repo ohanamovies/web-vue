@@ -292,26 +292,32 @@
           <div class="poster_card" v-for="(item, index) in filteredList" :key="index">
             <div class="image" style="width:100%">
               <!-- poster_path -->
-              <img
-                v-if="item.metadata.poster_path"
-                :src="'https://image.tmdb.org/t/p/w200' + item.metadata.poster_path"
-                :alt="'Poster - ' + item.metadata.title"
-              />
-              <!-- poster a secas -->
-              <img v-else :src="item.metadata.poster" :alt="'Poster - ' + item.metadata.title" />
+
+              <img :src="item.poster" :alt="'Poster - ' + item.title" />
+
               <!-- note: icons based on https://cdn.dribbble.com/users/368135/screenshots/3828960/d-protected.png -->
               <div class="shield" v-if="caringTags.length > 0">
                 <img :src="getShieldImage(item)" alt="" width="50px" />
               </div>
             </div>
             <div class="content ">
-              <span style="font-size:20px; line-height:normal">{{ item.metadata.title }}</span>
+              <p style="font-size:20px; line-height:normal">{{ item.title }}</p>
 
-              <br />
-              <br />
-
-              <ul>
-                <li
+              <p>
+                <a v-if="item.watch_url" target="_blanck" :href="item.watch_url">Watch!</a>
+              </p>
+              <p
+                v-for="(cs, index) in Object.keys(getCaringScenes(item))"
+                :key="index"
+                :style="{
+                  color: cs == 'pending' ? 'red' : cs == 'filtered' ? 'green' : 'yellow',
+                  lineHeight: 'normal'
+                }"
+              >
+                <span style='text-transform: capitalize'>{{ cs }}:</span>
+                {{ getCaringScenes(item)[cs].join(', ') }}
+              </p>
+              <!--<ul><li
                   v-for="(cs, index) in Object.keys(getCaringScenes(item))"
                   :key="index"
                   :style="{
@@ -332,9 +338,9 @@
                     </span>
                   </span>
                 </li>
-              </ul>
+              </ul>-->
 
-              <span style="position: absolute; bottom: 5px">{{ item.metadata.provider }}</span>
+              <span style="position: absolute; bottom: 5px">{{ item.provider }}</span>
             </div>
           </div>
         </div>
@@ -398,7 +404,7 @@ export default {
     filteredList() {
       var xx = []
       this.items.forEach(item => {
-        var s = item.metadata.title
+        var s = item.title
         if (s) {
           if (searchMatch(this.title, s)) {
             xx.push(item)
@@ -448,55 +454,48 @@ export default {
 
       var taggedAux = {}
       this.caringTags.forEach(ct => {
-        if (item.tagged[ct]) {
-          taggedAux[ct] = {
-            status: item.tagged[ct].status,
-            count: caringScenes[ct]
-          }
+        let label = ct
+        if (caringScenes[ct]) label += '('+caringScenes[ct]+')'
+        if (item.tags_missing.includes(ct)) {
+          if (!taggedAux.pending) taggedAux.pending = []
+          taggedAux.pending.push(label)
+        } else if (item.tags_done.includes(ct)) {
+          if (!taggedAux.filtered) taggedAux.filtered = []
+          taggedAux.filtered.push(label)
+        } else {
+          if (!taggedAux.unknown) taggedAux.unknown = []
+          taggedAux.unknown.push(label)
         }
       })
-
       return taggedAux
     },
     getShieldImage(item) {
       var shield = this.getShield(item)
       return '/fc/' + shield + '.png'
     },
-    getShield(item) {
-      var finalStatus = 3 //1:missing, 2: unknown, 3:protected
 
-      if (!item.tagged) {
-        finalStatus = 2
-      } else {
-        this.caringTags.forEach(ct => {
-          var auxx
-          if (!item.tagged[ct]) {
-            auxx = 2
-          } else {
-            var s = item.tagged[ct].status
-            auxx = s == 'done' ? 3 : s == 'missing' ? 1 : 2
-          }
-          if (auxx < finalStatus) {
-            finalStatus = auxx
-          }
-        })
+    getShield(item) {
+      // If EVERY caringTags is included in tags_done.done
+      if (this.caringTags.every(x => item.tags_done.includes(x))) {
+        return 'protected'
       }
 
-      //console.log(finalStatus, item)
-      //getShield(item)
-      var shield = finalStatus == 3 ? 'protected' : finalStatus == 1 ? 'missing' : 'unknown'
-      return shield
+      // If ANY caringTags is included in tags_missing
+      if (this.caringTags.some(x => item.tags_missing.includes(x))) {
+        return 'missing'
+      }
+
+      // Otherwise
+      return 'unknown'
     },
+
     listType(type) {
       var auxx = []
       this.data.forEach(e => {
         //TODO: check if tagged content
-        {
-          if (e.metadata.type == type) {
-            auxx.push(e)
-          }
-        }
+        if (e.type == type) auxx.push(e)
       })
+      console.log(type, auxx)
       return auxx
     },
 
@@ -540,7 +539,7 @@ export default {
       this.vioSlider = xx.filter(tag => tag.includes('gore')).length
       this.oSlider = xx.filter(tag => tag.includes('...')).length
     }
-    //now do search!
+    //now search!
     this.getData()
   }
 }
@@ -718,7 +717,7 @@ div.posters_wrapper div.poster_card div.content {
   padding: 26px 10px 12px 10px;
   position: relative;
   white-space: normal;
-  display: flex;
+  /*display: flex;*/
   align-content: flex-start;
   flex-wrap: wrap;
 }
