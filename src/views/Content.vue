@@ -7,161 +7,191 @@
 
         <div class="row inputs">
           <!-- Search by text -->
-          <div
-            class="12u 12u(medium) 12u$(small)"
-            style="padding-bottom: 0px; padding-left: 10px; padding-right: 10px;"
-          >
-            <v-text-field
-              id="searchBox"
-              dense
-              name="search"
-              label="Search titles"
-              v-model="title"
-              autocomplete="off"
-              prepend-inner-icon="mdi-magnify"
-              clearable
-              :hint="filteredList.length + ' results'"
-              class="pa-0"
-              append-outer-icon="mdi-filter-menu"
-              @focus="
-                $event.target.select()
-                showFilters = true
-              "
-              @click:append-outer="showFilters = !showFilters"
-            ></v-text-field>
-          </div>
 
-          <!-- Expansion list with tags and filters -->
-          <v-container class="px-0" v-if="showFilters">
-            <!--<v-expansion-panels accordion id="vexpansionpannel" class="px-0 mx-0">
-              <!- - Expansion panel 1: Tags (protection levels)- ->
-              <v-expansion-panel>
-                <v-expansion-panel-header
-                  ><b style="color: #4bae77">Protection levels</b></v-expansion-panel-header
-                >
-                <v-expansion-panel-content>-->
-            <v-row>
-              <v-col cols="12" sm="6" md="4">
-                <b>Sex/Nudity: </b> <span>What do you want to skip? </span>
-                <div class="sliderticks">
-                  <v-chip
-                    label
-                    :class="{ skip: sexSlider > 1 }"
-                    @click="sexSlider = sexSlider > 1 ? 1 : 2"
-                    >Severe</v-chip
+          <v-row class="pa-0 ma-0">
+            <v-col>
+              <v-text-field
+                id="searchBox"
+                dense
+                name="search"
+                label="Search titles"
+                v-model="title"
+                autocomplete="off"
+                prepend-inner-icon="mdi-magnify"
+                clearable
+                :hint="filteredList.length + ' results'"
+                class="pa-0"
+                @focus="$event.target.select()"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <!-- Refinements -->
+              <v-menu
+                bottom
+                offset-y
+                :close-on-content-click="false"
+                v-model="showFilters"
+                style="z-index:999"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    id="vbtn1"
+                    color="#6cc091"
+                    dark
+                    v-on="on"
+                    depressed
+                    style="z-index:999; border-style: none"
                   >
-                  <v-chip
-                    label
-                    :class="{ skip: sexSlider > 2 }"
-                    @click="sexSlider = sexSlider > 2 ? 2 : 3"
-                    >Moderate</v-chip
-                  >
-                  <v-chip
-                    label
-                    :class="{ skip: sexSlider > 3 }"
-                    @click="sexSlider = sexSlider > 3 ? 3 : 4"
-                    >Mild</v-chip
-                  >
-                  <v-chip
-                    label
-                    :class="{ skip: sexSlider > 4 }"
-                    @click="sexSlider = sexSlider > 4 ? 4 : 5"
-                    >Slight</v-chip
-                  >
-                </div>
-              </v-col><v-col cols="12" sm="6" md="4">
-                <b>Violence/Gore: </b> <span>What do you want to skip? </span>
-                <div class="sliderticks">
-                  <v-chip
-                    label
-                    :class="{ skip: vioSlider > 1 }"
-                    @click="vioSlider = vioSlider > 1 ? 1 : 2"
-                    >Severe</v-chip
-                  >
-                  <v-chip
-                    label
-                    :class="{ skip: vioSlider > 2 }"
-                    @click="vioSlider = vioSlider > 2 ? 2 : 3"
-                    >Moderate</v-chip
-                  >
-                  <v-chip
-                    label
-                    :class="{ skip: vioSlider > 3 }"
-                    @click="vioSlider = vioSlider > 3 ? 3 : 4"
-                    >Mild</v-chip
-                  >
-                  <v-chip
-                    label
-                    :class="{ skip: vioSlider > 4 }"
-                    @click="vioSlider = vioSlider > 4 ? 4 : 5"
-                    >Slight</v-chip
-                  >
-                </div>
-              </v-col>
+                    <v-icon>mdi-filter</v-icon>Preferences
+                  </v-btn>
+                </template>
+                <div>
+                  <v-card>
+                    <v-card-title primary-title>
+                      Pick your filters
+                    </v-card-title>
+                    <v-card-text>
+                      <v-row align="center">
+                        <v-col cols="12" sm="6" md="4">
+                          <b>Sex/Nudity: </b> <span>What do you want to skip? </span>
+                          <div class="sliderticks">
+                            <v-chip
+                              label
+                              :class="{ skip: sexSlider > 1 }"
+                              @click="sexSlider = sexSlider > 1 ? 1 : 2"
+                              >Severe</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: sexSlider > 2 }"
+                              @click="sexSlider = sexSlider > 2 ? 2 : 3"
+                              >Moderate</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: sexSlider > 3 }"
+                              @click="sexSlider = sexSlider > 3 ? 3 : 4"
+                              >Mild</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: sexSlider > 4 }"
+                              @click="sexSlider = sexSlider > 4 ? 4 : 5"
+                              >Slight</v-chip
+                            >
+                          </div> </v-col
+                        ><v-col cols="12" sm="6" md="4">
+                          <b>Violence/Gore: </b> <span>What do you want to skip? </span>
+                          <div class="sliderticks">
+                            <v-chip
+                              label
+                              :class="{ skip: vioSlider > 1 }"
+                              @click="vioSlider = vioSlider > 1 ? 1 : 2"
+                              >Severe</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: vioSlider > 2 }"
+                              @click="vioSlider = vioSlider > 2 ? 2 : 3"
+                              >Moderate</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: vioSlider > 3 }"
+                              @click="vioSlider = vioSlider > 3 ? 3 : 4"
+                              >Mild</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: vioSlider > 4 }"
+                              @click="vioSlider = vioSlider > 4 ? 4 : 5"
+                              >Slight</v-chip
+                            >
+                          </div>
+                        </v-col>
 
-              <v-col cols="12" sm="6" md="4">
-                <b>Profanity: </b> <span>What do you want to skip? </span>
-                <div class="sliderticks">
-                  <v-chip
-                    label
-                    :class="{ skip: oSlider > 1 }"
-                    @click="oSlider = oSlider > 1 ? 1 : 2"
-                    >Severe</v-chip
-                  >
-                  <v-chip
-                    label
-                    :class="{ skip: oSlider > 2 }"
-                    @click="oSlider = oSlider > 2 ? 2 : 3"
-                    >Moderate</v-chip
-                  >
-                  <v-chip
-                    label
-                    :class="{ skip: oSlider > 3 }"
-                    @click="oSlider = oSlider > 3 ? 3 : 4"
-                    >Mild</v-chip
-                  >
-                  <v-chip
-                    label
-                    :class="{ skip: oSlider > 4 }"
-                    @click="oSlider = oSlider > 4 ? 4 : 5"
-                    >Slight</v-chip
-                  >
-                </div>
-              </v-col>
+                        <v-col cols="12" sm="6" md="4">
+                          <b>Profanity: </b> <span>What do you want to skip? </span>
+                          <div class="sliderticks">
+                            <v-chip
+                              label
+                              :class="{ skip: oSlider > 1 }"
+                              @click="oSlider = oSlider > 1 ? 1 : 2"
+                              >Severe</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: oSlider > 2 }"
+                              @click="oSlider = oSlider > 2 ? 2 : 3"
+                              >Moderate</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: oSlider > 3 }"
+                              @click="oSlider = oSlider > 3 ? 3 : 4"
+                              >Mild</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: oSlider > 4 }"
+                              @click="oSlider = oSlider > 4 ? 4 : 5"
+                              >Slight</v-chip
+                            >
+                          </div>
+                        </v-col>
 
-              <v-col cols="12" md="6">
-                <v-select
-                  id="vselect"
-                  v-model="genres"
-                  :items="availableGenres"
-                  :menu-props="{ maxHeight: '400' }"
-                  label="Filter by Genre"
-                  multiple
-                  chips
-                  persistent-hint
-                >
-                </v-select>
-              </v-col>
-              <v-col cols="12" md="6">
-                <v-select
-                  id="vselect"
-                  v-model="providers"
-                  chips
-                  :items="['Netflix', 'HBO', 'Movistar', 'Disney Plus', 'Rakuten']"
-                  :menu-props="{ maxHeight: '400' }"
-                  label="Filter by provider"
-                  multiple
-                  persistent-hint
-                ></v-select>
-              </v-col>
-              <v-col cols="12">
-                <a class="button" @click="getData()" style="width: 100%">Search!</a>
-              </v-col>
-            </v-row>
-            <!--</v-expansion-panel-content>
-              </v-expansion-panel>
-            </v-expansion-panels>-->
-          </v-container>
+                        <v-col cols="12" md="6">
+                          <v-select
+                            id="vselect"
+                            v-model="genres"
+                            :items="availableGenres"
+                            :menu-props="{ maxHeight: '400' }"
+                            label="Filter by Genre"
+                            multiple
+                            chips
+                            persistent-hint
+                            dense
+                          >
+                          </v-select>
+                        </v-col>
+                        <v-col cols="12" md="6">
+                          <v-select
+                            id="vselect"
+                            v-model="providers"
+                            chips
+                            :items="['Netflix', 'HBO', 'Movistar', 'Disney Plus', 'Rakuten']"
+                            :menu-props="{ maxHeight: '400' }"
+                            label="Filter by provider"
+                            multiple
+                            persistent-hint
+                            dense
+                          ></v-select>
+                        </v-col>
+                        <v-col cols="12">
+                          <a
+                            class="button"
+                            @click="
+                              getData()
+                              showFilters = false
+                            "
+                            style="width: 100%"
+                            >Search</a
+                          >
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                    <v-card-actions>
+                      {{ filteredList.length }} items found
+                      <v-spacer></v-spacer>
+                      <span style="color:red" @click="showFilters = false">Close</span>
+                    </v-card-actions>
+                  </v-card>
+                </div>
+              </v-menu>
+            </v-col>
+          </v-row>
+
+          <!-- End refinements -->
         </div>
 
         <div id="typeContent">
@@ -429,6 +459,14 @@ export default {
   border: none;
 }
 
+#vbtn1 {
+  border: none;
+  box-shadow: none;
+  color: white !important;
+
+  border-radius: 0px;
+}
+
 #vexpansionpannel > * > button {
   border: none;
   box-shadow: none;
@@ -466,13 +504,11 @@ textarea {
   /*margin: 0 10px;*/
 }
 
-
 .sliderticks {
   display: flex;
   justify-content: space-around;
   padding: 0px;
 }
-
 
 .skip .v-chip__content:before {
   content: url('https://api.iconify.design/mdi:eye-off.svg?height=12');
@@ -492,7 +528,7 @@ textarea {
   font-size: 75% !important;
 }
 
-.v-chip__content{
+.v-chip__content {
   margin: auto;
 }
 
