@@ -310,7 +310,7 @@
                 v-for="(cs, index) in Object.keys(getCaringScenes(item))"
                 :key="index"
                 :style="{
-                  color: cs == 'pending' ? 'red' : cs == 'filtered' ? 'green' : 'yellow',
+                  color: cs == 'pending' ? 'red' : cs == 'safe' ? 'green' : 'yellow',
                   lineHeight: 'normal'
                 }"
               >
@@ -460,8 +460,8 @@ export default {
           if (!taggedAux.pending) taggedAux.pending = []
           taggedAux.pending.push(label)
         } else if (item.tags_done.includes(ct)) {
-          if (!taggedAux.filtered) taggedAux.filtered = []
-          taggedAux.filtered.push(label)
+          if (!taggedAux.safe) taggedAux.safe = []
+          taggedAux.safe.push(label)
         } else {
           if (!taggedAux.unknown) taggedAux.unknown = []
           taggedAux.unknown.push(label)
