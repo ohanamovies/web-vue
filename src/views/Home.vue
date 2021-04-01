@@ -10,7 +10,7 @@
           <h1>Welcome to Ohana</h1>
         </header>
 
-        <div class="flex">
+        <!--<div class="flex">
           <div>
             <span class="icon fa-play-circle"></span>
             <h3>Simplicity</h3>
@@ -28,14 +28,16 @@
             <h3>Community</h3>
             <p>Built by people like you</p>
           </div>
-        </div>
+        </div>-->
 
         <footer>
           <a
             href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
-            class="button special"
             target="_blank"
-            >Download</a
+            >
+            <img src="images/download.png" width="200px" >
+              
+            </a
           >
         </footer>
       </div>
@@ -46,24 +48,20 @@
       <div class="inner">
         <div class="flex flex-3">
           <article>
-            <div class="image round">
-              <img src="images/simplicity.jpg" height="150px" alt="Simplicity" />
+            <div class="image">
+              <img src="images/simplicity.png" width="180px" alt="Simplicity" />
             </div>
-            <header>
-              <h3>Simplicity<br /></h3>
-            </header>
+            <h4>As easy as pressing play</h4>
             <p>
               We are in the 21st Century... We believe it's time for unwanted content to be skipped
               as easily as pressing play.
             </p>
           </article>
           <article>
-            <div class="image round">
-              <img src="images/freedom.jpg" height="150px" alt="Freedom" />
+            <div class="image">
+              <img src="images/your-way.png" width="200px" alt="Your way" />
             </div>
-            <header>
-              <h3>Your way<br /></h3>
-            </header>
+            <h4>You decide what you watch</h4>
             <p>
               Watch what you want, and only what you want. We will never tell you what to skip or
               what to watch. We classify scenes and build the software to make skips possible, you
@@ -71,12 +69,10 @@
             </p>
           </article>
           <article>
-            <div class="image round">
-              <img src="images/values.jpg" height="150px" alt="Values" />
+            <div class="image">
+              <img src="images/community.png" width="180px" alt="Community" />
             </div>
-            <header>
-              <h3>Community<br /></h3>
-            </header>
+            <h4>Built by people like you</h4>
             <p>
               We are a community of developers and movie fans like you, passionately working to make
               Ohana possible.
@@ -84,42 +80,58 @@
           </article>
         </div>
         <footer>
-          <router-link to="community" class="button special">Meet the community</router-link>
+          <router-link to="community">
+            <img src="images/meet-the-community.png" width="250px" alt="Meet the community"></router-link>
         </footer>
       </div>
     </section>
 
-    <section class="banner" style="background-image: url(images/providers.jpg)">
-      <div class="inner" style="border-top: none">
-        <header>
-          <h1>Filter content on your favourite providers</h1>
-          <p>*As of now, only available when you watch using Chrome browser</p>
-        </header>
-
+    <section>
+      <div class="inner">
         <div class="flex flex-3">
           <div>
+            <h2 class="NormalCharacterStyle17">Filter content on your favourite providers</h2>
+            <p class="NormalCharacterStyle17">*As of now, only available when you watch using Chrome browser</p>
+          </div>
+
+        
+          <div>
             <!--<span class="icon fa-play-circle"></span>-->
-            <h3>Netflix</h3>
+            <div class="image">
+              <img src="images/netflix.png" width="180px" alt="Simplicity" />
+            </div>
           </div>
 
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
-            <h3>HBO</h3>
+            <div class="image">
+              <img src="images/hbo.png" width="180px" alt="Simplicity" />
+            </div>
           </div>
 
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
-            <h3>Disney+</h3>
+            <div class="image">
+              <img src="images/disney.png" width="180px" alt="Simplicity" />
+            </div>
           </div>
 
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
-            <h3>Movistar+</h3>
+            <div class="image">
+              <img src="images/movistar.png" width="180px" alt="Simplicity" />
+            </div>
           </div>
         </div>
 
         <footer>
-          <router-link to="content" class="button special">Discover content</router-link>
+          <div style="margin: auto; width: 250px">
+            <router-link to="content">
+              <div class="image">
+                <img src="images/discover-content.png" width="100%" alt="Simplicity" />
+              </div>
+            </router-link>
+          </div>
         </footer>
       </div>
     </section>
@@ -133,3 +145,169 @@ export default {
   name: 'Home'
 }
 </script>
+
+
+<style>
+
+
+.NormalCharacterStyle14
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 58px;
+  color : #FFFFFF;
+  color : rgb(255, 255, 255);
+}
+.NormalCharacterStyle12
+{
+  font-family : Helvetica;
+  font-size : 36px;
+  line-height : 36.94px;
+  color : #000000;
+  color : rgb(0, 0, 0);
+}
+.NormalCharacterStyle13
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 37px;
+  color : #000000;
+  color : rgb(0, 0, 0);
+}
+.NormalCharacterStyle15
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 48px;
+  color : #FFFFFF;
+  color : rgb(255, 255, 255);
+}
+.NormalCharacterStyle8
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 39px;
+  color : #FFFFFF;
+  color : rgb(255, 255, 255);
+}
+.NormalCharacterStyle7
+{
+  font-family : Myriad Pro;
+  font-size : 28px;
+  color : #999999;
+  color : rgb(153, 153, 153);
+}
+.NormalCharacterStyle10
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 37px;
+  color : #000000;
+  color : rgb(0, 0, 0);
+}
+.NormalCharacterStyle11
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 58px;
+  color : #FFFFFF;
+  color : rgb(255, 255, 255);
+}
+.NormalCharacterStyle9
+{
+  font-family : Myriad Pro;
+  font-size : 36px;
+  line-height : 36.94px;
+  color : #000000;
+  color : rgb(0, 0, 0);
+}
+.NormalCharacterStyle
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 65px;
+  color : #FFFFFF;
+  color : rgb(255, 255, 255);
+}
+.NormalCharacterStyle1
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 31px;
+  color : #000000;
+  color : rgb(0, 0, 0);
+}
+.NormalCharacterStyle2
+{
+  font-family : Helvetica;
+  font-size : 36px;
+  line-height : 36.94px;
+  color : #000000;
+  color : rgb(0, 0, 0);
+}
+.NormalCharacterStyle3
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 37px;
+  color : #000000;
+  color : rgb(0, 0, 0);
+}
+.NormalCharacterStyle4
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 58px;
+  color : #FFFFFF;
+  color : rgb(255, 255, 255);
+}
+.NormalCharacterStyle5
+{
+  font-family : Helvetica;
+  font-weight : bold;
+  font-size : 44px;
+  color : #FFFFFF;
+  color : rgb(255, 255, 255);
+}
+.NormalCharacterStyle6
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 44px;
+  color : #FFFFFF;
+  color : rgb(255, 255, 255);
+}
+.NormalCharacterStyle17
+{
+  font-family : Myriad Pro;
+  /*font-size : 61px;*/
+  color : #006837 !important;
+  color : rgb(0, 104, 55) !important;
+}
+.NormalCharacterStyle16
+{
+  font-family : Helvetica;
+  font-size : 54px;
+  color : #006837;
+  color : rgb(0, 104, 55);
+}
+.NormalCharacterStyle18
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 46px;
+  color : #FFFFFF;
+  color : rgb(255, 255, 255);
+}
+.NormalCharacterStyle19
+{
+  font-family : Noteworthy;
+  font-weight : bold;
+  font-size : 154px;
+  line-height : 134px;
+  color : #FFFFFF;
+  color : rgb(255, 255, 255);
+}
+
+
+</style>
