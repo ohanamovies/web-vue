@@ -216,14 +216,16 @@
             <div class="image" style="width:100%">
               <!-- poster_path -->
 
-              <img :src="item.poster" :alt="'Poster - ' + item.title" />
+              <img :src="item.poster" :alt="item.title" style="min-height: 200px;" />
 
               <!-- note: icons based on https://cdn.dribbble.com/users/368135/screenshots/3828960/d-protected.png -->
-              <div class="shield" v-if="caringTags.length > 0">
-                <img :src="getShieldImage(item)" alt="" width="50px" />
+              <div class="shield">
+                <v-icon :color="getShieldColor(item)" width="60px">
+                  {{ getShieldIcon(item) }}
+                </v-icon>
               </div>
             </div>
-            <div class="content ">
+            <div class="content">
               <p style="font-size:20px; line-height:normal">{{ item.title }}</p>
 
               <p>
@@ -369,9 +371,32 @@ export default {
       })
       return taggedAux
     },
-    getShieldImage(item) {
-      var shield = this.getShield(item)
-      return '/fc/' + shield + '.png'
+    getShieldColor(item) {
+      var status = this.getShield(item)
+
+      if (status == 'protected') {
+        if (item.tags_level > 5) return 'blue'
+        return 'green'
+      } else if (status == 'missing') {
+        return 'red'
+      } else {
+        return 'gray'
+      }
+    },
+    getShieldIcon(item) {
+      let status = this.getShield(item)
+      let scenesCount = 1
+
+      if (status == 'protected' && scenesCount == 0) {
+        return 'mdi-emoticon-happy'
+      } else if (status == 'protected') {
+        return 'mdi-content-cut'
+      } else if (status == 'missing') {
+        return 'mdi-flag-variant'
+      } else {
+        return 'mdi-progress-question'
+      }
+      //return '/fc/' + shield + '.png'
     },
 
     getShield(item) {
@@ -577,11 +602,27 @@ div.posters_wrapper div.poster_card div.content {
   flex-wrap: wrap;
 }
 
-div.posters_wrapper div.poster_card div.image div.shield {
+.shield {
   position: absolute;
   bottom: 0px;
   right: 0px;
 
+  width: 38px;
+  height: 38px;
+  box-sizing: border-box;
+  z-index: 99; /* make sure it stays on top of content*/
+}
+
+.shield i {
+  background-color: white;
+  border-radius: 15px;
+  padding: 5px;
+}
+
+.certified {
+  position: absolute;
+  top: 0px;
+  right: 0px;
   width: 38px;
   height: 38px;
   box-sizing: border-box;
