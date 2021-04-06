@@ -88,38 +88,39 @@
 
     <section>
       <div class="inner">
-        <div class="flex flex-3">
-          <div>
-            <h2 class="NormalCharacterStyle17">Filter content on your favourite providers</h2>
-            <p class="NormalCharacterStyle17">*As of now, only available when you watch using Chrome browser</p>
-          </div>
+        
+        <div>
+          <h2 class="NormalCharacterStyle17">Filter content on your favourite providers</h2>
+          <p class="NormalCharacterStyle17">*As of now, only available when you watch using Chrome browser</p>
+        </div>
+        <div class="flex flex-3" style="justify-content: space-around;">
 
         
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
-            <div class="image">
-              <img src="images/netflix.png" width="180px" alt="Simplicity" />
+            <div class="image down">
+              <img src="images/netflix.png" width="120px" alt="Netflix" />
             </div>
           </div>
 
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
             <div class="image">
-              <img src="images/hbo.png" width="180px" alt="Simplicity" />
+              <img src="images/hbo.png" width="180px" alt="HBO" />
+            </div>
+          </div>
+
+          <div>
+            <!--<span class="icon fa-play-circle"></span>-->
+            <div class="image down">
+              <img src="images/disney.png" width="180px" alt="Disney" />
             </div>
           </div>
 
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
             <div class="image">
-              <img src="images/disney.png" width="180px" alt="Simplicity" />
-            </div>
-          </div>
-
-          <div>
-            <!--<span class="icon fa-play-circle"></span>-->
-            <div class="image">
-              <img src="images/movistar.png" width="180px" alt="Simplicity" />
+              <img src="images/movistar.png" width="180px" alt="Movistar" />
             </div>
           </div>
         </div>
@@ -149,6 +150,11 @@ export default {
 
 <style>
 
+@media screen and (min-width: 980px) {
+
+  .down{ margin-top: 90px; }
+
+}
 
 .NormalCharacterStyle14
 {
