@@ -4,8 +4,8 @@
     <my-header></my-header>
 
     <!-- Banner -->
-    <section class="banner" style="background-image: url(images/banner.jpg); min-height: 150vh; clip-path: polygon(100% 45%, 36% 45%, 29% 81%, 0% 100%, 0% 0%, 100% 0%); overflown: hidden;">
-      <div class="inner" style="border-top: none; width: 70%; margin-right: 10%; margin-top: 10%; padding: 0px;">
+    <section class="banner" style="background-image: url(images/banner.jpg); min-height: 150vh; clip-path: polygon(100% 45%, 36% 45%, 29% 81%, 0% 100%, 0% 0%, 100% 0%); overflown: hidden; background-position-y: top; background-position-x: left;">
+      <div class="inner" style="border-top: none; width: 70%; margin-right: 10%; margin-top: 20px; padding: 0px;">
         <header>
           <h1>Welcome to Ohana</h1>
         </header>
