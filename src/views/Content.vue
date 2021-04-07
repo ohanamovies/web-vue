@@ -42,7 +42,7 @@
                     depressed
                     style="z-index:999; border-style: none"
                   >
-                    <v-icon>mdi-filter</v-icon>Preferences
+                    <v-icon>mdi-filter</v-icon>Filters
                   </v-btn>
                 </template>
                 <div>
@@ -167,7 +167,13 @@
                             dense
                           ></v-select>
                         </v-col>
-                        <v-col cols="12">
+                        <v-col cols="12" md="6">
+                          <v-checkbox
+                            v-model="certified"
+                            label="Show only Ohana certified movies"
+                          ></v-checkbox>
+                        </v-col>
+                        <v-col cols="12" md="6">
                           <a
                             class="button"
                             @click="
@@ -261,6 +267,7 @@ export default {
       loading: true,
       showFilters: false,
 
+      certified: false,
       sexSlider: 2,
       vioSlider: 2,
       oSlider: 2,
@@ -441,6 +448,7 @@ export default {
         title: this.title,
         tagged: JSON.stringify(this.caringTags),
         providers: JSON.stringify(this.providers),
+        certified: this.certified ? 6 : 0,
         genres: JSON.stringify(this.genres)
       })
 
