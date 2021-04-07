@@ -4,8 +4,8 @@
     <my-header></my-header>
 
     <!-- Banner -->
-    <section class="banner" style="background-image: url(images/banner.jpg); min-height: 100vh">
-      <div class="inner" style="border-top: none">
+    <section class="banner" style="background-image: url(images/banner.jpg); min-height: 150vh; clip-path: polygon(100% 45%, 36% 45%, 29% 81%, 0% 100%, 0% 0%, 100% 0%); overflown: hidden;">
+      <div class="inner" style="border-top: none; width: 70%; margin-right: 10%; margin-top: 10%; padding: 0px;">
         <header>
           <h1>Welcome to Ohana</h1>
         </header>
@@ -48,7 +48,7 @@
       <div class="inner">
         <div class="flex flex-3">
           <article>
-            <div class="image">
+            <div class="image down">
               <img src="images/simplicity.png" width="180px" alt="Simplicity" />
             </div>
             <h4>As easy as pressing play</h4>
@@ -57,8 +57,8 @@
               as easily as pressing play.
             </p>
           </article>
-          <article>
-            <div class="image">
+          <article class="down">
+            <div class="image down">
               <img src="images/your-way.png" width="200px" alt="Your way" />
             </div>
             <h4>You decide what you watch</h4>
