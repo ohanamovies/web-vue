@@ -23,7 +23,9 @@
                 @focus="$event.target.select()"
               >
                 <div slot="append">
-                  <v-btn color="success" icon><v-icon> mdi-account</v-icon></v-btn>
+                  <v-btn color="success" icon @click="getData()"
+                    ><v-icon> mdi-movie-search</v-icon></v-btn
+                  >
                 </div>
               </v-text-field>
             </v-col>
@@ -47,7 +49,7 @@
                     depressed
                     style="z-index:999; border-style: none"
                   >
-                    <v-icon>mdi-cog</v-icon>Preferences
+                    <v-icon>mdi-account</v-icon>Preferences
                   </v-btn>
                 </template>
                 <div>
@@ -216,7 +218,9 @@
                         <v-col cols="12" md="6" class="pt-1">
                           <v-checkbox v-model="cleanOnly" hide-details="">
                             <div slot="label">
-                              Show only clean movies <v-icon color="green">mdi-content-cut</v-icon>
+                              Only show clean movies
+                              <v-icon color="green">mdi-content-cut</v-icon> |
+                              <v-icon color="green">mdi-emoticon-happy</v-icon>
                             </div>
                           </v-checkbox>
                         </v-col>
@@ -224,8 +228,9 @@
                         <v-col cols="12" md="6" class="pb-0">
                           <v-checkbox v-model="certified" hide-details="">
                             <div slot="label">
-                              Show only Ohana certified movies
+                              Only show Ohana certified movies
                               <v-icon color="blue">mdi-content-cut</v-icon>
+                              | <v-icon color="blue">mdi-emoticon-happy</v-icon>
                             </div>
                           </v-checkbox>
                         </v-col>
@@ -539,7 +544,7 @@ export default {
         'Thriller',
         'TV Movie',
         'War',
-        'and Western'
+        'Western'
       ]
     }
   },
