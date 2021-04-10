@@ -5,15 +5,16 @@
       <div class="inner">
         <h4>Discover content</h4>
 
-        <div class="row inputs" width="100%">
+        <!-- SEARCH FIELDS -->
+        <div width="100%">
           <v-row>
             <!-- Search by text -->
-            <v-col cols="12" sm="4" md="4">
+            <v-col cols="12" sm="12" md="6" lg="4" class="pb-0">
               <v-text-field
                 id="searchBox"
                 dense
                 name="search"
-                label="Search titles"
+                label="Type to find titles"
                 v-model="title"
                 autocomplete="off"
                 prepend-inner-icon="mdi-magnify"
@@ -30,14 +31,15 @@
               </v-text-field>
             </v-col>
 
-            <!-- PREFERENCES -->
-            <v-col cols="6" sm="2" md="2">
+            <!-- SENSITIVITY -->
+            <v-col cols="6" sm="6" md="3" lg="2">
               <v-menu
                 bottom
                 offset-y
                 :close-on-content-click="false"
                 v-model="showFilters2"
                 style="z-index:999"
+                max-width="350px"
               >
                 <template v-slot:activator="{ on }">
                   <v-btn
@@ -49,11 +51,11 @@
                     depressed
                     style="z-index:999; border-style: none"
                   >
-                    <v-icon>mdi-account</v-icon>Preferences
+                    <v-icon>mdi-account</v-icon>Sensitivity
                   </v-btn>
                 </template>
                 <div>
-                  <v-card style="max-width: 350px">
+                  <v-card>
                     <v-card-text>
                       <v-row align="left">
                         <v-col cols="12" sm="12" md="12">
@@ -149,8 +151,8 @@
                     <v-card-actions>
                       {{ filteredList.length }} items found
                       <v-spacer></v-spacer>
-                      <span style="color:red; cursor:pointer" @click="showFilters2 = false"
-                        >Close</span
+                      <span style="color:green; cursor:pointer" @click="showFilters2 = false"
+                        >Done</span
                       >
                     </v-card-actions>
                   </v-card>
@@ -158,14 +160,15 @@
               </v-menu></v-col
             >
 
-            <!-- FILTERS -->
-            <v-col cols="6" sm="2" md="2">
+            <!-- SEARCH REFINEMENTS -->
+            <v-col cols="6" sm="6" md="3" lg="2">
               <v-menu
                 bottom
                 offset-y
                 :close-on-content-click="false"
                 v-model="showFilters3"
                 style="z-index:999"
+                max-width="350px"
               >
                 <template v-slot:activator="{ on }">
                   <v-btn
@@ -177,11 +180,11 @@
                     depressed
                     style="z-index:999; border-style: none"
                   >
-                    <v-icon>mdi-filter</v-icon>Filters
+                    <v-icon>mdi-filter</v-icon>Refine
                   </v-btn>
                 </template>
                 <div>
-                  <v-card style="max-width: 450px">
+                  <v-card>
                     <v-card-text>
                       <v-row align="center" class="mt-2">
                         <v-col cols="12" md="12">
@@ -226,7 +229,7 @@
                         </v-col>
 
                         <v-col cols="12" md="6" class="pb-0">
-                          <v-checkbox v-model="certified" hide-details="">
+                          <v-checkbox v-model="certifiedOnly" hide-details="">
                             <div slot="label">
                               Only show Ohana certified movies
                               <v-icon color="blue">mdi-content-cut</v-icon>
@@ -239,8 +242,8 @@
                     <v-card-actions>
                       {{ filteredList.length }} items found
                       <v-spacer></v-spacer>
-                      <span style="color:red; cursor:pointer" @click="showFilters3 = false"
-                        >Close</span
+                      <span style="color:green; cursor:pointer" @click="showFilters3 = false"
+                        >Done</span
                       >
                     </v-card-actions>
                   </v-card>
@@ -249,9 +252,10 @@
             </v-col>
           </v-row>
         </div>
+        <!-- SEARCH BUTTON - ->
         <div>
           <v-row>
-            <v-col cols="12" sm="4" md="4">
+            <v-col cols="12" sm="12" md="6" lg="4">
               <a
                 class="button"
                 @click="
@@ -264,187 +268,9 @@
             </v-col>
           </v-row>
         </div>
+        -->
 
-        <div class="row inputs" v-if="false">
-          <v-row class="pa-0 ma-0">
-            <v-col cols="12" sm="4">
-              <!-- Refinements -->
-              <v-menu
-                bottom
-                offset-y
-                :close-on-content-click="false"
-                v-model="showFilters"
-                style="z-index:999"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    id="vbtn1"
-                    color="#6cc091"
-                    dark
-                    v-on="on"
-                    depressed
-                    style="z-index:999; border-style: none"
-                  >
-                    <v-icon>mdi-filter</v-icon>Filters
-                  </v-btn>
-                </template>
-                <div>
-                  <v-card>
-                    <v-card-title primary-title>
-                      Pick your filters
-                    </v-card-title>
-                    <v-card-text>
-                      <v-row align="center">
-                        <v-col cols="12" sm="6" md="4">
-                          <b>Sex/Nudity: </b> <span>What do you want to skip? </span>
-                          <div class="sliderticks">
-                            <v-chip
-                              label
-                              :class="{ skip: sexSlider > 1 }"
-                              @click="sexSlider = sexSlider > 1 ? 1 : 2"
-                              >Severe</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: sexSlider > 2 }"
-                              @click="sexSlider = sexSlider > 2 ? 2 : 3"
-                              >Moderate</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: sexSlider > 3 }"
-                              @click="sexSlider = sexSlider > 3 ? 3 : 4"
-                              >Mild</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: sexSlider > 4 }"
-                              @click="sexSlider = sexSlider > 4 ? 4 : 5"
-                              >Slight</v-chip
-                            >
-                          </div> </v-col
-                        ><v-col cols="12" sm="6" md="4">
-                          <b>Violence/Gore: </b> <span>What do you want to skip? </span>
-                          <div class="sliderticks">
-                            <v-chip
-                              label
-                              :class="{ skip: vioSlider > 1 }"
-                              @click="vioSlider = vioSlider > 1 ? 1 : 2"
-                              >Severe</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: vioSlider > 2 }"
-                              @click="vioSlider = vioSlider > 2 ? 2 : 3"
-                              >Moderate</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: vioSlider > 3 }"
-                              @click="vioSlider = vioSlider > 3 ? 3 : 4"
-                              >Mild</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: vioSlider > 4 }"
-                              @click="vioSlider = vioSlider > 4 ? 4 : 5"
-                              >Slight</v-chip
-                            >
-                          </div>
-                        </v-col>
-
-                        <v-col cols="12" sm="6" md="4">
-                          <b>Profanity: </b> <span>What do you want to skip? </span>
-                          <div class="sliderticks">
-                            <v-chip
-                              label
-                              :class="{ skip: oSlider > 1 }"
-                              @click="oSlider = oSlider > 1 ? 1 : 2"
-                              >Severe</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: oSlider > 2 }"
-                              @click="oSlider = oSlider > 2 ? 2 : 3"
-                              >Moderate</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: oSlider > 3 }"
-                              @click="oSlider = oSlider > 3 ? 3 : 4"
-                              >Mild</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: oSlider > 4 }"
-                              @click="oSlider = oSlider > 4 ? 4 : 5"
-                              >Slight</v-chip
-                            >
-                          </div>
-                        </v-col>
-
-                        <v-col cols="12" md="6">
-                          <v-autocomplete
-                            id="vselect"
-                            v-model="genres"
-                            :items="availableGenres"
-                            :menu-props="{ maxHeight: '400' }"
-                            label="Filter by Genre"
-                            multiple
-                            chips
-                            persistent-hint
-                            dense
-                          >
-                          </v-autocomplete>
-                        </v-col>
-                        <v-col cols="12" md="6">
-                          <v-autocomplete
-                            id="vselect"
-                            v-model="providers"
-                            chips
-                            :items="['Netflix', 'HBO', 'Movistar', 'Disney Plus', 'Rakuten']"
-                            :menu-props="{ maxHeight: '400' }"
-                            label="Filter by provider"
-                            multiple
-                            persistent-hint
-                            dense
-                          ></v-autocomplete>
-                        </v-col>
-                        <v-col cols="12" md="6">
-                          <v-checkbox
-                            v-model="certified"
-                            label="Show only Ohana certified movies"
-                          ></v-checkbox>
-                        </v-col>
-                        <v-col cols="12" md="6">
-                          <a
-                            class="button"
-                            @click="
-                              getData()
-                              showFilters = false
-                            "
-                            style="width: 100%"
-                            >Search</a
-                          >
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
-                    <v-card-actions>
-                      {{ filteredList.length }} items found
-                      <v-spacer></v-spacer>
-                      <span style="color:red; cursor:pointer" @click="showFilters = false"
-                        >Close</span
-                      >
-                    </v-card-actions>
-                  </v-card>
-                </div>
-              </v-menu>
-            </v-col>
-          </v-row>
-
-          <!-- End refinements -->
-        </div>
-
+        <!-- MOVIES / SHOWS tabs -->
         <div id="typeContent">
           <br />
           <p style="margin-bottom:0px">
@@ -458,9 +284,12 @@
           </p>
         </div>
 
+        <!-- PROGRESS BAR FOR LOADING -->
         <div v-if="loading">
           <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
         </div>
+
+        <!-- POSTERS -->
 
         <div class="posters_wrapper">
           <div class="poster_card" v-for="(item, index) in filteredList" :key="index">
@@ -514,7 +343,7 @@ export default {
       showFilters2: false,
       showFilters3: false,
 
-      certified: false,
+      certifiedOnly: false,
       cleanOnly: false,
       sexSlider: 2,
       vioSlider: 2,
@@ -546,6 +375,24 @@ export default {
         'War',
         'Western'
       ]
+    }
+  },
+  watch: {
+    providers() {
+      this.getData()
+    },
+    genres() {
+      this.getData()
+    },
+    cleanOnly() {
+      this.getData()
+    },
+    certifiedOnly() {
+      this.getData()
+    },
+    title() {
+      //TODO: add mechanisms to minize API calls (e.g.: if filtered list is already zero with less restrictive text, avoid searching again, etc.)
+      this.getData()
     }
   },
   computed: {
@@ -694,9 +541,9 @@ export default {
       var url = this.buildURL({
         action: 'findMovies',
         title: this.title,
-        tagged: JSON.stringify(this.caringTags),
+        tagged: this.cleanOnly ? JSON.stringify(this.caringTags) : '[]', //TODO: can we use null?
         providers: JSON.stringify(this.providers),
-        certified: this.certified ? 6 : 0,
+        certified: this.certifiedOnly ? 6 : 0,
         genres: JSON.stringify(this.genres)
       })
 
@@ -833,6 +680,7 @@ textarea {
 div.posters_wrapper {
   width: 100%;
   display: flex;
+
   /*justify-content: space-between;*/
   flex-wrap: wrap;
 }
@@ -841,6 +689,7 @@ div.posters_wrapper div.poster_card {
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 30px;
+
   position: relative;
   top: 0;
   left: 0;

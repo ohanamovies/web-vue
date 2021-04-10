@@ -2,7 +2,9 @@
   <div>
     <header id="header">
       <div class="inner">
-        <router-link to="/" class="logo"><img src="images/ohana-logo.png" width="60px"></router-link>
+        <router-link to="/" class="logo"
+          ><img src="images/ohana-logo.png" width="50px" style="position: relative; bottom: 5px"
+        /></router-link>
         <nav id="nav">
           <router-link to="/">Home</router-link>
           <router-link to="/content">Content</router-link>
