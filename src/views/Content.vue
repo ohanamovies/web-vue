@@ -5,11 +5,10 @@
       <div class="inner">
         <h4>Discover content</h4>
 
-        <div class="row inputs">
-          <!-- Search by text -->
-
-          <v-row class="pa-0 ma-0">
-            <v-col>
+        <div class="row inputs" width="100%">
+          <v-row>
+            <!-- Search by text -->
+            <v-col cols="12" sm="4" md="4">
               <v-text-field
                 id="searchBox"
                 dense
@@ -22,8 +21,247 @@
                 :hint="filteredList.length + ' results'"
                 class="pa-0"
                 @focus="$event.target.select()"
-              ></v-text-field>
+              >
+                <div slot="append">
+                  <v-btn color="success" icon><v-icon> mdi-account</v-icon></v-btn>
+                </div>
+              </v-text-field>
             </v-col>
+
+            <!-- PREFERENCES -->
+            <v-col cols="6" sm="2" md="2">
+              <v-menu
+                bottom
+                offset-y
+                :close-on-content-click="false"
+                v-model="showFilters2"
+                style="z-index:999"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    id="vbtn1"
+                    color="#6cc091"
+                    dark
+                    block
+                    v-on="on"
+                    depressed
+                    style="z-index:999; border-style: none"
+                  >
+                    <v-icon>mdi-cog</v-icon>Preferences
+                  </v-btn>
+                </template>
+                <div>
+                  <v-card style="max-width: 350px">
+                    <v-card-text>
+                      <v-row align="left">
+                        <v-col cols="12" sm="12" md="12">
+                          <b>Sex/Nudity: </b> <span>What do you want to skip? </span>
+                          <div class="sliderticks">
+                            <v-chip
+                              label
+                              :class="{ skip: sexSlider > 1 }"
+                              @click="sexSlider = sexSlider > 1 ? 1 : 2"
+                              >Severe</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: sexSlider > 2 }"
+                              @click="sexSlider = sexSlider > 2 ? 2 : 3"
+                              >Moderate</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: sexSlider > 3 }"
+                              @click="sexSlider = sexSlider > 3 ? 3 : 4"
+                              >Mild</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: sexSlider > 4 }"
+                              @click="sexSlider = sexSlider > 4 ? 4 : 5"
+                              >Slight</v-chip
+                            >
+                          </div> </v-col
+                        ><v-col cols="12" sm="12" md="12">
+                          <!--  cols="12" sm="6" md="4" -->
+                          <b>Violence/Gore: </b> <span>What do you want to skip? </span>
+                          <div class="sliderticks">
+                            <v-chip
+                              label
+                              :class="{ skip: vioSlider > 1 }"
+                              @click="vioSlider = vioSlider > 1 ? 1 : 2"
+                              >Severe</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: vioSlider > 2 }"
+                              @click="vioSlider = vioSlider > 2 ? 2 : 3"
+                              >Moderate</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: vioSlider > 3 }"
+                              @click="vioSlider = vioSlider > 3 ? 3 : 4"
+                              >Mild</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: vioSlider > 4 }"
+                              @click="vioSlider = vioSlider > 4 ? 4 : 5"
+                              >Slight</v-chip
+                            >
+                          </div>
+                        </v-col>
+
+                        <v-col cols="12" sm="12" md="12">
+                          <b>Profanity: </b> <span>What do you want to skip? </span>
+                          <div class="sliderticks">
+                            <v-chip
+                              label
+                              :class="{ skip: oSlider > 1 }"
+                              @click="oSlider = oSlider > 1 ? 1 : 2"
+                              >Severe</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: oSlider > 2 }"
+                              @click="oSlider = oSlider > 2 ? 2 : 3"
+                              >Moderate</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: oSlider > 3 }"
+                              @click="oSlider = oSlider > 3 ? 3 : 4"
+                              >Mild</v-chip
+                            >
+                            <v-chip
+                              label
+                              :class="{ skip: oSlider > 4 }"
+                              @click="oSlider = oSlider > 4 ? 4 : 5"
+                              >Slight</v-chip
+                            >
+                          </div>
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                    <v-card-actions>
+                      {{ filteredList.length }} items found
+                      <v-spacer></v-spacer>
+                      <span style="color:red; cursor:pointer" @click="showFilters2 = false"
+                        >Close</span
+                      >
+                    </v-card-actions>
+                  </v-card>
+                </div>
+              </v-menu></v-col
+            >
+
+            <!-- FILTERS -->
+            <v-col cols="6" sm="2" md="2">
+              <v-menu
+                bottom
+                offset-y
+                :close-on-content-click="false"
+                v-model="showFilters3"
+                style="z-index:999"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-btn
+                    id="vbtn1"
+                    block
+                    color="#6cc091"
+                    dark
+                    v-on="on"
+                    depressed
+                    style="z-index:999; border-style: none"
+                  >
+                    <v-icon>mdi-filter</v-icon>Filters
+                  </v-btn>
+                </template>
+                <div>
+                  <v-card style="max-width: 450px">
+                    <v-card-text>
+                      <v-row align="center" class="mt-2">
+                        <v-col cols="12" md="12">
+                          <v-autocomplete
+                            deletable-chips
+                            hide-details=""
+                            id="vselect"
+                            v-model="genres"
+                            :items="availableGenres"
+                            :menu-props="{ maxHeight: '400' }"
+                            label="Filter by Genre"
+                            multiple
+                            chips
+                            persistent-hint
+                            dense
+                          >
+                          </v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" md="12">
+                          <v-autocomplete
+                            deletable-chips
+                            hide-details=""
+                            id="vselect"
+                            v-model="providers"
+                            chips
+                            :items="['Netflix', 'HBO', 'Movistar', 'Disney Plus', 'Rakuten']"
+                            :menu-props="{ maxHeight: '400' }"
+                            label="Filter by provider"
+                            multiple
+                            persistent-hint
+                            dense
+                          ></v-autocomplete>
+                        </v-col>
+                        <v-col cols="12" md="6" class="pt-1">
+                          <v-checkbox v-model="cleanOnly" hide-details="">
+                            <div slot="label">
+                              Show only clean movies <v-icon color="green">mdi-content-cut</v-icon>
+                            </div>
+                          </v-checkbox>
+                        </v-col>
+
+                        <v-col cols="12" md="6" class="pb-0">
+                          <v-checkbox v-model="certified" hide-details="">
+                            <div slot="label">
+                              Show only Ohana certified movies
+                              <v-icon color="blue">mdi-content-cut</v-icon>
+                            </div>
+                          </v-checkbox>
+                        </v-col>
+                      </v-row>
+                    </v-card-text>
+                    <v-card-actions>
+                      {{ filteredList.length }} items found
+                      <v-spacer></v-spacer>
+                      <span style="color:red; cursor:pointer" @click="showFilters3 = false"
+                        >Close</span
+                      >
+                    </v-card-actions>
+                  </v-card>
+                </div>
+              </v-menu>
+            </v-col>
+          </v-row>
+        </div>
+        <div>
+          <v-row>
+            <v-col cols="12" sm="4" md="4">
+              <a
+                class="button"
+                @click="
+                  getData()
+                  showFilters = false
+                "
+                style="width: 100%"
+                >Search</a
+              >
+            </v-col>
+          </v-row>
+        </div>
+
+        <div class="row inputs" v-if="false">
+          <v-row class="pa-0 ma-0">
             <v-col cols="12" sm="4">
               <!-- Refinements -->
               <v-menu
@@ -141,7 +379,7 @@
                         </v-col>
 
                         <v-col cols="12" md="6">
-                          <v-select
+                          <v-autocomplete
                             id="vselect"
                             v-model="genres"
                             :items="availableGenres"
@@ -152,10 +390,10 @@
                             persistent-hint
                             dense
                           >
-                          </v-select>
+                          </v-autocomplete>
                         </v-col>
                         <v-col cols="12" md="6">
-                          <v-select
+                          <v-autocomplete
                             id="vselect"
                             v-model="providers"
                             chips
@@ -165,7 +403,7 @@
                             multiple
                             persistent-hint
                             dense
-                          ></v-select>
+                          ></v-autocomplete>
                         </v-col>
                         <v-col cols="12" md="6">
                           <v-checkbox
@@ -189,7 +427,9 @@
                     <v-card-actions>
                       {{ filteredList.length }} items found
                       <v-spacer></v-spacer>
-                      <span style="color:red" @click="showFilters = false">Close</span>
+                      <span style="color:red; cursor:pointer" @click="showFilters = false"
+                        >Close</span
+                      >
                     </v-card-actions>
                   </v-card>
                 </div>
@@ -266,8 +506,11 @@ export default {
       data: [],
       loading: true,
       showFilters: false,
+      showFilters2: false,
+      showFilters3: false,
 
       certified: false,
+      cleanOnly: false,
       sexSlider: 2,
       vioSlider: 2,
       oSlider: 2,
@@ -518,6 +761,23 @@ export default {
   border: none;
   box-shadow: none;*/
   all: initial;
+}
+
+/** autocomplete */
+.v-menu__content {
+  z-index: 999 !important;
+}
+
+.v-select__selections {
+  display: flex !important;
+}
+
+.v-select__selections > input {
+  all: initial !important;
+}
+
+.v-label {
+  font-weight: normal !important;
 }
 
 /*--------------------------*/
