@@ -23,12 +23,16 @@
                 class="pa-0"
                 @focus="$event.target.select()"
               >
-                <div slot="append">
+                <div slot="append" hidden>
                   <v-btn color="success" icon @click="getData()"
                     ><v-icon> mdi-movie-search</v-icon></v-btn
                   >
                 </div>
               </v-text-field>
+              <!-- PROGRESS BAR FOR LOADING -->
+              <div v-if="loading">
+                <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
+              </div>
             </v-col>
 
             <!-- SENSITIVITY -->
@@ -122,26 +126,26 @@
                           <div class="sliderticks">
                             <v-chip
                               label
-                              :class="{ skip: oSlider > 1 }"
-                              @click="oSlider = oSlider > 1 ? 1 : 2"
+                              :class="{ skip: profSlider > 1 }"
+                              @click="profSlider = profSlider > 1 ? 1 : 2"
                               >Severe</v-chip
                             >
                             <v-chip
                               label
-                              :class="{ skip: oSlider > 2 }"
-                              @click="oSlider = oSlider > 2 ? 2 : 3"
+                              :class="{ skip: profSlider > 2 }"
+                              @click="profSlider = profSlider > 2 ? 2 : 3"
                               >Moderate</v-chip
                             >
                             <v-chip
                               label
-                              :class="{ skip: oSlider > 3 }"
-                              @click="oSlider = oSlider > 3 ? 3 : 4"
+                              :class="{ skip: profSlider > 3 }"
+                              @click="profSlider = profSlider > 3 ? 3 : 4"
                               >Mild</v-chip
                             >
                             <v-chip
                               label
-                              :class="{ skip: oSlider > 4 }"
-                              @click="oSlider = oSlider > 4 ? 4 : 5"
+                              :class="{ skip: profSlider > 4 }"
+                              @click="profSlider = profSlider > 4 ? 4 : 5"
                               >Slight</v-chip
                             >
                           </div>
@@ -284,21 +288,14 @@
           </p>
         </div>
 
-        <!-- PROGRESS BAR FOR LOADING -->
-        <div v-if="loading">
-          <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
-        </div>
-
         <!-- POSTERS -->
 
         <div class="posters_wrapper">
           <div class="poster_card" v-for="(item, index) in filteredList" :key="index">
             <div class="image" style="width:100%">
               <!-- poster_path -->
-
               <img :src="item.poster" :alt="item.title" style="min-height: 200px;" />
 
-              <!-- note: icons based on https://cdn.dribbble.com/users/368135/screenshots/3828960/d-protected.png -->
               <div class="shield">
                 <v-icon :color="getShieldColor(item)" width="60px">
                   {{ getShieldIcon(item) }}
@@ -347,7 +344,7 @@ export default {
       cleanOnly: false,
       sexSlider: 2,
       vioSlider: 2,
-      oSlider: 2,
+      profSlider: 2,
       title: '',
       providers: [],
       genres: [],
@@ -378,6 +375,9 @@ export default {
     }
   },
   watch: {
+    caringTags() {
+      this.updateLocalStorage()
+    },
     providers() {
       this.getData()
     },
@@ -399,9 +399,8 @@ export default {
     caringTags() {
       var sex = rawTags.severities[0].slice(5 - this.sexSlider, 4)
       var vio = rawTags.severities[1].slice(5 - this.vioSlider, 4)
-      var oth = rawTags.severities[2].slice(5 - this.oSlider, 4)
-      var tags = [...sex, ...vio, ...oth]
-      localStorage.caringTags = JSON.stringify(tags)
+      var prof = rawTags.severities[2].slice(5 - this.profSlider, 4)
+      var tags = [...sex, ...vio, ...prof]
       return tags
     },
 
@@ -428,6 +427,31 @@ export default {
     }
   },
   methods: {
+    updateLocalStorage() {
+      let x = {
+        sliders: {
+          sexSlider: this.sexSlider,
+          vioSlider: this.vioSlider,
+          profSlider: this.profSlider
+        }
+      }
+      localStorage.ohanaSettings = JSON.stringify(x)
+    },
+    loadLocalStorage() {
+      let s = localStorage.ohanaSettings
+      if (s && s != 'undefined') {
+        let x = JSON.parse(localStorage.ohanaSettings)
+
+        //update caring tags
+        let xx = x.sliders
+        /*this.sexSlider = xx.filter(tag => tag.includes('erotic')).length
+        this.vioSlider = xx.filter(tag => tag.includes('gore')).length
+        this.profSlider = xx.filter(tag => tag.includes('...')).length*/
+        this.sexSlider = xx.sexSlider
+        this.vioSlider = xx.vioSlider
+        this.profSlider = xx.profSlider
+      }
+    },
     translateStatus(status) {
       switch (status) {
         case 'done':
@@ -540,7 +564,7 @@ export default {
     getData() {
       var url = this.buildURL({
         action: 'findMovies',
-        title: this.title,
+        title: this.title ? this.title : '',
         tagged: this.cleanOnly ? JSON.stringify(this.caringTags) : '[]', //TODO: can we use null?
         providers: JSON.stringify(this.providers),
         certified: this.certifiedOnly ? 6 : 0,
@@ -559,14 +583,8 @@ export default {
   },
 
   mounted() {
-    var xx = localStorage.caringTags
-    if (xx && xx != 'undefined') {
-      xx = JSON.parse(xx)
-      console.log(xx)
-      this.sexSlider = xx.filter(tag => tag.includes('erotic')).length
-      this.vioSlider = xx.filter(tag => tag.includes('gore')).length
-      this.oSlider = xx.filter(tag => tag.includes('...')).length
-    }
+    this.loadLocalStorage()
+
     //now search!
     this.getData()
   }

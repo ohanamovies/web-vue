@@ -4,33 +4,35 @@ var content = [
     title: 'Sex/Nudity',
     description: '',
     color: 'green',
-    severity_title: 'How graphic or erotic is it?',
-    types_title: 'Does it contain any of these?',
     severity: [
-      {
-        value: 'Non erotic',
-        title: 'Non erotic',
-        description: "Nudity with no erotic purpose, eg: Michelangelo's David, human corpse..."
-      },
       {
         value: 'Slightly erotic',
         title: 'Slightly erotic',
+        description: "Nudity with no erotic purpose, eg: Michelangelo's David, human corpse...",
+        implies: []
+      },
+      {
+        value: 'Mildly erotic',
+        title: 'Mildly erotic',
         description:
-          'Slightly erotic or graphic scene, eg: brief kiss, revealing outfit, mild sexual reference...'
+          'Mildly erotic or graphic scene, eg: brief kiss, revealing outfit, mild sexual reference...',
+        implies: ['Slightly erotic']
       },
       {
         value: 'Moderately erotic',
         title: 'Moderately erotic',
         description:
-          'Moderately erotic or graphic scene, eg: passionate kissing, provocative dancing, graphic sexual remarks...'
+          'Moderately erotic or graphic scene, eg: passionate kissing, provocative dancing, graphic sexual remarks...',
+        implies: ['Slightly erotic', 'Mildly erotic']
       },
       {
         value: 'Very erotic',
         title: 'Very erotic',
-        description: 'Very erotic or graphic scene, eg: sex, foreplay, moaning...'
+        description: 'Very erotic or graphic scene, eg: sex, foreplay, moaning...',
+        implies: ['Slightly erotic', 'Mildly erotic', 'Moderately erotic']
       }
     ],
-    types: [
+    context: [
       {
         value: 'No consent',
         title: 'No consent',
@@ -57,34 +59,36 @@ var content = [
   },
   {
     value: 'Violence',
-    title: 'Violence/Gore',
+    title: 'Violence/Gory',
     description: '',
     color: 'red',
-    severity_title: 'How graphic/gore is it?',
-    types_title: 'Does it contain any of these?',
     severity: [
       {
-        value: 'Non gore',
-        title: 'Non gore',
-        description: 'Violence is implied but nothing is shown'
+        value: 'Slightly gory',
+        title: 'Slightly gory',
+        description: 'Violence is implied but nothing is shown',
+        implies: []
       },
       {
-        value: 'Slightly gore',
-        title: 'Slightly gore',
-        description: 'Slightly gore or graphic scene, eg: mild verbal violence, punching'
+        value: 'Mildly gory',
+        title: 'Mildly gory',
+        description: 'Mildly gory or graphic scene, eg: mild verbal violence, punching',
+        implies: ['Slightly gory']
       },
       {
-        value: 'Moderately gore',
-        title: 'Moderately gore',
-        description: 'Moderately gore or graphic scene, eg: extensive bleeding, broken bones...'
+        value: 'Moderately gory',
+        title: 'Moderately gory',
+        description: 'Moderately gory or graphic scene, eg: extensive bleeding, broken bones...',
+        implies: ['Slightly gory', 'Mildly gory']
       },
       {
-        value: 'Very gore',
-        title: 'Very gore',
-        description: 'Very gore or graphic scene, eg: blood splattered, open wounds, guts...'
+        value: 'Very gory',
+        title: 'Very gory',
+        description: 'Very gory or graphic scene, eg: blood splattered, open wounds, guts...',
+        implies: ['Slightly gory', 'Mildly gory', 'Moderately gory']
       }
     ],
-    types: [
+    context: [
       {
         value: 'Discrimination',
         title: 'Discrimination',
@@ -107,39 +111,80 @@ var content = [
       }
     ]
   },
+
+  //--- PROFANITY ------------
+  {
+    value: 'Profanity',
+    title: 'Profanity',
+    description: '',
+    color: 'black',
+    severity: [
+      {
+        value: 'Slighty profane',
+        title: 'Slighty profane',
+        description: '',
+        implies: []
+      },
+      {
+        value: 'Mildly profane',
+        title: 'Mildly profane',
+        description: '',
+        implies: ['Slighty profane']
+      },
+      {
+        value: 'Moderately profane',
+        title: 'Moderately profane',
+        description: '',
+        implies: ['Slighty profane', 'Mildly profane']
+      },
+      {
+        value: 'Very profane',
+        title: 'Very profane',
+        description: '',
+        implies: ['Slighty profane', 'Mildly profane', 'Moderately profane']
+      }
+    ],
+    context: []
+  },
+
+  //-------------
+
   {
     value: 'Other',
     title: 'Other',
     description: '',
     color: 'blue',
-    severity_title: '',
-    types_title: 'Which of the following does it contain?',
     severity: [],
-    types: [
+    context: [
       {
         value: 'Mild profanity',
         title: 'Mild profanity',
-        description: 'Mild language, eg: h*ll, d*mn...'
+        description: 'Mild language, eg: h*ll, d*mn...',
+        implies: []
       },
       {
         value: 'Strong profanity',
         title: 'Strong profanity',
-        description: 'Swear words'
+        description: 'Swear words',
+        implies: ['Mild profanity']
       },
       {
         value: 'Blasphemy',
         title: 'Blasphemy',
-        description: 'Speaking sacrilegiously about God or sacred things'
+        description: 'Speaking sacrilegiously about God or sacred things',
+        implies: []
       },
       {
         value: 'Legal drugs',
         title: 'Legal drugs',
-        description: 'Consumption of legal drugs, eg: alcohol, tobacco...'
+        description: 'Consumption of legal drugs, eg: alcohol, tobacco...',
+        implies: ['Illegal drugs']
       },
       {
         value: 'Illegal drugs',
         title: 'Illegal drugs',
-        description: 'Consumption or dealing of illegal drugs, eg: weed, cocaine...'
+        description: 'Consumption or dealing of illegal drugs, eg: weed, cocaine...',
+        implies: []
       }
     ]
   }
@@ -158,7 +203,7 @@ var actions = {
     {
       value: 'Mild plot',
       title: 'Mild plot',
-      description: 'This scene is slightly important for the plot.'
+      description: 'This scene is Mildly important for the plot.'
     },
     {
       value: 'Strong plot',
@@ -168,14 +213,24 @@ var actions = {
   ]
 }
 
-var categories = content.map(x => x.value)
-var severities = content.map(x => x.severity.map(y => y.value))
-var context = content.map(x => x.types.map(y => y.value))
+var categories = content.map(x => x.value) //[c1, c2, c3...]
+var severities = content.map(x => x.severity.map(y => y.value)) // [[cat1-sev1, cat1-sev2,...], [cat2-sev1, cat2-sev2...]]
+var descriptions = content.map(x => x.severity.map(y => y.description)) // [[cat1-sev1, cat1-sev2,...], [cat2-sev1, cat2-sev2...]]
+
+var severitiesR = content.map(x => [...x.severity].reverse().map(y => y.value)) // [[cat1-sev1, cat1-sev2,...], [cat2-sev1, cat2-sev2...]]
+var descriptionsR = content.map(x => [...x.severity].reverse().map(y => y.description)) // [[cat1-sev1, cat1-sev2,...], [cat2-sev1, cat2-sev2...]]
+
+var context = content.map(x => x.context.map(y => y.value)) //[[cat1-context1, cat2-context2], [cat2-context1, cat2-context2...]]
 
 module.exports = {
   content,
   actions,
   categories,
   severities,
+  descriptions,
+
+  severitiesR,
+  descriptionsR,
+
   context
 }
