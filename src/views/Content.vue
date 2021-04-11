@@ -294,7 +294,7 @@
           <div class="poster_card" v-for="(item, index) in filteredList" :key="index">
             <div class="image" style="width:100%">
               <!-- poster_path -->
-              <img :src="item.poster" :alt="item.title" style="min-height: 200px;" />
+              <img :src="item.poster" :alt="item.title" />
 
               <div class="shield">
                 <v-icon :color="getShieldColor(item)" width="60px">
