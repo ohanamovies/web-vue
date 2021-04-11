@@ -303,17 +303,20 @@
               </div>
             </div>
             <div class="content">
-              <p style="font-size:20px; line-height:normal">{{ item.title }}</p>
+              <p style="font-size:16px; line-height:normal">{{ item.title }}</p>
 
               <p>
-                <a v-if="item.watch_url" target="_blanck" :href="item.watch_url">Watch</a>
+                <a v-if="item.watch_url" target="_blanck" :href="item.watch_url"
+                  >Watch on {{ getProvider(item.watch_url) }}</a
+                >
               </p>
               <p
                 v-for="(cs, index) in Object.keys(getCaringScenes(item))"
                 :key="index"
                 :style="{
                   color: cs == 'pending' ? 'red' : cs == 'safe' ? 'green' : 'yellow',
-                  lineHeight: 'normal'
+                  lineHeight: 'normal',
+                  fontSize: '13px'
                 }"
               >
                 <span style="text-transform: capitalize">{{ cs }}:</span>
@@ -427,6 +430,16 @@ export default {
     }
   },
   methods: {
+    getProvider(watchUrl) {
+      let u = new URL(watchUrl)
+      let h = u.hostname.replace('www.', '')
+      if (h.includes('netflix')) return 'Netflix'
+      if (h.includes('hbo')) return 'HBO'
+      if (h.includes('movistar')) return 'Movistar'
+      if (h.includes('primevideo')) return 'Prime Video'
+      if (h.includes('disneyplus')) return 'Disney Plus'
+      return h
+    },
     updateLocalStorage() {
       let x = {
         sliders: {
