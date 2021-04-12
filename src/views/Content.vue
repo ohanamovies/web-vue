@@ -11,6 +11,7 @@
             <!-- Search by text -->
             <v-col cols="12" sm="12" md="6" lg="4" class="pb-0">
               <v-text-field
+                type="search"
                 id="searchBox"
                 dense
                 name="search"
@@ -22,6 +23,7 @@
                 :hint="filteredList.length + ' results'"
                 class="pa-0"
                 @focus="$event.target.select()"
+                @keyup.enter="getData()"
               >
                 <div slot="append" hidden>
                   <v-btn color="success" icon @click="getData()"
