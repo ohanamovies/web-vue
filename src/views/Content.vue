@@ -3,6 +3,12 @@
     <my-header></my-header>
     <section class="wrapper" id="main">
       <div class="inner">
+        <!-- 
+        <header>
+          <h2>Discover content</h2>
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
+        </header>
+        -->
         <h4>Discover content</h4>
 
         <!-- SEARCH FIELDS -->

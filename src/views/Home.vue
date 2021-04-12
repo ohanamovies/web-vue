@@ -4,7 +4,10 @@
     <my-header></my-header>
 
     <!-- Banner min-height: 150vh; clip-path: polygon(100% 45%, 36% 45%, 29% 81%, 0% 100%, 0% 0%, 100% 0%); overflown: hidden; -->
-    <section class="banner" style="background-image: url(images/banner.jpg); background-position-y: top; background-position-x: left;">
+    <section
+      class="banner"
+      style="background-image: url(images/banner.jpg); background-position-y: top; background-position-x: left;"
+    >
       <div class="inner" style="border-top: none">
         <header>
           <h1>Welcome to Ohana</h1>
@@ -34,11 +37,9 @@
           <a
             href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
             target="_blank"
-            >
-            <img src="images/download.png" width="200px" >
-              
-            </a
           >
+            <img src="images/download.png" width="200px" />
+          </a>
         </footer>
       </div>
     </section>
@@ -53,19 +54,18 @@
             </div>
             <h4>As easy as pressing play</h4>
             <p>
-              We are in the 21st Century... We believe it's time for unwanted content to be skipped
-              as easily as pressing play.
+              It's time for unwanted content to go away with one click.
             </p>
           </article>
           <article>
+            <!-- TODO: I'd put this one first (not doing so now as images on header won't match direction) -->
             <div class="image">
               <img src="images/your-way.png" width="200px" alt="Your way" />
             </div>
             <h4>You decide what you watch</h4>
             <p>
-              Watch what you want, and only what you want. We will never tell you what to skip or
-              what to watch. We classify scenes and build the software to make skips possible, you
-              decide what to watch.
+              We just provide the information and the tools. You decide what is good for you to
+              watch.
             </p>
           </article>
           <article class="down">
@@ -74,28 +74,28 @@
             </div>
             <h4>Built by people like you</h4>
             <p>
-              We are a community of developers and movie fans like you, passionately working to make
+              We are a community of developers and movie fans like you. We work passionately to make
               Ohana possible.
             </p>
           </article>
         </div>
         <footer>
           <router-link to="community">
-            <img src="images/meet-the-community.png" width="250px" alt="Meet the community"></router-link>
+            <img src="images/meet-the-community.png" width="250px" alt="Meet the community"
+          /></router-link>
         </footer>
       </div>
     </section>
 
     <section>
       <div class="inner">
-        
         <div>
-          <h2 style="font-size: 40px;" class="NormalCharacterStyle17">Filter content on your favourite providers</h2>
+          <h2 style="font-size: 40px;" class="NormalCharacterStyle17">
+            Filter content on your favourite providers
+          </h2>
           <!--<p class="NormalCharacterStyle17">*As of now, only available when you watch using Chrome browser</p>-->
         </div>
         <div class="flex flex-3" style="justify-content: space-around;">
-
-        
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
             <div class="image down">
@@ -147,173 +147,149 @@ export default {
 }
 </script>
 
-
 <style>
-
 @media screen and (min-width: 980px) {
-
-  .down{ margin-top: 90px; }
-
+  .down {
+    margin-top: 90px;
+  }
 }
 
-.NormalCharacterStyle14
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 58px;
-  color : #FFFFFF;
-  color : rgb(255, 255, 255);
+.NormalCharacterStyle14 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 58px;
+  color: #ffffff;
+  color: rgb(255, 255, 255);
 }
-.NormalCharacterStyle12
-{
-  font-family : Helvetica;
-  font-size : 36px;
-  line-height : 36.94px;
-  color : #000000;
-  color : rgb(0, 0, 0);
+.NormalCharacterStyle12 {
+  font-family: Helvetica;
+  font-size: 36px;
+  line-height: 36.94px;
+  color: #000000;
+  color: rgb(0, 0, 0);
 }
-.NormalCharacterStyle13
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 37px;
-  color : #000000;
-  color : rgb(0, 0, 0);
+.NormalCharacterStyle13 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 37px;
+  color: #000000;
+  color: rgb(0, 0, 0);
 }
-.NormalCharacterStyle15
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 48px;
-  color : #FFFFFF;
-  color : rgb(255, 255, 255);
+.NormalCharacterStyle15 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 48px;
+  color: #ffffff;
+  color: rgb(255, 255, 255);
 }
-.NormalCharacterStyle8
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 39px;
-  color : #FFFFFF;
-  color : rgb(255, 255, 255);
+.NormalCharacterStyle8 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 39px;
+  color: #ffffff;
+  color: rgb(255, 255, 255);
 }
-.NormalCharacterStyle7
-{
-  font-family : Myriad Pro;
-  font-size : 28px;
-  color : #999999;
-  color : rgb(153, 153, 153);
+.NormalCharacterStyle7 {
+  font-family: Myriad Pro;
+  font-size: 28px;
+  color: #999999;
+  color: rgb(153, 153, 153);
 }
-.NormalCharacterStyle10
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 37px;
-  color : #000000;
-  color : rgb(0, 0, 0);
+.NormalCharacterStyle10 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 37px;
+  color: #000000;
+  color: rgb(0, 0, 0);
 }
-.NormalCharacterStyle11
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 58px;
-  color : #FFFFFF;
-  color : rgb(255, 255, 255);
+.NormalCharacterStyle11 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 58px;
+  color: #ffffff;
+  color: rgb(255, 255, 255);
 }
-.NormalCharacterStyle9
-{
-  font-family : Myriad Pro;
-  font-size : 36px;
-  line-height : 36.94px;
-  color : #000000;
-  color : rgb(0, 0, 0);
+.NormalCharacterStyle9 {
+  font-family: Myriad Pro;
+  font-size: 36px;
+  line-height: 36.94px;
+  color: #000000;
+  color: rgb(0, 0, 0);
 }
-.NormalCharacterStyle
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 65px;
-  color : #FFFFFF;
-  color : rgb(255, 255, 255);
+.NormalCharacterStyle {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 65px;
+  color: #ffffff;
+  color: rgb(255, 255, 255);
 }
-.NormalCharacterStyle1
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 31px;
-  color : #000000;
-  color : rgb(0, 0, 0);
+.NormalCharacterStyle1 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 31px;
+  color: #000000;
+  color: rgb(0, 0, 0);
 }
-.NormalCharacterStyle2
-{
-  font-family : Helvetica;
-  font-size : 36px;
-  line-height : 36.94px;
-  color : #000000;
-  color : rgb(0, 0, 0);
+.NormalCharacterStyle2 {
+  font-family: Helvetica;
+  font-size: 36px;
+  line-height: 36.94px;
+  color: #000000;
+  color: rgb(0, 0, 0);
 }
-.NormalCharacterStyle3
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 37px;
-  color : #000000;
-  color : rgb(0, 0, 0);
+.NormalCharacterStyle3 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 37px;
+  color: #000000;
+  color: rgb(0, 0, 0);
 }
-.NormalCharacterStyle4
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 58px;
-  color : #FFFFFF;
-  color : rgb(255, 255, 255);
+.NormalCharacterStyle4 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 58px;
+  color: #ffffff;
+  color: rgb(255, 255, 255);
 }
-.NormalCharacterStyle5
-{
-  font-family : Helvetica;
-  font-weight : bold;
-  font-size : 44px;
-  color : #FFFFFF;
-  color : rgb(255, 255, 255);
+.NormalCharacterStyle5 {
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 44px;
+  color: #ffffff;
+  color: rgb(255, 255, 255);
 }
-.NormalCharacterStyle6
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 44px;
-  color : #FFFFFF;
-  color : rgb(255, 255, 255);
+.NormalCharacterStyle6 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 44px;
+  color: #ffffff;
+  color: rgb(255, 255, 255);
 }
-.NormalCharacterStyle17
-{
-  font-family : Myriad Pro;
+.NormalCharacterStyle17 {
+  font-family: Myriad Pro;
   /*font-size : 61px;*/
-  color : #006837 !important;
-  color : rgb(0, 104, 55) !important;
+  color: #006837 !important;
+  color: rgb(0, 104, 55) !important;
 }
-.NormalCharacterStyle16
-{
-  font-family : Helvetica;
-  font-size : 54px;
-  color : #006837;
-  color : rgb(0, 104, 55);
+.NormalCharacterStyle16 {
+  font-family: Helvetica;
+  font-size: 54px;
+  color: #006837;
+  color: rgb(0, 104, 55);
 }
-.NormalCharacterStyle18
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 46px;
-  color : #FFFFFF;
-  color : rgb(255, 255, 255);
+.NormalCharacterStyle18 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 46px;
+  color: #ffffff;
+  color: rgb(255, 255, 255);
 }
-.NormalCharacterStyle19
-{
-  font-family : Noteworthy;
-  font-weight : bold;
-  font-size : 154px;
-  line-height : 134px;
-  color : #FFFFFF;
-  color : rgb(255, 255, 255);
+.NormalCharacterStyle19 {
+  font-family: Noteworthy;
+  font-weight: bold;
+  font-size: 154px;
+  line-height: 134px;
+  color: #ffffff;
+  color: rgb(255, 255, 255);
 }
-
-
 </style>
