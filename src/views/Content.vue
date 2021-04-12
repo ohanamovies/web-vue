@@ -311,7 +311,7 @@
                 >
               </p>
               <p
-                v-for="(cs, index) in Object.keys(getCaringScenes(item))"
+                v-for="(cs, index) in Object.keys(getSkipScenes(item))"
                 :key="index"
                 :style="{
                   color: cs == 'pending' ? 'red' : cs == 'safe' ? 'green' : 'yellow',
@@ -320,7 +320,7 @@
                 }"
               >
                 <span style="text-transform: capitalize">{{ cs }}:</span>
-                {{ getCaringScenes(item)[cs].join(', ') }}
+                {{ getSkipScenes(item)[cs].join(', ') }}
               </p>
               <span style="position: absolute; bottom: 5px">{{ item.provider }}</span>
             </div>
@@ -333,7 +333,7 @@
 
 <script>
 const rawTags = require('../assets/raw_tags')
-const { searchMatch } = require('../sharedjs')
+//const { searchMatch } = require('../sharedjs')
 export default {
   data() {
     return {
@@ -357,6 +357,8 @@ export default {
       vioSlider: 2,
       profSlider: 2,
       title: '',
+      titleTimeout: null,
+
       providers: [],
       genres: [],
       type: 'movie',
@@ -402,8 +404,10 @@ export default {
       this.getData()
     },
     title() {
-      //TODO: add mechanisms to minize API calls (e.g.: if filtered list is already zero with less restrictive text, avoid searching again, etc.)
-      this.getData()
+      clearTimeout(this.titleTimeout)
+      this.titleTimeout = setTimeout(() => {
+        this.getData()
+      }, 900)
     }
   },
   computed: {
@@ -418,12 +422,12 @@ export default {
     filteredList() {
       var xx = []
       this.items.forEach(item => {
-        var s = item.title
-        if (s) {
-          if (searchMatch(this.title, s)) {
+        xx.push(item)
+        /*if (item.title) {
+          if (searchMatch(this.title, item.title)) {
             xx.push(item)
           }
-        }
+        }*/
       })
       return xx
     },
@@ -483,33 +487,19 @@ export default {
           return 'unknown'
       }
     },
-    getCaringScenes(item) {
+    getSkipScenes(item) {
       //returns JSON with {tagName: status}, only for the tags user cares.
-      var caringScenes = {}
-
-      if (item.scenes) {
-        item.scenes.forEach(scene => {
-          this.skipTags.forEach(st => {
-            if (scene.tags.includes(st)) {
-              if (!caringScenes[st]) {
-                caringScenes[st] = 0
-              }
-              caringScenes[st] = caringScenes[st] + 1
-              console.log('aaaaa', caringScenes[st] + 1)
-            }
-          })
-        })
-      }
 
       var taggedAux = {}
       this.skipTags.forEach(st => {
         let label = st
-        if (caringScenes[st]) label += '(' + caringScenes[st] + ')'
+
         if (item.tags_missing.includes(st)) {
           if (!taggedAux.pending) taggedAux.pending = []
           taggedAux.pending.push(label)
         } else if (item.tags_done.includes(st)) {
           if (!taggedAux.safe) taggedAux.safe = []
+          if (item.tags_count[st]) label += ' (' + item.tags_count[st] + ')'
           taggedAux.safe.push(label)
         } else {
           if (!taggedAux.unknown) taggedAux.unknown = []
