@@ -214,7 +214,7 @@
                             id="vselect"
                             v-model="providers"
                             chips
-                            :items="['Netflix', 'HBO', 'Movistar', 'Disney Plus', 'Rakuten']"
+                            :items="providersList"
                             :menu-props="{ maxHeight: '400' }"
                             label="Filter by provider"
                             multiple
@@ -296,7 +296,7 @@
               <!-- poster_path -->
               <img :src="item.poster" :alt="item.title" />
 
-              <div class="shield">
+              <div class="shield" v-if="getShieldIcon(item) != 'none'">
                 <v-icon :color="getShieldColor(item)" width="60px">
                   {{ getShieldIcon(item) }}
                 </v-icon>
@@ -343,6 +343,14 @@ export default {
       showFilters2: false,
       showFilters3: false,
 
+      providersList: [
+        { text: 'Netflix', value: 'netflix' },
+        { text: 'HBO', value: 'hbo' },
+        { text: 'Movistar', value: 'movistar' },
+        { text: 'Disney Plus', value: 'disneyplus' },
+        { text: 'Rakuten', value: 'rakuten' }
+      ],
+
       certifiedOnly: false,
       cleanOnly: false,
       sexSlider: 2,
@@ -378,7 +386,7 @@ export default {
     }
   },
   watch: {
-    caringTags() {
+    skipTags() {
       this.updateLocalStorage()
     },
     providers() {
@@ -399,7 +407,7 @@ export default {
     }
   },
   computed: {
-    caringTags() {
+    skipTags() {
       var sex = rawTags.severities[0].slice(5 - this.sexSlider, 4)
       var vio = rawTags.severities[1].slice(5 - this.vioSlider, 4)
       var prof = rawTags.severities[2].slice(5 - this.profSlider, 4)
@@ -481,26 +489,26 @@ export default {
 
       if (item.scenes) {
         item.scenes.forEach(scene => {
-          this.caringTags.forEach(ct => {
-            if (scene.tags.includes(ct)) {
-              if (!caringScenes[ct]) {
-                caringScenes[ct] = 0
+          this.skipTags.forEach(st => {
+            if (scene.tags.includes(st)) {
+              if (!caringScenes[st]) {
+                caringScenes[st] = 0
               }
-              caringScenes[ct] = caringScenes[ct] + 1
-              console.log('aaaaa', caringScenes[ct] + 1)
+              caringScenes[st] = caringScenes[st] + 1
+              console.log('aaaaa', caringScenes[st] + 1)
             }
           })
         })
       }
 
       var taggedAux = {}
-      this.caringTags.forEach(ct => {
-        let label = ct
-        if (caringScenes[ct]) label += '(' + caringScenes[ct] + ')'
-        if (item.tags_missing.includes(ct)) {
+      this.skipTags.forEach(st => {
+        let label = st
+        if (caringScenes[st]) label += '(' + caringScenes[st] + ')'
+        if (item.tags_missing.includes(st)) {
           if (!taggedAux.pending) taggedAux.pending = []
           taggedAux.pending.push(label)
-        } else if (item.tags_done.includes(ct)) {
+        } else if (item.tags_done.includes(st)) {
           if (!taggedAux.safe) taggedAux.safe = []
           taggedAux.safe.push(label)
         } else {
@@ -524,8 +532,18 @@ export default {
     },
     getShieldIcon(item) {
       let status = this.getShield(item)
-      let scenesCount = 1
 
+      //count scenes for user skipTags
+      let st = this.skipTags
+      if (st.length == 0) return 'none'
+      let scenesCount = 0
+      try {
+        if (Object.keys(item.tags_count).includes(st)) scenesCount += item.tags_count[st]
+      } catch (error) {
+        scenesCount = 1 // when "tags_count: null"
+      }
+
+      //pick the right icon
       if (status == 'protected' && scenesCount == 0) {
         return 'mdi-emoticon-happy'
       } else if (status == 'protected') {
@@ -539,13 +557,13 @@ export default {
     },
 
     getShield(item) {
-      // If EVERY caringTags is included in tags_done.done
-      if (this.caringTags.every(x => item.tags_done.includes(x))) {
+      // If EVERY skipTags is included in tags_done.done
+      if (this.skipTags.every(x => item.tags_done.includes(x))) {
         return 'protected'
       }
 
-      // If ANY caringTags is included in tags_missing
-      if (this.caringTags.some(x => item.tags_missing.includes(x))) {
+      // If ANY skipTags is included in tags_missing
+      if (this.skipTags.some(x => item.tags_missing.includes(x))) {
         return 'missing'
       }
 
@@ -578,7 +596,7 @@ export default {
       var url = this.buildURL({
         action: 'findMovies',
         title: this.title ? this.title : '',
-        tagged: this.cleanOnly ? JSON.stringify(this.caringTags) : '[]', //TODO: can we use null?
+        tagged: this.cleanOnly ? JSON.stringify(this.skipTags) : '[]', //TODO: can we use null?
         providers: JSON.stringify(this.providers),
         certified: this.certifiedOnly ? 6 : 0,
         genres: JSON.stringify(this.genres)
