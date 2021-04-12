@@ -3,9 +3,9 @@
     <!-- Header -->
     <my-header></my-header>
 
-    <!-- Banner -->
-    <section class="banner" style="background-image: url(images/banner.jpg); min-height: 150vh; clip-path: polygon(100% 45%, 36% 45%, 29% 81%, 0% 100%, 0% 0%, 100% 0%); overflown: hidden; background-position-y: top; background-position-x: left;">
-      <div class="inner" style="border-top: none; width: 70%; margin-right: 10%; margin-top: 20px; padding: 0px;">
+    <!-- Banner min-height: 150vh; clip-path: polygon(100% 45%, 36% 45%, 29% 81%, 0% 100%, 0% 0%, 100% 0%); overflown: hidden; -->
+    <section class="banner" style="background-image: url(images/banner.jpg); background-position-y: top; background-position-x: left;">
+      <div class="inner" style="border-top: none">
         <header>
           <h1>Welcome to Ohana</h1>
         </header>
@@ -47,8 +47,8 @@
     <section id="three" class="wrapper align-center" style="min-height: 100vh">
       <div class="inner">
         <div class="flex flex-3">
-          <article>
-            <div class="image down">
+          <article class="down">
+            <div class="image">
               <img src="images/simplicity.png" width="180px" alt="Simplicity" />
             </div>
             <h4>As easy as pressing play</h4>
@@ -57,8 +57,8 @@
               as easily as pressing play.
             </p>
           </article>
-          <article class="down">
-            <div class="image down">
+          <article>
+            <div class="image">
               <img src="images/your-way.png" width="200px" alt="Your way" />
             </div>
             <h4>You decide what you watch</h4>
@@ -68,7 +68,7 @@
               decide what to watch.
             </p>
           </article>
-          <article>
+          <article class="down">
             <div class="image">
               <img src="images/community.png" width="180px" alt="Community" />
             </div>
@@ -90,8 +90,8 @@
       <div class="inner">
         
         <div>
-          <h2 class="NormalCharacterStyle17">Filter content on your favourite providers</h2>
-          <p class="NormalCharacterStyle17">*As of now, only available when you watch using Chrome browser</p>
+          <h2 style="font-size: 40px;" class="NormalCharacterStyle17">Filter content on your favourite providers</h2>
+          <!--<p class="NormalCharacterStyle17">*As of now, only available when you watch using Chrome browser</p>-->
         </div>
         <div class="flex flex-3" style="justify-content: space-around;">
 
