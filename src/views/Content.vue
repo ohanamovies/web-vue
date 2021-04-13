@@ -347,6 +347,7 @@ export default {
     return {
       data: [],
       loading: true,
+      fetchedAt: '', //aux variable to make sure we refresh data with latest getData() request, not last arriving (async)
       showFilters: false,
       showFilters2: false,
       showFilters3: false,
@@ -499,16 +500,21 @@ export default {
       //returns JSON with {tagName: status}, only for the tags user cares.
 
       var taggedAux = {}
-      this.skipTags.forEach(st => {
+
+      var skipTagsR = [...this.skipTags].reverse() //reverse to show severe first
+      skipTagsR.forEach(st => {
         let label = st
 
+        //missing
         if (item.tags_missing.includes(st)) {
           if (!taggedAux.pending) taggedAux.pending = []
           taggedAux.pending.push(label)
+          //done
         } else if (item.tags_done.includes(st)) {
           if (!taggedAux.safe) taggedAux.safe = []
-          if (item.tags_count[st]) label += ' (' + item.tags_count[st] + ')'
+          label += ' (' + (item.tags_count[st] > 0 ? item.tags_count[st] : 0) + ')'
           taggedAux.safe.push(label)
+          //unknown
         } else {
           if (!taggedAux.unknown) taggedAux.unknown = []
           taggedAux.unknown.push(label)
@@ -532,11 +538,13 @@ export default {
       let status = this.getShield(item)
 
       //count scenes for user skipTags
-      let st = this.skipTags
-      if (st.length == 0) return 'none'
+      if (this.skipTags.length == 0) return 'none'
       let scenesCount = 0
       try {
-        if (Object.keys(item.tags_count).includes(st)) scenesCount += item.tags_count[st]
+        for (let i = 0; i < this.skipTags.length; i++) {
+          const st = this.skipTags[i]
+          if (Object.keys(item.tags_count).includes(st)) scenesCount += item.tags_count[st]
+        }
       } catch (error) {
         scenesCount = 1 // when "tags_count: null"
       }
@@ -591,6 +599,9 @@ export default {
     },
 
     getData() {
+      let fetchedAt = new Date()
+      this.fetchedAt = fetchedAt
+
       var url = this.buildURL({
         action: 'findMovies',
         title: this.title ? this.title : '',
@@ -605,8 +616,14 @@ export default {
         .then(response => response.json())
         .then(data => {
           console.log(data)
-          this.data = data
-          this.loading = false
+
+          if (fetchedAt == this.fetchedAt) {
+            console.log('[getData] propagate data')
+            this.data = data
+            this.loading = false
+          } else {
+            console.log('[getData] old request. ignoring')
+          }
         })
     }
   },
