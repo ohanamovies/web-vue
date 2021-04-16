@@ -32,6 +32,19 @@
               >Download</a
             >
           </footer>
+
+          <div>
+            <br />
+            <p>
+              You can also
+              <a href="https://www.patreon.com/ohanamovies" target="_blank">donate</a> to support
+              the development of Ohana.
+            </p>
+            <p>
+              You can also use the extension and let share your
+              <a href="https://forms.gle/cPr7XQhdS7x1y9hx7" target="_blank">feedback</a>.
+            </p>
+          </div>
         </div>
 
         <!--
