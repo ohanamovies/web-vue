@@ -233,7 +233,7 @@
                         <v-col cols="12" md="6" class="pt-1">
                           <v-checkbox v-model="cleanOnly" hide-details="">
                             <div slot="label">
-                              Only show clean movies
+                              Show only clean movies
                               <v-icon color="green">mdi-content-cut</v-icon> |
                               <v-icon color="green">mdi-emoticon-happy</v-icon>
                             </div>
@@ -243,7 +243,7 @@
                         <v-col cols="12" md="6" class="pb-0">
                           <v-checkbox v-model="certifiedOnly" hide-details="">
                             <div slot="label">
-                              Only show Ohana certified movies
+                              Show only Ohana certified movies
                               <v-icon color="blue">mdi-content-cut</v-icon>
                               | <v-icon color="blue">mdi-emoticon-happy</v-icon>
                             </div>
@@ -291,7 +291,7 @@
             >
             |
             <span style="text-decoration:underline;cursor:pointer" @click="type = 'show'"
-              >Episodes ({{ shows.length }})</span
+              >Series ({{ shows.length }})</span
             >
           </p>
         </div>
