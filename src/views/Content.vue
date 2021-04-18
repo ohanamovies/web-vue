@@ -438,6 +438,7 @@ export default {
           }
         }*/
       })
+      xx = xx.slice(0, 250)
       return xx
     },
     items() {
@@ -581,7 +582,12 @@ export default {
       var auxx = []
       this.data.forEach(e => {
         //TODO: check if tagged content
-        if (e.type == type) auxx.push(e)
+        if (type == 'movie') {
+          if (e.type == 'movie') auxx.push(e)
+        }
+        if (type == 'show') {
+          if (e.type != 'movie') auxx.push(e)
+        }
       })
       console.log(type, auxx)
       return auxx
