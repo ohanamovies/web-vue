@@ -71,18 +71,23 @@
         <div class="fakeUL">
           <p>
             <v-icon color="green">mdi-emoticon-happy</v-icon><b>Clean:</b> Content was originally
-            safe, it didn't need to be cut.
+            safe, it didn't need to be cut. When the icon is blue
+            <v-icon color="blue">mdi-emoticon-happy</v-icon>, it means it has been reviewed by Ohana
+            trusted editors.
           </p>
+
           <p>
             <v-icon color="green">mdi-content-cut</v-icon><b>Cut:</b> There was unsafe content, but
-            we will skip it all for you.
+            we will skip it all for you. When the icon is blue
+            <v-icon color="blue">mdi-content-cut</v-icon>, it means it has been reviewed by Ohana
+            trusted editors.
           </p>
           <p>
-            <v-icon color="green">mdi-flag-variant</v-icon><b>Unsafe:</b> Unwanted content was
+            <v-icon color="red">mdi-flag-variant</v-icon><b>Unsafe:</b> Unwanted content was
             flagged, but it's not cut yet.
           </p>
           <p>
-            <v-icon color="green">mdi-progress-question</v-icon><b>Unknown:</b> We can't help as we
+            <v-icon color="gray">mdi-progress-question</v-icon><b>Unknown:</b> We can't help as we
             don't have information yet.
           </p>
           <br />

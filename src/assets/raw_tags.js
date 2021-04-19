@@ -59,7 +59,7 @@ var content = [
   },
   {
     value: 'Violence',
-    title: 'Violence/Gory',
+    title: 'Violence/Gore',
     description: '',
     color: 'red',
     severity: [
