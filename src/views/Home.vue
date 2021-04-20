@@ -37,6 +37,14 @@
             target="_blank"
             >Download</a
           >
+
+          <a
+            href="https://www.patreon.com/ohanamovies"
+            class="button special"
+            target="_blank"
+            style="margin-left: 5px"
+            >Donate
+          </a>
         </footer>
       </div>
     </section>
