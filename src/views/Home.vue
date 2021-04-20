@@ -35,14 +35,15 @@
             href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
             class="button special"
             target="_blank"
-            >Download</a
+            style="margin: 5px;"
+            >Get Ohana</a
           >
 
           <a
             href="https://www.patreon.com/ohanamovies"
             class="button special"
             target="_blank"
-            style="margin-left: 5px"
+            style="margin: 5px;"
             >Donate
           </a>
         </footer>

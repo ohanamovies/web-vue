@@ -6,6 +6,7 @@ import Community from '../views/Community.vue'
 import Content from '../views/Content.vue'
 import Elements from '../views/Elements.vue'
 import Stats from '../views/Stats.vue'
+import GetStarted from '../views/GetStarted.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +35,11 @@ const routes = [
     path: '/stats',
     name: 'Stats',
     component: Stats
+  },
+  {
+    path: '/get-started',
+    name: 'GetStarted',
+    component: GetStarted
   },
   {
     path: '/elements',
