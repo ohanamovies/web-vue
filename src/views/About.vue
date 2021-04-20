@@ -64,8 +64,8 @@
 
         <h3>What do the icons mean?</h3>
         <p>
-          The icons represent a visual way to tell you the filtering status of the movies, based on
-          your sensitivity.
+          The icons are a visual way to summarize the filtering status of the movies. The status and
+          the icons depends on your sensitivity.
         </p>
 
         <div class="fakeUL">
@@ -77,8 +77,8 @@
           </p>
 
           <p>
-            <v-icon color="green">mdi-content-cut</v-icon><b>Cut:</b> There was unsafe content, but
-            we will skip it all for you. When the icon is blue
+            <v-icon color="green">mdi-content-cut</v-icon><b>Cut:</b> There was unwanted content,
+            but we will skip it all for you. When the icon is blue
             <v-icon color="blue">mdi-content-cut</v-icon>, it means it has been reviewed by Ohana
             trusted editors.
           </p>

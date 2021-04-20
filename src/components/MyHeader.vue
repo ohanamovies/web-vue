@@ -9,6 +9,7 @@
           <router-link to="/">Home</router-link>
           <router-link to="/content">Content</router-link>
           <router-link to="/community">Community</router-link>
+          <router-link to="/stats">Stats</router-link>
           <router-link to="/about">About</router-link>
         </nav>
         <a href="#navPanel" class="navPanelToggle">

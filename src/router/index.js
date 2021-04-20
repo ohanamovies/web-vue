@@ -5,6 +5,7 @@ import About from '../views/About.vue'
 import Community from '../views/Community.vue'
 import Content from '../views/Content.vue'
 import Elements from '../views/Elements.vue'
+import Stats from '../views/Stats.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/content',
     name: 'Content',
     component: Content
+  },
+  {
+    path: '/stats',
+    name: 'Stats',
+    component: Stats
   },
   {
     path: '/elements',
