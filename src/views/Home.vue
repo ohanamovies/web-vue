@@ -3,17 +3,14 @@
     <!-- Header -->
     <my-header></my-header>
 
-    <!-- Banner min-height: 150vh; clip-path: polygon(100% 45%, 36% 45%, 29% 81%, 0% 100%, 0% 0%, 100% 0%); overflown: hidden; -->
-    <section
-      class="banner"
-      style="background-image: url(images/banner.jpg); background-position-y: top; background-position-x: left;"
-    >
+    <!-- Banner -->
+    <section class="banner" style="background-image: url(images/banner.jpg); min-height: 100vh">
       <div class="inner" style="border-top: none">
         <header>
           <h1>Welcome to Ohana</h1>
         </header>
 
-        <!--<div class="flex">
+        <div class="flex">
           <div>
             <span class="icon fa-play-circle"></span>
             <h3>Simplicity</h3>
@@ -31,15 +28,15 @@
             <h3>Community</h3>
             <p>Built by people like you</p>
           </div>
-        </div>-->
+        </div>
 
         <footer>
           <a
             href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
+            class="button special"
             target="_blank"
+            >Download</a
           >
-            <img src="images/download.png" width="200px" />
-          </a>
         </footer>
       </div>
     </section>
@@ -48,31 +45,36 @@
     <section id="three" class="wrapper align-center" style="min-height: 100vh">
       <div class="inner">
         <div class="flex flex-3">
-          <article class="down">
-            <div class="image">
-              <img src="images/simplicity.png" width="180px" alt="Simplicity" />
+          <article>
+            <div class="image round">
+              <img src="images/simplicity.jpg" height="150px" alt="Simplicity" />
             </div>
-            <h4>As easy as pressing play</h4>
+            <header>
+              <h3>Simplicity<br /></h3>
+            </header>
             <p>
               It's time for unwanted content to go away with one click.
             </p>
           </article>
           <article>
-            <!-- TODO: I'd put this one first (not doing so now as images on header won't match direction) -->
-            <div class="image">
-              <img src="images/your-way.png" width="200px" alt="Your way" />
+            <div class="image round">
+              <img src="images/freedom.jpg" height="150px" alt="Freedom" />
             </div>
-            <h4>You decide what you watch</h4>
+            <header>
+              <h3>Your way<br /></h3>
+            </header>
             <p>
               We just provide the information and the tools. You decide what is good for you to
               watch.
             </p>
           </article>
-          <article class="down">
-            <div class="image">
-              <img src="images/community.png" width="180px" alt="Community" />
+          <article>
+            <div class="image round">
+              <img src="images/values.jpg" height="150px" alt="Values" />
             </div>
-            <h4>Built by people like you</h4>
+            <header>
+              <h3>Community<br /></h3>
+            </header>
             <p>
               We are a community of developers and movie fans like you. We work passionately to make
               Ohana possible.
@@ -80,59 +82,42 @@
           </article>
         </div>
         <footer>
-          <router-link to="community">
-            <img src="images/meet-the-community.png" width="250px" alt="Meet the community"
-          /></router-link>
+          <router-link to="community" class="button special">Meet the community</router-link>
         </footer>
       </div>
     </section>
 
-    <section>
-      <div class="inner">
-        <div>
-          <h2 style="font-size: 40px;" class="NormalCharacterStyle17">
-            Filter content on your favourite providers
-          </h2>
-          <!--<p class="NormalCharacterStyle17">*As of now, only available when you watch using Chrome browser</p>-->
-        </div>
-        <div class="flex flex-3" style="justify-content: space-around;">
+    <section class="banner" style="background-image: url(images/providers.jpg)">
+      <div class="inner" style="border-top: none">
+        <header>
+          <h1>Filter content on your favourite providers</h1>
+          <p>*As of now, only available when you watch using Chrome browser</p>
+        </header>
+
+        <div class="flex flex-3">
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
-            <div class="image down">
-              <img src="images/netflix.png" width="120px" alt="Netflix" />
-            </div>
+            <h3>Netflix</h3>
           </div>
 
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
-            <div class="image">
-              <img src="images/hbo.png" width="180px" alt="HBO" />
-            </div>
+            <h3>HBO</h3>
           </div>
 
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
-            <div class="image down">
-              <img src="images/disney.png" width="180px" alt="Disney" />
-            </div>
+            <h3>Disney+</h3>
           </div>
 
           <div>
             <!--<span class="icon fa-play-circle"></span>-->
-            <div class="image">
-              <img src="images/movistar.png" width="180px" alt="Movistar" />
-            </div>
+            <h3>Movistar+</h3>
           </div>
         </div>
 
         <footer>
-          <div style="margin: auto; width: 250px">
-            <router-link to="content">
-              <div class="image">
-                <img src="images/discover-content.png" width="100%" alt="Simplicity" />
-              </div>
-            </router-link>
-          </div>
+          <router-link to="content" class="button special">Discover content</router-link>
         </footer>
       </div>
     </section>
@@ -146,150 +131,3 @@ export default {
   name: 'Home'
 }
 </script>
-
-<style>
-@media screen and (min-width: 980px) {
-  .down {
-    margin-top: 90px;
-  }
-}
-
-.NormalCharacterStyle14 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 58px;
-  color: #ffffff;
-  color: rgb(255, 255, 255);
-}
-.NormalCharacterStyle12 {
-  font-family: Helvetica;
-  font-size: 36px;
-  line-height: 36.94px;
-  color: #000000;
-  color: rgb(0, 0, 0);
-}
-.NormalCharacterStyle13 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 37px;
-  color: #000000;
-  color: rgb(0, 0, 0);
-}
-.NormalCharacterStyle15 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 48px;
-  color: #ffffff;
-  color: rgb(255, 255, 255);
-}
-.NormalCharacterStyle8 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 39px;
-  color: #ffffff;
-  color: rgb(255, 255, 255);
-}
-.NormalCharacterStyle7 {
-  font-family: Myriad Pro;
-  font-size: 28px;
-  color: #999999;
-  color: rgb(153, 153, 153);
-}
-.NormalCharacterStyle10 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 37px;
-  color: #000000;
-  color: rgb(0, 0, 0);
-}
-.NormalCharacterStyle11 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 58px;
-  color: #ffffff;
-  color: rgb(255, 255, 255);
-}
-.NormalCharacterStyle9 {
-  font-family: Myriad Pro;
-  font-size: 36px;
-  line-height: 36.94px;
-  color: #000000;
-  color: rgb(0, 0, 0);
-}
-.NormalCharacterStyle {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 65px;
-  color: #ffffff;
-  color: rgb(255, 255, 255);
-}
-.NormalCharacterStyle1 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 31px;
-  color: #000000;
-  color: rgb(0, 0, 0);
-}
-.NormalCharacterStyle2 {
-  font-family: Helvetica;
-  font-size: 36px;
-  line-height: 36.94px;
-  color: #000000;
-  color: rgb(0, 0, 0);
-}
-.NormalCharacterStyle3 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 37px;
-  color: #000000;
-  color: rgb(0, 0, 0);
-}
-.NormalCharacterStyle4 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 58px;
-  color: #ffffff;
-  color: rgb(255, 255, 255);
-}
-.NormalCharacterStyle5 {
-  font-family: Helvetica;
-  font-weight: bold;
-  font-size: 44px;
-  color: #ffffff;
-  color: rgb(255, 255, 255);
-}
-.NormalCharacterStyle6 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 44px;
-  color: #ffffff;
-  color: rgb(255, 255, 255);
-}
-.NormalCharacterStyle17 {
-  font-family: Myriad Pro;
-  /*font-size : 61px;*/
-  color: #006837 !important;
-  color: rgb(0, 104, 55) !important;
-}
-.NormalCharacterStyle16 {
-  font-family: Helvetica;
-  font-size: 54px;
-  color: #006837;
-  color: rgb(0, 104, 55);
-}
-.NormalCharacterStyle18 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 46px;
-  color: #ffffff;
-  color: rgb(255, 255, 255);
-}
-.NormalCharacterStyle19 {
-  font-family: Noteworthy;
-  font-weight: bold;
-  font-size: 154px;
-  line-height: 134px;
-  color: #ffffff;
-  color: rgb(255, 255, 255);
-}
-</style>
