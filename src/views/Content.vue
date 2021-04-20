@@ -161,11 +161,19 @@
                       </v-row>
                     </v-card-text>
                     <v-card-actions>
-                      {{ filteredList.length }} items found
-                      <v-spacer></v-spacer>
+                      <v-btn
+                        color="#6cc091"
+                        id="vbtn1"
+                        depressed
+                        dark
+                        @click="showFilters2 = false"
+                        block
+                        >Done</v-btn
+                      >
+                      <!--<v-spacer></v-spacer>
                       <span style="color:green; cursor:pointer" @click="showFilters2 = false"
                         >Done</span
-                      >
+                      >-->
                     </v-card-actions>
                   </v-card>
                 </div>
@@ -252,10 +260,14 @@
                       </v-row>
                     </v-card-text>
                     <v-card-actions>
-                      {{ filteredList.length }} items found
-                      <v-spacer></v-spacer>
-                      <span style="color:green; cursor:pointer" @click="showFilters3 = false"
-                        >Done</span
+                      <v-btn
+                        color="#6cc091"
+                        id="vbtn1"
+                        depressed
+                        dark
+                        @click="showFilters3 = false"
+                        block
+                        >Done</v-btn
                       >
                     </v-card-actions>
                   </v-card>
@@ -294,6 +306,30 @@
               >Series ({{ shows.length }})</span
             >
           </p>
+        </div>
+
+        <div>
+          <v-row align="left" style="margin-left:auto; margin-right: auto; margin-top: 15px">
+            <v-col class="pa-0">
+              <div v-if="skipTags.length > 0">
+                <v-chip class="ma-1" small dense v-for="(item, index) in statsRecap" :key="index">
+                  <v-icon small :color="item.color">{{ item.icon }}</v-icon>
+                  <b v-if="!loading">{{ item.count }}</b>
+                  <v-progress-circular
+                    v-else
+                    :size="10"
+                    :width="1"
+                    indeterminate
+                    color="primary"
+                  ></v-progress-circular>
+                </v-chip>
+              </div>
+              <div v-else style="font-size: 90%">
+                Let us know your sensitivity (click the 'sensitivity' button), so we can help you
+                finding the right content to watch
+              </div>
+            </v-col>
+          </v-row>
         </div>
 
         <!-- POSTERS -->
@@ -420,6 +456,39 @@ export default {
     }
   },
   computed: {
+    statsRecap() {
+      //Summary of the status by "status" (or icon). This populates the chips with the icons.
+      let output = {
+        clean_certified: { count: 0, icon: 'mdi-emoticon-happy', color: 'blue' },
+        cut_certified: { count: 0, icon: 'mdi-content-cut', color: 'blue' },
+        clean_not_certified: { count: 0, icon: 'mdi-emoticon-happy', color: 'green' },
+        cut_not_certified: { count: 0, icon: 'mdi-content-cut', color: 'green' },
+        missing: { count: 0, icon: 'mdi-flag-variant', color: 'red' },
+        unknown: { count: 0, icon: 'mdi-progress-question', color: 'black' }
+      }
+      for (let item of this.items) {
+        let tags_count = 0
+        let all_done = true //default
+        let missing = false //default
+        for (let tag of this.skipTags) {
+          tags_count += item.tags_count ? (item.tags_count[tag] ? item.tags_count[tag] : 0) : 0
+          if (!item.tags_done.includes(tag)) all_done = false
+          if (item.tags_missing.includes(tag)) missing = true
+        }
+        if (all_done) {
+          if (tags_count > 0 && item.tags_level > 5) output['cut_certified'].count++
+          if (tags_count > 0 && item.tags_level <= 5) output['cut_not_certified'].count++
+          if (tags_count == 0 && item.tags_level > 5) output['clean_certified'].count++
+          if (tags_count == 0 && item.tags_level <= 5) output['clean_not_certified'].count++
+        } else if (missing) {
+          output['missing'].count++
+        } else {
+          output['unknown'].count++
+        }
+      }
+      return output
+    },
+
     skipTags() {
       var sex = rawTags.severities[0].slice(5 - this.sexSlider, 4)
       var vio = rawTags.severities[1].slice(5 - this.vioSlider, 4)
