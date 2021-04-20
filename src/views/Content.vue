@@ -214,7 +214,7 @@
                             id="vselect"
                             v-model="genres"
                             :items="availableGenres"
-                            :menu-props="{ maxHeight: '400' }"
+                            :menu-props="{ maxHeight: '250' }"
                             label="Filter by Genre"
                             multiple
                             chips
@@ -224,19 +224,19 @@
                           </v-autocomplete>
                         </v-col>
                         <v-col cols="12" md="12">
-                          <v-autocomplete
+                          <v-select
                             deletable-chips
                             hide-details=""
                             id="vselect"
                             v-model="providers"
                             chips
                             :items="providersList"
-                            :menu-props="{ maxHeight: '400' }"
+                            :menu-props="{ maxHeight: '250' }"
                             label="Filter by provider"
                             multiple
                             persistent-hint
                             dense
-                          ></v-autocomplete>
+                          ></v-select>
                         </v-col>
                         <v-col cols="12" md="6" class="pt-1">
                           <v-checkbox v-model="cleanOnly" hide-details="">
@@ -295,6 +295,48 @@
         -->
 
         <!-- MOVIES / SHOWS tabs -->
+        <div>
+          <v-row align="left" style="margin-left:auto; margin-right: auto; margin-top: 15px">
+            <v-col class="pa-0">
+              <b style="font-size: 90%">Type:</b>
+              <v-chip
+                dense
+                small
+                class="ma-1"
+                @click="type = 'movie'"
+                :class="{ chipdown: type == 'movie' }"
+              >
+                <span v-if="!loading"> Movies: {{ movies.length }}</span>
+                <span v-else>
+                  Movies:
+                  <v-progress-circular
+                    :size="10"
+                    :width="1"
+                    indeterminate
+                    color="primary"
+                  ></v-progress-circular> </span
+              ></v-chip>
+              <v-chip
+                dense
+                small
+                class="ma-1"
+                @click="type = 'show'"
+                :class="{ chipdown: type == 'show' }"
+                ><span v-if="!loading">Shows: {{ shows.length }}</span>
+                <span v-else
+                  >Shows:
+                  <v-progress-circular
+                    :size="10"
+                    :width="1"
+                    indeterminate
+                    color="primary"
+                  ></v-progress-circular>
+                </span>
+              </v-chip>
+            </v-col>
+          </v-row>
+        </div>
+        <!--
         <div id="typeContent">
           <br />
           <p style="margin-bottom:0px">
@@ -307,13 +349,30 @@
             >
           </p>
         </div>
+        -->
 
         <div>
-          <v-row align="left" style="margin-left:auto; margin-right: auto; margin-top: 15px">
+          <v-row
+            align="left"
+            style="overflow-x: auto;  white-space: nowrap; margin-left:auto; margin-right: auto; margin-top: 15px"
+          >
             <v-col class="pa-0">
-              <div v-if="skipTags.length > 0">
-                <v-chip class="ma-1" small dense v-for="(item, index) in statsRecap" :key="index">
-                  <v-icon small :color="item.color">{{ item.icon }}</v-icon>
+              <b style="font-size: 90%">Filtering:</b>
+              <div v-if="skipTags.length > 0" style="display:inline;">
+                <v-chip
+                  class="ma-1"
+                  small
+                  dense
+                  v-for="(item, k) in statsRecap"
+                  :key="k"
+                  @click="
+                    statusFilter.includes(k)
+                      ? (statusFilter = statusFilter.filter(x => x != k))
+                      : statusFilter.push(k)
+                  "
+                  :class="{ chipdown: statusFilter.includes(k) }"
+                >
+                  <v-icon left small :color="item.color">{{ item.icon }}</v-icon>
                   <b v-if="!loading">{{ item.count }}</b>
                   <v-progress-circular
                     v-else
@@ -324,10 +383,9 @@
                   ></v-progress-circular>
                 </v-chip>
               </div>
-              <div v-else style="font-size: 90%">
-                Let us know your sensitivity (click the 'sensitivity' button), so we can help you
-                finding the right content to watch
-              </div>
+              <v-chip class="ma-1" small dense outlined @click="showFilters2 = true"
+                >{{ skipTags.length > 0 ? 'Change' : 'Add' }} your sensitivity</v-chip
+              >
             </v-col>
           </v-row>
         </div>
@@ -387,6 +445,8 @@ export default {
       showFilters: false,
       showFilters2: false,
       showFilters3: false,
+
+      statusFilter: [],
 
       providersList: [
         { text: 'Netflix', value: 'netflix' },
@@ -464,7 +524,7 @@ export default {
         clean_not_certified: { count: 0, icon: 'mdi-emoticon-happy', color: 'green' },
         cut_not_certified: { count: 0, icon: 'mdi-content-cut', color: 'green' },
         missing: { count: 0, icon: 'mdi-flag-variant', color: 'red' },
-        unknown: { count: 0, icon: 'mdi-progress-question', color: 'black' }
+        unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray' }
       }
       for (let item of this.items) {
         let tags_count = 0
@@ -499,15 +559,35 @@ export default {
 
     filteredList() {
       var xx = []
+      let max = 250
+      let i = 0
       this.items.forEach(item => {
-        xx.push(item)
+        //TODO: Make this more efficient. It's too slow.
+
+        let icon = this.getShieldIcon(item)
+        let color = this.getShieldColor(item)
+
+        let add = false
+        if (this.statusFilter.length == 0) add = true //show everything
+        for (let status of this.statusFilter) {
+          if (this.statsRecap[status].color == color && this.statsRecap[status].icon == icon) {
+            add = true
+          }
+        }
+
+        if (add) xx.push(item)
+        i++
+        if (i > max) {
+          return xx
+        }
+
         /*if (item.title) {
           if (searchMatch(this.title, item.title)) {
             xx.push(item)
           }
         }*/
       })
-      xx = xx.slice(0, 250)
+      xx = xx.slice(0, 250) //note: added return in the loop itself to avoid doing calculations with those we are going to remove.
       return xx
     },
     items() {
@@ -805,6 +885,15 @@ textarea {
 .skip {
   background-color: #9e9e9e !important;
   border-color: #9e9e9e !important;
+}
+
+/*.chipdown > span {
+  color: white !important;
+}*/
+.chipdown {
+  background-color: #9e9e9e !important; /*#9e9e9e !important;*/
+  border-color: #9e9e9e !important;
+  color: white !important;
 }
 
 .v-chip.v-size--default {
