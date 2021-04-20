@@ -2,13 +2,12 @@
   <div>
     <header id="header">
       <div class="inner">
-        <router-link to="/" class="logo"
-          >Ohana</router-link>
+        <router-link to="/" class="logo">Ohana</router-link>
         <nav id="nav">
           <router-link to="/">Home</router-link>
           <router-link to="/content">Content</router-link>
           <router-link to="/community">Community</router-link>
-          <router-link to="/stats">Stats</router-link>
+          <!--<router-link to="/stats">Stats</router-link>-->
           <router-link to="/about">About</router-link>
         </nav>
         <a href="#navPanel" class="navPanelToggle">
