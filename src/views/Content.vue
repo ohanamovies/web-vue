@@ -908,6 +908,7 @@ textarea {
 div.posters_wrapper {
   width: 100%;
   display: flex;
+  min-height: 250px;
 
   /*justify-content: space-between;*/
   flex-wrap: wrap;
@@ -934,12 +935,12 @@ div.posters_wrapper div.poster_card {
     (100% - 10px * 4) / 2
   ); /* 100% of the div, minus margins*4, and /2 (so at min, 2 posters fit the width)*/
   max-width: 208px;
-  /*min-width: 10px;*/
+  min-height: 200px;
 }
 
-div.posters_wrapper div.poster_card div.image img {
+div.posters_wrapper .image {
   width: 100%;
-  /*height: 100%;*/
+  min-height: 100%;
 }
 
 div.posters_wrapper div.poster_card div.content {
