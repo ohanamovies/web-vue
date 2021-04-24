@@ -306,7 +306,7 @@
                 @click="setType('movie')"
                 :class="{ chipdown: type == 'movie' }"
               >
-                <span v-if="!loading"> Movies: {{ movies.length }}</span>
+                <span v-if="!loading"> Movies</span>
                 <span v-else>
                   Movies:
                   <v-progress-circular
@@ -322,7 +322,7 @@
                 class="ma-1"
                 @click="setType('show')"
                 :class="{ chipdown: type == 'show' }"
-                ><span v-if="!loading">Shows: {{ shows.length }}</span>
+                ><span v-if="!loading">Shows</span>
                 <span v-else
                   >Shows:
                   <v-progress-circular
@@ -357,7 +357,7 @@
             style="overflow-x: auto;  white-space: nowrap; margin-left:auto; margin-right: auto; margin-top: 15px"
           >
             <v-col class="pa-0">
-              <b style="font-size: 90%">Filtering:</b>
+              <b style="font-size: 90%">Content safety:</b>
               <div v-if="skipTags.length > 0" style="display:inline;">
                 <v-chip
                   class="ma-1"
@@ -373,7 +373,7 @@
                   :class="{ chipdown: statusFilter.includes(k) }"
                 >
                   <v-icon left small :color="item.color">{{ item.icon }}</v-icon>
-                  <b v-if="!loading">{{ item.count }}</b>
+                  <b v-if="!loading">{{ item.label }}</b>
                   <v-progress-circular
                     v-else
                     :size="10"
@@ -521,12 +521,12 @@ export default {
     statsRecap() {
       //Summary of the status by "status" (or icon). This populates the chips with the icons.
       let output = {
-        clean_certified: { count: 0, icon: 'mdi-emoticon-happy', color: 'blue' },
-        cut_certified: { count: 0, icon: 'mdi-content-cut', color: 'blue' },
-        clean_not_certified: { count: 0, icon: 'mdi-emoticon-happy', color: 'green' },
-        cut_not_certified: { count: 0, icon: 'mdi-content-cut', color: 'green' },
-        missing: { count: 0, icon: 'mdi-flag-variant', color: 'red' },
-        unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray' }
+        clean_certified: { count: 0, icon: 'mdi-emoticon-happy', color: 'blue', label: 'Certified clean' },
+        cut_certified: { count: 0, icon: 'mdi-content-cut', color: 'blue', label: 'Certified with cuts' },
+        clean_not_certified: { count: 0, icon: 'mdi-emoticon-happy', color: 'green', label: 'Clean' },
+        cut_not_certified: { count: 0, icon: 'mdi-content-cut', color: 'green', label: 'Clean with cuts' },
+        missing: { count: 0, icon: 'mdi-flag-variant', color: 'red', label: 'Unwanted content' },
+        unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray', label: 'Unknown' },
       }
       for (let item of this.items) {
         let tags_count = 0
@@ -579,14 +579,8 @@ export default {
       return xx
     },
     items() {
-      return this.listType(this.type)
+      return this.data
     },
-    movies() {
-      return this.listType('movie')
-    },
-    shows() {
-      return this.listType('show')
-    }
   },
   methods: {
     getProvider(watchUrl) {
@@ -715,21 +709,6 @@ export default {
 
       // Otherwise
       return 'unknown'
-    },
-
-    listType(type) {
-      var auxx = []
-      this.data.forEach(e => {
-        //TODO: check if tagged content
-        if (type == 'movie') {
-          if (e.type == 'movie') auxx.push(e)
-        }
-        if (type == 'show') {
-          if (e.type != 'movie') auxx.push(e)
-        }
-      })
-      console.log(type, auxx)
-      return auxx
     },
 
     buildURL(query) {
