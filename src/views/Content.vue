@@ -303,7 +303,7 @@
                 dense
                 small
                 class="ma-1"
-                @click="type = 'movie'"
+                @click="setType('movie')"
                 :class="{ chipdown: type == 'movie' }"
               >
                 <span v-if="!loading"> Movies: {{ movies.length }}</span>
@@ -320,7 +320,7 @@
                 dense
                 small
                 class="ma-1"
-                @click="type = 'show'"
+                @click="setType('show')"
                 :class="{ chipdown: type == 'show' }"
                 ><span v-if="!loading">Shows: {{ shows.length }}</span>
                 <span v-else
@@ -392,7 +392,7 @@
 
         <!-- POSTERS -->
 
-        <div class="posters_wrapper" id="infinite-list">
+        <div class="posters_wrapper">
           <div class="poster_card" v-for="(item, index) in filteredList" :key="index">
             <div class="image" style="width:100%">
               <!-- poster_path -->
@@ -598,6 +598,11 @@ export default {
       if (h.includes('primevideo')) return 'Prime Video'
       if (h.includes('disneyplus')) return 'Disney Plus'
       return h
+    },
+    setType( type ){
+      this.type = type
+      this.getData()
+      this.data = []
     },
     updateLocalStorage() {
       let x = {
