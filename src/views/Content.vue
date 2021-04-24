@@ -392,7 +392,7 @@
 
         <!-- POSTERS -->
 
-        <div class="posters_wrapper">
+        <div class="posters_wrapper" id="infinite-list">
           <div class="poster_card" v-for="(item, index) in filteredList" :key="index">
             <div class="image" style="width:100%">
               <!-- poster_path -->
@@ -442,6 +442,8 @@ export default {
       data: [],
       loading: true,
       fetchedAt: '', //aux variable to make sure we refresh data with latest getData() request, not last arriving (async)
+      page: 1,
+      finishLoading: false,
       showFilters: false,
       showFilters2: false,
       showFilters3: false,
@@ -559,8 +561,6 @@ export default {
 
     filteredList() {
       var xx = []
-      let max = 250
-      let i = 0
       this.items.forEach(item => {
         //TODO: Make this more efficient. It's too slow.
 
@@ -574,20 +574,8 @@ export default {
             add = true
           }
         }
-
         if (add) xx.push(item)
-        i++
-        if (i > max) {
-          return xx
-        }
-
-        /*if (item.title) {
-          if (searchMatch(this.title, item.title)) {
-            xx.push(item)
-          }
-        }*/
       })
-      xx = xx.slice(0, 250) //note: added return in the loop itself to avoid doing calculations with those we are going to remove.
       return xx
     },
     items() {
@@ -628,9 +616,6 @@ export default {
 
         //update caring tags
         let xx = x.sliders
-        /*this.sexSlider = xx.filter(tag => tag.includes('erotic')).length
-        this.vioSlider = xx.filter(tag => tag.includes('gore')).length
-        this.profSlider = xx.filter(tag => tag.includes('...')).length*/
         this.sexSlider = xx.sexSlider
         this.vioSlider = xx.vioSlider
         this.profSlider = xx.profSlider
@@ -753,32 +738,55 @@ export default {
       return url
     },
 
-    getData() {
+    getMoreData() {
+      if (this.finishLoading || this.loading) return
+      this.loading = true
+      this.page += 1
+      console.log('getMoreData ',this.page)
+      this.getData(true)
+    },
+
+    getData(more) {
+      this.loading = true
+
+      if (!more) {
+        console.log('first page')
+        this.page = 1
+        this.finishLoading = false
+      }
       let fetchedAt = new Date()
       this.fetchedAt = fetchedAt
 
       var url = this.buildURL({
         action: 'findMovies',
         title: this.title ? this.title : '',
-        tagged: this.cleanOnly ? JSON.stringify(this.skipTags) : '[]', //TODO: can we use null?
+        tagged: this.cleanOnly ? JSON.stringify(this.skipTags) : '[]',
         providers: JSON.stringify(this.providers),
         certified: this.certifiedOnly ? 6 : 0,
-        genres: JSON.stringify(this.genres)
+        genres: JSON.stringify(this.genres),
+        type: this.type,
+        page: this.page
       })
 
-      this.loading = true
       fetch(url)
-        .then(response => response.json())
+        .then(r => r.json())
         .then(data => {
-          console.log(data)
-
-          if (fetchedAt == this.fetchedAt) {
-            console.log('[getData] propagate data')
-            this.data = data
-            this.loading = false
-          } else {
+          console.log('[getData] ', this.page, fetchedAt)
+          if (fetchedAt != this.fetchedAt) {
             console.log('[getData] old request. ignoring')
+            return
           }
+          if (this.page != 1) {
+            console.log('pushing data ', data)
+            if (data.length < 50) this.finishLoading = true
+            this.data = [...this.data,...data]
+            this.$forceUpdate();
+            console.log('total data length',this.data.length)
+          } else {
+            console.log('setting data')
+            this.data = data
+          }
+          this.loading = false
         })
     }
   },
@@ -786,8 +794,18 @@ export default {
   mounted() {
     this.loadLocalStorage()
 
-    //now search!
+    //load some data
     this.getData()
+
+    // Detect when scrolled to bottom.
+    const footer = document.querySelector('#footer')
+    const body = document.getElementsByTagName('body')[0]
+    body.onscroll = () => {
+      let left = body.clientHeight - window.innerHeight - footer.clientHeight - window.scrollY
+      if (left < 100) {
+        this.getMoreData()
+      }
+    }
   }
 }
 </script>
@@ -795,6 +813,12 @@ export default {
 <!-- <style scoped>-->
 <style>
 /* Note: i had to remove the "scoped" keyword after style to override the input styles*/
+
+body {
+  /* We need to limit the height and show a scrollbar
+  height: 300px;*/
+  overflow: auto;
+}
 
 .mdi {
   all: initial;
