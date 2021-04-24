@@ -533,7 +533,7 @@ export default {
         let all_done = true //default
         let missing = false //default
         for (let tag of this.skipTags) {
-          tags_count += item.tags_count ? (item.tags_count[tag] ? item.tags_count[tag] : 0) : 0
+          tags_count += item.tagged ? (item.tagged[tag] ? item.tagged[tag][0] : 0) : 0
           if (!item.tags_done.includes(tag)) all_done = false
           if (item.tags_missing.includes(tag)) missing = true
         }
@@ -646,7 +646,7 @@ export default {
           //done
         } else if (item.tags_done.includes(st)) {
           if (!taggedAux.safe) taggedAux.safe = []
-          label += ' (' + (item.tags_count[st] > 0 ? item.tags_count[st] : 0) + ')'
+          label += ' (' + (item.tagged[st]? item.tagged[st][0] : 0) + ')'
           taggedAux.safe.push(label)
           //unknown
         } else {
@@ -677,7 +677,7 @@ export default {
       try {
         for (let i = 0; i < this.skipTags.length; i++) {
           const st = this.skipTags[i]
-          if (Object.keys(item.tags_count).includes(st)) scenesCount += item.tags_count[st]
+          if (Object.keys(item.tagged).includes(st)) scenesCount += item.tagged[st][0]
         }
       } catch (error) {
         scenesCount = 1 // when "tags_count: null"
@@ -943,7 +943,7 @@ div.posters_wrapper div.poster_card {
     (100% - 10px * 4) / 2
   ); /* 100% of the div, minus margins*4, and /2 (so at min, 2 posters fit the width)*/
   max-width: 208px;
-  min-height: 200px;
+  /*min-height: 200px;*/
 }
 
 div.posters_wrapper .image {
