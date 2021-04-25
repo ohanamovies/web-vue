@@ -308,7 +308,7 @@
               >
                 <span v-if="!loading"> Movies</span>
                 <span v-else>
-                  Movies:
+                  Movies
                   <v-progress-circular
                     :size="10"
                     :width="1"
@@ -324,7 +324,7 @@
                 :class="{ chipdown: type == 'show' }"
                 ><span v-if="!loading">Shows</span>
                 <span v-else
-                  >Shows:
+                  >Shows
                   <v-progress-circular
                     :size="10"
                     :width="1"
@@ -352,39 +352,39 @@
         -->
 
         <div>
-          <v-row
-            align="left"
-            style="overflow-x: auto;  white-space: nowrap; margin-left:auto; margin-right: auto; margin-top: 15px"
-          >
+          <v-row align="left" style="margin-left:auto; margin-right: auto; margin-top: 15px">
             <v-col class="pa-0">
-              <b style="font-size: 90%">Content safety:</b>
+              <b style="font-size: 90%">Safety:</b>
               <v-chip class="ma-1" small dense outlined @click="showFilters2 = true"
-                >{{ skipTags.length > 0 ? 'Based' : 'Based' }} on your sensitivity</v-chip
+                >{{ skipTags.length > 0 ? 'Change' : 'Let us know' }} your sensitivity</v-chip
               >
-              <div v-if="skipTags.length > 0" style="display:inline;">
-                <v-chip
-                  class="ma-1"
-                  small
-                  dense
-                  v-for="(item, k) in statsRecap"
-                  :key="k"
-                  @click="
-                    statusFilter.includes(k)
-                      ? (statusFilter = statusFilter.filter(x => x != k))
-                      : statusFilter.push(k)
-                  "
-                  :class="{ chipdown: statusFilter.includes(k) }"
-                >
-                  <v-icon left small :color="item.color">{{ item.icon }}</v-icon>
-                  <b v-if="!loading">{{ item.label }}</b>
-                  <v-progress-circular
-                    v-else
-                    :size="10"
-                    :width="1"
-                    indeterminate
-                    color="primary"
-                  ></v-progress-circular>
-                </v-chip>
+
+              <div style="overflow-x: auto;  white-space: nowrap; ">
+                <div v-if="skipTags.length > 0" style="display:inline;">
+                  <v-chip
+                    class="ma-1"
+                    small
+                    dense
+                    v-for="(item, k) in statsRecap"
+                    :key="k"
+                    @click="
+                      statusFilter.includes(k)
+                        ? (statusFilter = statusFilter.filter(x => x != k))
+                        : statusFilter.push(k)
+                    "
+                    :class="{ chipdown: statusFilter.includes(k) }"
+                  >
+                    <v-icon left small :color="item.color">{{ item.icon }}</v-icon>
+                    <b v-if="!loading">{{ item.label }}</b>
+                    <v-progress-circular
+                      v-else
+                      :size="10"
+                      :width="1"
+                      indeterminate
+                      color="primary"
+                    ></v-progress-circular>
+                  </v-chip>
+                </div>
               </div>
             </v-col>
           </v-row>

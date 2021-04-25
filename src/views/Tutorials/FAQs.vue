@@ -5,34 +5,11 @@
 
     <section id="main" class="wrapper">
       <div class="inner">
-        <header>
-          <h1>Get started with Ohana</h1>
-
-          <p>
-            Welcome to Ohana! In this page we will explain you what Ohana is, how to install it, and
-            how does it work.
-          </p>
-          <p>This page is being built now, so don't judge us yet. We will improve it soon.</p>
-        </header>
         <div>
-          <h2>Frequently Asked Questions</h2>
+          <h1>Frequently Asked Questions</h1>
 
           <h3>What is Ohana?</h3>
-          <p>
-            Ohana is a Chrome extion which, once installed, gives you the power to skip scenes from
-            movies, based on your own personal taste and preferences.
-          </p>
-          <p>
-            Don't like watching bloody scenes? Tell Ohana to skip the Very Violent content.
-          </p>
-          <p>
-            Being a Chrome extension, Ohana works on top of your browser, and embeds itself within
-            Netflix, HBO, etc.
-          </p>
-          <p>
-            If you want to watch movies, but don't like watching some of the scenes those movie
-            have, you will be pleased to meet Ohana.
-          </p>
+          <p>Refer to <router-link to="/get-started">this page</router-link>.</p>
 
           <h3>How can I get Ohana?</h3>
           <p>Ohana only works when you watch content on one of the following providers:</p>
@@ -45,7 +22,7 @@
             href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
             class="button special"
             target="_blank"
-            style="margin: 5px;"
+            style="margin: 5px; margin-top: 0px; margin-bottom: 12px"
             >Get Ohana</a
           >
 
@@ -163,32 +140,7 @@
 </template>
 
 <script>
-const rawTags = require('../assets/raw_tags')
-export default {
-  data() {
-    return {
-      key: 'value',
-      tags: rawTags.content,
-      providersList: [
-        { text: 'Netflix', value: 'netflix' },
-        { text: 'HBO', value: 'hbo' },
-        { text: 'Movistar', value: 'movistar' },
-        { text: 'Disney Plus', value: 'disneyplus' },
-        { text: 'Rakuten', value: 'rakuten' }
-      ]
-    }
-  }
-}
+export default {}
 </script>
 
-<style>
-.fakeUL > p {
-  margin-bottom: 2px !important;
-  margin-left: 8px;
-}
-h3 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-</style>
+<style lang="scss" scoped></style>
