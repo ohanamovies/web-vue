@@ -24,8 +24,18 @@
           <div>
             <h2>What is Ohana?</h2>
             <p>
-              Ohana is a Chrome extion which, once installed, gives you the power to skip scenes
-              from movies, based on your own personal taste and preferences.
+              Ohana is a combination of data and tools which goal is to let people like you watch
+              movies and shows without having to worry about avoiding the content you and your
+              people don't like to watch (sex scenes, violent content, etc.)
+            </p>
+            <p>
+              Ohana means Family in Hawuaiian. And that's our name because Ohana is a community of
+              people like you that share information about the movies and that together creates the
+              tools needed to make this vision 1-click easy.
+            </p>
+            <p>
+              Chrome extion which, once installed, gives you the power to skip scenes from movies,
+              based on your own personal taste and preferences.
             </p>
             <p>
               Don't like watching bloody scenes? Tell Ohana to skip the Very Violent content.
