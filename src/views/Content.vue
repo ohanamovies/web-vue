@@ -408,8 +408,15 @@
               <p style="font-size:16px; line-height:normal">{{ item.title }}</p>
 
               <p>
-                <a v-if="item.watch_url" target="_blanck" :href="item.watch_url"
-                  >Watch on {{ getProvider(item.watch_url) }}</a
+                <a v-if="item.watch_url" target="_blanck" :href="item.watch_url">{{
+                  getProvider(item.watch_url)
+                }}</a>
+                &nbsp;&nbsp;
+                <a
+                  v-if="item.imdb"
+                  target="_blanck"
+                  :href="'https://www.imdb.com/title/' + item.imdb"
+                  >IMDB</a
                 >
               </p>
               <p
@@ -521,12 +528,32 @@ export default {
     statsRecap() {
       //Summary of the status by "status" (or icon). This populates the chips with the icons.
       let output = {
-        clean_certified: { count: 0, icon: 'mdi-emoticon-happy', color: 'blue', label: 'Certified clean' },
-        cut_certified: { count: 0, icon: 'mdi-content-cut', color: 'blue', label: 'Certified with cuts' },
-        clean_not_certified: { count: 0, icon: 'mdi-emoticon-happy', color: 'green', label: 'Clean' },
-        cut_not_certified: { count: 0, icon: 'mdi-content-cut', color: 'green', label: 'Clean with cuts' },
+        clean_certified: {
+          count: 0,
+          icon: 'mdi-emoticon-happy',
+          color: 'blue',
+          label: 'Certified clean'
+        },
+        cut_certified: {
+          count: 0,
+          icon: 'mdi-content-cut',
+          color: 'blue',
+          label: 'Certified with cuts'
+        },
+        clean_not_certified: {
+          count: 0,
+          icon: 'mdi-emoticon-happy',
+          color: 'green',
+          label: 'Clean'
+        },
+        cut_not_certified: {
+          count: 0,
+          icon: 'mdi-content-cut',
+          color: 'green',
+          label: 'Clean with cuts'
+        },
         missing: { count: 0, icon: 'mdi-flag-variant', color: 'red', label: 'Unwanted content' },
-        unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray', label: 'Unknown' },
+        unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray', label: 'Unknown' }
       }
       for (let item of this.items) {
         let tags_count = 0
@@ -580,7 +607,7 @@ export default {
     },
     items() {
       return this.data
-    },
+    }
   },
   methods: {
     getProvider(watchUrl) {
@@ -593,7 +620,7 @@ export default {
       if (h.includes('disneyplus')) return 'Disney Plus'
       return h
     },
-    setType( type ){
+    setType(type) {
       this.type = type
       this.getData()
       this.data = []
@@ -646,7 +673,7 @@ export default {
           //done
         } else if (item.tags_done.includes(st)) {
           if (!taggedAux.safe) taggedAux.safe = []
-          label += ' (' + (item.tagged[st]? item.tagged[st][0] : 0) + ')'
+          label += ' (' + (item.tagged[st] ? item.tagged[st][0] : 0) + ')'
           taggedAux.safe.push(label)
           //unknown
         } else {
@@ -726,7 +753,7 @@ export default {
       if (this.finishLoading || this.loading) return
       this.loading = true
       this.page += 1
-      console.log('getMoreData ',this.page)
+      console.log('getMoreData ', this.page)
       this.getData(true)
     },
 
@@ -744,9 +771,9 @@ export default {
       var url = this.buildURL({
         action: 'findMovies',
         title: this.title ? this.title : '',
-        tagged: this.cleanOnly ? JSON.stringify(this.skipTags) : '[]',
+        clean: this.cleanOnly ? JSON.stringify(this.skipTags) : '[]',
         providers: JSON.stringify(this.providers),
-        certified: this.certifiedOnly ? 6 : 0,
+        certified: this.certifiedOnly ? JSON.stringify(this.skipTags) : '[]',
         genres: JSON.stringify(this.genres),
         type: this.type,
         page: this.page
@@ -763,9 +790,9 @@ export default {
           if (this.page != 1) {
             console.log('pushing data ', data)
             if (data.length < 50) this.finishLoading = true
-            this.data = [...this.data,...data]
-            this.$forceUpdate();
-            console.log('total data length',this.data.length)
+            this.data = [...this.data, ...data]
+            this.$forceUpdate()
+            console.log('total data length', this.data.length)
           } else {
             console.log('setting data')
             this.data = data
