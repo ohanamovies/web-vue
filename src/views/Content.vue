@@ -358,6 +358,9 @@
           >
             <v-col class="pa-0">
               <b style="font-size: 90%">Content safety:</b>
+              <v-chip class="ma-1" small dense outlined @click="showFilters2 = true"
+                >{{ skipTags.length > 0 ? 'Based' : 'Based' }} on your sensitivity</v-chip
+              >
               <div v-if="skipTags.length > 0" style="display:inline;">
                 <v-chip
                   class="ma-1"
@@ -383,9 +386,6 @@
                   ></v-progress-circular>
                 </v-chip>
               </div>
-              <v-chip class="ma-1" small dense outlined @click="showFilters2 = true"
-                >{{ skipTags.length > 0 ? 'Change' : 'Add' }} your sensitivity</v-chip
-              >
             </v-col>
           </v-row>
         </div>
@@ -550,9 +550,9 @@ export default {
           count: 0,
           icon: 'mdi-content-cut',
           color: 'green',
-          label: 'Clean with cuts'
+          label: 'Cleaned by our users'
         },
-        missing: { count: 0, icon: 'mdi-flag-variant', color: 'red', label: 'Unwanted content' },
+        missing: { count: 0, icon: 'mdi-flag-variant', color: 'red', label: 'Unwanted' },
         unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray', label: 'Unknown' }
       }
       for (let item of this.items) {
@@ -813,7 +813,7 @@ export default {
     const body = document.getElementsByTagName('body')[0]
     body.onscroll = () => {
       let left = body.clientHeight - window.innerHeight - footer.clientHeight - window.scrollY
-      if (left < 100) {
+      if (left < 200) {
         this.getMoreData()
       }
     }
