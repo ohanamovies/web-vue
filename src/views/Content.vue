@@ -352,9 +352,10 @@
         -->
 
         <div>
+          <!-- Content safety chips -->
           <v-row align="left" style="margin-left:auto; margin-right: auto; margin-top: 15px">
             <v-col class="pa-0">
-              <b style="font-size: 90%">Safety:</b>
+              <b style="font-size: 90%">Safety</b>
               <v-chip class="ma-1" small dense outlined @click="showFilters2 = true"
                 >{{ skipTags.length > 0 ? 'Change' : 'Let us know' }} your sensitivity</v-chip
               >
@@ -388,6 +389,41 @@
               </div>
             </v-col>
           </v-row>
+          <!-- Providers  chips - ->
+          <v-row align="left" style="margin-left:auto; margin-right: auto; margin-top: 15px">
+            <v-col class="pa-0">
+              <b style="font-size: 90%">Providers</b>
+              <div style="display:inline;">
+                <div style="overflow-x: auto;  white-space: nowrap; ">
+                  <v-chip
+                    class="ma-1"
+                    small
+                    dense
+                    v-for="(item, index) in providersList"
+                    :key="index"
+                    @click="
+                      providers.includes(item.value)
+                        ? (providers = providers.filter(x => x != item.value))
+                        : providers.push(item.value)
+                    "
+                    :class="{ chipdown: providers.includes(item.value) }"
+                  >
+                    <b>{{ item.text }}</b>
+                    <v-progress-circular
+                      v-if="loading"
+                      :size="10"
+                      :width="1"
+                      indeterminate
+                      color="primary"
+                    ></v-progress-circular>
+                  </v-chip>
+                </div>
+              </div>
+            </v-col>
+          </v-row>
+          -->
+
+          <!-- pending: genre chips -->
         </div>
 
         <!-- POSTERS -->
@@ -460,8 +496,8 @@ export default {
       providersList: [
         { text: 'Netflix', value: 'netflix' },
         { text: 'HBO', value: 'hbo' },
-        { text: 'Movistar', value: 'movistar' },
         { text: 'Disney Plus', value: 'disneyplus' },
+        { text: 'Movistar', value: 'movistar' },
         { text: 'Rakuten', value: 'rakuten' }
       ],
 
@@ -927,7 +963,7 @@ textarea {
 }*/
 .chipdown {
   background-color: #9e9e9e !important; /*#9e9e9e !important;*/
-  border-color: #9e9e9e !important;
+  border-color: black !important;
   color: white !important;
 }
 
