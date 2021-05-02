@@ -6,53 +6,19 @@
     <section id="main" class="wrapper" style="max-width: 700px; margin:auto">
       <div class="inner">
         <div>
-          <h2>Learn about Ohana</h2>
-
-          <p>
-            In this page we will explain you what Ohana is, how to install it, and
-            how it work. This page is being built as you read it, so don't judge us too hard on it.
-            We will improve it soon.
-          </p>
-
+          Here you will find a quick introduction on how to use Ohana, this is:
           <ol>
-            <li><a href="#what-is-ohana">What is Ohana</a></li>
             <li><a href="#how-to-watch">How to watch clean movies</a></li>
             <li><a href="#how-to-create-filters">How to create filters</a></li>
-            <li><a href="#more">...</a></li>
           </ol>
-
           <p>
-            For more information, check out our Frequently Asked Questions
-            <router-link to="/faqs">here</router-link>.
+            To learn what's Ohana visit our <router-link to="/about">About section</router-link>.
+            For a list of the most frequency asked questions visit our
+            <router-link to="/faqs">FAQs</router-link>.
           </p>
         </div>
 
         <div id="main-tutorial-content">
-          <div id="what-is-ohana">
-            <h2>What is Ohana?</h2>
-            <p>
-              Ohana means Family in Hawuaiian. And that's our name because Ohana is a community of
-              families and movie fans like you that share a passion for good clean movies.
-            </p>
-            <p>
-              Our community develops a combination of data and tools whose goal is to let people
-              like you watch movies and shows without having to worry about that annoying or
-              innapropiate content they don't want to watch (sex scenes, violent content, etc.)
-            </p>
-            <!--<p>
-              Chrome extion which, once installed, 
-            </p>-->
-            <p>
-              Our Chrome extension embeds itself within Netflix, HBO, etc. enabling you to skip
-              those scenes you do not want to watch. With Ohana you decide what to watch and what to
-              skip! Don't like watching bloody scenes? Tell Ohana to skip the Very Violent content.
-            </p>
-            <p>
-              If you want to watch great movies, but don't like watching some of the scenes those
-              movies sometimes have, you will be pleased to meet Ohana.
-            </p>
-          </div>
-
           <div id="how-to-watch">
             <h2>How to watch a clean movie</h2>
 
@@ -73,9 +39,8 @@
             <h4>Step 2. Define your sensitivity</h4>
 
             <p>
-              You can now define what kind of content you want Ohana to skip for you. These settings
-              will be used all around to customize your Ohana experience to fit your taste just
-              right.
+              You can now define what kind of content you want to skip. These settings will be used
+              all around to customize your Ohana experience.
             </p>
 
             <p>
@@ -91,7 +56,8 @@
             <h4>Step 3. Find a good clean movie to watch</h4>
 
             <p>
-              To help you find a good clean movie we use a set of icons to let you known if (based on your personal settings) a movie / show can be watched safely.
+              To help you find a good clean movie we use a set of icons to let you known if (based
+              on your personal settings) a movie / show can be watched safely.
             </p>
             <div class="fakeUL">
               <p>
@@ -115,7 +81,7 @@
                 <v-icon color="gray">mdi-progress-question</v-icon><b>Unknown:</b> We can't help as
                 we don't have information yet.
               </p>
-              <br>
+              <br />
               <p>You will see those icons after telling us your sensitivity, in multiple places:</p>
               <ol>
                 <li>
@@ -137,7 +103,8 @@
               <p>
                 While watching a movie/show, the Ohana logo on the Chrome toolbar will change to let
                 you know if, based on your settings, that movie/show is safe to watch.
-              </p><br>
+              </p>
+              <br />
               <p>
                 If you click on the icon, you will see a detailed list of scenes being skipped. Here
                 you can manually define which scenes to skip and which ones to watch on a one to one
@@ -148,9 +115,58 @@
 
           <div id="how-to-create-filters">
             <h2>How to create new filters</h2>
+
+            <h4>Step 1. Identify a movie/series</h4>
+            <p>
+              To identify which movies require editing you can either visit our page and filter by
+              <i>Unkown</i> <v-icon color="gray">mdi-progress-question</v-icon> or <i>Unsafe</i>
+              <v-icon color="red">mdi-flag-variant</v-icon>
+            </p>
+            <p>
+              Or simply choose your favourite movie / series to watch, Ohana will tell you whether
+              the movie has been reviewed and is safe to watch or whether no one has edited it
+              before and it may include unwanted content.
+            </p>
+            <p>
+              For the latter case, you are very much encouraged to take the initiative and edit the
+              movie yourself, it takes less than 5’ and you will help the rest of the Ohana
+              community.
+            </p>
+
+            <h4>Step 2. Open the editor's sidebar</h4>
+            <p>
+              Start watching the movie/episode you want to create filters for. Open the Ohana extension popup and click on the 'Edit
+              filters' button.
+            </p>
+            <p>
+              A sidebar will open. Follow the instructions to login/register and become an Ohana editor!
+
+              When you first register you will join as a <i>Young Padawan</i>, as you grow in the use of Ohana and increase your community recognition, you will progress into a <i>Jedi Master</i> with full editing powers!
+            </p>
+
+            <h4>Step 3. Create filters</h4>
+            <p>
+              Grab some popcorn and start watching the movie/series. If you spot anything you want to flag, press the "New filter" button or the keyboard shortcut "Alt + N". (If you already know where the unwanted scene is, you can fastforward to that time and follow the same process).
+            </p>
+            <p>
+              To protect you from unwanted content, while adding a scene the movie will get muted and a bit blurred. You can control this behaviour with the 'blur on mark' and 'mute on mark' inputs.
+            </p>
+            <p>
+              To mark the end of the unwanted scene press "End filter" or "Alt + N". A popup asking you to fine tune the filter will open.
+            </p>
+
+            <h4>Step 4. Fine tune filters</h4>
+            <p>Follow the instrucctions on the popup to fine the created filter...</p>
+
+
+            <h4>Step 5. Set filter status</h4>
+
+            <p>Repeat steps 3 and 4 until all the unwanted scenes have been added. And last but not least, it is importat to update the filter status to let everyone know this movie is now safe to watch!</p>
+
+            <p>Click the "Set filter status" button and select, for each category &amp; tag, the right status. Click on save and you are done! Now everyone in the world can enjoy a clean movie/episode! In the name of everyone: thank you, you are a hero!</p>
           </div>
 
-          <div id="more">
+          <!--<div id="more">
             <h2>How to install Ohana</h2>
             <p>
               As a basic, you can use <router-link to="/content">this section</router-link> of the
@@ -185,17 +201,11 @@
                 The movie/show you are watching has been reviewed by Ohana or one of our editor.
               </li>
             </ol>
-
-            <p>Now that we made that clear, let's get started:</p>
-          </div>
-
-          <div>
-            <h2>Overview of the Ohana extension</h2>
           </div>
 
           <div>
             <h2>How to find &amp; watch filtered movies?</h2>
-          </div>
+          </div>-->
         </div>
       </div>
     </section>

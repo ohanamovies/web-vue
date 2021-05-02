@@ -70,8 +70,9 @@
                   <v-card>
                     <v-card-text>
                       <v-row align="left">
+                        <h4>What do you want to skip?</h4>
                         <v-col cols="12" sm="12" md="12">
-                          <b>Sex/Nudity: </b> <span>What do you want to skip? </span>
+                          <b>Sex/Nudity: </b>
                           <div class="sliderticks">
                             <v-chip
                               label
@@ -100,7 +101,7 @@
                           </div> </v-col
                         ><v-col cols="12" sm="12" md="12">
                           <!--  cols="12" sm="6" md="4" -->
-                          <b>Violence/Gore: </b> <span>What do you want to skip? </span>
+                          <b>Violence/Gore: </b>
                           <div class="sliderticks">
                             <v-chip
                               label
@@ -130,7 +131,7 @@
                         </v-col>
 
                         <v-col cols="12" sm="12" md="12">
-                          <b>Profanity: </b> <span>What do you want to skip? </span>
+                          <b>Profanity: </b>
                           <div class="sliderticks">
                             <v-chip
                               label
@@ -949,7 +950,7 @@ textarea {
   content: url('https://api.iconify.design/mdi:eye-off.svg?height=12');
   color: white !important;
   opacity: 0.4;
-  padding-top: 3px;
+  /*padding-top: 3px;*/
   padding-right: 2px;
 }
 
