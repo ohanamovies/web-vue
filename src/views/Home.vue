@@ -36,7 +36,7 @@
             class="button special"
             target="_blank"
             style="margin: 5px;"
-            >Get Ohana</a
+            >Install</a
           >
 
           <a

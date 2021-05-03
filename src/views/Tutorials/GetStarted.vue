@@ -59,29 +59,24 @@
               To help you find a good clean movie we use a set of icons to let you known if (based
               on your personal settings) a movie / show can be watched safely.
             </p>
-            <div class="fakeUL">
+            <div>
               <p>
                 <v-icon color="green">mdi-emoticon-happy</v-icon><b>Clean:</b> Content was
-                originally safe, it didn't need to be cut.
-              </p>
-              <p>
+                originally safe, it didn't need to be cut.<br />
+
                 <v-icon color="green">mdi-content-cut</v-icon><b>Cut:</b> There was unwanted
-                content, but we will skip it all for you.
-              </p>
-              <p>
+                content, but we will skip it all for you.<br />
+
                 <v-icon color="blue">mdi-emoticon-happy</v-icon> |
                 <v-icon color="blue">mdi-content-cut</v-icon><b>Ohana Clean/Cut:</b> Blue icons
-                indicate it has been reviewed by Ohana trusted editors.
-              </p>
-              <p>
+                indicate it has been reviewed by Ohana trusted editors.<br />
+
                 <v-icon color="red">mdi-flag-variant</v-icon><b>Unsafe:</b> Unwanted content was
-                flagged, but it's not cut yet.
-              </p>
-              <p>
+                flagged, but it's not cut yet.<br />
+
                 <v-icon color="gray">mdi-progress-question</v-icon><b>Unknown:</b> We can't help as
                 we don't have information yet.
               </p>
-              <br />
               <p>You will see those icons after telling us your sensitivity, in multiple places:</p>
               <ol>
                 <li>
@@ -95,11 +90,11 @@
               </ol>
 
               <h4>Step 4. Enjoy the movie!</h4>
-
-              Grab some popcorn an enjoy the movie! We will skip all the unwanted content for you!
+              <p>
+                Grab some popcorn an enjoy the movie! We will skip all the unwanted content for you!
+              </p>
 
               <h4>Step 5. Pro tip</h4>
-
               <p>
                 While watching a movie/show, the Ohana logo on the Chrome toolbar will change to let
                 you know if, based on your settings, that movie/show is safe to watch.
@@ -116,54 +111,65 @@
           <div id="how-to-create-filters">
             <h2>How to create new filters</h2>
 
-            <h4>Step 1. Identify a movie/series</h4>
+            <h4>Step 1. Get ready</h4>
             <p>
-              To identify which movies require editing you can either visit our page and filter by
+              Make sure you have Ohana installed and that you have selected a good movie/series to
+              filter.
+            </p>
+            <p>
+              You can easily identify which movies require editing by looking for the
               <i>Unkown</i> <v-icon color="gray">mdi-progress-question</v-icon> or <i>Unsafe</i>
-              <v-icon color="red">mdi-flag-variant</v-icon>
-            </p>
-            <p>
-              Or simply choose your favourite movie / series to watch, Ohana will tell you whether
-              the movie has been reviewed and is safe to watch or whether no one has edited it
-              before and it may include unwanted content.
-            </p>
-            <p>
-              For the latter case, you are very much encouraged to take the initiative and edit the
-              movie yourself, it takes less than 5’ and you will help the rest of the Ohana
-              community.
+              <v-icon color="red">mdi-flag-variant</v-icon> icons, either by browsing your favourite
+              provider or in the <router-link to="/content">content</router-link> section of this
+              website. (If you click on the <i>Unkown</i> and <i>Unsafe</i> label on the website,
+              you will see those movies that require editing).
             </p>
 
             <h4>Step 2. Open the editor's sidebar</h4>
             <p>
-              Start watching the movie/episode you want to create filters for. Open the Ohana extension popup and click on the 'Edit
-              filters' button.
+              Start watching the movie/episode you want to create filters for. Open the Ohana
+              extension popup and click on the 'Edit filters' button.
             </p>
             <p>
-              A sidebar will open. Follow the instructions to login/register and become an Ohana editor!
-
-              When you first register you will join as a <i>Young Padawan</i>, as you grow in the use of Ohana and increase your community recognition, you will progress into a <i>Jedi Master</i> with full editing powers!
+              A sidebar will open. Follow the instructions to login/register and become an Ohana
+              editor! When you first register you will join as a <i>Young Padawan</i>, as you grow
+              in the use of Ohana and increase your community recognition, you will progress into a
+              <i>Jedi Master</i> with full editing powers!
             </p>
 
             <h4>Step 3. Create filters</h4>
             <p>
-              Grab some popcorn and start watching the movie/series. If you spot anything you want to flag, press the "New filter" button or the keyboard shortcut "Alt + N". (If you already know where the unwanted scene is, you can fastforward to that time and follow the same process).
+              Grab some popcorn and start watching the movie/series. If you spot anything you want
+              to flag, press the "New filter" button or the keyboard shortcut "Alt + N". (If you
+              already know where the unwanted scene is, you can fastforward to that time and follow
+              the same process).
             </p>
             <p>
-              To protect you from unwanted content, while adding a scene the movie will get muted and a bit blurred. You can control this behaviour with the 'blur on mark' and 'mute on mark' inputs.
+              To protect you from unwanted content, while adding a scene the video will get muted
+              and a bit blurred. You can control this behaviour with the 'blur on mark' and 'mute on
+              mark' inputs.
             </p>
             <p>
-              To mark the end of the unwanted scene press "End filter" or "Alt + N". A popup asking you to fine tune the filter will open.
+              To mark the end of an unwanted scene press "End filter" or "Alt + N". A popup asking
+              you to fine tune the filter will open.
             </p>
 
             <h4>Step 4. Fine tune filters</h4>
-            <p>Follow the instrucctions on the popup to fine the created filter...</p>
-
+            <p>Follow the instrucctions on the popup to fine tune the created filter...</p>
 
             <h4>Step 5. Set filter status</h4>
 
-            <p>Repeat steps 3 and 4 until all the unwanted scenes have been added. And last but not least, it is importat to update the filter status to let everyone know this movie is now safe to watch!</p>
+            <p>
+              Repeat steps 3 and 4 until all the unwanted scenes have been added. And last but not
+              least, it is importat to update the filter status to let everyone know this movie is
+              now safe to watch!
+            </p>
 
-            <p>Click the "Set filter status" button and select, for each category &amp; tag, the right status. Click on save and you are done! Now everyone in the world can enjoy a clean movie/episode! In the name of everyone: thank you, you are a hero!</p>
+            <p>
+              Click the "Set filter status" button and select, for each category &amp; tag, the
+              right status. Click on save and you are done! Now everyone in the world can enjoy a
+              clean movie/episode! In the name of everyone: thank you, you are a hero!
+            </p>
           </div>
 
           <!--<div id="more">
@@ -232,10 +238,6 @@ export default {
 </script>
 
 <style>
-.fakeUL > p {
-  margin-bottom: 2px !important;
-  margin-left: 8px;
-}
 h2 {
   padding-top: 40px;
   margin-bottom: 10px;
