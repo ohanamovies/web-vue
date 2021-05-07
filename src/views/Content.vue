@@ -589,7 +589,7 @@ export default {
           color: 'green',
           label: 'Cleaned by our users'
         },
-        missing: { count: 0, icon: 'mdi-flag-variant', color: 'red', label: 'Unwanted' },
+        missing: { count: 0, icon: 'mdi-flag-variant', color: 'red', label: 'Unsafe' },
         unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray', label: 'Unknown' }
       }
       for (let item of this.items) {
