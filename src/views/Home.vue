@@ -39,13 +39,13 @@
             >Install</a
           >
 
-          <a
+          <!--<a
             href="https://www.patreon.com/ohanamovies"
             class="button special"
             target="_blank"
             style="margin: 5px;"
             >Donate
-          </a>
+          </a>-->
         </footer>
       </div>
     </section>
@@ -91,7 +91,7 @@
           </article>
         </div>
         <footer>
-          <router-link to="community" class="button special">Meet the community</router-link>
+          <router-link to="get-started" class="button special">Get started</router-link>
         </footer>
       </div>
     </section>
