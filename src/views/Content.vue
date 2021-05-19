@@ -26,7 +26,6 @@
                 autocomplete="off"
                 prepend-inner-icon="mdi-magnify"
                 clearable
-                :hint="filteredList.length + ' results'"
                 class="pa-0"
                 @focus="$event.target.select()"
                 @keyup.enter="getData()"
@@ -368,16 +367,18 @@
                     small
                     dense
                     v-for="(item, k) in statsRecap"
-                    :key="k"
+                    :key="k">
+                  <!-- TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
                     @click="
                       statusFilter.includes(k)
                         ? (statusFilter = statusFilter.filter(x => x != k))
                         : statusFilter.push(k)
                     "
                     :class="{ chipdown: statusFilter.includes(k) }"
-                  >
+                  >-->
                     <v-icon left small :color="item.color">{{ item.icon }}</v-icon>
-                    <b v-if="!loading">{{ item.label }}</b>
+                    <b v-if="true">{{ item.label }}</b>
+                    <!--<b v-if="!loading">{{ item.label }}</b>-->
                     <v-progress-circular
                       v-else
                       :size="10"
@@ -503,7 +504,7 @@ export default {
       ],
 
       certifiedOnly: false,
-      cleanOnly: false,
+      cleanOnly: true,
       sexSlider: 2,
       vioSlider: 2,
       profSlider: 2,
@@ -541,6 +542,7 @@ export default {
   watch: {
     skipTags() {
       this.updateLocalStorage()
+      this.getData()
     },
     providers() {
       this.getData()
@@ -624,6 +626,8 @@ export default {
     },
 
     filteredList() {
+      return this.items/*
+      TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
       var xx = []
       this.items.forEach(item => {
         //TODO: Make this more efficient. It's too slow.
@@ -640,7 +644,7 @@ export default {
         }
         if (add) xx.push(item)
       })
-      return xx
+      return xx*/
     },
     items() {
       return this.data
@@ -808,7 +812,7 @@ export default {
       var url = this.buildURL({
         action: 'findMovies',
         title: this.title ? this.title : '',
-        clean: this.cleanOnly ? JSON.stringify(this.skipTags) : '[]',
+        clean: (!this.title && this.cleanOnly )? JSON.stringify(this.skipTags) : '[]',
         providers: JSON.stringify(this.providers),
         certified: this.certifiedOnly ? JSON.stringify(this.skipTags) : '[]',
         genres: JSON.stringify(this.genres),
