@@ -362,13 +362,8 @@
 
               <div style="overflow-x: auto;  white-space: nowrap; ">
                 <div v-if="skipTags.length > 0" style="display:inline;">
-                  <v-chip
-                    class="ma-1"
-                    small
-                    dense
-                    v-for="(item, k) in statsRecap"
-                    :key="k">
-                  <!-- TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
+                  <v-chip class="ma-1" small dense v-for="(item, k) in statsRecap" :key="k">
+                    <!-- TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
                     @click="
                       statusFilter.includes(k)
                         ? (statusFilter = statusFilter.filter(x => x != k))
@@ -497,7 +492,7 @@ export default {
 
       providersList: [
         { text: 'Netflix', value: 'netflix' },
-        { text: 'HBO', value: 'hbo' },
+        { text: 'HBO', value: 'hboespana' },
         { text: 'Disney Plus', value: 'disneyplus' },
         { text: 'Movistar', value: 'movistar' },
         { text: 'Rakuten', value: 'rakuten' }
@@ -595,20 +590,13 @@ export default {
         unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray', label: 'Unknown' }
       }
       for (let item of this.items) {
-        let tags_count = 0
-        let all_done = true //default
-        let missing = false //default
-        for (let tag of this.skipTags) {
-          tags_count += item.tagged ? (item.tagged[tag] ? item.tagged[tag][0] : 0) : 0
-          if (!item.tags_done.includes(tag)) all_done = false
-          if (item.tags_missing.includes(tag)) missing = true
-        }
-        if (all_done) {
-          if (tags_count > 0 && item.tags_level > 5) output['cut_certified'].count++
-          if (tags_count > 0 && item.tags_level <= 5) output['cut_not_certified'].count++
-          if (tags_count == 0 && item.tags_level > 5) output['clean_certified'].count++
-          if (tags_count == 0 && item.tags_level <= 5) output['clean_not_certified'].count++
-        } else if (missing) {
+        let join = this.joinStatus(item)
+        if (join.status == 'done') {
+          if (join.cuts > 0 && join.level > 5) output['cut_certified'].count++
+          if (join.cuts > 0 && join.level <= 5) output['cut_not_certified'].count++
+          if (join.cuts == 0 && join.level > 5) output['clean_certified'].count++
+          if (join.cuts == 0 && join.level <= 5) output['clean_not_certified'].count++
+        } else if (join.status == 'missing') {
           output['missing'].count++
         } else {
           output['unknown'].count++
@@ -626,7 +614,8 @@ export default {
     },
 
     filteredList() {
-      return this.items/*
+      return this.items
+      /*
       TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
       var xx = []
       this.items.forEach(item => {
@@ -704,17 +693,17 @@ export default {
       var taggedAux = {}
 
       var skipTagsR = [...this.skipTags].reverse() //reverse to show severe first
-      skipTagsR.forEach(st => {
-        let label = st
+      skipTagsR.forEach( label => {
+        let tagStatus = item.status[label]
 
         //missing
-        if (item.tags_missing.includes(st)) {
+        if (tagStatus && tagStatus.status == 'missing') {
           if (!taggedAux.pending) taggedAux.pending = []
           taggedAux.pending.push(label)
           //done
-        } else if (item.tags_done.includes(st)) {
+        } else if (tagStatus && tagStatus.status == 'done') {
           if (!taggedAux.safe) taggedAux.safe = []
-          label += ' (' + (item.tagged[st] ? item.tagged[st][0] : 0) + ')'
+          label += ' (' + (tagStatus ? tagStatus.cuts : 0) + ')'
           taggedAux.safe.push(label)
           //unknown
         } else {
@@ -725,10 +714,10 @@ export default {
       return taggedAux
     },
     getShieldColor(item) {
-      var status = this.getShield(item)
+      let join = this.joinStatus(item.status, this.skipTags)
 
-      if (status == 'protected') {
-        if (item.tags_level > 5) return 'blue'
+      if (join.status == 'done') {
+        if (join.level > 5) return 'blue'
         return 'green'
       } else if (status == 'missing') {
         return 'red'
@@ -737,37 +726,48 @@ export default {
       }
     },
     getShieldIcon(item) {
-      let status = this.getShield(item)
+      if (!this.skipTags.length) return 'none'
 
-      //count scenes for user skipTags
-      if (this.skipTags.length == 0) return 'none'
-      let scenesCount = 0
-      try {
-        for (let i = 0; i < this.skipTags.length; i++) {
-          const st = this.skipTags[i]
-          if (Object.keys(item.tagged).includes(st)) scenesCount += item.tagged[st][0]
-        }
-      } catch (error) {
-        scenesCount = 1 // when "tags_count: null"
-      }
+      let join = this.joinStatus(item.status, this.skipTags)
 
       //pick the right icon
-      if (status == 'protected' && scenesCount == 0) {
+      if (join.status == 'done' && join.cuts == 0) {
         return 'mdi-emoticon-happy'
-      } else if (status == 'protected') {
+      } else if (join.status == 'done') {
         return 'mdi-content-cut'
-      } else if (status == 'missing') {
+      } else if (join.status == 'missing') {
         return 'mdi-flag-variant'
       } else {
         return 'mdi-progress-question'
       }
-      //return '/fc/' + shield + '.png'
     },
 
-    getShield(item) {
+    joinStatus(tagged, skipTags) {
+      if (!tagged) return {status: 'unknown', cuts: 0, level: 0}
+      if (!skipTags || !skipTags.length) return {status: 'unset', cuts: 0, level: 0}
+      let status = 'done'
+      let cuts = 0
+      let level = Infinity
+      for (var tag of skipTags) {
+        // Set default
+        let s = tagged[tag] || {}
+        // Set num cuts/scenes & min user level
+        if (s.cuts) cuts += s.cuts
+        level = Math.min(level, s.level || 0)
+        // Set watchability status
+        if (s.status == 'missing') {
+          status = 'missing'
+        } else if (s.status != 'done') {
+          status = 'unknown'
+        }
+      }
+      return { status: status, cuts: cuts, level: level }
+    },
+
+    /*getShield(item) {
       // If EVERY skipTags is included in tags_done.done
       if (this.skipTags.every(x => item.tags_done.includes(x))) {
-        return 'protected'
+        return 'done'
       }
 
       // If ANY skipTags is included in tags_missing
@@ -777,7 +777,7 @@ export default {
 
       // Otherwise
       return 'unknown'
-    },
+    },*/
 
     buildURL(query) {
       // Build url
@@ -812,7 +812,7 @@ export default {
       var url = this.buildURL({
         action: 'findMovies',
         title: this.title ? this.title : '',
-        clean: (!this.title && this.cleanOnly )? JSON.stringify(this.skipTags) : '[]',
+        clean: !this.title && this.cleanOnly ? JSON.stringify(this.skipTags) : '[]',
         providers: JSON.stringify(this.providers),
         certified: this.certifiedOnly ? JSON.stringify(this.skipTags) : '[]',
         genres: JSON.stringify(this.genres),
