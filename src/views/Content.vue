@@ -719,7 +719,7 @@ export default {
       if (join.status == 'done') {
         if (join.level > 5) return 'blue'
         return 'green'
-      } else if (status == 'missing') {
+      } else if (join.status == 'missing') {
         return 'red'
       } else {
         return 'gray'
