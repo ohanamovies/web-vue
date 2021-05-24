@@ -400,7 +400,7 @@ export default {
       providersList: [
         { text: 'Netflix', value: 'netflix' },
         { text: 'HBO', value: 'hboespana' },
-        { text: 'Disney Plus', value: 'disneyplus' },
+        { text: 'Disney+', value: 'disneyplus' },
         { text: 'Movistar', value: 'movistar' },
         { text: 'Rakuten', value: 'rakuten' }
       ],
