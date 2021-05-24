@@ -38,14 +38,23 @@
         </div>
 
         <v-row>
-          <v-col cols="12" sm="12" md="5" lg="3" v-if="showSidebarFilters" id="filterss">
+          <v-col
+            cols="12"
+            xs="12"
+            sm="10"
+            md="5"
+            lg="4"
+            xl="3"
+            v-if="showSidebarFilters"
+            id="filterss"
+          >
             <!-- SEARCH FIELD -->
             <v-text-field
               type="search"
               id="searchBox"
               dense
               name="search"
-              label="Type to find titles"
+              label="Search by title"
               v-model="title"
               autocomplete="off"
               prepend-inner-icon="mdi-magnify"
