@@ -75,97 +75,102 @@
 
             <!-- Sensitivity -->
             <div class="filterr">
-              <v-row align="left">
-                <h4 style="padding-left: 12px;">What do you want to skip?</h4>
-                <v-col cols="12" sm="12" md="12">
-                  <b>Sex/Nudity: </b>
-                  <div class="sliderticks">
-                    <v-chip
-                      label
-                      :class="{ skip: sexSlider > 1 }"
-                      @click="sexSlider = sexSlider > 1 ? 1 : 2"
-                      >Severe</v-chip
-                    >
-                    <v-chip
-                      label
-                      :class="{ skip: sexSlider > 2 }"
-                      @click="sexSlider = sexSlider > 2 ? 2 : 3"
-                      >Moderate</v-chip
-                    >
-                    <v-chip
-                      label
-                      :class="{ skip: sexSlider > 3 }"
-                      @click="sexSlider = sexSlider > 3 ? 3 : 4"
-                      >Mild</v-chip
-                    >
-                    <v-chip
-                      label
-                      :class="{ skip: sexSlider > 4 }"
-                      @click="sexSlider = sexSlider > 4 ? 4 : 5"
-                      >Slight</v-chip
-                    >
-                  </div> </v-col
-                ><v-col cols="12" sm="12" md="12">
-                  <!--  cols="12" sm="6" md="4" -->
-                  <b>Violence/Gore: </b>
-                  <div class="sliderticks">
-                    <v-chip
-                      label
-                      :class="{ skip: vioSlider > 1 }"
-                      @click="vioSlider = vioSlider > 1 ? 1 : 2"
-                      >Severe</v-chip
-                    >
-                    <v-chip
-                      label
-                      :class="{ skip: vioSlider > 2 }"
-                      @click="vioSlider = vioSlider > 2 ? 2 : 3"
-                      >Moderate</v-chip
-                    >
-                    <v-chip
-                      label
-                      :class="{ skip: vioSlider > 3 }"
-                      @click="vioSlider = vioSlider > 3 ? 3 : 4"
-                      >Mild</v-chip
-                    >
-                    <v-chip
-                      label
-                      :class="{ skip: vioSlider > 4 }"
-                      @click="vioSlider = vioSlider > 4 ? 4 : 5"
-                      >Slight</v-chip
-                    >
-                  </div>
-                </v-col>
+              <h4 style="padding: 0px; margin: 0px">What do you want to skip?</h4>
+              <b>Sex/Nudity:</b>
+              <div class="sliderticks">
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: sexSlider > 1 }"
+                  @click="sexSlider = sexSlider > 1 ? 1 : 2"
+                  >Severe</v-chip
+                >
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: sexSlider > 2 }"
+                  @click="sexSlider = sexSlider > 2 ? 2 : 3"
+                  >Moderate</v-chip
+                >
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: sexSlider > 3 }"
+                  @click="sexSlider = sexSlider > 3 ? 3 : 4"
+                  >Mild</v-chip
+                >
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: sexSlider > 4 }"
+                  @click="sexSlider = sexSlider > 4 ? 4 : 5"
+                  >Slight</v-chip
+                >
+              </div>
+              <!--  cols="12" sm="6" md="4" -->
+              <b>Violence/Gore: </b>
+              <div class="sliderticks">
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: vioSlider > 1 }"
+                  @click="vioSlider = vioSlider > 1 ? 1 : 2"
+                  >Severe</v-chip
+                >
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: vioSlider > 2 }"
+                  @click="vioSlider = vioSlider > 2 ? 2 : 3"
+                  >Moderate</v-chip
+                >
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: vioSlider > 3 }"
+                  @click="vioSlider = vioSlider > 3 ? 3 : 4"
+                  >Mild</v-chip
+                >
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: vioSlider > 4 }"
+                  @click="vioSlider = vioSlider > 4 ? 4 : 5"
+                  >Slight</v-chip
+                >
+              </div>
 
-                <v-col cols="12" sm="12" md="12">
-                  <b>Profanity: </b>
-                  <div class="sliderticks">
-                    <v-chip
-                      label
-                      :class="{ skip: profSlider > 1 }"
-                      @click="profSlider = profSlider > 1 ? 1 : 2"
-                      >Severe</v-chip
-                    >
-                    <v-chip
-                      label
-                      :class="{ skip: profSlider > 2 }"
-                      @click="profSlider = profSlider > 2 ? 2 : 3"
-                      >Moderate</v-chip
-                    >
-                    <v-chip
-                      label
-                      :class="{ skip: profSlider > 3 }"
-                      @click="profSlider = profSlider > 3 ? 3 : 4"
-                      >Mild</v-chip
-                    >
-                    <v-chip
-                      label
-                      :class="{ skip: profSlider > 4 }"
-                      @click="profSlider = profSlider > 4 ? 4 : 5"
-                      >Slight</v-chip
-                    >
-                  </div>
-                </v-col>
-              </v-row>
+              <b>Profanity: </b>
+              <div class="sliderticks">
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: profSlider > 1 }"
+                  @click="profSlider = profSlider > 1 ? 1 : 2"
+                  >Severe</v-chip
+                >
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: profSlider > 2 }"
+                  @click="profSlider = profSlider > 2 ? 2 : 3"
+                  >Moderate</v-chip
+                >
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: profSlider > 3 }"
+                  @click="profSlider = profSlider > 3 ? 3 : 4"
+                  >Mild</v-chip
+                >
+                <v-chip
+                  dense
+                  small
+                  :class="{ skip: profSlider > 4 }"
+                  @click="profSlider = profSlider > 4 ? 4 : 5"
+                  >Slight</v-chip
+                >
+              </div>
             </div>
 
             <!-- Content safety chips -->
@@ -408,8 +413,8 @@ export default {
       certifiedOnly: false,
       cleanOnly: true,
       sexSlider: 2,
-      vioSlider: 2,
-      profSlider: 2,
+      vioSlider: 1,
+      profSlider: 1,
       title: '',
       titleTimeout: null,
 
@@ -862,10 +867,8 @@ textarea {
   /*margin: 0 10px;*/
 }
 
-.sliderticks {
-  display: flex;
-  justify-content: space-around;
-  padding: 0px;
+.sliderticks .v-chip {
+  margin: 4px;
 }
 
 .skip .v-chip__content:before {
