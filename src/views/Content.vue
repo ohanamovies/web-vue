@@ -1,369 +1,173 @@
 <template>
   <div class="subpage">
     <my-header></my-header>
+
     <section class="wrapper" id="main">
       <div class="inner">
-        <!-- 
-        <header>
-          <h2>Discover content</h2>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
-        </header>
-        -->
         <h4>Discover content</h4>
 
-        <!-- SEARCH FIELDS -->
-        <div width="100%">
-          <v-row>
-            <!-- Search by text -->
-            <v-col cols="12" sm="12" md="6" lg="4" class="pb-0">
-              <v-text-field
-                type="search"
-                id="searchBox"
-                dense
-                name="search"
-                label="Type to find titles"
-                v-model="title"
-                autocomplete="off"
-                prepend-inner-icon="mdi-magnify"
-                clearable
-                class="pa-0"
-                @focus="$event.target.select()"
-                @keyup.enter="getData()"
-              >
-                <div slot="append" hidden>
-                  <v-btn color="success" icon @click="getData()"
-                    ><v-icon> mdi-movie-search</v-icon></v-btn
-                  >
-                </div>
-              </v-text-field>
-              <!-- PROGRESS BAR FOR LOADING -->
-              <div v-if="loading">
-                <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
+        <!-- Floating button now to scroll to top (useful on mobile to get to the filters), in future to show/hide filters on mobile-->
+        <v-btn
+          color="#6cc091"
+          fab
+          bottom
+          right
+          fixed
+          dark
+          @click="toggleFilterBar"
+          style="z-index:99999"
+        >
+          <!-- progress circle within the go-to-top button -->
+          <v-progress-circular
+            v-if="loading"
+            :size="20"
+            :width="2"
+            indeterminate
+            color="white"
+          ></v-progress-circular>
+          <v-icon v-else color="white">mdi-arrow-up</v-icon>
+        </v-btn>
+
+        <!-- PROGRESS BAR FOR LOADING -->
+        <div v-if="loading">
+          <v-progress-linear
+            indeterminate
+            color="#4bae77"
+            style="position:fixed; bottom: 0px; z-index: 9999999999"
+          ></v-progress-linear>
+        </div>
+
+        <v-row>
+          <v-col cols="12" sm="12" md="5" lg="3" v-if="showSidebarFilters" id="filterss">
+            <!-- SEARCH FIELD -->
+            <v-text-field
+              type="search"
+              id="searchBox"
+              dense
+              name="search"
+              label="Type to find titles"
+              v-model="title"
+              autocomplete="off"
+              prepend-inner-icon="mdi-magnify"
+              hide-details
+              clearable
+              class="pa-0"
+              @focus="$event.target.select()"
+              @keyup.enter="getData()"
+            >
+              <div slot="append" hidden>
+                <v-btn color="success" icon @click="getData()"
+                  ><v-icon> mdi-movie-search</v-icon></v-btn
+                >
               </div>
-            </v-col>
+            </v-text-field>
 
-            <!-- SENSITIVITY -->
-            <v-col cols="6" sm="6" md="3" lg="2">
-              <v-menu
-                bottom
-                offset-y
-                :close-on-content-click="false"
-                v-model="showFilters2"
-                style="z-index:999"
-                max-width="350px"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    id="vbtn1"
-                    color="#6cc091"
-                    dark
-                    block
-                    v-on="on"
-                    depressed
-                    style="z-index:999; border-style: none"
-                  >
-                    <v-icon>mdi-account</v-icon>Sensitivity
-                  </v-btn>
-                </template>
-                <div>
-                  <v-card>
-                    <v-card-text>
-                      <v-row align="left">
-                        <h4>What do you want to skip?</h4>
-                        <v-col cols="12" sm="12" md="12">
-                          <b>Sex/Nudity: </b>
-                          <div class="sliderticks">
-                            <v-chip
-                              label
-                              :class="{ skip: sexSlider > 1 }"
-                              @click="sexSlider = sexSlider > 1 ? 1 : 2"
-                              >Severe</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: sexSlider > 2 }"
-                              @click="sexSlider = sexSlider > 2 ? 2 : 3"
-                              >Moderate</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: sexSlider > 3 }"
-                              @click="sexSlider = sexSlider > 3 ? 3 : 4"
-                              >Mild</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: sexSlider > 4 }"
-                              @click="sexSlider = sexSlider > 4 ? 4 : 5"
-                              >Slight</v-chip
-                            >
-                          </div> </v-col
-                        ><v-col cols="12" sm="12" md="12">
-                          <!--  cols="12" sm="6" md="4" -->
-                          <b>Violence/Gore: </b>
-                          <div class="sliderticks">
-                            <v-chip
-                              label
-                              :class="{ skip: vioSlider > 1 }"
-                              @click="vioSlider = vioSlider > 1 ? 1 : 2"
-                              >Severe</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: vioSlider > 2 }"
-                              @click="vioSlider = vioSlider > 2 ? 2 : 3"
-                              >Moderate</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: vioSlider > 3 }"
-                              @click="vioSlider = vioSlider > 3 ? 3 : 4"
-                              >Mild</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: vioSlider > 4 }"
-                              @click="vioSlider = vioSlider > 4 ? 4 : 5"
-                              >Slight</v-chip
-                            >
-                          </div>
-                        </v-col>
+            <br />
 
-                        <v-col cols="12" sm="12" md="12">
-                          <b>Profanity: </b>
-                          <div class="sliderticks">
-                            <v-chip
-                              label
-                              :class="{ skip: profSlider > 1 }"
-                              @click="profSlider = profSlider > 1 ? 1 : 2"
-                              >Severe</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: profSlider > 2 }"
-                              @click="profSlider = profSlider > 2 ? 2 : 3"
-                              >Moderate</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: profSlider > 3 }"
-                              @click="profSlider = profSlider > 3 ? 3 : 4"
-                              >Mild</v-chip
-                            >
-                            <v-chip
-                              label
-                              :class="{ skip: profSlider > 4 }"
-                              @click="profSlider = profSlider > 4 ? 4 : 5"
-                              >Slight</v-chip
-                            >
-                          </div>
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-btn
-                        color="#6cc091"
-                        id="vbtn1"
-                        depressed
-                        dark
-                        @click="showFilters2 = false"
-                        block
-                        >Done</v-btn
-                      >
-                      <!--<v-spacer></v-spacer>
-                      <span style="color:green; cursor:pointer" @click="showFilters2 = false"
-                        >Done</span
-                      >-->
-                    </v-card-actions>
-                  </v-card>
-                </div>
-              </v-menu></v-col
-            >
+            <!-- Sensitivity -->
+            <div class="filterr">
+              <v-row align="left">
+                <h4 style="padding-left: 12px;">What do you want to skip?</h4>
+                <v-col cols="12" sm="12" md="12">
+                  <b>Sex/Nudity: </b>
+                  <div class="sliderticks">
+                    <v-chip
+                      label
+                      :class="{ skip: sexSlider > 1 }"
+                      @click="sexSlider = sexSlider > 1 ? 1 : 2"
+                      >Severe</v-chip
+                    >
+                    <v-chip
+                      label
+                      :class="{ skip: sexSlider > 2 }"
+                      @click="sexSlider = sexSlider > 2 ? 2 : 3"
+                      >Moderate</v-chip
+                    >
+                    <v-chip
+                      label
+                      :class="{ skip: sexSlider > 3 }"
+                      @click="sexSlider = sexSlider > 3 ? 3 : 4"
+                      >Mild</v-chip
+                    >
+                    <v-chip
+                      label
+                      :class="{ skip: sexSlider > 4 }"
+                      @click="sexSlider = sexSlider > 4 ? 4 : 5"
+                      >Slight</v-chip
+                    >
+                  </div> </v-col
+                ><v-col cols="12" sm="12" md="12">
+                  <!--  cols="12" sm="6" md="4" -->
+                  <b>Violence/Gore: </b>
+                  <div class="sliderticks">
+                    <v-chip
+                      label
+                      :class="{ skip: vioSlider > 1 }"
+                      @click="vioSlider = vioSlider > 1 ? 1 : 2"
+                      >Severe</v-chip
+                    >
+                    <v-chip
+                      label
+                      :class="{ skip: vioSlider > 2 }"
+                      @click="vioSlider = vioSlider > 2 ? 2 : 3"
+                      >Moderate</v-chip
+                    >
+                    <v-chip
+                      label
+                      :class="{ skip: vioSlider > 3 }"
+                      @click="vioSlider = vioSlider > 3 ? 3 : 4"
+                      >Mild</v-chip
+                    >
+                    <v-chip
+                      label
+                      :class="{ skip: vioSlider > 4 }"
+                      @click="vioSlider = vioSlider > 4 ? 4 : 5"
+                      >Slight</v-chip
+                    >
+                  </div>
+                </v-col>
 
-            <!-- SEARCH REFINEMENTS -->
-            <v-col cols="6" sm="6" md="3" lg="2">
-              <v-menu
-                bottom
-                offset-y
-                :close-on-content-click="false"
-                v-model="showFilters3"
-                style="z-index:999"
-                max-width="350px"
-              >
-                <template v-slot:activator="{ on }">
-                  <v-btn
-                    id="vbtn1"
-                    block
-                    color="#6cc091"
-                    dark
-                    v-on="on"
-                    depressed
-                    style="z-index:999; border-style: none"
-                  >
-                    <v-icon>mdi-filter</v-icon>Refine
-                  </v-btn>
-                </template>
-                <div>
-                  <v-card>
-                    <v-card-text>
-                      <v-row align="center" class="mt-2">
-                        <v-col cols="12" md="12">
-                          <v-autocomplete
-                            deletable-chips
-                            hide-details=""
-                            id="vselect"
-                            v-model="genres"
-                            :items="availableGenres"
-                            :menu-props="{ maxHeight: '250' }"
-                            label="Filter by Genre"
-                            multiple
-                            chips
-                            persistent-hint
-                            dense
-                          >
-                          </v-autocomplete>
-                        </v-col>
-                        <v-col cols="12" md="12">
-                          <v-select
-                            deletable-chips
-                            hide-details=""
-                            id="vselect"
-                            v-model="providers"
-                            chips
-                            :items="providersList"
-                            :menu-props="{ maxHeight: '250' }"
-                            label="Filter by provider"
-                            multiple
-                            persistent-hint
-                            dense
-                          ></v-select>
-                        </v-col>
-                        <v-col cols="12" md="6" class="pt-1">
-                          <v-checkbox v-model="cleanOnly" hide-details="">
-                            <div slot="label">
-                              Show only clean movies
-                              <v-icon color="green">mdi-content-cut</v-icon> |
-                              <v-icon color="green">mdi-emoticon-happy</v-icon>
-                            </div>
-                          </v-checkbox>
-                        </v-col>
+                <v-col cols="12" sm="12" md="12">
+                  <b>Profanity: </b>
+                  <div class="sliderticks">
+                    <v-chip
+                      label
+                      :class="{ skip: profSlider > 1 }"
+                      @click="profSlider = profSlider > 1 ? 1 : 2"
+                      >Severe</v-chip
+                    >
+                    <v-chip
+                      label
+                      :class="{ skip: profSlider > 2 }"
+                      @click="profSlider = profSlider > 2 ? 2 : 3"
+                      >Moderate</v-chip
+                    >
+                    <v-chip
+                      label
+                      :class="{ skip: profSlider > 3 }"
+                      @click="profSlider = profSlider > 3 ? 3 : 4"
+                      >Mild</v-chip
+                    >
+                    <v-chip
+                      label
+                      :class="{ skip: profSlider > 4 }"
+                      @click="profSlider = profSlider > 4 ? 4 : 5"
+                      >Slight</v-chip
+                    >
+                  </div>
+                </v-col>
+              </v-row>
+            </div>
 
-                        <v-col cols="12" md="6" class="pb-0">
-                          <v-checkbox v-model="certifiedOnly" hide-details="">
-                            <div slot="label">
-                              Show only Ohana certified movies
-                              <v-icon color="blue">mdi-content-cut</v-icon>
-                              | <v-icon color="blue">mdi-emoticon-happy</v-icon>
-                            </div>
-                          </v-checkbox>
-                        </v-col>
-                      </v-row>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-btn
-                        color="#6cc091"
-                        id="vbtn1"
-                        depressed
-                        dark
-                        @click="showFilters3 = false"
-                        block
-                        >Done</v-btn
-                      >
-                    </v-card-actions>
-                  </v-card>
-                </div>
-              </v-menu>
-            </v-col>
-          </v-row>
-        </div>
-        <!-- SEARCH BUTTON - ->
-        <div>
-          <v-row>
-            <v-col cols="12" sm="12" md="6" lg="4">
-              <a
-                class="button"
-                @click="
-                  getData()
-                  showFilters = false
-                "
-                style="width: 100%"
-                >Search</a
-              >
-            </v-col>
-          </v-row>
-        </div>
-        -->
-
-        <!-- MOVIES / SHOWS tabs -->
-        <div>
-          <v-row align="left" style="margin-left:auto; margin-right: auto; margin-top: 15px">
-            <v-col class="pa-0">
-              <b style="font-size: 90%">Type:</b>
-              <v-chip
-                dense
-                small
-                class="ma-1"
-                @click="setType('movie')"
-                :class="{ chipdown: type == 'movie' }"
-              >
-                <span v-if="!loading"> Movies</span>
-                <span v-else>
-                  Movies
-                  <v-progress-circular
-                    :size="10"
-                    :width="1"
-                    indeterminate
-                    color="primary"
-                  ></v-progress-circular> </span
-              ></v-chip>
-              <v-chip
-                dense
-                small
-                class="ma-1"
-                @click="setType('show')"
-                :class="{ chipdown: type == 'show' }"
-                ><span v-if="!loading">Shows</span>
-                <span v-else
-                  >Shows
-                  <v-progress-circular
-                    :size="10"
-                    :width="1"
-                    indeterminate
-                    color="primary"
-                  ></v-progress-circular>
-                </span>
-              </v-chip>
-            </v-col>
-          </v-row>
-        </div>
-        <!--
-        <div id="typeContent">
-          <br />
-          <p style="margin-bottom:0px">
-            <span style="text-decoration:underline; cursor:pointer" @click="type = 'movie'"
-              >Movies ({{ movies.length }})</span
-            >
-            |
-            <span style="text-decoration:underline;cursor:pointer" @click="type = 'show'"
-              >Series ({{ shows.length }})</span
-            >
-          </p>
-        </div>
-        -->
-
-        <div>
-          <!-- Content safety chips -->
-          <v-row align="left" style="margin-left:auto; margin-right: auto; margin-top: 15px">
-            <v-col class="pa-0">
-              <b style="font-size: 90%">Safety</b>
-              <v-chip class="ma-1" small dense outlined @click="showFilters2 = true"
-                >{{ skipTags.length > 0 ? 'Change' : 'Let us know' }} your sensitivity</v-chip
-              >
-
+            <!-- Content safety chips -->
+            <div class="filterr">
+              <!--
               <div style="overflow-x: auto;  white-space: nowrap; ">
                 <div v-if="skipTags.length > 0" style="display:inline;">
-                  <v-chip class="ma-1" small dense v-for="(item, k) in statsRecap" :key="k">
-                    <!-- TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
+                  -->
+              <b>Safety:</b>
+              <v-chip class="ma-1" small dense v-for="(item, k) in statsRecap" :key="k">
+                <!-- TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
                     @click="
                       statusFilter.includes(k)
                         ? (statusFilter = statusFilter.filter(x => x != k))
@@ -371,103 +175,194 @@
                     "
                     :class="{ chipdown: statusFilter.includes(k) }"
                   >-->
-                    <v-icon left small :color="item.color">{{ item.icon }}</v-icon>
-                    <b v-if="true">{{ item.label }}</b>
-                    <!--<b v-if="!loading">{{ item.label }}</b>-->
-                    <v-progress-circular
-                      v-else
-                      :size="10"
-                      :width="1"
-                      indeterminate
-                      color="primary"
-                    ></v-progress-circular>
-                  </v-chip>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-          <!-- Providers  chips - ->
-          <v-row align="left" style="margin-left:auto; margin-right: auto; margin-top: 15px">
-            <v-col class="pa-0">
-              <b style="font-size: 90%">Providers</b>
-              <div style="display:inline;">
-                <div style="overflow-x: auto;  white-space: nowrap; ">
-                  <v-chip
-                    class="ma-1"
-                    small
-                    dense
-                    v-for="(item, index) in providersList"
-                    :key="index"
-                    @click="
-                      providers.includes(item.value)
-                        ? (providers = providers.filter(x => x != item.value))
-                        : providers.push(item.value)
-                    "
-                    :class="{ chipdown: providers.includes(item.value) }"
-                  >
-                    <b>{{ item.text }}</b>
-                    <v-progress-circular
-                      v-if="loading"
-                      :size="10"
-                      :width="1"
-                      indeterminate
-                      color="primary"
-                    ></v-progress-circular>
-                  </v-chip>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-          -->
-
-          <!-- pending: genre chips -->
-        </div>
-
-        <!-- POSTERS -->
-
-        <div class="posters_wrapper">
-          <div class="poster_card" v-for="(item, index) in filteredList" :key="index">
-            <div class="image" style="width:100%">
-              <!-- poster_path -->
-              <img :src="item.poster" :alt="item.title" />
-
-              <div class="shield" v-if="getShieldIcon(item) != 'none'">
-                <v-icon :color="getShieldColor(item)" width="60px">
-                  {{ getShieldIcon(item) }}
-                </v-icon>
-              </div>
+                <v-icon left small :color="item.color">{{ item.icon }}</v-icon>
+                <b v-if="true">{{ item.label }}</b>
+                <!--<b v-if="!loading">{{ item.label }}</b>-->
+                <v-progress-circular
+                  v-else
+                  :size="10"
+                  :width="1"
+                  indeterminate
+                  color="primary"
+                ></v-progress-circular>
+              </v-chip>
             </div>
-            <div class="content">
-              <p style="font-size:16px; line-height:normal">{{ item.title }}</p>
 
-              <p>
-                <a v-if="item.watch_url" target="_blanck" :href="item.watch_url">{{
-                  getProvider(item.watch_url)
-                }}</a>
-                &nbsp;&nbsp;
-                <a
-                  v-if="item.imdb"
-                  target="_blanck"
-                  :href="'https://www.imdb.com/title/' + item.imdb"
-                  >IMDB</a
-                >
-              </p>
-              <p
-                v-for="(cs, index) in Object.keys(getSkipScenes(item))"
-                :key="index"
-                :style="{
-                  color: cs == 'pending' ? 'red' : cs == 'safe' ? 'green' : 'yellow',
-                  lineHeight: 'normal',
-                  fontSize: '13px'
-                }"
+            <!-- MOVIES / SHOWS tabs -->
+            <div class="filterr">
+              <b>Type:</b>
+              <v-chip
+                dense
+                small
+                class="ma-1"
+                @click="setType('movie')"
+                :class="{ chipdown: type == 'movie' }"
               >
-                <span style="text-transform: capitalize">{{ cs }}:</span>
-                {{ getSkipScenes(item)[cs].join(', ') }}
-              </p>
-              <span style="position: absolute; bottom: 5px">{{ item.provider }}</span>
+                <span> Movies</span>
+              </v-chip>
+              <v-chip
+                dense
+                small
+                class="ma-1"
+                @click="setType('show')"
+                :class="{ chipdown: type == 'show' }"
+                ><span>Shows</span>
+              </v-chip>
             </div>
-          </div>
-        </div>
+
+            <!-- Providers -->
+            <div class="filterr">
+              <b>Providers:</b>
+              <v-chip
+                class="ma-1"
+                small
+                dense
+                v-for="(item, k) in providersList"
+                :key="k"
+                @click="
+                  providers.includes(item.value)
+                    ? (providers = providers.filter(x => x != item.value))
+                    : providers.push(item.value)
+                "
+                :class="{ chipdown: providers.includes(item.value) }"
+              >
+                {{ item.text }}
+                <!--<b v-if="!loading">{{ item.label }}</b>-->
+              </v-chip>
+            </div>
+
+            <!-- GENRES -->
+            <div class="filterr">
+              <!-- genres expansion panel -->
+              <v-expansion-panels v-if="false">
+                <v-expansion-panel style=" border: none;">
+                  <v-expansion-panel-header style="overflow: hidden; color: black !important;">
+                    <h5>Genre: {{ genres.join(', ') }}</h5>
+                  </v-expansion-panel-header>
+
+                  <v-expansion-panel-content>
+                    <v-chip
+                      class="ma-1"
+                      small
+                      dense
+                      v-for="(item, k) in availableGenres"
+                      :key="k"
+                      @click="
+                        genres.includes(item)
+                          ? (genres = genres.filter(x => x != item))
+                          : genres.push(item)
+                      "
+                      :class="{ chipdown: genres.includes(item) }"
+                    >
+                      {{ item }}
+                      <!--<b v-if="!loading">{{ item.label }}</b>-->
+                    </v-chip>
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+
+              <!-- genres chips-->
+              <b>Genres:</b>
+
+              <v-chip
+                class="ma-1"
+                small
+                dense
+                v-for="(item, k) in availableGenres.slice(0, seeAllGenreChips ? 999 : 5)"
+                :key="k"
+                @click="
+                  genres.includes(item)
+                    ? (genres = genres.filter(x => x != item))
+                    : genres.push(item)
+                "
+                :class="{ chipdown: genres.includes(item) }"
+              >
+                {{ item }}
+                <!--<b v-if="!loading">{{ item.label }}</b>-->
+              </v-chip>
+
+              <v-chip
+                color="blue"
+                class="ma-1"
+                dense
+                small
+                outlined
+                @click="seeAllGenreChips = !seeAllGenreChips"
+                >{{ seeAllGenreChips ? 'Show less' : 'Show all' }}</v-chip
+              >
+            </div>
+
+            <!-- Clean/Certified Only -->
+            <div class="filterr">
+              <v-checkbox v-model="cleanOnly" hide-details>
+                <div slot="label" style="font-size: 85%;">
+                  Show only clean movies
+                  <v-icon color="green">mdi-content-cut</v-icon> |
+                  <v-icon color="green">mdi-emoticon-happy</v-icon>
+                </div>
+              </v-checkbox>
+
+              <v-checkbox v-model="certifiedOnly" hide-details>
+                <div slot="label" style="font-size: 85%; ">
+                  Show only Ohana certified movies
+                  <v-icon color="blue">mdi-content-cut</v-icon>
+                  | <v-icon color="blue">mdi-emoticon-happy</v-icon>
+                </div>
+              </v-checkbox>
+            </div>
+          </v-col>
+
+          <v-col>
+            <!-- POSTERS -->
+            <div v-if="loading">
+              <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
+            </div>
+
+            <div class="posters_wrapper">
+              <div class="poster_card" v-for="(item, index) in filteredList" :key="index">
+                <div class="image" style="width:100%">
+                  <!-- poster_path -->
+                  <img :src="item.poster" :alt="item.title" />
+
+                  <div class="shield" v-if="getShieldIcon(item) != 'none'">
+                    <v-icon :color="getShieldColor(item)" width="60px">
+                      {{ getShieldIcon(item) }}
+                    </v-icon>
+                  </div>
+                </div>
+                <div class="content">
+                  <p style="font-size:16px; line-height:normal">{{ item.title }}</p>
+
+                  <p>
+                    <a v-if="item.watch_url" target="_blanck" :href="item.watch_url">{{
+                      getProvider(item.watch_url)
+                    }}</a>
+                    &nbsp;&nbsp;
+                    <a
+                      v-if="item.imdb"
+                      target="_blanck"
+                      :href="'https://www.imdb.com/title/' + item.imdb"
+                      >IMDB</a
+                    >
+                  </p>
+                  <p
+                    v-for="(cs, index) in Object.keys(getSkipScenes(item))"
+                    :key="index"
+                    :style="{
+                      color: cs == 'pending' ? 'red' : cs == 'safe' ? 'green' : 'yellow',
+                      lineHeight: 'normal',
+                      fontSize: '13px'
+                    }"
+                  >
+                    <span style="text-transform: capitalize">{{ cs }}:</span>
+                    {{ getSkipScenes(item)[cs].join(', ') }}
+                  </p>
+                  <span style="position: absolute; bottom: 5px">{{ item.provider }}</span>
+                </div>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
       </div>
     </section>
   </div>
@@ -479,6 +374,9 @@ const rawTags = require('../assets/raw_tags')
 export default {
   data() {
     return {
+      seeAllGenreChips: false,
+      showSidebarFilters: true,
+
       data: [],
       loading: true,
       fetchedAt: '', //aux variable to make sure we refresh data with latest getData() request, not last arriving (async)
@@ -640,6 +538,11 @@ export default {
     }
   },
   methods: {
+    toggleFilterBar() {
+      //workaround to show/hide the filters on mobile...
+      //this.showSidebarFilters = !this.showSidebarFilters
+      scroll(0, 0)
+    },
     getProvider(watchUrl) {
       let u = new URL(watchUrl)
       let h = u.hostname.replace('www.', '')
@@ -693,7 +596,7 @@ export default {
       var taggedAux = {}
 
       var skipTagsR = [...this.skipTags].reverse() //reverse to show severe first
-      skipTagsR.forEach( label => {
+      skipTagsR.forEach(label => {
         let tagStatus = item.status[label]
 
         //missing
@@ -743,8 +646,8 @@ export default {
     },
 
     joinStatus(tagged, skipTags) {
-      if (!tagged) return {status: 'unknown', cuts: 0, level: 0}
-      if (!skipTags || !skipTags.length) return {status: 'unset', cuts: 0, level: 0}
+      if (!tagged) return { status: 'unknown', cuts: 0, level: 0 }
+      if (!skipTags || !skipTags.length) return { status: 'unset', cuts: 0, level: 0 }
       let status = 'done'
       let cuts = 0
       let level = Infinity
@@ -896,6 +799,12 @@ body {
   border-radius: 0px;
 }
 
+.v-expansion-panel-header {
+  border: none !important;
+  box-shadow: none;
+  border-radius: 0px;
+}
+
 #vselect {
   /*background: none;
   border: none;*/
@@ -974,7 +883,7 @@ textarea {
 
 .v-chip.v-size--default {
   min-width: 70px !important;
-  font-size: 75% !important;
+  font-size: 90% !important;
 }
 
 .v-chip__content {
@@ -1069,5 +978,22 @@ div.posters_wrapper div.poster_card div.content {
 .poster_card > .content:hover {
   opacity: 0.95;
   transition: opacity 0.3s;
+}
+
+.filterr {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: solid lightgray 1px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+div.sticky {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  top: 0 !important;
+  background-color: yellow;
+  padding: 50px;
+  font-size: 20px;
 }
 </style>
