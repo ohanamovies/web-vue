@@ -49,7 +49,9 @@
             id="filterss"
           >
             <!-- SEARCH FIELD -->
+
             <v-text-field
+              outlined
               type="search"
               id="searchBox"
               dense
@@ -60,7 +62,7 @@
               prepend-inner-icon="mdi-magnify"
               hide-details
               clearable
-              class="pa-0"
+              class="pa-0 mb-2"
               @focus="$event.target.select()"
               @keyup.enter="getData()"
             >
@@ -70,8 +72,6 @@
                 >
               </div>
             </v-text-field>
-
-            <br />
 
             <!-- Sensitivity -->
             <div class="filterr">
@@ -321,7 +321,7 @@
             </div>
           </v-col>
 
-          <v-col>
+          <v-col class="pt-0">
             <!-- POSTERS -->
             <div v-if="loading">
               <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
@@ -911,7 +911,7 @@ div.posters_wrapper {
 div.posters_wrapper div.poster_card {
   margin-left: 10px;
   margin-right: 10px;
-  margin-top: 30px;
+  margin-bottom: 30px;
 
   position: relative;
   top: 0;
