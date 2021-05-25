@@ -78,98 +78,124 @@
               <h4 style="padding: 0px; margin: 0px">What do you want to skip?</h4>
               <b>Sex/Nudity:</b>
               <div class="sliderticks">
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: sexSlider > 1 }"
-                  @click="sexSlider = sexSlider > 1 ? 1 : 2"
-                  >Severe</v-chip
-                >
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: sexSlider > 2 }"
-                  @click="sexSlider = sexSlider > 2 ? 2 : 3"
-                  >Moderate</v-chip
-                >
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: sexSlider > 3 }"
-                  @click="sexSlider = sexSlider > 3 ? 3 : 4"
-                  >Mild</v-chip
-                >
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: sexSlider > 4 }"
-                  @click="sexSlider = sexSlider > 4 ? 4 : 5"
-                  >Slight</v-chip
+                <my-tooltip :text="tagsDescription['Very erotic']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: sexSlider > 1 }"
+                    @click="sexSlider = sexSlider > 1 ? 1 : 2"
+                  >
+                    Severe
+                  </v-chip>
+                </my-tooltip>
+
+                <my-tooltip :text="tagsDescription['Moderately erotic']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: sexSlider > 2 }"
+                    @click="sexSlider = sexSlider > 2 ? 2 : 3"
+                    >Moderate</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Mildly erotic']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: sexSlider > 3 }"
+                    @click="sexSlider = sexSlider > 3 ? 3 : 4"
+                    >Mild</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Slightly erotic']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: sexSlider > 4 }"
+                    @click="sexSlider = sexSlider > 4 ? 4 : 5"
+                    >Slight</v-chip
+                  ></my-tooltip
                 >
               </div>
               <!--  cols="12" sm="6" md="4" -->
               <b>Violence/Gore: </b>
               <div class="sliderticks">
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: vioSlider > 1 }"
-                  @click="vioSlider = vioSlider > 1 ? 1 : 2"
-                  >Severe</v-chip
-                >
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: vioSlider > 2 }"
-                  @click="vioSlider = vioSlider > 2 ? 2 : 3"
-                  >Moderate</v-chip
-                >
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: vioSlider > 3 }"
-                  @click="vioSlider = vioSlider > 3 ? 3 : 4"
-                  >Mild</v-chip
-                >
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: vioSlider > 4 }"
-                  @click="vioSlider = vioSlider > 4 ? 4 : 5"
-                  >Slight</v-chip
-                >
+                <my-tooltip :text="tagsDescription['Very gory']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: vioSlider > 1 }"
+                    @click="vioSlider = vioSlider > 1 ? 1 : 2"
+                    >Severe</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Moderately gory']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: vioSlider > 2 }"
+                    @click="vioSlider = vioSlider > 2 ? 2 : 3"
+                    >Moderate</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Mildly gory']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: vioSlider > 3 }"
+                    @click="vioSlider = vioSlider > 3 ? 3 : 4"
+                    >Mild</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Slightly gory']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: vioSlider > 4 }"
+                    @click="vioSlider = vioSlider > 4 ? 4 : 5"
+                    >Slight</v-chip
+                  >
+                </my-tooltip>
               </div>
 
               <b>Profanity: </b>
               <div class="sliderticks">
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: profSlider > 1 }"
-                  @click="profSlider = profSlider > 1 ? 1 : 2"
-                  >Severe</v-chip
-                >
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: profSlider > 2 }"
-                  @click="profSlider = profSlider > 2 ? 2 : 3"
-                  >Moderate</v-chip
-                >
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: profSlider > 3 }"
-                  @click="profSlider = profSlider > 3 ? 3 : 4"
-                  >Mild</v-chip
-                >
-                <v-chip
-                  dense
-                  small
-                  :class="{ skip: profSlider > 4 }"
-                  @click="profSlider = profSlider > 4 ? 4 : 5"
-                  >Slight</v-chip
-                >
+                <my-tooltip :text="tagsDescription['Very profane']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: profSlider > 1 }"
+                    @click="profSlider = profSlider > 1 ? 1 : 2"
+                    >Severe</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Moderately profane']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: profSlider > 2 }"
+                    @click="profSlider = profSlider > 2 ? 2 : 3"
+                    >Moderate</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Mildly profane']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: profSlider > 3 }"
+                    @click="profSlider = profSlider > 3 ? 3 : 4"
+                    >Mild</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Slightly profane']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: profSlider > 4 }"
+                    @click="profSlider = profSlider > 4 ? 4 : 5"
+                    >Slight</v-chip
+                  >
+                </my-tooltip>
               </div>
             </div>
 
@@ -523,6 +549,16 @@ export default {
       var prof = rawTags.severities[2].slice(5 - this.profSlider, 4)
       var tags = [...sex, ...vio, ...prof]
       return tags
+    },
+
+    tagsDescription() {
+      let x = {} //tag:desc
+      rawTags.content.forEach(cat => {
+        cat.severity.forEach(sev => {
+          x[sev.value] = sev.description
+        })
+      })
+      return x
     },
 
     filteredList() {
