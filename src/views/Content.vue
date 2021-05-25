@@ -918,6 +918,8 @@ textarea {
 .skip {
   background-color: #9e9e9e !important;
   border-color: #9e9e9e !important;
+  padding: 10px !important;
+  /*color: white !important;*/
 }
 
 /*.chipdown > span {
