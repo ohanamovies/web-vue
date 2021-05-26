@@ -14,7 +14,7 @@
           right
           fixed
           dark
-          @click="toggleFilterBar"
+          @click="scrollToTop"
           style="z-index:99999"
         >
           <!-- progress circle within the go-to-top button -->
@@ -73,6 +73,7 @@
               </div>
             </v-text-field>
 
+            <!-- If mobile, let's use a trick to help toggle advancedSearch/results -->
             <div v-if="isMobile" style="margin-bottom: 10px;">
               <span
                 @click="mobileView = 'filters'"
@@ -393,6 +394,39 @@
                 </v-checkbox>
               </div>
             </div>
+
+            <!-- Offer to see the results -->
+            <div v-if="isMobile && mobileView == 'filters'" style="margin-top: 10px;">
+              <span
+                @click="
+                  mobileView = 'posters'
+                  if (type != 'movie') setType('movie')
+                  scrollToTop()
+                "
+                :style="{
+                  cursor: 'pointer',
+                  textDecoration: 'underline',
+                  color: 'DodgerBlue',
+                  fontWeight: mobileView == 'posters' && type == 'movie' ? 'bold' : '300'
+                }"
+                >Find Movies</span
+              >
+              |
+              <span
+                @click="
+                  mobileView = 'posters'
+                  if (type != 'show') setType('show')
+                  scrollToTop()
+                "
+                :style="{
+                  cursor: 'pointer',
+                  textDecoration: 'underline',
+                  color: 'DodgerBlue',
+                  fontWeight: mobileView == 'posters' && type == 'show' ? 'bold' : '300'
+                }"
+                >Find Shows</span
+              >
+            </div>
           </v-col>
 
           <v-col class="pt-0" v-if="!isMobile || mobileView == 'posters'">
@@ -401,6 +435,9 @@
               <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
             </div>
 
+            <div v-if="filteredList.length == 0 && !loading">
+              No {{ type }}s found matching your search.
+            </div>
             <div class="posters_wrapper">
               <div class="poster_card" v-for="(item, index) in filteredList" :key="index">
                 <div class="image" style="width:100%">
@@ -641,7 +678,7 @@ export default {
     onResize() {
       this.windowWidth = window.innerWidth
     },
-    toggleFilterBar() {
+    scrollToTop() {
       //workaround to show/hide the filters on mobile...
       //this.showSidebarFilters = !this.showSidebarFilters
       scroll(0, 0)
