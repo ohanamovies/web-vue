@@ -74,7 +74,7 @@
             </v-text-field>
 
             <!-- If mobile, let's use a trick to help toggle advancedSearch/results -->
-            <div v-if="isMobile" style="margin-bottom: 10px;">
+            <div v-if="isMobile" style="margin-bottom: 5px;">
               <span
                 @click="mobileView = 'filters'"
                 :style="{
@@ -1046,9 +1046,9 @@ div.posters_wrapper {
 }
 
 div.posters_wrapper div.poster_card {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 30px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
 
   position: relative;
   top: 0;
@@ -1063,15 +1063,22 @@ div.posters_wrapper div.poster_card {
   /*width: calc(((100vw - 80px - 260px - 128px) / 4));*/
   /*width: calc(((100vw - 260px - 80px - 64px) / 2));*/
   width: calc(
-    (100% - 10px * 4) / 2
+    (100% - 5px * 4) / 2
   ); /* 100% of the div, minus margins*4, and /2 (so at min, 2 posters fit the width)*/
-  max-width: 208px;
+  max-width: 200px;
+  min-width: 100px;
   /*min-height: 200px;*/
 }
 
 div.posters_wrapper .image {
   width: 100%;
   min-height: 100%;
+}
+
+div.posters_wrapper .image > img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
 }
 
 div.posters_wrapper div.poster_card div.content {
