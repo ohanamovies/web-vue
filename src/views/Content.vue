@@ -73,175 +73,146 @@
               </div>
             </v-text-field>
 
+            <!-- Sensitivity -->
+            <div class="filterr">
+              <h4 style="padding: 0px; margin: 0px">What do you want to skip?</h4>
+              <b>Sex/Nudity:</b>
+              <div class="sliderticks">
+                <my-tooltip :text="tagsDescription['Very erotic']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: sexSlider > 1 }"
+                    @click="sexSlider = sexSlider > 1 ? 1 : 2"
+                  >
+                    Severe
+                  </v-chip>
+                </my-tooltip>
+
+                <my-tooltip :text="tagsDescription['Moderately erotic']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: sexSlider > 2 }"
+                    @click="sexSlider = sexSlider > 2 ? 2 : 3"
+                    >Moderate</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Mildly erotic']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: sexSlider > 3 }"
+                    @click="sexSlider = sexSlider > 3 ? 3 : 4"
+                    >Mild</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Slightly erotic']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: sexSlider > 4 }"
+                    @click="sexSlider = sexSlider > 4 ? 4 : 5"
+                    >Slight</v-chip
+                  ></my-tooltip
+                >
+              </div>
+              <!--  cols="12" sm="6" md="4" -->
+              <b>Violence/Gore: </b>
+              <div class="sliderticks">
+                <my-tooltip :text="tagsDescription['Very gory']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: vioSlider > 1 }"
+                    @click="vioSlider = vioSlider > 1 ? 1 : 2"
+                    >Severe</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Moderately gory']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: vioSlider > 2 }"
+                    @click="vioSlider = vioSlider > 2 ? 2 : 3"
+                    >Moderate</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Mildly gory']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: vioSlider > 3 }"
+                    @click="vioSlider = vioSlider > 3 ? 3 : 4"
+                    >Mild</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Slightly gory']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: vioSlider > 4 }"
+                    @click="vioSlider = vioSlider > 4 ? 4 : 5"
+                    >Slight</v-chip
+                  >
+                </my-tooltip>
+              </div>
+
+              <b>Profanity: </b>
+              <div class="sliderticks">
+                <my-tooltip :text="tagsDescription['Very profane']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: profSlider > 1 }"
+                    @click="profSlider = profSlider > 1 ? 1 : 2"
+                    >Severe</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Moderately profane']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: profSlider > 2 }"
+                    @click="profSlider = profSlider > 2 ? 2 : 3"
+                    >Moderate</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Mildly profane']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: profSlider > 3 }"
+                    @click="profSlider = profSlider > 3 ? 3 : 4"
+                    >Mild</v-chip
+                  >
+                </my-tooltip>
+                <my-tooltip :text="tagsDescription['Slightly profane']">
+                  <v-chip
+                    dense
+                    small
+                    :class="{ skip: profSlider > 4 }"
+                    @click="profSlider = profSlider > 4 ? 4 : 5"
+                    >Slight</v-chip
+                  >
+                </my-tooltip>
+              </div>
+            </div>
+
             <!-- If mobile, let's use a trick to help toggle advancedSearch/results -->
             <div v-if="isMobile" style="margin-bottom: 5px;">
               <span
-                @click="mobileView = 'filters'"
+                @click="showFilters = !showFilters"
                 :style="{
                   cursor: 'pointer',
                   textDecoration: 'underline',
-                  color: 'DodgerBlue',
-                  fontWeight: mobileView == 'filters' ? 'bold' : '300'
+                  color: 'DodgerBlue'
                 }"
-                >Advanced Search</span
-              >
-              |
-              <span
-                @click="
-                  mobileView = 'posters'
-                  if (type != 'movie') setType('movie')
-                "
-                :style="{
-                  cursor: 'pointer',
-                  textDecoration: 'underline',
-                  color: 'DodgerBlue',
-                  fontWeight: mobileView == 'posters' && type == 'movie' ? 'bold' : '300'
-                }"
-                >Movies</span
-              >
-              |
-              <span
-                @click="
-                  mobileView = 'posters'
-                  if (type != 'show') setType('show')
-                "
-                :style="{
-                  cursor: 'pointer',
-                  textDecoration: 'underline',
-                  color: 'DodgerBlue',
-                  fontWeight: mobileView == 'posters' && type == 'show' ? 'bold' : '300'
-                }"
-                >Shows</span
+                >{{ showFilters ? 'Hide advanced search' : 'Advanced search' }}</span
               >
             </div>
 
-            <div id="ActualFilters" v-if="!isMobile || mobileView == 'filters'">
-              <!-- Sensitivity -->
-              <div class="filterr">
-                <h4 style="padding: 0px; margin: 0px">What do you want to skip?</h4>
-                <b>Sex/Nudity:</b>
-                <div class="sliderticks">
-                  <my-tooltip :text="tagsDescription['Very erotic']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: sexSlider > 1 }"
-                      @click="sexSlider = sexSlider > 1 ? 1 : 2"
-                    >
-                      Severe
-                    </v-chip>
-                  </my-tooltip>
-
-                  <my-tooltip :text="tagsDescription['Moderately erotic']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: sexSlider > 2 }"
-                      @click="sexSlider = sexSlider > 2 ? 2 : 3"
-                      >Moderate</v-chip
-                    >
-                  </my-tooltip>
-                  <my-tooltip :text="tagsDescription['Mildly erotic']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: sexSlider > 3 }"
-                      @click="sexSlider = sexSlider > 3 ? 3 : 4"
-                      >Mild</v-chip
-                    >
-                  </my-tooltip>
-                  <my-tooltip :text="tagsDescription['Slightly erotic']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: sexSlider > 4 }"
-                      @click="sexSlider = sexSlider > 4 ? 4 : 5"
-                      >Slight</v-chip
-                    ></my-tooltip
-                  >
-                </div>
-                <!--  cols="12" sm="6" md="4" -->
-                <b>Violence/Gore: </b>
-                <div class="sliderticks">
-                  <my-tooltip :text="tagsDescription['Very gory']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: vioSlider > 1 }"
-                      @click="vioSlider = vioSlider > 1 ? 1 : 2"
-                      >Severe</v-chip
-                    >
-                  </my-tooltip>
-                  <my-tooltip :text="tagsDescription['Moderately gory']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: vioSlider > 2 }"
-                      @click="vioSlider = vioSlider > 2 ? 2 : 3"
-                      >Moderate</v-chip
-                    >
-                  </my-tooltip>
-                  <my-tooltip :text="tagsDescription['Mildly gory']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: vioSlider > 3 }"
-                      @click="vioSlider = vioSlider > 3 ? 3 : 4"
-                      >Mild</v-chip
-                    >
-                  </my-tooltip>
-                  <my-tooltip :text="tagsDescription['Slightly gory']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: vioSlider > 4 }"
-                      @click="vioSlider = vioSlider > 4 ? 4 : 5"
-                      >Slight</v-chip
-                    >
-                  </my-tooltip>
-                </div>
-
-                <b>Profanity: </b>
-                <div class="sliderticks">
-                  <my-tooltip :text="tagsDescription['Very profane']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: profSlider > 1 }"
-                      @click="profSlider = profSlider > 1 ? 1 : 2"
-                      >Severe</v-chip
-                    >
-                  </my-tooltip>
-                  <my-tooltip :text="tagsDescription['Moderately profane']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: profSlider > 2 }"
-                      @click="profSlider = profSlider > 2 ? 2 : 3"
-                      >Moderate</v-chip
-                    >
-                  </my-tooltip>
-                  <my-tooltip :text="tagsDescription['Mildly profane']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: profSlider > 3 }"
-                      @click="profSlider = profSlider > 3 ? 3 : 4"
-                      >Mild</v-chip
-                    >
-                  </my-tooltip>
-                  <my-tooltip :text="tagsDescription['Slightly profane']">
-                    <v-chip
-                      dense
-                      small
-                      :class="{ skip: profSlider > 4 }"
-                      @click="profSlider = profSlider > 4 ? 4 : 5"
-                      >Slight</v-chip
-                    >
-                  </my-tooltip>
-                </div>
-              </div>
-
+            <div id="ActualFilters" v-if="!isMobile || showFilters">
               <!-- Content safety chips -->
               <div class="filterr">
                 <!--
@@ -377,16 +348,22 @@
 
               <!-- Clean/Certified Only -->
               <div class="filterr">
-                <v-checkbox v-model="cleanOnly" hide-details>
-                  <div slot="label" style="font-size: 85%;">
+                <v-checkbox v-model="cleanOnly" hide-details class="mt-0" :disabled="certifiedOnly">
+                  <div
+                    slot="label"
+                    style="font-size: 85%; transform: translateY(9px) translateX(-5px);"
+                  >
                     Show only clean movies
                     <v-icon color="green">mdi-content-cut</v-icon> |
                     <v-icon color="green">mdi-emoticon-happy</v-icon>
                   </div>
                 </v-checkbox>
 
-                <v-checkbox v-model="certifiedOnly" hide-details>
-                  <div slot="label" style="font-size: 85%; ">
+                <v-checkbox v-model="certifiedOnly" hide-details class="mt-0">
+                  <div
+                    slot="label"
+                    style="font-size: 85%; transform: translateY(9px) translateX(-5px); "
+                  >
                     Show only Ohana certified movies
                     <v-icon color="blue">mdi-content-cut</v-icon>
                     | <v-icon color="blue">mdi-emoticon-happy</v-icon>
@@ -394,42 +371,9 @@
                 </v-checkbox>
               </div>
             </div>
-
-            <!-- Offer to see the results -->
-            <div v-if="isMobile && mobileView == 'filters'" style="margin-top: 10px;">
-              <span
-                @click="
-                  mobileView = 'posters'
-                  if (type != 'movie') setType('movie')
-                  scrollToTop()
-                "
-                :style="{
-                  cursor: 'pointer',
-                  textDecoration: 'underline',
-                  color: 'DodgerBlue',
-                  fontWeight: mobileView == 'posters' && type == 'movie' ? 'bold' : '300'
-                }"
-                >Find Movies</span
-              >
-              |
-              <span
-                @click="
-                  mobileView = 'posters'
-                  if (type != 'show') setType('show')
-                  scrollToTop()
-                "
-                :style="{
-                  cursor: 'pointer',
-                  textDecoration: 'underline',
-                  color: 'DodgerBlue',
-                  fontWeight: mobileView == 'posters' && type == 'show' ? 'bold' : '300'
-                }"
-                >Find Shows</span
-              >
-            </div>
           </v-col>
 
-          <v-col class="pt-0" v-if="!isMobile || mobileView == 'posters'">
+          <v-col class="pt-0">
             <!-- POSTERS -->
             <div v-if="loading">
               <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
@@ -495,7 +439,7 @@ export default {
   data() {
     return {
       windowWidth: 0,
-      mobileView: 'filters',
+      showFilters: false,
 
       seeAllGenreChips: false,
       showSidebarFilters: true,
@@ -505,9 +449,6 @@ export default {
       fetchedAt: '', //aux variable to make sure we refresh data with latest getData() request, not last arriving (async)
       page: 1,
       finishLoading: false,
-      showFilters: false,
-      showFilters2: false,
-      showFilters3: false,
 
       statusFilter: [],
 
@@ -569,8 +510,9 @@ export default {
     cleanOnly() {
       this.getData()
     },
-    certifiedOnly() {
+    certifiedOnly(newValue) {
       this.getData()
+      if (newValue) this.cleanOnly = true
     },
     title() {
       clearTimeout(this.titleTimeout)
