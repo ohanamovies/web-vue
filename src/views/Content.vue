@@ -28,7 +28,7 @@
           <v-icon v-else color="white">mdi-arrow-up</v-icon>
         </v-btn>
 
-        <!-- PROGRESS BAR FOR LOADING -->
+        <!-- PROGRESS BAR FOR LOADING, at the bottom of the page -->
         <div v-if="loading">
           <v-progress-linear
             indeterminate
@@ -41,7 +41,7 @@
           <v-col
             cols="12"
             xs="12"
-            sm="10"
+            sm="12"
             md="5"
             lg="4"
             xl="3"
