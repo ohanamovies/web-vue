@@ -22,8 +22,7 @@
           {{ item.metadata.title }}
         </h2>
         <span style="font-size: 0.8em;  margin-bottom: 2em;"
-          >{{ 'Year: ' + item.metadata.released.substring(0, 4) }} |
-          {{ 'TMDb Rating: ' + item.metadata.tmdb_rating }} |
+          >{{ 'Year: ' + mapping.year }} | {{ 'TMDb Rating: ' + item.metadata.tmdb_rating }} |
           {{ 'Runtime: ' + item.metadata.runtime + ' minutes' }}</span
         >
       </div>
@@ -55,7 +54,7 @@
             >
               <v-chip x-small class="ma-1">
                 <v-icon left x-small :color="tagged(sev).color">{{ tagged(sev).icon }}</v-icon>
-                {{ sev + tagged(sev).badge }}
+                {{ tagged(sev).tag + tagged(sev).badge }}
               </v-chip>
             </div>
           </div>
@@ -113,6 +112,11 @@ export default {
   },
 
   computed: {
+    mapping() {
+      return {
+        year: this.item.metadata.released ? this.item.metadata.released.substring(0, 4) : ''
+      }
+    },
     platform() {
       let hostname = new URL(this.watch_url).hostname
       return hostname.replace('www.', '')
@@ -129,12 +133,22 @@ export default {
       //this returns the icon, color, and number of scenes for the given tags (used for the chips.)
       let icon
       let color
+
       let badge = ''
+      let status
+      let level
 
       let auxx = this.item.scenes.filter(x => x.tags.includes(tag))
       let count = auxx.length
-      let status = this.item.tagged[tag].status
-      let level = this.item.tagged[tag]['modified'][1]
+
+      try {
+        status = this.item.tagged[tag].status
+        level = this.item.tagged[tag]['modified'][1]
+      } catch (error) {
+        status = 'unknown'
+        level = '-1'
+        badge = ' (??)'
+      }
 
       if (status == 'done') {
         color = level > 5 ? 'blue' : 'green'
@@ -149,7 +163,7 @@ export default {
         color = 'gray'
       }
 
-      return { color, icon, count, badge }
+      return { color, icon, count, badge, tag }
     },
     closeMe() {
       this.$emit('close', false)
