@@ -6,6 +6,18 @@
       <div class="inner">
         <h4>Discover content</h4>
 
+        <v-dialog
+          v-model="showMovieDialog"
+          width="750"
+          :fullscreen="isMobile"
+          :style="{ marginTop: isMobile ? '40px' : '0px', zIndex: 99999999999998 }"
+        >
+          <movie-detail-page
+            :watch_url="movieDialogWatchUrl"
+            @close="showMovieDialog = false"
+          ></movie-detail-page>
+        </v-dialog>
+
         <!-- Floating button now to scroll to top (useful on mobile to get to the filters), in future to show/hide filters on mobile-->
         <v-btn
           color="#6cc091"
@@ -208,7 +220,7 @@
                   textDecoration: 'underline',
                   color: 'DodgerBlue'
                 }"
-                >{{ showFilters ? 'Hide advanced search' : 'Advanced search' }}</span
+                >{{ showFilters ? 'Hide Advanced Search' : 'Show Advanced Search' }}</span
               >
             </div>
 
@@ -383,7 +395,12 @@
               No {{ type }}s found matching your search.
             </div>
             <div class="posters_wrapper">
-              <div class="poster_card" v-for="(item, index) in filteredList" :key="index">
+              <div
+                class="poster_card"
+                v-for="(item, index) in filteredList"
+                :key="index"
+                @click="openMovieDialog(item)"
+              >
                 <div class="image" style="width:100%">
                   <!-- poster_path -->
                   <img :src="item.poster" :alt="item.title" />
@@ -434,10 +451,17 @@
 
 <script>
 const rawTags = require('../assets/raw_tags')
+import MovieDetailPage from '../components/MovieDetailPage'
 //const { searchMatch } = require('../sharedjs')
 export default {
+  components: {
+    MovieDetailPage
+  },
   data() {
     return {
+      movieDialogWatchUrl: '',
+      showMovieDialog: false,
+
       windowWidth: 0,
       showFilters: false,
 
@@ -617,6 +641,10 @@ export default {
     }
   },
   methods: {
+    openMovieDialog(item) {
+      this.showMovieDialog = true
+      this.movieDialogWatchUrl = item.watch_url
+    },
     onResize() {
       this.windowWidth = window.innerWidth
     },
