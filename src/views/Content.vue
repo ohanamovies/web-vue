@@ -8,6 +8,7 @@
 
         <v-dialog
           v-model="showMovieDialog"
+          scrollable
           width="750"
           :style="{ marginTop: isMobile ? '40px' : '0px', zIndex: 99999999999998 }"
         >
