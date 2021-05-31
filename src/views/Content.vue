@@ -9,11 +9,11 @@
         <v-dialog
           v-model="showMovieDialog"
           width="750"
-          :fullscreen="isMobile"
           :style="{ marginTop: isMobile ? '40px' : '0px', zIndex: 99999999999998 }"
         >
           <movie-detail-page
-            :watch_url="movieDialogWatchUrl"
+            :isMobile="isMobile"
+            :selection="selectedItemInfo"
             @close="showMovieDialog = false"
           ></movie-detail-page>
         </v-dialog>
@@ -459,7 +459,7 @@ export default {
   },
   data() {
     return {
-      movieDialogWatchUrl: '',
+      selectedItemInfo: {},
       showMovieDialog: false,
 
       windowWidth: 0,
@@ -643,7 +643,13 @@ export default {
   methods: {
     openMovieDialog(item) {
       this.showMovieDialog = true
-      this.movieDialogWatchUrl = item.watch_url
+      this.selectedItemInfo = {
+        joinStatus: this.joinStatus(item.status, this.skipTags),
+        icon: this.getShieldIcon(item),
+        color: this.getShieldColor(item),
+        provider: this.getProvider(item.watch_url),
+        watch_url: item.watch_url
+      }
     },
     onResize() {
       this.windowWidth = window.innerWidth
@@ -1059,6 +1065,7 @@ div.posters_wrapper div.poster_card div.content {
   /*display: flex;*/
   align-content: flex-start;
   flex-wrap: wrap;
+  cursor: pointer;
 }
 
 .shield {

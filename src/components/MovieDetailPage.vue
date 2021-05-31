@@ -1,85 +1,128 @@
 <template>
-  <div class="mcontainer">
-    <!-- Close Button -->
-    <div @click="closeMe()" class="closeButton">
-      <v-btn icon small><v-icon>mdi-close</v-icon></v-btn>
-    </div>
-
-    <!-- info -->
-    <div v-if="item.metadata" class="minfo">
-      <!-- image -->
-      <div class="image" hidden>
-        <img
-          :src="'https://image.tmdb.org/t/p/w200' + item.metadata.poster"
-          :alt="item.metadata.title"
-          style="object-fit: contain;"
-        />
-      </div>
-
+  <div>
+    <v-card v-if="item.metadata">
       <!-- header -->
-      <div class="headerr">
-        <h2 style="margin-bottom: 0px; padding-bottom: 0px;">
-          {{ item.metadata.title }}
-        </h2>
-        <span style="font-size: 0.8em;  margin-bottom: 2em;"
-          >{{ 'Year: ' + mapping.year }} | {{ 'TMDb Rating: ' + item.metadata.tmdb_rating }} |
-          {{ 'Runtime: ' + item.metadata.runtime + ' minutes' }}</span
+      <v-card-title
+        primary-title
+        style="white-space: pre-wrap;word-break: keep-all; line-height: normal; margin-bottom: 5px;"
+      >
+        <span
+          >{{ item.metadata.title }}
+          <span style="font-size: 70%; color: gray"> ({{ mapping.year }})</span></span
         >
-      </div>
+      </v-card-title>
+      <v-card-subtitle>
+        {{ 'TMDb Rating: ' + item.metadata.tmdb_rating }} |
+        {{ 'Runtime: ' + item.metadata.runtime + ' mins' }} |
+        <a :href="'https://www.imdb.com/title/' + item.metadata.imdb" target="_blank">IMDb</a>
+      </v-card-subtitle>
+      <!-- Tabs -->
+      <v-card-text>
+        <v-row>
+          <v-col cols="3" v-if="!isMobile">
+            <img
+              :src="'https://image.tmdb.org/t/p/w200' + item.metadata.poster"
+              :alt="item.metadata.title"
+              style="object-fit: contain; width: 100%"
+            />
+          </v-col>
+          <v-col class="pt-0">
+            <v-tabs v-model="tab" class="mb-3 pa-0">
+              <v-tabs-slider></v-tabs-slider>
+              <v-tab>Overview</v-tab>
+              <v-tab>Ohana </v-tab>
+              <v-tab v-if="selection.joinStatus.status != 'missing'">Stream</v-tab>
+              <v-tab v-if="false">Image</v-tab>
+            </v-tabs>
 
-      <!-- overview -->
-      <div class="overview">
-        <h3>Overview</h3>
-        {{ item.metadata.overview }}
-      </div>
+            <v-tabs-items v-model="tab" style="height: 250px; overflow-y: auto">
+              <!-- overview -->
+              <v-tab-item>
+                <div class="overview">
+                  {{ item.metadata.overview }}
+                </div>
 
-      <!-- Genres -->
-      <div>
-        <b style="font-size: 0.8em">Genres: </b>
-        <v-chip v-for="(g, index) in item.metadata.genres" :key="index" x-small class="mr-1">{{
-          g
-        }}</v-chip>
-      </div>
+                <!-- Genres -->
+                <div style="margin-top: 5px">
+                  <b style="font-size: 0.8em">Genres: </b>
+                  <v-chip
+                    v-for="(g, index) in item.metadata.genres"
+                    :key="index"
+                    x-small
+                    class="mr-1"
+                    >{{ g }}</v-chip
+                  >
+                </div>
+              </v-tab-item>
 
-      <!-- Tagged Chips -->
-      <div>
-        <h3>Ohana guide</h3>
-        <div v-for="(cat, index) in categories" :key="index" style="display: inline-block">
-          <div v-if="cat != 'Other'" style="display: inline-block">
-            <b style="font-size: 0.8em">{{ cat }}: </b>
-            <div
-              v-for="(sev, index2) in severities[index]"
-              :key="index2"
-              style="display: inline-block"
-            >
-              <v-chip x-small class="ma-1">
-                <v-icon left x-small :color="tagged(sev).color">{{ tagged(sev).icon }}</v-icon>
-                {{ tagged(sev).tag + tagged(sev).badge }}
-              </v-chip>
-            </div>
-          </div>
-        </div>
-      </div>
+              <!-- Ohana -->
+              <v-tab-item>
+                <!-- Summary -->
 
-      <!-- Watch Button -->
-      <div class="watch_url" style="margin-top: 10px;">
-        <h3>Stream options</h3>
+                <div class="notification">
+                  <v-row>
+                    <v-col cols="1">
+                      <v-icon :color="selection.color">{{ selection.icon }}</v-icon>
+                    </v-col>
+                    <v-col>
+                      <span v-html="ohanaSummaryHtml"></span>
+                    </v-col>
+                  </v-row>
+                </div>
+                <!-- tagged chips-->
+                <b>Filter details</b>
+                <div v-for="(cat, index) in categories" :key="index" style="display: inline-block">
+                  <div v-if="cat != 'Other'" style="display: inline-block">
+                    <b style="font-size: 0.8em">{{ cat }}: </b>
+                    <div
+                      v-for="(sev, index2) in severities[index]"
+                      :key="index2"
+                      style="display: inline-block"
+                    >
+                      <v-chip x-small class="ma-1">
+                        <v-icon left x-small :color="tagged(sev).color">{{
+                          tagged(sev).icon
+                        }}</v-icon>
+                        {{ tagged(sev).tag + tagged(sev).badge }}
+                      </v-chip>
+                    </div>
+                  </div>
+                </div>
+                <br />
+                <a style="font-size: 0.8em" href="#">Report error</a>
+              </v-tab-item>
 
-        <a :href="watch_url" class="button">Watch on {{ platform }} </a>
-      </div>
-    </div>
+              <!-- Stream optoins -->
+              <!-- TODO: for now, removing the wathc options if status == missing (to protect users a bit) -->
+              <v-tab-item v-if="selection.joinStatus.status != 'missing'">
+                <a :href="selection.watch_url" class="button">Watch on {{ selection.provider }} </a>
+              </v-tab-item>
 
-    <!-- loading / error -->
-    <div v-else style="margin: 30px; text-align: center ">
-      <v-progress-circular
-        indeterminate
-        width="2"
-        size="50"
-        color="green"
-        v-if="loading"
-      ></v-progress-circular>
-      <span v-else>Error</span>
-    </div>
+              <!-- image -->
+
+              <v-tab-item v-if="false">
+                <img
+                  :src="'https://image.tmdb.org/t/p/w200' + item.metadata.poster"
+                  :alt="item.metadata.title"
+                  style="object-fit: contain;"
+                />
+              </v-tab-item>
+            </v-tabs-items>
+          </v-col>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn color="primary" class="mbutton" text @click="closeMe()">Close</v-btn>
+      </v-card-actions>
+    </v-card>
+
+    <!-- if no data -->
+    <v-card v-else>
+      <v-card-text style="height: 200px;">
+        <div v-if="loading">Loading...</div>
+        <div v-else>Error</div>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 
@@ -89,13 +132,20 @@ const rawTags = require('../assets/raw_tags')
 
 export default {
   props: {
-    watch_url: {
-      type: String,
-      default: ''
+    isMobile: {
+      type: Boolean,
+      default: false
+    },
+    selection: {
+      type: Object,
+      default: function() {
+        return {}
+      }
     }
   },
   data() {
     return {
+      tab: 0,
       item: {},
 
       categories: [],
@@ -105,7 +155,7 @@ export default {
   },
 
   watch: {
-    watch_url() {
+    selection() {
       this.item = {} //reset
       this.getData()
     }
@@ -117,12 +167,35 @@ export default {
         year: this.item.metadata.released ? this.item.metadata.released.substring(0, 4) : ''
       }
     },
-    platform() {
-      let hostname = new URL(this.watch_url).hostname
-      return hostname.replace('www.', '')
+
+    parsedURL() {
+      return provider.parseURL(this.selection.watch_url)
     },
-    metadata() {
-      return provider.parseURL(this.watch_url)
+
+    ohanaSummaryHtml() {
+      //TODO: Draft (shall we add here a link to watch, if safe?)
+      let status = this.selection.joinStatus.status
+      let cuts = this.selection.joinStatus.cuts
+      let level = this.selection.joinStatus.level
+
+      let type = this.item.metadata.type
+
+      let text = ''
+      if (status == 'done' && cuts == 0) {
+        text = `${
+          level > 5 ? 'We have certified that' : 'Our community says that'
+        } this ${type} is clean for your settings (no filters needed).`
+      } else if (status == 'done' && cuts > 0) {
+        text = `${
+          level > 5 ? 'We' : 'Our community'
+        } have created filters for this ${type}, so that you can watch it safely with our Ohana Chrome extension.`
+      } else if (status == 'missing') {
+        text = `Watchout! This ${type} has unsafe content for your settings.`
+      } else {
+        text = `Careful! We don't yet have enough information for all your settings.`
+      }
+
+      return text
     }
   },
 
@@ -190,11 +263,12 @@ export default {
     getData() {
       let url = this.buildURL({
         action: 'getMovie',
-        id: this.metadata.id,
-        season: this.metadata.season,
-        episode: this.metadata.episode,
-        title: this.metadata.title
+        id: this.parsedURL.id,
+        season: this.parsedURL.season,
+        episode: this.parsedURL.episode,
+        title: this.parsedURL.title
       })
+      console.log('[alex] getting movie data', this.selection.watch_url, url)
       this.loading = true
       fetch(url)
         .then(r => r.text())
@@ -208,45 +282,27 @@ export default {
   mounted() {
     this.categories = rawTags.categories
     this.severities = rawTags.severitiesR
+    this.getData()
   }
 }
 </script>
 
 <style>
-.mcontainer {
-  /*display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: stretch; / * others: center, baseline, stretch (default) ...* /
-*/
-  position: relative;
-  background-color: white;
-  margin-right: 0px !important;
-  margin-left: 0px !important;
-  padding: 10px;
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
+.v-slide-group__prev {
+  display: none !important;
 }
 
-.overview {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 0.9em;
+.mbutton {
+  border: none !important;
 }
 
-.closeButton {
-  position: absolute;
-
-  top: 10px;
-
-  right: 10px;
-  z-index: 99999999999999;
-}
-h3 {
-  font-size: 1.4em;
-  margin-top: 1em;
-  margin-bottom: 0.5em;
+.notification {
+  border: solid 1px lightgray;
+  padding: 5px;
+  margin-bottom: 8px;
+  margin-top: 0px;
+  white-space: pre-wrap;
+  word-break: keep-all;
+  line-height: normal;
 }
 </style>
