@@ -125,7 +125,7 @@
 
     <!-- if no data -->
     <v-card v-else>
-      <v-card-text style="height: 200px;">
+      <v-card-text style="height: 250px;">
         <div v-if="loading">Loading...</div>
         <div v-else>Error</div>
       </v-card-text>
@@ -315,5 +315,10 @@ export default {
   white-space: pre-wrap;
   word-break: keep-all;
   line-height: normal;
+}
+
+.v-overlay--active {
+  /** tbc: this should prevent background scroll in iOS */
+  touch-action: none !important;
 }
 </style>
