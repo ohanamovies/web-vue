@@ -62,7 +62,9 @@
                 <div class="notification">
                   <v-row>
                     <v-col cols="1">
-                      <v-icon :color="selection.color">{{ selection.icon }}</v-icon>
+                      <v-icon :color="selection.color">{{
+                        selection.icon == 'none' ? 'mdi-alert' : selection.icon
+                      }}</v-icon>
                     </v-col>
                     <v-col>
                       <span v-html="ohanaSummaryHtml"></span>
@@ -89,7 +91,12 @@
                   </div>
                 </div>
                 <br />
-                <a style="font-size: 0.8em" href="#">Report error</a>
+                <a
+                  style="font-size: 0.85em"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSfIi64Ge0or3yOHn9TaEJY4y4rw2irHTeTmnLI_W7kMHx79CQ/viewform"
+                  target="_blank"
+                  >Report an error</a
+                >
               </v-tab-item>
 
               <!-- Stream optoins -->
@@ -145,7 +152,7 @@ export default {
   },
   data() {
     return {
-      tab: 0,
+      tab: 1, //0: overview, 1: Ohana -> shall we start with Ohana?
       item: {},
 
       categories: [],
@@ -181,7 +188,11 @@ export default {
       let type = this.item.metadata.type
 
       let text = ''
-      if (status == 'done' && cuts == 0) {
+      if (status == 'unset') {
+        text = `To get the most out of Ohana, let us know what content you want to skip: close this popup and adjust your settings ${
+          !this.isMobile ? 'at the left of the screen' : 'at the top of the screen'
+        }.`
+      } else if (status == 'done' && cuts == 0) {
         text = `${
           level > 5 ? 'We have certified that' : 'Our community says that'
         } this ${type} is clean for your settings (no filters needed).`
