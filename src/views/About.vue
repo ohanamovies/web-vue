@@ -3,7 +3,7 @@
     <!-- Header -->
     <my-header></my-header>
 
-    <section id="main" class="wrapper" style="max-width: 700px; margin:auto">
+    <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
       <div class="inner">
         <div id="menu">
           In this section you will find:
@@ -22,8 +22,8 @@
         </div>
 
         <div id="what-is-ohana">
-          <h2>What is Ohana?</h2>
-          <div class="image" style="float: right; padding: 10px;">
+          <h2>{{ $t('whatIsOhana') }}</h2>
+          <div class="image" style="float: right; padding: 10px">
             <img src="images/means-family.jpg" height="275px" />
           </div>
           <p>
@@ -31,17 +31,19 @@
             clean movies.
           </p>
           <p>
-            As a community, we develop a set of tools help people watch
-            movies without having to worry about annoying or innapropiate content they don't
-            want to watch (sex scenes, violent content, etc.)
+            As a community, we develop a set of tools help people watch movies without having to
+            worry about annoying or innapropiate content they don't want to watch (sex scenes,
+            violent content, etc.)
           </p>
           <p>
-            Our Chrome extension embeds itself within Netflix, HBO, etc. enabling users to skip those
-            scenes they do not want to watch. With Ohana you decide what to watch and what to skip!
+            Our Chrome extension embeds itself within Netflix, HBO, etc. enabling users to skip
+            those scenes they do not want to watch. With Ohana you decide what to watch and what to
+            skip!
             <!--Don't like watching bloody scenes? Tell Ohana to skip the Very Violent content.-->
           </p>
           <p>
-            If you enjoy great movies, but don't like watching innapropiate scenes, you will be pleased to meet Ohana.
+            If you enjoy great movies, but don't like watching innapropiate scenes, you will be
+            pleased to meet Ohana.
           </p>
         </div>
 
@@ -70,9 +72,10 @@ The important thing here is whether the bad action is portrayed as good. But a b
           different to stealing, watching porn is using people for pleasure-->
 
           <h4>Disturbing scenes</h4>
-          Unpleasant, scary, disgusting, too bloody... Bad for people with addictions... eg. if you have
-          problems with gambling, alcohol, pornography..., it might be good to avoid scenes with a
-          high dose of it People with phobias/PTSD... if you suffer PTSD after some traumatic experience watching certain scenes might trigger flashbacks
+          Unpleasant, scary, disgusting, too bloody... Bad for people with addictions... eg. if you
+          have problems with gambling, alcohol, pornography..., it might be good to avoid scenes
+          with a high dose of it People with phobias/PTSD... if you suffer PTSD after some traumatic
+          experience watching certain scenes might trigger flashbacks
 
           <!--<h4>Other uses</h4>
           <p>Ideological filtering (We don't do that here) Keep the public from/reduce the visibility
@@ -141,12 +144,22 @@ The important thing here is whether the bad action is portrayed as good. But a b
 
         <div id="how-can-i-help">
           <h2>How can I help?</h2>
-          Ohana is a non-profit community of users that provides a free service to society. Thus we rely on the support of our members
+          Ohana is a non-profit community of users that provides a free service to society. Thus we
+          rely on the support of our members
           <ol>
-            <li><b>Feedback.</b> We are just starting, your ideas will help us become even better. Let us know <a href="https://forms.gle/cPr7XQhdS7x1y9hx7">your thoughts</a></li>
+            <li>
+              <b>Feedback.</b> We are just starting, your ideas will help us become even better. Let
+              us know <a href="https://forms.gle/cPr7XQhdS7x1y9hx7">your thoughts</a>
+            </li>
             <li><b>Share.</b> Do you like Ohana? Share it with your friends and family!</li>
-            <li><b>Create.</b> You can help other users by <router-link to="get-started">creating new filters</router-link></li>
-            <li><b>Donate.</b> <a href="https://www.patreon.com/ohanamovies" target="_blank">Donate</a></li>
+            <li>
+              <b>Create.</b> You can help other users by
+              <router-link to="get-started">creating new filters</router-link>
+            </li>
+            <li>
+              <b>Donate.</b>
+              <a href="https://www.patreon.com/ohanamovies" target="_blank">Donate</a>
+            </li>
             <li><b>Code.</b> Do you know how to code?</li>
           </ol>
         </div>
@@ -161,9 +174,9 @@ export default {
   data() {
     return {
       key: 'value',
-      tags: rawTags.content
+      tags: rawTags.content,
     }
-  }
+  },
 }
 </script>
 

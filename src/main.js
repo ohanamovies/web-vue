@@ -8,9 +8,17 @@ import 'roboto-fontface/css/roboto/roboto-fontface.css'
 import '@mdi/font/css/materialdesignicons.css'
 //^_ as learned here: https://stackoverflow.com/questions/52644198/registering-vue-components-globally
 
+
+// Add internationalization
+import i18n from '@/plugins/i18n';
+
+
+
 Vue.config.productionTip = false
 
+
 new Vue({
+  i18n,
   router,
   vuetify,
   render: h => h(App)
