@@ -482,7 +482,8 @@ export default {
         { text: 'HBO', value: 'hboespana' },
         { text: 'Disney+', value: 'disneyplus' },
         { text: 'Movistar', value: 'movistar' },
-        { text: 'Rakuten', value: 'rakuten' }
+        { text: 'Rakuten', value: 'rakuten' },
+        { text: 'Youtube', value: 'youtube' }
       ],
 
       certifiedOnly: false,

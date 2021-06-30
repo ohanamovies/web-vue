@@ -224,14 +224,14 @@ export default {
   data() {
     return {
       key: 'value',
-      tags: rawTags.content,
-      providersList: [
-        { text: 'Netflix', value: 'netflix' },
-        { text: 'HBO', value: 'hbo' },
-        { text: 'Movistar', value: 'movistar' },
-        { text: 'Disney Plus', value: 'disneyplus' },
-        { text: 'Rakuten', value: 'rakuten' }
-      ]
+      tags: rawTags.content
+      // providersList: [
+      //   { text: 'Netflix', value: 'netflix' },
+      //   { text: 'HBO', value: 'hbo' },
+      //   { text: 'Movistar', value: 'movistar' },
+      //   { text: 'Disney Plus', value: 'disneyplus' },
+      //   { text: 'Rakuten', value: 'rakuten' }
+      // ]
     }
   }
 }
