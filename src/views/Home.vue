@@ -7,26 +7,26 @@
     <section class="banner" style="background-image: url(images/banner.jpg); min-height: 100vh">
       <div class="inner" style="border-top: none">
         <header>
-          <h1>Welcome to Ohana</h1>
+          <h1>{{ $t('welcome') }}</h1>
         </header>
 
         <div class="flex">
           <div>
             <span class="icon fa-play-circle"></span>
-            <h3>Simplicity</h3>
-            <p>As easy as pressing play</p>
+            <h3>{{ $t('simplicity') }}</h3>
+            <p>{{ $t('simplicityShortDesc') }}</p>
           </div>
 
           <div>
             <span class="icon fa-bug"></span>
-            <h3>Your way</h3>
-            <p>You decide what you watch</p>
+            <h3>{{ $t('yourWay') }}</h3>
+            <p>{{ $t('yourWayShortDesc') }}</p>
           </div>
 
           <div>
             <span class="icon fa-heart"></span>
-            <h3>Community</h3>
-            <p>Built by people like you</p>
+            <h3>{{ $t('community') }}</h3>
+            <p>{{ $t('communityShortDesc') }}</p>
           </div>
         </div>
 
@@ -35,8 +35,8 @@
             href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
             class="button special"
             target="_blank"
-            style="margin: 5px;"
-            >Install</a
+            style="margin: 5px"
+            >{{ $t('install') }}</a
           >
 
           <!--<a
@@ -59,39 +59,31 @@
               <img src="images/simplicity.jpg" height="150px" alt="Simplicity" />
             </div>
             <header>
-              <h3>Simplicity<br /></h3>
+              <h3>{{ $t('simplicity') }}<br /></h3>
             </header>
-            <p>
-              It's time for unwanted content to go away with one click.
-            </p>
+            <p>{{ $t('simplicityDesc') }}</p>
           </article>
           <article>
             <div class="image round">
               <img src="images/freedom.jpg" height="150px" alt="Freedom" />
             </div>
             <header>
-              <h3>Your way<br /></h3>
+              <h3>{{ $t('yourWay') }}<br /></h3>
             </header>
-            <p>
-              We just provide the information and the tools. You decide what is good for you to
-              watch.
-            </p>
+            <p>{{ $t('yourWayDesc') }}</p>
           </article>
           <article>
             <div class="image round">
               <img src="images/values.jpg" height="150px" alt="Values" />
             </div>
             <header>
-              <h3>Community<br /></h3>
+              <h3>{{ $t('community') }}<br /></h3>
             </header>
-            <p>
-              We are a community of developers and movie fans like you. We work passionately to make
-              Ohana possible.
-            </p>
+            <p>{{ $t('communityDesc') }}</p>
           </article>
         </div>
         <footer>
-          <router-link to="get-started" class="button special">Get started</router-link>
+          <router-link to="get-started" class="button special">{{ $t('getStarted') }}</router-link>
         </footer>
       </div>
     </section>
@@ -99,8 +91,8 @@
     <section class="banner" style="background-image: url(images/providers.jpg)">
       <div class="inner" style="border-top: none">
         <header>
-          <h1>Filter content on your favourite providers</h1>
-          <p>*As of now, only available when you watch using Chrome browser</p>
+          <h1>{{ $t('filterContent') }}</h1>
+          <p>{{ $t('onlyOnChrome') }}</p>
         </header>
 
         <div class="flex flex-3">
@@ -126,7 +118,7 @@
         </div>
 
         <footer>
-          <router-link to="content" class="button special">Discover content</router-link>
+          <router-link to="content" class="button special">{{ $t('discoverContent') }}</router-link>
         </footer>
       </div>
     </section>
@@ -137,6 +129,6 @@
 // @ is an alias to /src
 //import MyHeader from '@/components/MyHeader.vue' //now imported globally!
 export default {
-  name: 'Home'
+  name: 'Home',
 }
 </script>

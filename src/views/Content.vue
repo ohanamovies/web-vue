@@ -4,7 +4,7 @@
 
     <section class="wrapper" id="main">
       <div class="inner">
-        <h4>Discover content</h4>
+        <h4>{{ $t('discoverContent') }}</h4>
 
         <v-dialog
           v-model="showMovieDialog"
@@ -88,7 +88,7 @@
 
             <!-- Sensitivity -->
             <div class="filterr">
-              <h4 style="padding: 0px; margin: 0px">What do you want to skip?</h4>
+              <h4 style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</h4>
               <b>Sex/Nudity:</b>
               <div class="sliderticks">
                 <my-tooltip :text="tagsDescription['Very erotic']">
@@ -221,7 +221,7 @@
                   textDecoration: 'underline',
                   color: 'DodgerBlue'
                 }"
-                >{{ showFilters ? 'Hide Advanced Search' : 'Show Advanced Search' }}</span
+                >{{ $tc('showAdvanced', showFilters ) }}</span
               >
             </div>
 
@@ -232,7 +232,7 @@
               <div style="overflow-x: auto;  white-space: nowrap; ">
                 <div v-if="skipTags.length > 0" style="display:inline;">
                   -->
-                <b>Safety:</b>
+                <b>{{$t('safety')}}</b>
                 <v-chip class="ma-1" small dense v-for="(item, k) in statsRecap" :key="k">
                   <!-- TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
                     @click="
@@ -265,7 +265,7 @@
                   @click="setType('movie')"
                   :class="{ chipdown: type == 'movie' }"
                 >
-                  <span> Movies</span>
+                  <span> {{$t('movies')}}</span>
                 </v-chip>
                 <v-chip
                   dense
@@ -273,13 +273,13 @@
                   class="ma-1"
                   @click="setType('show')"
                   :class="{ chipdown: type == 'show' }"
-                  ><span>Shows</span>
+                  ><span>{{$t('shows')}}</span>
                 </v-chip>
               </div>
 
               <!-- Providers -->
               <div class="filterr">
-                <b>Providers:</b>
+                <b>{{$t('providers')}}:</b>
                 <v-chip
                   class="ma-1"
                   small
@@ -304,7 +304,7 @@
                 <v-expansion-panels v-if="false">
                   <v-expansion-panel style=" border: none;">
                     <v-expansion-panel-header style="overflow: hidden; color: black !important;">
-                      <h5>Genre: {{ genres.join(', ') }}</h5>
+                      <h5>{{$t('genre')}}: {{ genres.join(', ') }}</h5>
                     </v-expansion-panel-header>
 
                     <v-expansion-panel-content>
@@ -329,7 +329,7 @@
                 </v-expansion-panels>
 
                 <!-- genres chips-->
-                <b>Genres:</b>
+                <b>{{$tc('genre',2)}}:</b>
 
                 <v-chip
                   class="ma-1"
@@ -365,8 +365,7 @@
                   <div
                     slot="label"
                     style="font-size: 85%; transform: translateY(9px) translateX(-5px);"
-                  >
-                    Show only clean movies
+                  >{{$t('showOnlyClean')}}
                     <v-icon color="green">mdi-content-cut</v-icon> |
                     <v-icon color="green">mdi-emoticon-happy</v-icon>
                   </div>
@@ -376,8 +375,7 @@
                   <div
                     slot="label"
                     style="font-size: 85%; transform: translateY(9px) translateX(-5px); "
-                  >
-                    Show only Ohana certified movies
+                  >{{$t('showOnlyCertified')}} 
                     <v-icon color="blue">mdi-content-cut</v-icon>
                     | <v-icon color="blue">mdi-emoticon-happy</v-icon>
                   </div>
