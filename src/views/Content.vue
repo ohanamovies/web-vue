@@ -98,7 +98,7 @@
                     :class="{ skip: sexSlider > 1 }"
                     @click="sexSlider = sexSlider > 1 ? 1 : 2"
                   >
-                    Severe
+                    {{$t('severe')}}
                   </v-chip>
                 </my-tooltip>
 
@@ -108,7 +108,7 @@
                     small
                     :class="{ skip: sexSlider > 2 }"
                     @click="sexSlider = sexSlider > 2 ? 2 : 3"
-                    >Moderate</v-chip
+                    >{{$t('moderate')}}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Mildly erotic']">
@@ -117,7 +117,7 @@
                     small
                     :class="{ skip: sexSlider > 3 }"
                     @click="sexSlider = sexSlider > 3 ? 3 : 4"
-                    >Mild</v-chip
+                    >{{$t('mild')}}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Slightly erotic']">
@@ -126,7 +126,7 @@
                     small
                     :class="{ skip: sexSlider > 4 }"
                     @click="sexSlider = sexSlider > 4 ? 4 : 5"
-                    >Slight</v-chip
+                    >{{$t('slight')}}</v-chip
                   ></my-tooltip
                 >
               </div>
@@ -139,7 +139,7 @@
                     small
                     :class="{ skip: vioSlider > 1 }"
                     @click="vioSlider = vioSlider > 1 ? 1 : 2"
-                    >Severe</v-chip
+                    >{{$t('severe')}}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Moderately gory']">
@@ -148,7 +148,7 @@
                     small
                     :class="{ skip: vioSlider > 2 }"
                     @click="vioSlider = vioSlider > 2 ? 2 : 3"
-                    >Moderate</v-chip
+                    >{{$t('moderate')}}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Mildly gory']">
@@ -157,7 +157,7 @@
                     small
                     :class="{ skip: vioSlider > 3 }"
                     @click="vioSlider = vioSlider > 3 ? 3 : 4"
-                    >Mild</v-chip
+                    >{{$t('mild')}}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Slightly gory']">
@@ -166,7 +166,7 @@
                     small
                     :class="{ skip: vioSlider > 4 }"
                     @click="vioSlider = vioSlider > 4 ? 4 : 5"
-                    >Slight</v-chip
+                    >{{$t('slight')}}</v-chip
                   >
                 </my-tooltip>
               </div>
@@ -179,7 +179,7 @@
                     small
                     :class="{ skip: profSlider > 1 }"
                     @click="profSlider = profSlider > 1 ? 1 : 2"
-                    >Severe</v-chip
+                    >{{$t('severe')}}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Moderately profane']">
@@ -188,7 +188,7 @@
                     small
                     :class="{ skip: profSlider > 2 }"
                     @click="profSlider = profSlider > 2 ? 2 : 3"
-                    >Moderate</v-chip
+                    >{{$t('moderate')}}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Mildly profane']">
@@ -197,7 +197,7 @@
                     small
                     :class="{ skip: profSlider > 3 }"
                     @click="profSlider = profSlider > 3 ? 3 : 4"
-                    >Mild</v-chip
+                    >{{$t('mild')}}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Slightly profane']">
@@ -206,7 +206,7 @@
                     small
                     :class="{ skip: profSlider > 4 }"
                     @click="profSlider = profSlider > 4 ? 4 : 5"
-                    >Slight</v-chip
+                    >{{$t('slight')}}</v-chip
                   >
                 </my-tooltip>
               </div>

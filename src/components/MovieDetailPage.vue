@@ -10,6 +10,9 @@
           >{{ item.metadata.title }}
           <span style="font-size: 70%; color: gray"> ({{ mapping.year }})</span></span
         >
+        <span class="mbutton">
+          <v-icon @click="closeMe">mdi-close</v-icon>
+        </span>
       </v-card-title>
       <v-card-subtitle>
         {{ 'TMDb Rating: ' + item.metadata.tmdb_rating }} |
@@ -118,9 +121,6 @@
           </v-col>
         </v-row>
       </v-card-text>
-      <v-card-actions>
-        <v-btn color="primary" class="mbutton" text @click="closeMe()">Close</v-btn>
-      </v-card-actions>
     </v-card>
 
     <!-- if no data -->
@@ -304,8 +304,10 @@ export default {
 }
 
 .mbutton {
-  border: none !important;
+  margin-left: auto;
+  margin-right: 15px;
 }
+
 
 .notification {
   border: solid 1px lightgray;

@@ -13,7 +13,6 @@ On this file. Add the (translated) text under each language, eg:
     whatIsOhana: '¿Qué es Ohana?',
     ...
   },
-{{ $t('discoverContent') }}
 
 */
 
@@ -26,10 +25,10 @@ const messages = {
     simplicity: 'Simplicity',
     simplicityDesc: "It's time for unwanted content to go away with one click.",
     simplicityShortDesc: 'As easy as pressing play',
-    youWay: 'Your way',
-    youWayDesc:
+    yourWay: 'Your way',
+    yourWayDesc:
       'We just provide the information and the tools. You decide what is good for you to watch.',
-    youWayShortDesc: 'You decide what you watch',
+    yourWayShortDesc: 'You decide what you watch',
     community: 'Community',
     communityDesc:
       'We are a community of developers and movie fans like you. We work passionately to make Ohana possible.',
@@ -45,16 +44,47 @@ const messages = {
     providers: 'Providers',
     genre: 'Genre | Genres',
     showOnlyClean: 'Show only clean movies',
-    showOnlyCertified: 'Show only Ohana certified movies'
+    showOnlyCertified: 'Show only Ohana certified movies',
+    severe: 'Severe',
+    moderate: 'Moderate',
+    mild: 'Mild',
+    slight: 'Slight',
   },
   es: {
-    whatIsOhana: '¿Qué es Ohana?',
-    welcome: 'Bienvenido a Ohana',
-    simplicity: 'Sencillez',
+        whatIsOhana: 'What is Ohana?',
+    welcome: 'Welcome to Ohana',
+    install: 'Install',
+    getStarted: 'Get started',
+    simplicity: 'Simplicity',
+    simplicityDesc: "It's time for unwanted content to go away with one click.",
+    simplicityShortDesc: 'As easy as pressing play',
+    yourWay: 'Your way',
+    yourWayDesc:
+      'We just provide the information and the tools. You decide what is good for you to watch.',
+    yourWayShortDesc: 'You decide what you watch',
+    community: 'Community',
+    communityDesc:
+      'We are a community of developers and movie fans like you. We work passionately to make Ohana possible.',
+    communityShortDesc: 'Built by people like you',
+    filterContent: 'Filter content on your favourite providers',
+    onlyOnChrome: '*As of now, only available when you watch using Chrome browser',
+    discoverContent: 'Discover content',
+    whatDoYouSkip: 'What do you want to skip?',
+    showAdvanced: 'Hide Advenced Search | Show Advanced Search',
+    safety: 'Safety',
+    movies: 'Movies',
+    shows: 'Shows',
+    providers: 'Providers',
+    genre: 'Genre | Genres',
+    showOnlyClean: 'Show only clean movies',
+    showOnlyCertified: 'Show only Ohana certified movies',
+    severe: 'Severe',
+    moderate: 'Moderate',
+    mild: 'Mild',
+    slight: 'Slight',
   },
 }
 
-messages.es = messages.en
 
 /*****************************************/
 /* DO NOT TOUCH ANYTHING UNDER THIS LINE */
