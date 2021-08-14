@@ -31,9 +31,7 @@
             extension will change to adapt to the page you are in.
           </p>
           <h3>Can I use it without Chrome?</h3>
-          <p>
-            No to get content skipped automatically.
-          </p>
+          <p>No to get content skipped automatically.</p>
           <p>
             But you can still leverage on our website to find content that can be wathed without
             skips. Just take a look at our <router-link to="/content">Content page</router-link>.
@@ -58,6 +56,7 @@
           </p>
           <p>So far, we work with the following type of content</p>
 
+          <!--
           <div v-for="(tag, index) in tags" :key="index">
             <div v-if="tag.title != 'Other'">
               <h5>{{ tag.title }}</h5>
@@ -68,6 +67,7 @@
               </ul>
             </div>
           </div>
+          -->
 
           <h3>What is "sensitivity"?</h3>
           <p>
@@ -105,9 +105,7 @@
               don't have information yet.
             </p>
             <br />
-            <p>
-              You will see those icons after telling us your sensitivity, in multiple places:
-            </p>
+            <p>You will see those icons after telling us your sensitivity, in multiple places:</p>
 
             <ol>
               <li>
@@ -140,7 +138,33 @@
 </template>
 
 <script>
-export default {}
+import sharedjs from './../../sharedjs'
+export default {
+  name: 'FAQs',
+
+  head: function () {
+    //This is used to generate the meta tags needed for better SEO and stuff.
+    return sharedjs.headObject(
+      'FAQs - Ohana',
+      'Have questions about Ohana Movies? We are here to answer them!',
+      this.$router.currentRoute.path
+    )
+  },
+
+  data() {
+    return {
+      //TODO: make this consistent across pages easily
+      providersList: [
+        { text: 'Netflix', value: 'netflix' },
+        { text: 'HBO', value: 'hboespana' },
+        { text: 'Disney+', value: 'disneyplus' },
+        { text: 'Movistar', value: 'movistar' },
+        { text: 'Rakuten', value: 'rakuten' },
+        { text: 'Youtube', value: 'youtube' },
+      ],
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped></style>

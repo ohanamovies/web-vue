@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Community from '../views/Community.vue'
@@ -39,7 +40,7 @@ const routes = [
     component: Stats
   },
   {
-    path: '/get-started',
+    path: '/get-started/',
     name: 'GetStarted',
     component: GetStarted
   },
@@ -61,13 +62,21 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  //mode: 'history',
   routes: routes,
-  scrollBehavior() {
-    return { x: 0, y: 0 }
+  scrollBehavior: function (to) {
+    if (to.hash) {
+      return {
+        selector: to.hash
+      }
+    } else {
+      return { x: 0, y: 0 }
+    }
   }
 })
 
+/*
+//This is useful if we switch to history mode
 router.beforeEach((to, from, next) => {
   // Redirect if fullPath begins with a hash (ignore hashes later in path)
   if (to.fullPath.substr(0, 2) === "/#") {
@@ -77,5 +86,6 @@ router.beforeEach((to, from, next) => {
   }
   next();
 });
+*/
 
 export default router

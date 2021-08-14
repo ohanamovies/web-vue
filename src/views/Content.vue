@@ -28,7 +28,7 @@
           fixed
           dark
           @click="scrollToTop"
-          style="z-index:99999"
+          style="z-index: 99999"
         >
           <!-- progress circle within the go-to-top button -->
           <v-progress-circular
@@ -46,7 +46,7 @@
           <v-progress-linear
             indeterminate
             color="#4bae77"
-            style="position:fixed; bottom: 0px; z-index: 9999999999"
+            style="position: fixed; bottom: 0px; z-index: 9999999999"
           ></v-progress-linear>
         </div>
 
@@ -98,7 +98,7 @@
                     :class="{ skip: sexSlider > 1 }"
                     @click="sexSlider = sexSlider > 1 ? 1 : 2"
                   >
-                    {{$t('severe')}}
+                    {{ $t('severe') }}
                   </v-chip>
                 </my-tooltip>
 
@@ -108,7 +108,7 @@
                     small
                     :class="{ skip: sexSlider > 2 }"
                     @click="sexSlider = sexSlider > 2 ? 2 : 3"
-                    >{{$t('moderate')}}</v-chip
+                    >{{ $t('moderate') }}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Mildly erotic']">
@@ -117,7 +117,7 @@
                     small
                     :class="{ skip: sexSlider > 3 }"
                     @click="sexSlider = sexSlider > 3 ? 3 : 4"
-                    >{{$t('mild')}}</v-chip
+                    >{{ $t('mild') }}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Slightly erotic']">
@@ -126,7 +126,7 @@
                     small
                     :class="{ skip: sexSlider > 4 }"
                     @click="sexSlider = sexSlider > 4 ? 4 : 5"
-                    >{{$t('slight')}}</v-chip
+                    >{{ $t('slight') }}</v-chip
                   ></my-tooltip
                 >
               </div>
@@ -139,7 +139,7 @@
                     small
                     :class="{ skip: vioSlider > 1 }"
                     @click="vioSlider = vioSlider > 1 ? 1 : 2"
-                    >{{$t('severe')}}</v-chip
+                    >{{ $t('severe') }}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Moderately gory']">
@@ -148,7 +148,7 @@
                     small
                     :class="{ skip: vioSlider > 2 }"
                     @click="vioSlider = vioSlider > 2 ? 2 : 3"
-                    >{{$t('moderate')}}</v-chip
+                    >{{ $t('moderate') }}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Mildly gory']">
@@ -157,7 +157,7 @@
                     small
                     :class="{ skip: vioSlider > 3 }"
                     @click="vioSlider = vioSlider > 3 ? 3 : 4"
-                    >{{$t('mild')}}</v-chip
+                    >{{ $t('mild') }}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Slightly gory']">
@@ -166,7 +166,7 @@
                     small
                     :class="{ skip: vioSlider > 4 }"
                     @click="vioSlider = vioSlider > 4 ? 4 : 5"
-                    >{{$t('slight')}}</v-chip
+                    >{{ $t('slight') }}</v-chip
                   >
                 </my-tooltip>
               </div>
@@ -179,7 +179,7 @@
                     small
                     :class="{ skip: profSlider > 1 }"
                     @click="profSlider = profSlider > 1 ? 1 : 2"
-                    >{{$t('severe')}}</v-chip
+                    >{{ $t('severe') }}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Moderately profane']">
@@ -188,7 +188,7 @@
                     small
                     :class="{ skip: profSlider > 2 }"
                     @click="profSlider = profSlider > 2 ? 2 : 3"
-                    >{{$t('moderate')}}</v-chip
+                    >{{ $t('moderate') }}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Mildly profane']">
@@ -197,7 +197,7 @@
                     small
                     :class="{ skip: profSlider > 3 }"
                     @click="profSlider = profSlider > 3 ? 3 : 4"
-                    >{{$t('mild')}}</v-chip
+                    >{{ $t('mild') }}</v-chip
                   >
                 </my-tooltip>
                 <my-tooltip :text="tagsDescription['Slightly profane']">
@@ -206,22 +206,22 @@
                     small
                     :class="{ skip: profSlider > 4 }"
                     @click="profSlider = profSlider > 4 ? 4 : 5"
-                    >{{$t('slight')}}</v-chip
+                    >{{ $t('slight') }}</v-chip
                   >
                 </my-tooltip>
               </div>
             </div>
 
             <!-- If mobile, let's use a trick to help toggle advancedSearch/results -->
-            <div v-if="isMobile" style="margin-bottom: 5px;">
+            <div v-if="isMobile" style="margin-bottom: 5px">
               <span
                 @click="showFilters = !showFilters"
                 :style="{
                   cursor: 'pointer',
                   textDecoration: 'underline',
-                  color: 'DodgerBlue'
+                  color: 'DodgerBlue',
                 }"
-                >{{ $tc('showAdvanced', showFilters ) }}</span
+                >{{ $tc('showAdvanced', showFilters) }}</span
               >
             </div>
 
@@ -232,7 +232,7 @@
               <div style="overflow-x: auto;  white-space: nowrap; ">
                 <div v-if="skipTags.length > 0" style="display:inline;">
                   -->
-                <b>{{$t('safety')}}</b>
+                <b>{{ $t('safety') }}</b>
                 <v-chip class="ma-1" small dense v-for="(item, k) in statsRecap" :key="k">
                   <!-- TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
                     @click="
@@ -265,7 +265,7 @@
                   @click="setType('movie')"
                   :class="{ chipdown: type == 'movie' }"
                 >
-                  <span> {{$t('movies')}}</span>
+                  <span> {{ $t('movies') }}</span>
                 </v-chip>
                 <v-chip
                   dense
@@ -273,13 +273,13 @@
                   class="ma-1"
                   @click="setType('show')"
                   :class="{ chipdown: type == 'show' }"
-                  ><span>{{$t('shows')}}</span>
+                  ><span>{{ $t('shows') }}</span>
                 </v-chip>
               </div>
 
               <!-- Providers -->
               <div class="filterr">
-                <b>{{$t('providers')}}:</b>
+                <b>{{ $t('providers') }}:</b>
                 <v-chip
                   class="ma-1"
                   small
@@ -288,7 +288,7 @@
                   :key="k"
                   @click="
                     providers.includes(item.value)
-                      ? (providers = providers.filter(x => x != item.value))
+                      ? (providers = providers.filter((x) => x != item.value))
                       : providers.push(item.value)
                   "
                   :class="{ chipdown: providers.includes(item.value) }"
@@ -302,9 +302,9 @@
               <div class="filterr">
                 <!-- genres expansion panel -->
                 <v-expansion-panels v-if="false">
-                  <v-expansion-panel style=" border: none;">
-                    <v-expansion-panel-header style="overflow: hidden; color: black !important;">
-                      <h5>{{$t('genre')}}: {{ genres.join(', ') }}</h5>
+                  <v-expansion-panel style="border: none">
+                    <v-expansion-panel-header style="overflow: hidden; color: black !important">
+                      <h5>{{ $t('genre') }}: {{ genres.join(', ') }}</h5>
                     </v-expansion-panel-header>
 
                     <v-expansion-panel-content>
@@ -316,7 +316,7 @@
                         :key="k"
                         @click="
                           genres.includes(item)
-                            ? (genres = genres.filter(x => x != item))
+                            ? (genres = genres.filter((x) => x != item))
                             : genres.push(item)
                         "
                         :class="{ chipdown: genres.includes(item) }"
@@ -329,7 +329,7 @@
                 </v-expansion-panels>
 
                 <!-- genres chips-->
-                <b>{{$tc('genre',2)}}:</b>
+                <b>{{ $tc('genre', 2) }}:</b>
 
                 <v-chip
                   class="ma-1"
@@ -339,7 +339,7 @@
                   :key="k"
                   @click="
                     genres.includes(item)
-                      ? (genres = genres.filter(x => x != item))
+                      ? (genres = genres.filter((x) => x != item))
                       : genres.push(item)
                   "
                   :class="{ chipdown: genres.includes(item) }"
@@ -364,9 +364,9 @@
                 <v-checkbox v-model="cleanOnly" hide-details class="mt-0" :disabled="certifiedOnly">
                   <div
                     slot="label"
-                    style="font-size: 85%; transform: translateY(9px) translateX(-5px);"
-                  >{{$t('showOnlyClean')}}
-                    <v-icon color="green">mdi-content-cut</v-icon> |
+                    style="font-size: 85%; transform: translateY(9px) translateX(-5px)"
+                  >
+                    {{ $t('showOnlyClean') }} <v-icon color="green">mdi-content-cut</v-icon> |
                     <v-icon color="green">mdi-emoticon-happy</v-icon>
                   </div>
                 </v-checkbox>
@@ -374,8 +374,9 @@
                 <v-checkbox v-model="certifiedOnly" hide-details class="mt-0">
                   <div
                     slot="label"
-                    style="font-size: 85%; transform: translateY(9px) translateX(-5px); "
-                  >{{$t('showOnlyCertified')}} 
+                    style="font-size: 85%; transform: translateY(9px) translateX(-5px)"
+                  >
+                    {{ $t('showOnlyCertified') }}
                     <v-icon color="blue">mdi-content-cut</v-icon>
                     | <v-icon color="blue">mdi-emoticon-happy</v-icon>
                   </div>
@@ -400,7 +401,7 @@
                 :key="index"
                 @click="openMovieDialog(item)"
               >
-                <div class="image" style="width:100%">
+                <div class="image" style="width: 100%">
                   <!-- poster_path -->
                   <img :src="item.poster" :alt="item.title" />
 
@@ -411,7 +412,7 @@
                   </div>
                 </div>
                 <div class="content">
-                  <p style="font-size:16px; line-height:normal">{{ item.title }}</p>
+                  <p style="font-size: 16px; line-height: normal">{{ item.title }}</p>
 
                   <p>
                     <a v-if="item.watch_url" target="_blanck" :href="item.watch_url">{{
@@ -431,7 +432,7 @@
                     :style="{
                       color: cs == 'pending' ? 'red' : cs == 'safe' ? 'green' : 'yellow',
                       lineHeight: 'normal',
-                      fontSize: '13px'
+                      fontSize: '13px',
                     }"
                   >
                     <span style="text-transform: capitalize">{{ cs }}:</span>
@@ -450,11 +451,20 @@
 
 <script>
 const rawTags = require('../assets/raw_tags')
+import sharedjs from '@/sharedjs'
 import MovieDetailPage from '../components/MovieDetailPage'
 //const { searchMatch } = require('../sharedjs')
 export default {
   components: {
-    MovieDetailPage
+    MovieDetailPage,
+  },
+  head: function () {
+    //This is used to generate the meta tags needed for better SEO and stuff.
+    return sharedjs.headObject(
+      'Find something clean to watch - Ohana',
+      'Browse throught hundreds of safe movies and tv shows, edited with love by our community',
+      this.$router.currentRoute.path
+    )
   },
   data() {
     return {
@@ -481,7 +491,7 @@ export default {
         { text: 'Disney+', value: 'disneyplus' },
         { text: 'Movistar', value: 'movistar' },
         { text: 'Rakuten', value: 'rakuten' },
-        { text: 'Youtube', value: 'youtube' }
+        { text: 'Youtube', value: 'youtube' },
       ],
 
       certifiedOnly: false,
@@ -516,8 +526,8 @@ export default {
         'Thriller',
         'TV Movie',
         'War',
-        'Western'
-      ]
+        'Western',
+      ],
     }
   },
   watch: {
@@ -543,7 +553,7 @@ export default {
       this.titleTimeout = setTimeout(() => {
         this.getData()
       }, 900)
-    }
+    },
   },
   computed: {
     isMobile() {
@@ -557,28 +567,28 @@ export default {
           count: 0,
           icon: 'mdi-emoticon-happy',
           color: 'blue',
-          label: 'Certified clean'
+          label: 'Certified clean',
         },
         cut_certified: {
           count: 0,
           icon: 'mdi-content-cut',
           color: 'blue',
-          label: 'Certified with cuts'
+          label: 'Certified with cuts',
         },
         clean_not_certified: {
           count: 0,
           icon: 'mdi-emoticon-happy',
           color: 'green',
-          label: 'Clean'
+          label: 'Clean',
         },
         cut_not_certified: {
           count: 0,
           icon: 'mdi-content-cut',
           color: 'green',
-          label: 'Cleaned by our users'
+          label: 'Cleaned by our users',
         },
         missing: { count: 0, icon: 'mdi-flag-variant', color: 'red', label: 'Pending cut' },
-        unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray', label: 'Unknown' }
+        unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray', label: 'Unknown' },
       }
       for (let item of this.items) {
         let join = this.joinStatus(item)
@@ -606,8 +616,8 @@ export default {
 
     tagsDescription() {
       let x = {} //tag:desc
-      rawTags.content.forEach(cat => {
-        cat.severity.forEach(sev => {
+      rawTags.content.forEach((cat) => {
+        cat.severity.forEach((sev) => {
           x[sev.value] = sev.description
         })
       })
@@ -638,7 +648,7 @@ export default {
     },
     items() {
       return this.data
-    }
+    },
   },
   methods: {
     openMovieDialog(item) {
@@ -648,7 +658,7 @@ export default {
         icon: this.getShieldIcon(item),
         color: this.getShieldColor(item),
         provider: this.getProvider(item.watch_url),
-        watch_url: item.watch_url
+        watch_url: item.watch_url,
       }
     },
     onResize() {
@@ -679,8 +689,8 @@ export default {
         sliders: {
           sexSlider: this.sexSlider,
           vioSlider: this.vioSlider,
-          profSlider: this.profSlider
-        }
+          profSlider: this.profSlider,
+        },
       }
       localStorage.ohanaSettings = JSON.stringify(x)
     },
@@ -712,7 +722,7 @@ export default {
       var taggedAux = {}
 
       var skipTagsR = [...this.skipTags].reverse() //reverse to show severe first
-      skipTagsR.forEach(label => {
+      skipTagsR.forEach((label) => {
         let tagStatus = item.status[label]
 
         //missing
@@ -836,12 +846,12 @@ export default {
         certified: this.certifiedOnly ? JSON.stringify(this.skipTags) : '[]',
         genres: JSON.stringify(this.genres),
         type: this.type,
-        page: this.page
+        page: this.page,
       })
 
       fetch(url)
-        .then(r => r.json())
-        .then(data => {
+        .then((r) => r.json())
+        .then((data) => {
           console.log('[getData] ', this.page, fetchedAt)
           if (fetchedAt != this.fetchedAt) {
             console.log('[getData] old request. ignoring')
@@ -859,7 +869,7 @@ export default {
           }
           this.loading = false
         })
-    }
+    },
   },
 
   mounted() {
@@ -883,7 +893,7 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize)
-  }
+  },
 }
 </script>
 

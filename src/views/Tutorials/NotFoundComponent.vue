@@ -10,7 +10,17 @@
 </template>
 
 <script>
-export default {}
+import sharedjs from '@/sharedjs'
+export default {
+  head: function () {
+    //This is used to generate the meta tags needed for better SEO and stuff.
+    return sharedjs.headObject(
+      'Error 404',
+      'Page not found. Sorry you got here',
+      this.$router.currentRoute.path
+    )
+  },
+}
 </script>
 
 <style>

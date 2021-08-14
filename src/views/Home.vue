@@ -128,7 +128,16 @@
 <script>
 // @ is an alias to /src
 //import MyHeader from '@/components/MyHeader.vue' //now imported globally!
+import sharedjs from '@/sharedjs'
 export default {
   name: 'Home',
+  head: function () {
+    //This is used to generate the meta tags needed for better SEO and stuff.
+    return sharedjs.headObject(
+      'Welcome to Ohana Movies',
+      "Ohana is your automated tv remote to skip unwanted content: Sex scenes, too violent content, disgusting scenes... You name it, we get rid of it making sure you don't miss the plot.",
+      this.$router.currentRoute.path
+    )
+  },
 }
 </script>

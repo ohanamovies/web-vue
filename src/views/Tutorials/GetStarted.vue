@@ -3,16 +3,14 @@
     <!-- Header -->
     <my-header></my-header>
 
-    <section id="main" class="wrapper" style="max-width: 700px; margin:auto">
-
-
-<!--   SPANISH TEXT -->      
+    <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
+      <!--   SPANISH TEXT -->
       <div class="inner" v-if="$i18n.locale == 'es'">
         <div>
           Aquí encontraras una introducción sobre como usar Ohana:
           <ol>
-            <li><a href="#how-to-watch">How to watch clean movies</a></li>
-            <li><a href="#how-to-create-filters">How to create filters</a></li>
+            <li><a href="/#how-to-watch">How to watch clean movies</a></li>
+            <li><a href="/#how-to-create-filters">How to create filters</a></li>
           </ol>
           <p>
             To learn what's Ohana visit our <router-link to="/about">About section</router-link>.
@@ -218,8 +216,7 @@
         </div>
       </div>
 
-
-<!--   DEFAULT TEXT -->      
+      <!--   DEFAULT TEXT -->
       <div class="inner" v-else>
         <div>
           Here you will find a quick introduction on how to use Ohana, this is:
@@ -435,12 +432,21 @@
 </template>
 
 <script>
+import sharedjs from '@/sharedjs'
 const rawTags = require('../../assets/raw_tags')
 export default {
+  head: function () {
+    //This is used to generate the meta tags needed for better SEO and stuff.
+    return sharedjs.headObject(
+      'Get started - Ohana',
+      'Learn how to watch clean content',
+      this.$router.currentRoute.path
+    )
+  },
   data() {
     return {
       key: 'value',
-      tags: rawTags.content
+      tags: rawTags.content,
       // providersList: [
       //   { text: 'Netflix', value: 'netflix' },
       //   { text: 'HBO', value: 'hbo' },
@@ -449,7 +455,7 @@ export default {
       //   { text: 'Rakuten', value: 'rakuten' }
       // ]
     }
-  }
+  },
 }
 </script>
 

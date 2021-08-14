@@ -4,17 +4,16 @@
     <my-header></my-header>
 
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
-
-<!--   SPANISH TEXT -->      
+      <!--   SPANISH TEXT -->
       <div class="inner" v-if="$i18n.locale == 'es'">
-        <div id="menu" >
+        <div id="menu">
           En esta sección encontraras:
           <ol>
             <li><a href="#what-is-ohana">What is Ohana?</a></li>
             <li><a href="#why-skipping">Why skipping content?</a></li>
-            <li><a href="#vission-statement">Why are we here? (Vission)</a></li>
-            <li><a href="#mision-statement">What do we do? (Mission)</a></li>
-            <li><a href="how-can-i-help">How can I help?</a></li>
+            <li><a href="#vision-statement">Why are we here? (Vision)</a></li>
+            <li><a href="#mission-statement">What do we do? (Mission)</a></li>
+            <li><a href="#how-can-i-help">How can I help?</a></li>
           </ol>
           <p>
             To get started into how to use Ohana visit our
@@ -167,16 +166,16 @@
         </div>
       </div>
 
-<!--   DEFAULT TEXT -->      
+      <!--   DEFAULT TEXT -->
       <div class="inner" v-else>
-        <div id="menu" >
+        <div id="menu">
           In this section you will find:
           <ol>
             <li><a href="#what-is-ohana">What is Ohana?</a></li>
             <li><a href="#why-skipping">Why skipping content?</a></li>
-            <li><a href="#vission-statement">Why are we here? (Vission)</a></li>
-            <li><a href="#mision-statement">What do we do? (Mission)</a></li>
-            <li><a href="how-can-i-help">How can I help?</a></li>
+            <li><a href="#vision-statement">Why are we here? (Vission)</a></li>
+            <li><a href="#mission-statement">What do we do? (Mission)</a></li>
+            <li><a href="#how-can-i-help">How can I help?</a></li>
           </ol>
           <p>
             To get started into how to use Ohana visit our
@@ -333,6 +332,7 @@
 </template>
 
 <script>
+import sharedjs from '@/sharedjs'
 const rawTags = require('../assets/raw_tags')
 export default {
   data() {
@@ -340,6 +340,14 @@ export default {
       key: 'value',
       tags: rawTags.content,
     }
+  },
+  head: function () {
+    //This is used to generate the meta tags needed for better SEO and stuff.
+    return sharedjs.headObject(
+      'About us - Ohana',
+      'Learn more about Ohana: why? what? how?',
+      this.$router.currentRoute.path
+    )
   },
 }
 </script>

@@ -8,20 +8,52 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
     gtag('config', 'G-PTGG1VDT3V');
   </script>
   <title>
     <%= htmlWebpackPlugin.options.title %>
   </title>
+
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-  <!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico"> -->
+  <!-- SEO stuff (work in progress)-->
+  <!-- Add these once we have social media:
+     "sameAs": [
+        "https://www.facebook.com/ohanamovies.org/",
+        "https://twitter.com/ohanamovies"
+    ],
+  -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta id="meta-description" name="description" content="Welcome to Ohana Movies!">
+  <script type="application/ld+json" ohana-version="0">
+
+    {
+      "@type": "Organization",
+      "@id": "https://ohanamovies.org/#organization",
+      "name": "Ohana Movies",
+      "description": "Watch movies your way",
+      "url": "https://ohanamovies.org/",
+  
+      "logo": {
+          "@type": "ImageObject",
+          "@id": "https://ohanamovies.org/#logo",
+          "inLanguage": "en",
+          "url": "https://ohanamovies.org/icons/apple-touch-icon-180x180.png",
+          "width": 180,
+          "height": 180,
+          "caption": "Ohana Movies Logo"
+      },
+      "image": {
+          "@id": "https://ohanamovies.org/#logo"
+      }
+    }
+  </script>
 
   <!-- icons iconfier -->
-
+  <!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico"> -->
   <link rel="shortcut icon" href="<%= BASE_URL %>/icons/favicon.ico" type="image/x-icon" />
   <link rel="apple-touch-icon" href="<%= BASE_URL %>/icons/apple-touch-icon.png" />
   <link rel="apple-touch-icon" sizes="57x57" href="<%= BASE_URL %>/icons/apple-touch-icon-57x57.png" />

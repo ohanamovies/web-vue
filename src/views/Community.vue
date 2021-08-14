@@ -102,12 +102,21 @@
 </template>
 
 <script>
+import sharedjs from '@/sharedjs'
 export default {
+  head: function () {
+    //This is used to generate the meta tags needed for better SEO and stuff.
+    return sharedjs.headObject(
+      'Our Community - Ohana',
+      'Meet (and join!) our community of volunteers',
+      this.$router.currentRoute.path
+    )
+  },
   data() {
     return {
-      ka: 'value'
+      ka: 'value',
     }
-  }
+  },
 }
 </script>
 
