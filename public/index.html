@@ -40,6 +40,23 @@
   }
   </script>
 
+  <!-- https://developers.google.com/search/docs/advanced/structured-data/software-app -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Ohana Movies",
+      "operatingSystem": "Chrome OS (Computers only)",
+      "applicationCategory": "MultimediaApplication",
+      "downloadUrl": "https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "4"
+      }
+    }
+    </script>
+
   <!-- icons iconfier -->
   <!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico"> -->
   <link rel="shortcut icon" href="<%= BASE_URL %>/icons/favicon.ico" type="image/x-icon" />
