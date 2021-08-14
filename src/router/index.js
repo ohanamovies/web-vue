@@ -8,6 +8,7 @@ import Elements from '../views/Elements.vue'
 import Stats from '../views/Stats.vue'
 import GetStarted from '../views/Tutorials/GetStarted.vue'
 import FAQs from '../views/Tutorials/FAQs.vue'
+import NotFoundComponent from '../views/Tutorials/NotFoundComponent.vue'
 
 Vue.use(VueRouter)
 
@@ -51,15 +52,30 @@ const routes = [
     path: '/elements',
     name: 'Elements',
     component: Elements
+  },
+  {
+    path: '/:catchAll(.*)',
+    component: NotFoundComponent,
+    name: 'NotFound'
   }
 ]
 
 const router = new VueRouter({
-  //mode: 'history',
+  mode: 'history',
   routes: routes,
   scrollBehavior() {
     return { x: 0, y: 0 }
   }
 })
+
+router.beforeEach((to, from, next) => {
+  // Redirect if fullPath begins with a hash (ignore hashes later in path)
+  if (to.fullPath.substr(0, 2) === "/#") {
+    const path = to.fullPath.substr(2);
+    next(path);
+    return;
+  }
+  next();
+});
 
 export default router
