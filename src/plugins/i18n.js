@@ -1,21 +1,8 @@
-/* How to translate a text
-
-On other files. Replace the text to be translated with:
-  a) {{ $t('whatIsOhana') }} if it does NOT contain html tags (<p>, <b>, <a> ...)
-  b) <span v-html="$t('whatIsOhana')"></span> otherwise
-
-On this file. Add the (translated) text under each language, eg:
-  en: {
-    whatIsOhana: 'What is Ohana?',
-    ....
-  },
-  es: {
-    whatIsOhana: '¿Qué es Ohana?',
-    ...
-  },
-
+/*
+  Texts in the 'en' section should be in English
+  Texts in the 'es' section should be in Spanish
+  ...
 */
-
 const messages = {
   en: {
     whatIsOhana: 'What is Ohana?',
@@ -51,9 +38,9 @@ const messages = {
     slight: 'Slight',
   },
   es: {
-        whatIsOhana: 'What is Ohana?',
-    welcome: 'Welcome to Ohana',
-    install: 'Install',
+    whatIsOhana: '¿Qué es Ohana?',
+    welcome: 'Bienvenido a Ohana',
+    install: 'Instalar',
     getStarted: 'Get started',
     simplicity: 'Simplicity',
     simplicityDesc: "It's time for unwanted content to go away with one click.",
@@ -85,10 +72,27 @@ const messages = {
   },
 }
 
-
 /*****************************************/
 /* DO NOT TOUCH ANYTHING UNDER THIS LINE */
 /*****************************************/
+
+/* How to translate a text
+
+On other files. Replace the text to be translated with:
+  a) {{ $t('whatIsOhana') }} if it does NOT contain html tags (<p>, <b>, <a> ...)
+  b) <span v-html="$t('whatIsOhana')"></span> otherwise
+
+On this file. Add the (translated) text under each language, eg:
+  en: {
+    whatIsOhana: 'What is Ohana?',
+    ....
+  },
+  es: {
+    whatIsOhana: '¿Qué es Ohana?',
+    ...
+  },
+
+*/
 
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
