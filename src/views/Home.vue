@@ -12,21 +12,21 @@
 
         <div class="flex">
           <div>
+            <span class="icon fa-heart"></span>
+            <h3>{{ $t('prop1') }}</h3>
+            <p>{{ $t('prop1Desc') }}</p>
+          </div>
+
+          <div>
             <span class="icon fa-play-circle"></span>
-            <h3>{{ $t('simplicity') }}</h3>
-            <p>{{ $t('simplicityShortDesc') }}</p>
+            <h3>{{ $t('prop2') }}</h3>
+            <p>{{ $t('prop2Desc') }}</p>
           </div>
 
           <div>
             <span class="icon fa-bug"></span>
-            <h3>{{ $t('yourWay') }}</h3>
-            <p>{{ $t('yourWayShortDesc') }}</p>
-          </div>
-
-          <div>
-            <span class="icon fa-heart"></span>
-            <h3>{{ $t('community') }}</h3>
-            <p>{{ $t('communityShortDesc') }}</p>
+            <h3>{{ $t('prop3') }}</h3>
+            <p>{{ $t('prop3Desc') }}</p>
           </div>
         </div>
 
@@ -56,30 +56,57 @@
         <div class="flex flex-3">
           <article>
             <div class="image round">
-              <img src="images/simplicity.jpg" height="150px" alt="Simplicity" />
+              <img src="images/mental-health.jpeg" height="150px" :alt="$t('value1')" />
             </div>
             <header>
-              <h3>{{ $t('simplicity') }}<br /></h3>
+              <h3>{{ $t('value1') }}</h3>
             </header>
-            <p>{{ $t('simplicityDesc') }}</p>
+            <p>{{ $t('value1Desc') }}</p><br />
           </article>
           <article>
             <div class="image round">
-              <img src="images/freedom.jpg" height="150px" alt="Freedom" />
+              <img src="images/resistance.png" height="150px" :alt="$t('value2')" />
             </div>
             <header>
-              <h3>{{ $t('yourWay') }}<br /></h3>
+              <h3>{{ $t('value2') }}</h3>
             </header>
-            <p>{{ $t('yourWayDesc') }}</p>
+            <p>{{ $t('value2Desc') }}</p><br />
           </article>
           <article>
             <div class="image round">
-              <img src="images/values.jpg" height="150px" alt="Values" />
+              <img src="images/fam.jpg" height="150px" :alt="$t('value3')" />
             </div>
             <header>
-              <h3>{{ $t('community') }}<br /></h3>
+              <h3>{{ $t('value3') }}</h3>
             </header>
-            <p>{{ $t('communityDesc') }}</p>
+            <p>{{ $t('value3Desc') }}</p><br />
+          </article>
+          <article>
+            <div class="image round">
+              <img src="images/womens-rights.png" height="150px" :alt="$t('value4')" />
+            </div>
+            <header>
+              <h3>{{ $t('value4') }}</h3>
+            </header>
+            <p>{{ $t('value4Desc') }}</p><br />
+          </article>
+          <article>
+            <div class="image round">
+              <img src="images/providers.jpg" height="150px" :alt="$t('value5')" />
+            </div>
+            <header>
+              <h3>{{ $t('value5') }}</h3>
+            </header>
+            <p>{{ $t('value5Desc') }}</p><br />
+          </article>
+          <article>
+            <div class="image round">
+              <img src="images/keyboard.jpg" height="150px" :alt="$t('value6')" />
+            </div>
+            <header>
+              <h3>{{ $t('value6') }}</h3>
+            </header>
+            <p>{{ $t('value6Desc') }}</p><br />
           </article>
         </div>
         <footer>
@@ -88,7 +115,7 @@
       </div>
     </section>
 
-    <section class="banner" style="background-image: url(images/providers.jpg)">
+    <!-- <section class="banner" style="background-image: url(images/providers.jpg)">
       <div class="inner" style="border-top: none">
         <header>
           <h1>{{ $t('filterContent') }}</h1>
@@ -97,22 +124,22 @@
 
         <div class="flex flex-3">
           <div>
-            <!--<span class="icon fa-play-circle"></span>-->
+            <!- -<span class="icon fa-play-circle"></span>- ->
             <h3>Netflix</h3>
           </div>
 
           <div>
-            <!--<span class="icon fa-play-circle"></span>-->
+            <!- - <span class="icon fa-play-circle"></span>- ->
             <h3>HBO</h3>
           </div>
 
           <div>
-            <!--<span class="icon fa-play-circle"></span>-->
+            <!- -<span class="icon fa-play-circle"></span>- ->
             <h3>Disney+</h3>
           </div>
 
           <div>
-            <!--<span class="icon fa-play-circle"></span>-->
+            <!- -<span class="icon fa-play-circle"></span>- ->
             <h3>Movistar+</h3>
           </div>
         </div>
@@ -121,7 +148,7 @@
           <router-link to="content" class="button special">{{ $t('discoverContent') }}</router-link>
         </footer>
       </div>
-    </section>
+    </section>-->
   </div>
 </template>
 
