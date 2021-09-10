@@ -1,6 +1,8 @@
 /*
   Texts in the 'en' section should be in English
   Texts in the 'es' section should be in Spanish
+
+  You might have to copy some keys from one section into another in they are missing
   ...
 */
 const messages = {
@@ -39,7 +41,7 @@ const messages = {
   },
   es: {
     whatIsOhana: '¿Qué es Ohana?',
-    welcome: 'Welcome to Ohana',
+    welcome: 'Bienvenido a Ohana',
     install: 'Instalar',
     getStarted: 'Get started',
     /* Highlighted values on top*/
@@ -58,7 +60,7 @@ const messages = {
     value3Desc: 'Chilhood should be a time when kids can grow, explore and develop in a safe enviroment. Ohana helps create a safe enviroment for kids.',
     value4: "Women's rights",
     value4Desc: 'We are not objects for mens satisfaction. Ohana helps us take action and fight the rape culture that impregnates too many movies.',
-    value5: 'Easy pissy',
+    value5: 'Easy peasy',
     value5Desc: 'We work right on your favourity providers, just install our Chrome extension, tell us your preferences, and keep watching movies as usual while we work for you in the background.',
     value6: 'Community',
     value6Desc: 'We are no large corporation, we are community of movie fans like you. Ohana is non for profit organization',

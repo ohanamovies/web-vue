@@ -10,6 +10,12 @@
           <!--<router-link to="/community">Community</router-link>-->
           <!--<router-link to="/stats">Stats</router-link>-->
           <router-link to="/about">About</router-link>
+
+          <span
+            style="text-transform: uppercase; cursor: pointer"
+            @click="$i18n.locale = nextLan($i18n.locale)"
+            >{{ $i18n.locale }}
+          </span>
         </nav>
         <a href="#navPanel" class="navPanelToggle">
           <span class="fa fa-bars"> </span>
@@ -21,7 +27,15 @@
 
 <script>
 export default {
-  name: 'Header'
+  name: 'Header',
+
+  methods: {
+    nextLan: function (current) {
+      console.log(current)
+      if (current == 'es') return 'en'
+      else return 'es'
+    },
+  },
 }
 </script>
 
