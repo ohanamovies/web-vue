@@ -4,7 +4,7 @@
     <my-header></my-header>
 
     <!-- Banner -->
-    <section class="banner" style="background-image: url(images/banner.jpg); min-height: 100vh">
+    <section class="banner" style="background-image: url(images/banner.jpg); min-height: 90vh">
       <div class="inner" style="border-top: none">
         <header>
           <h1>{{ $t('welcome') }}</h1>
