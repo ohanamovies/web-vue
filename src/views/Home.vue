@@ -61,57 +61,97 @@
             <header>
               <h3>{{ $t('value1') }}</h3>
             </header>
-            <p>{{ $t('value1Desc') }}</p><br />
+            <p>{{ $t('value1Desc') }}</p>
+            <br />
           </article>
           <article>
             <div class="image round">
-              <img src="images/resistance.png" height="150px" :alt="$t('value2')" />
+              <img src="images/choice-square.png" height="150px" :alt="$t('value2')" />
             </div>
             <header>
               <h3>{{ $t('value2') }}</h3>
             </header>
-            <p>{{ $t('value2Desc') }}</p><br />
+            <p>{{ $t('value2Desc') }}</p>
+            <br />
           </article>
           <article>
             <div class="image round">
-              <img src="images/fam.jpg" height="150px" :alt="$t('value3')" />
+              <img src="images/fam-square.jpg" height="150px" :alt="$t('value3')" />
             </div>
             <header>
               <h3>{{ $t('value3') }}</h3>
             </header>
-            <p>{{ $t('value3Desc') }}</p><br />
+            <p>{{ $t('value3Desc') }}</p>
+            <br />
           </article>
           <article>
             <div class="image round">
-              <img src="images/womens-rights.png" height="150px" :alt="$t('value4')" />
+              <img src="images/womens-rights-square.png" height="150px" :alt="$t('value4')" />
             </div>
             <header>
               <h3>{{ $t('value4') }}</h3>
             </header>
-            <p>{{ $t('value4Desc') }}</p><br />
+            <p>{{ $t('value4Desc') }}</p>
+            <br />
           </article>
           <article>
             <div class="image round">
-              <img src="images/providers.jpg" height="150px" :alt="$t('value5')" />
+              <img src="images/providers-square.jpg" height="150px" :alt="$t('value5')" />
             </div>
             <header>
               <h3>{{ $t('value5') }}</h3>
             </header>
-            <p>{{ $t('value5Desc') }}</p><br />
+            <p>{{ $t('value5Desc') }}</p>
+            <br />
           </article>
           <article>
             <div class="image round">
-              <img src="images/keyboard.jpg" height="150px" :alt="$t('value6')" />
+              <img src="images/keyboard-square.jpg" height="150px" :alt="$t('value6')" />
             </div>
             <header>
               <h3>{{ $t('value6') }}</h3>
             </header>
-            <p>{{ $t('value6Desc') }}</p><br />
+            <p>{{ $t('value6Desc') }}</p>
+            <br />
           </article>
         </div>
         <footer>
           <router-link to="get-started" class="button special">{{ $t('getStarted') }}</router-link>
         </footer>
+      </div>
+    </section>
+
+    <section
+      id="sponsors"
+      class="wrapper align-center"
+      style="background-color: #172026; color: white"
+    >
+      <div class="inner">
+        <h1 style="font-size: 24pt; color: white; font-weight: 500">Support Ohana</h1>
+
+        <article style="max-width: 500px; margin: auto">
+          <p>
+            The ongoing development of Ohana is made possible by its communnity of volunteers,
+            donors, and sponsors. Want to help?
+            <a href="https://www.patreon.com/ohanamovies" target="_blank" style="color: #469ae8"
+              >Visit our Patreon now!</a
+            >
+          </p>
+        </article>
+
+        <h3 style="font-size: 16pt; color: white; font-weight: 500; margin-top: 30px">Sponsors</h3>
+
+        <div class="flex flex-3">
+          <a href="https://methos.media/" target="_blank" style="margin: auto">
+            <div class="image">
+              <img
+                width="200px"
+                src="images/sponsors/methods_media-white2.png"
+                alt="Methods Media"
+              />
+            </div>
+          </a>
+        </div>
       </div>
     </section>
 
