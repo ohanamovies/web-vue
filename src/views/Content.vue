@@ -11,7 +11,7 @@
       :mini-variant="mini"
       v-model="showMenu"
       :width="375"
-      style="z-index: 99999; margin-top: 44px; max-width: 90vw"
+      :style="{ zIndex: '99999', marginTop: isMobile ? '0px' : '44px', maxWidth: '90vw' }"
     >
       <v-list-item class="px-2" two-line>
         <v-list-item-avatar>
@@ -29,7 +29,7 @@
       <v-divider></v-divider>
       <!-- FILTERS -->
       <!-- SEARCH FIELD -->
-      <div v-if="mini == false" style="padding: 8px">
+      <div v-if="mini == false" style="padding: 10px">
         <v-text-field
           outlined
           type="search"
@@ -158,6 +158,24 @@
             >
           </div>
 
+          <!-- Clean/Certified Only -->
+          <div class="filterr">
+            <v-checkbox v-model="cleanOnly" hide-details class="mt-0" :disabled="certifiedOnly">
+              <div slot="label" style="font-size: 85%; transform: translateY(9px) translateX(-5px)">
+                {{ $t('showOnlyClean') }} <v-icon color="green">mdi-content-cut</v-icon> |
+                <v-icon color="green">mdi-emoticon-happy</v-icon>
+              </div>
+            </v-checkbox>
+
+            <v-checkbox v-model="certifiedOnly" hide-details class="mt-0">
+              <div slot="label" style="font-size: 85%; transform: translateY(9px) translateX(-5px)">
+                {{ $t('showOnlyCertified') }}
+                <v-icon color="blue">mdi-content-cut</v-icon>
+                | <v-icon color="blue">mdi-emoticon-happy</v-icon>
+              </div>
+            </v-checkbox>
+          </div>
+
           <!-- Content safety chips -->
           <div class="filterr">
             <!--
@@ -185,24 +203,6 @@
                 color="primary"
               ></v-progress-circular>
             </v-chip>
-          </div>
-
-          <!-- Clean/Certified Only -->
-          <div class="filterr">
-            <v-checkbox v-model="cleanOnly" hide-details class="mt-0" :disabled="certifiedOnly">
-              <div slot="label" style="font-size: 85%; transform: translateY(9px) translateX(-5px)">
-                {{ $t('showOnlyClean') }} <v-icon color="green">mdi-content-cut</v-icon> |
-                <v-icon color="green">mdi-emoticon-happy</v-icon>
-              </div>
-            </v-checkbox>
-
-            <v-checkbox v-model="certifiedOnly" hide-details class="mt-0">
-              <div slot="label" style="font-size: 85%; transform: translateY(9px) translateX(-5px)">
-                {{ $t('showOnlyCertified') }}
-                <v-icon color="blue">mdi-content-cut</v-icon>
-                | <v-icon color="blue">mdi-emoticon-happy</v-icon>
-              </div>
-            </v-checkbox>
           </div>
         </div>
 
@@ -341,12 +341,8 @@
       <v-container v-if="!mini">
         <div>
           <v-btn @click="backToDefaultFilters()" block dark depressed color="primary"
-            >Recuperar valores por defecto</v-btn
+            >Quitar filtros</v-btn
           >
-        </div>
-
-        <div style="font-size: 0.8rem; margin: auto; text-align: center">
-          RevNumber: {{ 1 + 1 }}
         </div>
       </v-container>
     </v-navigation-drawer>
@@ -485,7 +481,7 @@ export default {
   },
   data() {
     return {
-      mini: false,
+      mini: true,
       selectedItemInfo: {},
       showMovieDialog: false,
 
