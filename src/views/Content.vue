@@ -369,7 +369,7 @@
           ></movie-detail-page>
         </v-dialog>
 
-        <!-- Floating button now to scroll to top (useful on mobile to get to the filters), in future to show/hide filters on mobile-->
+        <!-- Floating button to show/hide filters -->
         <v-btn
           color="#6cc091"
           fab
@@ -379,6 +379,8 @@
           dark
           @click="mini = !mini"
           style="z-index: 99999"
+          width="60"
+          height="60"
         >
           <!-- progress circle within the go-to-top button -->
           <v-progress-circular
@@ -388,7 +390,7 @@
             indeterminate
             color="white"
           ></v-progress-circular>
-          <v-icon v-else-if="mini" color="white">mdi-magnify</v-icon>
+          <v-icon v-else-if="mini" color="white">mdi-tune</v-icon>
           <v-icon v-else-if="!mini" color="white">mdi-thumb-up</v-icon>
           <!-- TODO: may use mdi-tune -->
         </v-btn>
@@ -404,7 +406,32 @@
 
         <v-row>
           <v-col class="pt-0">
+            <!-- search 2 -->
+            <v-text-field
+              outlined
+              type="search"
+              id="searchBox"
+              dense
+              name="search"
+              label="Search by title"
+              v-model="title"
+              autocomplete="off"
+              prepend-inner-icon="mdi-magnify"
+              hide-details
+              clearable
+              class="pa-0 mb-2"
+              @focus="$event.target.select()"
+              @keyup.enter="getData()"
+            >
+              <div slot="append" hidden>
+                <v-btn color="success" icon @click="getData()"
+                  ><v-icon> mdi-movie-search</v-icon></v-btn
+                >
+              </div>
+            </v-text-field>
+
             <!-- POSTERS -->
+
             <div v-if="loading">
               <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
             </div>
@@ -486,6 +513,7 @@ export default {
   },
   data() {
     return {
+      showMenu: false,
       mini: true,
       selectedItemInfo: {},
       showMovieDialog: false,
