@@ -10,7 +10,6 @@
           <!--<router-link to="/community">Community</router-link>-->
           <!--<router-link to="/stats">Stats</router-link>-->
           <router-link to="/about">About</router-link>
-
           <a
             style="text-transform: uppercase; cursor: pointer"
             @click="$i18n.locale = nextLan($i18n.locale)"
@@ -29,6 +28,11 @@
 export default {
   name: 'Header',
 
+  data() {
+    return {
+      x1: 'kaixo',
+    }
+  },
   methods: {
     nextLan: function (current) {
       console.log(current)

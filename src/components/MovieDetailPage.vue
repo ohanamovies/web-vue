@@ -4,7 +4,7 @@
       <!-- header -->
       <v-card-title
         primary-title
-        style="white-space: pre-wrap;word-break: keep-all; line-height: normal; margin-bottom: 5px;"
+        style="white-space: pre-wrap; word-break: keep-all; line-height: normal; margin-bottom: 5px"
       >
         <span
           >{{ item.metadata.title }}
@@ -16,13 +16,12 @@
       </v-card-title>
       <v-card-subtitle>
         {{ 'TMDb Rating: ' + item.metadata.tmdb_rating }} |
-        {{ 'Runtime: ' + item.metadata.runtime + ' mins' }} |
-        <a :href="'https://www.imdb.com/title/' + item.metadata.imdb" target="_blank">IMDb</a>
+        {{ 'Runtime: ' + item.metadata.runtime + ' mins' }}
       </v-card-subtitle>
       <!-- Tabs -->
       <v-card-text>
         <v-row>
-          <v-col cols="3" v-if="!isMobile">
+          <v-col cols="4" v-if="!isMobile">
             <img
               :src="'https://image.tmdb.org/t/p/w200' + item.metadata.poster"
               :alt="item.metadata.title"
@@ -32,9 +31,9 @@
           <v-col class="pt-0">
             <v-tabs v-model="tab" class="mb-3 pa-0">
               <v-tabs-slider></v-tabs-slider>
-              <v-tab>Overview</v-tab>
+              <v-tab>IMDb</v-tab>
               <v-tab>Ohana </v-tab>
-              <v-tab v-if="selection.joinStatus.status != 'missing'">Stream</v-tab>
+              <v-tab v-if="selection.joinStatus.status != 'missing'">Advanced</v-tab>
               <v-tab v-if="false">Image</v-tab>
             </v-tabs>
 
@@ -56,12 +55,20 @@
                     >{{ g }}</v-chip
                   >
                 </div>
+
+                <div>
+                  <a
+                    :href="'https://www.imdb.com/title/' + item.metadata.imdb"
+                    target="_blank"
+                    style="font-size: 0.8em"
+                    >Read more on IMDb</a
+                  >
+                </div>
               </v-tab-item>
 
               <!-- Ohana -->
               <v-tab-item>
-                <!-- Summary -->
-
+                <!-- Ohana Summary -->
                 <div class="notification">
                   <v-row>
                     <v-col cols="1">
@@ -75,37 +82,73 @@
                   </v-row>
                 </div>
                 <!-- tagged chips-->
-                <b>Filter details</b>
-                <div v-for="(cat, index) in categories" :key="index" style="display: inline-block">
-                  <div v-if="cat != 'Other'" style="display: inline-block">
-                    <b style="font-size: 0.8em">{{ cat }}: </b>
-                    <div
-                      v-for="(sev, index2) in severities[index]"
-                      :key="index2"
-                      style="display: inline-block"
-                    >
-                      <v-chip x-small class="ma-1">
-                        <v-icon left x-small :color="tagged(sev).color">{{
-                          tagged(sev).icon
-                        }}</v-icon>
-                        {{ tagged(sev).tag + tagged(sev).badge }}
-                      </v-chip>
+
+                <div
+                  v-for="(watch_url, index) in selection.watch_urls"
+                  :key="index"
+                  style="margin-bottom: 10px"
+                >
+                  <a :href="watch_url" target="_blank" class="button"
+                    >Watch on {{ getProvider(watch_url) }}
+                  </a>
+                </div>
+              </v-tab-item>
+
+              <!-- Ohana Details -->
+              <!-- TODO: for now, removing the wathc options if status == missing (to protect users a bit) -->
+              <v-tab-item v-if="selection.joinStatus.status != 'missing'">
+                <span class="modern-link" @click="showOhanaDetails = !showOhanaDetails">{{
+                  showOhanaDetails ? 'Hide Ohana details' : 'Show Ohana details'
+                }}</span>
+                <div id="filter-details" v-if="showOhanaDetails">
+                  <div
+                    v-for="(cat, index) in categories"
+                    :key="index"
+                    style="display: inline-block"
+                  >
+                    <div v-if="cat != 'Other'" style="display: inline-block">
+                      <b style="font-size: 0.8em">{{ cat }}: </b>
+                      <div
+                        v-for="(sev, index2) in severities[index]"
+                        :key="index2"
+                        style="display: inline-block"
+                      >
+                        <v-chip x-small class="ma-1">
+                          <v-icon left x-small :color="tagged(sev).color">{{
+                            tagged(sev).icon
+                          }}</v-icon>
+                          {{ tagged(sev).tag + tagged(sev).badge }}
+                        </v-chip>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <br />
-                <a
-                  style="font-size: 0.85em"
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSfIi64Ge0or3yOHn9TaEJY4y4rw2irHTeTmnLI_W7kMHx79CQ/viewform"
-                  target="_blank"
-                  >Report an error</a
-                >
-              </v-tab-item>
 
-              <!-- Stream optoins -->
-              <!-- TODO: for now, removing the wathc options if status == missing (to protect users a bit) -->
-              <v-tab-item v-if="selection.joinStatus.status != 'missing'">
-                <a :href="selection.watch_url" class="button">Watch on {{ selection.provider }} </a>
+                <div>
+                  <br />
+                  <span
+                    class="modern-link"
+                    @click="showSettingsWokrInProgressMessage = !showSettingsWokrInProgressMessage"
+                    >{{
+                      showSettingsWokrInProgressMessage ? 'Hide message' : 'Change my settings'
+                    }}</span
+                  >
+                  <div v-if="showSettingsWokrInProgressMessage">
+                    Hey! We are working to improve this. In the meantime, you can change your
+                    settings in the advanced search section for the web, and within the chrome
+                    extension for watching.
+                  </div>
+                </div>
+
+                <div id="report-an-error">
+                  <br />
+                  <a
+                    class="modern-link"
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSfIi64Ge0or3yOHn9TaEJY4y4rw2irHTeTmnLI_W7kMHx79CQ/viewform"
+                    target="_blank"
+                    >Report an error</a
+                  >
+                </div>
               </v-tab-item>
 
               <!-- image -->
@@ -114,7 +157,7 @@
                 <img
                   :src="'https://image.tmdb.org/t/p/w200' + item.metadata.poster"
                   :alt="item.metadata.title"
-                  style="object-fit: contain;"
+                  style="object-fit: contain"
                 />
               </v-tab-item>
             </v-tabs-items>
@@ -125,7 +168,7 @@
 
     <!-- if no data -->
     <v-card v-else>
-      <v-card-text style="height: 250px;">
+      <v-card-text style="height: 250px">
         <div v-if="loading">Loading...</div>
         <div v-else>Error</div>
       </v-card-text>
@@ -141,23 +184,25 @@ export default {
   props: {
     isMobile: {
       type: Boolean,
-      default: false
+      default: false,
     },
     selection: {
       type: Object,
-      default: function() {
+      default: function () {
         return {}
-      }
-    }
+      },
+    },
   },
   data() {
     return {
+      showSettingsWokrInProgressMessage: false,
+      showOhanaDetails: false,
       tab: 1, //0: overview, 1: Ohana -> shall we start with Ohana?
       item: {},
 
       categories: [],
       severities: [],
-      loading: false
+      loading: false,
     }
   },
 
@@ -165,18 +210,18 @@ export default {
     selection() {
       this.item = {} //reset
       this.getData()
-    }
+    },
   },
 
   computed: {
     mapping() {
       return {
-        year: this.item.metadata.released ? this.item.metadata.released.substring(0, 4) : ''
+        year: this.item.metadata.released ? this.item.metadata.released.substring(0, 4) : '',
       }
     },
 
     parsedURL() {
-      return provider.parseURL(this.selection.watch_url)
+      return provider.parseURL(this.selection.watch_urls[0]) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
     },
 
     ohanaSummaryHtml() {
@@ -203,14 +248,25 @@ export default {
       } else if (status == 'missing') {
         text = `Watchout! This ${type} has unsafe content for your settings.`
       } else {
-        text = `Careful! We don't yet have enough information for all your settings.`
+        text = `Ouch! We don't have enough information about this ${type}. Sorry!`
       }
 
       return text
-    }
+    },
   },
 
   methods: {
+    getProvider(watchUrl) {
+      console.log('watchURL : ' + watchUrl)
+      let u = new URL(watchUrl)
+      let h = u.hostname.replace('www.', '')
+      if (h.includes('netflix')) return 'Netflix'
+      if (h.includes('hbo')) return 'HBO'
+      if (h.includes('movistar')) return 'Movistar'
+      if (h.includes('primevideo')) return 'Prime Video'
+      if (h.includes('disneyplus')) return 'Disney Plus'
+      return h
+    },
     tagged(tag) {
       tag = tag.replace('Slighty', 'Slightly')
       console.log('checking tag ' + tag, this.item)
@@ -222,7 +278,7 @@ export default {
       let status
       let level
 
-      let auxx = this.item.scenes.filter(x => x.tags.includes(tag))
+      let auxx = this.item.scenes.filter((x) => x.tags.includes(tag))
       let count = auxx.length
 
       try {
@@ -250,12 +306,13 @@ export default {
       return { color, icon, count, badge, tag }
     },
     closeMe() {
+      this.tab = 1 //let's force this by default
       this.$emit('close', false)
     },
     tagsDescription() {
       let x = {} //tag:desc
-      rawTags.content.forEach(cat => {
-        cat.severity.forEach(sev => {
+      rawTags.content.forEach((cat) => {
+        cat.severity.forEach((sev) => {
           x[sev.value] = sev.description
         })
       })
@@ -277,24 +334,24 @@ export default {
         id: this.parsedURL.id,
         season: this.parsedURL.season,
         episode: this.parsedURL.episode,
-        title: this.parsedURL.title
+        title: this.parsedURL.title,
       })
       console.log('[alex] getting movie data', this.selection.watch_url, url)
       this.loading = true
       fetch(url)
-        .then(r => r.text())
-        .then(data => {
+        .then((r) => r.text())
+        .then((data) => {
           let x = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly". Let's fix here to avoid other ifelse around
           this.item = JSON.parse(x)
           this.loading = false
         })
-    }
+    },
   },
   mounted() {
     this.categories = rawTags.categories
     this.severities = rawTags.severitiesR
     this.getData()
-  }
+  },
 }
 </script>
 
@@ -307,7 +364,6 @@ export default {
   margin-left: auto;
   margin-right: 15px;
 }
-
 
 .notification {
   border: solid 1px lightgray;
@@ -322,5 +378,13 @@ export default {
 .v-overlay--active {
   /** tbc: this should prevent background scroll in iOS */
   touch-action: none !important;
+}
+
+.modern-link {
+  cursor: pointer;
+  color: #0070d7;
+  font-weight: bold;
+  font-size: 10pt;
+  text-decoration: none;
 }
 </style>

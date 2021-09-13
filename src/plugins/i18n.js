@@ -33,6 +33,7 @@ const messages = {
     value6: 'Community',
     value6Desc: 'We are no large corporation, we are community of movie fans like you. Ohana is non for profit organization',
     /**/
+    advanced_search: 'Advanced search',
     whatDoYouSkip: 'What do you want to skip?',
     showAdvanced: 'Hide Advenced Search | Show Advanced Search',
     safety: 'Safety',
@@ -52,7 +53,7 @@ const messages = {
     welcome: 'Bienvenido a Ohana',
     install: 'Instalar',
     getStarted: 'Empezar',
-    discoverContent: 'Películas',
+    discoverContent: 'Descubre contenido',
     /* Highlighted values on top*/
     prop1: 'Salud',
     prop1Desc: 'Concienciados del cuidado de la salud mental',
@@ -74,12 +75,13 @@ const messages = {
     value6: 'Comunidad',
     value6Desc: 'No somos una gran corporación, somos una comunidad de apasionados del cine, como tú. Ohana es una organización sin animo de lucro.',
     /**/
+    advanced_search: 'Búsqueda avanzada',
     whatDoYouSkip: '¿Qué quieres evitar?',
     showAdvanced: 'Ocultar búsqueda avanzada | Mostrar búsqueda avanzada',
     safety: 'Protección',
     movies: 'Películas',
     shows: 'Series',
-    providers: 'Provedores',
+    providers: 'Proveedores',
     genre: 'Género | Géneros',
     showOnlyClean: 'Mostrar solo películas limpias',
     showOnlyCertified: 'Mostrar solo películas certificadas por Ohana',

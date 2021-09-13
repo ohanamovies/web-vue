@@ -15,10 +15,10 @@
     >
       <v-list-item class="px-2" two-line>
         <v-list-item-avatar>
-          <v-img src="http://localhost:8080/images/fam-square.jpg"></v-img>
+          <v-img src="/images/search.png"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>Búsqueda avanzada</v-list-item-title>
+          <v-list-item-title>{{ $t('advanced_search') }}</v-list-item-title>
           <v-list-item-subtitle>Ohana is amazing</v-list-item-subtitle>
         </v-list-item-content>
         <v-btn icon @click.stop="mini = !mini">
@@ -26,12 +26,13 @@
           <v-icon v-if="isMobile">mdi-close</v-icon>
         </v-btn>
       </v-list-item>
-      <v-divider></v-divider>
+
       <!-- FILTERS -->
-      <!-- SEARCH FIELD -->
       <div v-if="mini == false" style="padding: 10px">
+        <!-- SEARCH FIELD -->
         <v-text-field
           outlined
+          style="max-width: 400px"
           type="search"
           id="searchBox"
           dense
@@ -340,8 +341,8 @@
 
       <v-container v-if="!mini">
         <div>
-          <v-btn @click="backToDefaultFilters()" block dark depressed color="primary"
-            >Quitar filtros</v-btn
+          <span class="modern-link" @click="backToDefaultFilters()"
+            >Restaurar valores por defecto</span
           >
         </div>
       </v-container>
@@ -378,9 +379,7 @@
           fixed
           dark
           @click="mini = !mini"
-          style="z-index: 99999"
-          width="60"
-          height="60"
+          style="z-index: 99999; cursor: pointer"
         >
           <!-- progress circle within the go-to-top button -->
           <v-progress-circular
@@ -390,8 +389,8 @@
             indeterminate
             color="white"
           ></v-progress-circular>
-          <v-icon v-else-if="mini" color="white">mdi-tune</v-icon>
-          <v-icon v-else-if="!mini" color="white">mdi-thumb-up</v-icon>
+          <v-icon v-else-if="mini" color="white" style="cursor: pointer">mdi-tune</v-icon>
+          <v-icon v-else-if="!mini" color="white" style="cursor: pointer">mdi-thumb-up</v-icon>
           <!-- TODO: may use mdi-tune -->
         </v-btn>
 
@@ -407,28 +406,32 @@
         <v-row>
           <v-col class="pt-0">
             <!-- search 2 -->
-            <v-text-field
-              outlined
-              type="search"
-              id="searchBox"
-              dense
-              name="search"
-              label="Search by title"
-              v-model="title"
-              autocomplete="off"
-              prepend-inner-icon="mdi-magnify"
-              hide-details
-              clearable
-              class="pa-0 mb-2"
-              @focus="$event.target.select()"
-              @keyup.enter="getData()"
-            >
-              <div slot="append" hidden>
-                <v-btn color="success" icon @click="getData()"
-                  ><v-icon> mdi-movie-search</v-icon></v-btn
-                >
-              </div>
-            </v-text-field>
+
+            <div>
+              <v-text-field
+                outlined
+                style="max-width: 400px"
+                type="search"
+                id="searchBox"
+                dense
+                name="search"
+                label="Search by title"
+                v-model="title"
+                autocomplete="off"
+                prepend-inner-icon="mdi-magnify"
+                hide-details
+                clearable
+                class="pa-0 mb-2"
+                @focus="$event.target.select()"
+                @keyup.enter="getData()"
+              >
+                <div slot="append" hidden>
+                  <v-btn color="success" icon @click="getData()"
+                    ><v-icon> mdi-movie-search</v-icon></v-btn
+                  >
+                </div>
+              </v-text-field>
+            </div>
 
             <!-- POSTERS -->
 
@@ -460,10 +463,11 @@
                   <p style="font-size: 16px; line-height: normal">{{ item.title }}</p>
 
                   <p>
-                    <a v-if="item.watch_url" target="_blanck" :href="item.watch_url">{{
-                      getProvider(item.watch_url)
-                    }}</a>
-                    &nbsp;&nbsp;
+                    <span v-for="(watch_url, index) in item.watch_urls" :key="index">
+                      <a target="_blank" :href="watch_url">{{ getProvider(watch_url) }}</a
+                      >&nbsp;&nbsp;
+                    </span>
+
                     <a
                       v-if="item.imdb"
                       target="_blanck"
@@ -698,6 +702,30 @@ export default {
     },
   },
   methods: {
+    mergeItemsByImdbId(dataArray) {
+      //This funciton takes the original array from the server (this.data) and creates a new version with no duplidated imdb Ids.
+      //For that, we take the keys from the first item, and then append "watch_url" values into a new array "watch_urls"
+      let imdbIds = []
+      let final = []
+
+      dataArray.forEach((item) => {
+        let imdb = item.imdb
+        if (!imdbIds.includes(imdb)) {
+          item.watch_urls = [item.watch_url]
+          item.watch_url = 'error: use watch_urls'
+          item.count = 1
+          final.push(item)
+          imdbIds.push(imdb)
+        } else {
+          let i = final.findIndex((x) => x.imdb == imdb)
+          final[i].watch_urls.push(item.watch_url)
+          final[i].count = final[i].count + 1
+        }
+
+        console.log(final)
+      })
+      return final
+    },
     backToDefaultFilters() {},
     onClickOutsideNavDrawer() {
       if (this.isMobile && !this.mini) {
@@ -710,8 +738,8 @@ export default {
         joinStatus: this.joinStatus(item.status, this.skipTags),
         icon: this.getShieldIcon(item),
         color: this.getShieldColor(item),
-        provider: this.getProvider(item.watch_url),
-        watch_url: item.watch_url,
+        providers: [], // this.getProvider(item.watch_urls),
+        watch_urls: item.watch_urls,
       }
     },
     onResize() {
@@ -881,6 +909,11 @@ export default {
     },
 
     getData(more) {
+      if (!more) {
+        //if not more, let's scroll to top instead of keeping old scroll.
+        this.scrollToTop()
+      }
+
       this.loading = true
 
       if (!more) {
@@ -910,6 +943,9 @@ export default {
             console.log('[getData] old request. ignoring')
             return
           }
+
+          //TODO: merge items with same IMDb Id
+
           if (this.page != 1) {
             console.log('pushing data ', data)
             if (data.length < 50) this.finishLoading = true
@@ -920,6 +956,9 @@ export default {
             console.log('setting data')
             this.data = data
           }
+
+          this.data = this.mergeItemsByImdbId(this.data)
+
           this.loading = false
         })
     },
@@ -1188,5 +1227,17 @@ div.sticky {
   background-color: yellow;
   padding: 50px;
   font-size: 20px;
+}
+
+hr {
+  margin: 1em 0;
+}
+
+.modern-link {
+  cursor: pointer;
+  color: #0070d7;
+  font-weight: bold;
+  font-size: 10pt;
+  text-decoration: none;
 }
 </style>
