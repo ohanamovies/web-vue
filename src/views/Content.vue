@@ -345,6 +345,11 @@
           >
         </div>
       </v-container>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </v-navigation-drawer>
 
     <section class="" id="main">
@@ -366,7 +371,6 @@
 
         <!-- Floating button now to scroll to top (useful on mobile to get to the filters), in future to show/hide filters on mobile-->
         <v-btn
-          v-if="mini"
           color="#6cc091"
           fab
           bottom
@@ -384,7 +388,8 @@
             indeterminate
             color="white"
           ></v-progress-circular>
-          <v-icon v-else color="white">mdi-magnify</v-icon>
+          <v-icon v-else-if="mini" color="white">mdi-magnify</v-icon>
+          <v-icon v-else-if="!mini" color="white">mdi-thumb-up</v-icon>
           <!-- TODO: may use mdi-tune -->
         </v-btn>
 
