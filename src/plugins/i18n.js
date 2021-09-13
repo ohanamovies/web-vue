@@ -63,7 +63,7 @@ const messages = {
     /* Values displayed on the home view */
     value1: 'Salud mental',
     value1Desc: 'En un mundo con crecientes problemas de salud mental algunas escenas pueden dañar a los espectadores. Ohana permite la creación de espacios seguros, nadie se queda atrás.',
-    value2: 'Elección',
+    value2: 'Libertad',
     value2Desc: 'Nuestro objetivo es empoderarte como espectador, brindándote las herramientas para elegir qué ver y qué no. Con Ohana la elección es tuya.',
     value3: 'Protección infantil',
     value3Desc: 'La infancia debe ser un momento en el que los niños puedan crecer, explorar y desarrollarse en un entorno seguro. Ohana ayuda a crear este entorno seguro para los niños.',
@@ -73,7 +73,7 @@ const messages = {
     value5Desc: 'Trabajamos directamente en sus proveedores favoritos, solo instale nuestra extensión de Chrome, díganos sus preferencias y siga viendo películas como de costumbre mientras trabajamos para usted en segundo plano.',
     value6: 'Comunidad',
     value6Desc: 'No somos una gran corporación, somos una comunidad de apasionados del cine, como tú. Ohana es una organización sin animo de lucro.',
-    /**/    
+    /**/
     whatDoYouSkip: '¿Qué quieres evitar?',
     showAdvanced: 'Ocultar búsqueda avanzada | Mostrar búsqueda avanzada',
     safety: 'Protección',

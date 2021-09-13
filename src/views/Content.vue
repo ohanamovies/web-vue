@@ -2,9 +2,358 @@
   <div class="subpage">
     <my-header></my-header>
 
-    <section class="wrapper" id="main">
+    <v-navigation-drawer
+      v-click-outside="onClickOutsideNavDrawer"
+      v-if="(!mini && isMobile) || !isMobile"
+      permanent
+      :temporary="isMobile"
+      app
+      :mini-variant="mini"
+      v-model="showMenu"
+      :width="375"
+      style="z-index: 99999; margin-top: 44px; max-width: 90vw"
+    >
+      <v-list-item class="px-2" two-line>
+        <v-list-item-avatar>
+          <v-img src="http://localhost:8080/images/fam-square.jpg"></v-img>
+        </v-list-item-avatar>
+        <v-list-item-content>
+          <v-list-item-title>Búsqueda avanzada</v-list-item-title>
+          <v-list-item-subtitle>Ohana is amazing</v-list-item-subtitle>
+        </v-list-item-content>
+        <v-btn icon @click.stop="mini = !mini">
+          <v-icon v-if="!isMobile">mdi-chevron-left</v-icon>
+          <v-icon v-if="isMobile">mdi-close</v-icon>
+        </v-btn>
+      </v-list-item>
+      <v-divider></v-divider>
+      <!-- FILTERS -->
+      <!-- SEARCH FIELD -->
+      <div v-if="mini == false" style="padding: 8px">
+        <v-text-field
+          outlined
+          type="search"
+          id="searchBox"
+          dense
+          name="search"
+          label="Search by title"
+          v-model="title"
+          autocomplete="off"
+          prepend-inner-icon="mdi-magnify"
+          hide-details
+          clearable
+          class="pa-0 mb-2"
+          @focus="$event.target.select()"
+          @keyup.enter="getData()"
+        >
+          <div slot="append" hidden>
+            <v-btn color="success" icon @click="getData()"
+              ><v-icon> mdi-movie-search</v-icon></v-btn
+            >
+          </div>
+        </v-text-field>
+
+        <div id="ActualFilters">
+          <!-- Providers -->
+          <div class="filterr">
+            <b>{{ $t('providers') }}:</b>
+            <v-chip
+              class="ma-1"
+              small
+              dense
+              v-for="(item, k) in providersList"
+              :key="k"
+              @click="
+                providers.includes(item.value)
+                  ? (providers = providers.filter((x) => x != item.value))
+                  : providers.push(item.value)
+              "
+              :class="{ chipdown: providers.includes(item.value) }"
+            >
+              {{ item.text }}
+              <!--<b v-if="!loading">{{ item.label }}</b>-->
+            </v-chip>
+          </div>
+
+          <!-- MOVIES / SHOWS tabs -->
+          <div class="filterr">
+            <b>Type:</b>
+            <v-chip
+              dense
+              small
+              class="ma-1"
+              @click="setType('movie')"
+              :class="{ chipdown: type == 'movie' }"
+            >
+              <span> {{ $t('movies') }}</span>
+            </v-chip>
+            <v-chip
+              dense
+              small
+              class="ma-1"
+              @click="setType('show')"
+              :class="{ chipdown: type == 'show' }"
+              ><span>{{ $t('shows') }}</span>
+            </v-chip>
+          </div>
+
+          <!-- GENRES -->
+          <div class="filterr">
+            <!-- genres expansion panel -->
+            <v-expansion-panels v-if="false">
+              <v-expansion-panel style="border: none">
+                <v-expansion-panel-header style="overflow: hidden; color: black !important">
+                  <h5>{{ $t('genre') }}: {{ genres.join(', ') }}</h5>
+                </v-expansion-panel-header>
+
+                <v-expansion-panel-content>
+                  <v-chip
+                    class="ma-1"
+                    small
+                    dense
+                    v-for="(item, k) in availableGenres"
+                    :key="k"
+                    @click="
+                      genres.includes(item)
+                        ? (genres = genres.filter((x) => x != item))
+                        : genres.push(item)
+                    "
+                    :class="{ chipdown: genres.includes(item) }"
+                  >
+                    {{ item }}
+                    <!--<b v-if="!loading">{{ item.label }}</b>-->
+                  </v-chip>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+
+            <!-- genres chips-->
+            <b>{{ $tc('genre', 2) }}:</b>
+
+            <v-chip
+              class="ma-1"
+              small
+              dense
+              v-for="(item, k) in availableGenres.slice(0, seeAllGenreChips ? 999 : 5)"
+              :key="k"
+              @click="
+                genres.includes(item)
+                  ? (genres = genres.filter((x) => x != item))
+                  : genres.push(item)
+              "
+              :class="{ chipdown: genres.includes(item) }"
+            >
+              {{ item }}
+              <!--<b v-if="!loading">{{ item.label }}</b>-->
+            </v-chip>
+
+            <v-chip
+              color="blue"
+              class="ma-1"
+              dense
+              small
+              outlined
+              @click="seeAllGenreChips = !seeAllGenreChips"
+              >{{ seeAllGenreChips ? 'Show less' : 'Show all' }}</v-chip
+            >
+          </div>
+
+          <!-- Content safety chips -->
+          <div class="filterr">
+            <!--
+              <div style="overflow-x: auto;  white-space: nowrap; ">
+                <div v-if="skipTags.length > 0" style="display:inline;">
+                  -->
+            <b>{{ $t('safety') }}</b>
+            <v-chip class="ma-1" small dense v-for="(item, k) in statsRecap" :key="k">
+              <!-- TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
+                    @click="
+                      statusFilter.includes(k)
+                        ? (statusFilter = statusFilter.filter(x => x != k))
+                        : statusFilter.push(k)
+                    "
+                    :class="{ chipdown: statusFilter.includes(k) }"
+                  >-->
+              <v-icon left small :color="item.color">{{ item.icon }}</v-icon>
+              <b v-if="true">{{ item.label }}</b>
+              <!--<b v-if="!loading">{{ item.label }}</b>-->
+              <v-progress-circular
+                v-else
+                :size="10"
+                :width="1"
+                indeterminate
+                color="primary"
+              ></v-progress-circular>
+            </v-chip>
+          </div>
+
+          <!-- Clean/Certified Only -->
+          <div class="filterr">
+            <v-checkbox v-model="cleanOnly" hide-details class="mt-0" :disabled="certifiedOnly">
+              <div slot="label" style="font-size: 85%; transform: translateY(9px) translateX(-5px)">
+                {{ $t('showOnlyClean') }} <v-icon color="green">mdi-content-cut</v-icon> |
+                <v-icon color="green">mdi-emoticon-happy</v-icon>
+              </div>
+            </v-checkbox>
+
+            <v-checkbox v-model="certifiedOnly" hide-details class="mt-0">
+              <div slot="label" style="font-size: 85%; transform: translateY(9px) translateX(-5px)">
+                {{ $t('showOnlyCertified') }}
+                <v-icon color="blue">mdi-content-cut</v-icon>
+                | <v-icon color="blue">mdi-emoticon-happy</v-icon>
+              </div>
+            </v-checkbox>
+          </div>
+        </div>
+
+        <!-- Sensitivity -->
+        <div class="filterr">
+          <h4 style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</h4>
+          <b>Sex/Nudity:</b>
+          <div class="sliderticks">
+            <my-tooltip :text="tagsDescription['Very erotic']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: sexSlider > 1 }"
+                @click="sexSlider = sexSlider > 1 ? 1 : 2"
+              >
+                {{ $t('severe') }}
+              </v-chip>
+            </my-tooltip>
+
+            <my-tooltip :text="tagsDescription['Moderately erotic']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: sexSlider > 2 }"
+                @click="sexSlider = sexSlider > 2 ? 2 : 3"
+                >{{ $t('moderate') }}</v-chip
+              >
+            </my-tooltip>
+            <my-tooltip :text="tagsDescription['Mildly erotic']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: sexSlider > 3 }"
+                @click="sexSlider = sexSlider > 3 ? 3 : 4"
+                >{{ $t('mild') }}</v-chip
+              >
+            </my-tooltip>
+            <my-tooltip :text="tagsDescription['Slightly erotic']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: sexSlider > 4 }"
+                @click="sexSlider = sexSlider > 4 ? 4 : 5"
+                >{{ $t('slight') }}</v-chip
+              ></my-tooltip
+            >
+          </div>
+          <!--  cols="12" sm="6" md="4" -->
+          <b>Violence/Gore: </b>
+          <div class="sliderticks">
+            <my-tooltip :text="tagsDescription['Very gory']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: vioSlider > 1 }"
+                @click="vioSlider = vioSlider > 1 ? 1 : 2"
+                >{{ $t('severe') }}</v-chip
+              >
+            </my-tooltip>
+            <my-tooltip :text="tagsDescription['Moderately gory']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: vioSlider > 2 }"
+                @click="vioSlider = vioSlider > 2 ? 2 : 3"
+                >{{ $t('moderate') }}</v-chip
+              >
+            </my-tooltip>
+            <my-tooltip :text="tagsDescription['Mildly gory']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: vioSlider > 3 }"
+                @click="vioSlider = vioSlider > 3 ? 3 : 4"
+                >{{ $t('mild') }}</v-chip
+              >
+            </my-tooltip>
+            <my-tooltip :text="tagsDescription['Slightly gory']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: vioSlider > 4 }"
+                @click="vioSlider = vioSlider > 4 ? 4 : 5"
+                >{{ $t('slight') }}</v-chip
+              >
+            </my-tooltip>
+          </div>
+
+          <b>Profanity: </b>
+          <div class="sliderticks">
+            <my-tooltip :text="tagsDescription['Very profane']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: profSlider > 1 }"
+                @click="profSlider = profSlider > 1 ? 1 : 2"
+                >{{ $t('severe') }}</v-chip
+              >
+            </my-tooltip>
+            <my-tooltip :text="tagsDescription['Moderately profane']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: profSlider > 2 }"
+                @click="profSlider = profSlider > 2 ? 2 : 3"
+                >{{ $t('moderate') }}</v-chip
+              >
+            </my-tooltip>
+            <my-tooltip :text="tagsDescription['Mildly profane']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: profSlider > 3 }"
+                @click="profSlider = profSlider > 3 ? 3 : 4"
+                >{{ $t('mild') }}</v-chip
+              >
+            </my-tooltip>
+            <my-tooltip :text="tagsDescription['Slightly profane']">
+              <v-chip
+                dense
+                small
+                :class="{ skip: profSlider > 4 }"
+                @click="profSlider = profSlider > 4 ? 4 : 5"
+                >{{ $t('slight') }}</v-chip
+              >
+            </my-tooltip>
+          </div>
+        </div>
+      </div>
+
+      <!-- END FILTERS -->
+      <v-container class="pb-0" v-if="mini">
+        <v-btn color="gray" icon @click="mini = false"><v-icon>mdi-magnify</v-icon></v-btn>
+      </v-container>
+
+      <v-container v-if="!mini">
+        <div>
+          <v-btn @click="backToDefaultFilters()" block dark depressed color="primary"
+            >Recuperar valores por defecto</v-btn
+          >
+        </div>
+
+        <div style="font-size: 0.8rem; margin: auto; text-align: center">
+          RevNumber: {{ 1 + 1 }}
+        </div>
+      </v-container>
+    </v-navigation-drawer>
+
+    <section class="" id="main">
       <div class="inner">
-        <h4>{{ $t('discoverContent') }}</h4>
+        <h4 style="margin-bottom: 20px">{{ $t('discoverContent') }}</h4>
 
         <v-dialog
           v-model="showMovieDialog"
@@ -21,13 +370,14 @@
 
         <!-- Floating button now to scroll to top (useful on mobile to get to the filters), in future to show/hide filters on mobile-->
         <v-btn
+          v-if="mini"
           color="#6cc091"
           fab
           bottom
           right
           fixed
           dark
-          @click="scrollToTop"
+          @click="mini = !mini"
           style="z-index: 99999"
         >
           <!-- progress circle within the go-to-top button -->
@@ -38,7 +388,8 @@
             indeterminate
             color="white"
           ></v-progress-circular>
-          <v-icon v-else color="white">mdi-arrow-up</v-icon>
+          <v-icon v-else color="white">mdi-magnify</v-icon>
+          <!-- TODO: may use mdi-tune -->
         </v-btn>
 
         <!-- PROGRESS BAR FOR LOADING, at the bottom of the page -->
@@ -51,340 +402,6 @@
         </div>
 
         <v-row>
-          <v-col
-            cols="12"
-            xs="12"
-            sm="12"
-            md="5"
-            lg="4"
-            xl="3"
-            v-if="showSidebarFilters"
-            id="filterss"
-          >
-            <!-- SEARCH FIELD -->
-
-            <v-text-field
-              outlined
-              type="search"
-              id="searchBox"
-              dense
-              name="search"
-              label="Search by title"
-              v-model="title"
-              autocomplete="off"
-              prepend-inner-icon="mdi-magnify"
-              hide-details
-              clearable
-              class="pa-0 mb-2"
-              @focus="$event.target.select()"
-              @keyup.enter="getData()"
-            >
-              <div slot="append" hidden>
-                <v-btn color="success" icon @click="getData()"
-                  ><v-icon> mdi-movie-search</v-icon></v-btn
-                >
-              </div>
-            </v-text-field>
-
-            <!-- Sensitivity -->
-            <div class="filterr">
-              <h4 style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</h4>
-              <b>Sex/Nudity:</b>
-              <div class="sliderticks">
-                <my-tooltip :text="tagsDescription['Very erotic']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: sexSlider > 1 }"
-                    @click="sexSlider = sexSlider > 1 ? 1 : 2"
-                  >
-                    {{ $t('severe') }}
-                  </v-chip>
-                </my-tooltip>
-
-                <my-tooltip :text="tagsDescription['Moderately erotic']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: sexSlider > 2 }"
-                    @click="sexSlider = sexSlider > 2 ? 2 : 3"
-                    >{{ $t('moderate') }}</v-chip
-                  >
-                </my-tooltip>
-                <my-tooltip :text="tagsDescription['Mildly erotic']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: sexSlider > 3 }"
-                    @click="sexSlider = sexSlider > 3 ? 3 : 4"
-                    >{{ $t('mild') }}</v-chip
-                  >
-                </my-tooltip>
-                <my-tooltip :text="tagsDescription['Slightly erotic']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: sexSlider > 4 }"
-                    @click="sexSlider = sexSlider > 4 ? 4 : 5"
-                    >{{ $t('slight') }}</v-chip
-                  ></my-tooltip
-                >
-              </div>
-              <!--  cols="12" sm="6" md="4" -->
-              <b>Violence/Gore: </b>
-              <div class="sliderticks">
-                <my-tooltip :text="tagsDescription['Very gory']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: vioSlider > 1 }"
-                    @click="vioSlider = vioSlider > 1 ? 1 : 2"
-                    >{{ $t('severe') }}</v-chip
-                  >
-                </my-tooltip>
-                <my-tooltip :text="tagsDescription['Moderately gory']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: vioSlider > 2 }"
-                    @click="vioSlider = vioSlider > 2 ? 2 : 3"
-                    >{{ $t('moderate') }}</v-chip
-                  >
-                </my-tooltip>
-                <my-tooltip :text="tagsDescription['Mildly gory']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: vioSlider > 3 }"
-                    @click="vioSlider = vioSlider > 3 ? 3 : 4"
-                    >{{ $t('mild') }}</v-chip
-                  >
-                </my-tooltip>
-                <my-tooltip :text="tagsDescription['Slightly gory']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: vioSlider > 4 }"
-                    @click="vioSlider = vioSlider > 4 ? 4 : 5"
-                    >{{ $t('slight') }}</v-chip
-                  >
-                </my-tooltip>
-              </div>
-
-              <b>Profanity: </b>
-              <div class="sliderticks">
-                <my-tooltip :text="tagsDescription['Very profane']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: profSlider > 1 }"
-                    @click="profSlider = profSlider > 1 ? 1 : 2"
-                    >{{ $t('severe') }}</v-chip
-                  >
-                </my-tooltip>
-                <my-tooltip :text="tagsDescription['Moderately profane']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: profSlider > 2 }"
-                    @click="profSlider = profSlider > 2 ? 2 : 3"
-                    >{{ $t('moderate') }}</v-chip
-                  >
-                </my-tooltip>
-                <my-tooltip :text="tagsDescription['Mildly profane']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: profSlider > 3 }"
-                    @click="profSlider = profSlider > 3 ? 3 : 4"
-                    >{{ $t('mild') }}</v-chip
-                  >
-                </my-tooltip>
-                <my-tooltip :text="tagsDescription['Slightly profane']">
-                  <v-chip
-                    dense
-                    small
-                    :class="{ skip: profSlider > 4 }"
-                    @click="profSlider = profSlider > 4 ? 4 : 5"
-                    >{{ $t('slight') }}</v-chip
-                  >
-                </my-tooltip>
-              </div>
-            </div>
-
-            <!-- If mobile, let's use a trick to help toggle advancedSearch/results -->
-            <div v-if="isMobile" style="margin-bottom: 5px">
-              <span
-                @click="showFilters = !showFilters"
-                :style="{
-                  cursor: 'pointer',
-                  textDecoration: 'underline',
-                  color: 'DodgerBlue',
-                }"
-                >{{ $tc('showAdvanced', showFilters) }}</span
-              >
-            </div>
-
-            <div id="ActualFilters" v-if="!isMobile || showFilters">
-              <!-- Content safety chips -->
-              <div class="filterr">
-                <!--
-              <div style="overflow-x: auto;  white-space: nowrap; ">
-                <div v-if="skipTags.length > 0" style="display:inline;">
-                  -->
-                <b>{{ $t('safety') }}</b>
-                <v-chip class="ma-1" small dense v-for="(item, k) in statsRecap" :key="k">
-                  <!-- TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
-                    @click="
-                      statusFilter.includes(k)
-                        ? (statusFilter = statusFilter.filter(x => x != k))
-                        : statusFilter.push(k)
-                    "
-                    :class="{ chipdown: statusFilter.includes(k) }"
-                  >-->
-                  <v-icon left small :color="item.color">{{ item.icon }}</v-icon>
-                  <b v-if="true">{{ item.label }}</b>
-                  <!--<b v-if="!loading">{{ item.label }}</b>-->
-                  <v-progress-circular
-                    v-else
-                    :size="10"
-                    :width="1"
-                    indeterminate
-                    color="primary"
-                  ></v-progress-circular>
-                </v-chip>
-              </div>
-
-              <!-- MOVIES / SHOWS tabs -->
-              <div class="filterr">
-                <b>Type:</b>
-                <v-chip
-                  dense
-                  small
-                  class="ma-1"
-                  @click="setType('movie')"
-                  :class="{ chipdown: type == 'movie' }"
-                >
-                  <span> {{ $t('movies') }}</span>
-                </v-chip>
-                <v-chip
-                  dense
-                  small
-                  class="ma-1"
-                  @click="setType('show')"
-                  :class="{ chipdown: type == 'show' }"
-                  ><span>{{ $t('shows') }}</span>
-                </v-chip>
-              </div>
-
-              <!-- Providers -->
-              <div class="filterr">
-                <b>{{ $t('providers') }}:</b>
-                <v-chip
-                  class="ma-1"
-                  small
-                  dense
-                  v-for="(item, k) in providersList"
-                  :key="k"
-                  @click="
-                    providers.includes(item.value)
-                      ? (providers = providers.filter((x) => x != item.value))
-                      : providers.push(item.value)
-                  "
-                  :class="{ chipdown: providers.includes(item.value) }"
-                >
-                  {{ item.text }}
-                  <!--<b v-if="!loading">{{ item.label }}</b>-->
-                </v-chip>
-              </div>
-
-              <!-- GENRES -->
-              <div class="filterr">
-                <!-- genres expansion panel -->
-                <v-expansion-panels v-if="false">
-                  <v-expansion-panel style="border: none">
-                    <v-expansion-panel-header style="overflow: hidden; color: black !important">
-                      <h5>{{ $t('genre') }}: {{ genres.join(', ') }}</h5>
-                    </v-expansion-panel-header>
-
-                    <v-expansion-panel-content>
-                      <v-chip
-                        class="ma-1"
-                        small
-                        dense
-                        v-for="(item, k) in availableGenres"
-                        :key="k"
-                        @click="
-                          genres.includes(item)
-                            ? (genres = genres.filter((x) => x != item))
-                            : genres.push(item)
-                        "
-                        :class="{ chipdown: genres.includes(item) }"
-                      >
-                        {{ item }}
-                        <!--<b v-if="!loading">{{ item.label }}</b>-->
-                      </v-chip>
-                    </v-expansion-panel-content>
-                  </v-expansion-panel>
-                </v-expansion-panels>
-
-                <!-- genres chips-->
-                <b>{{ $tc('genre', 2) }}:</b>
-
-                <v-chip
-                  class="ma-1"
-                  small
-                  dense
-                  v-for="(item, k) in availableGenres.slice(0, seeAllGenreChips ? 999 : 5)"
-                  :key="k"
-                  @click="
-                    genres.includes(item)
-                      ? (genres = genres.filter((x) => x != item))
-                      : genres.push(item)
-                  "
-                  :class="{ chipdown: genres.includes(item) }"
-                >
-                  {{ item }}
-                  <!--<b v-if="!loading">{{ item.label }}</b>-->
-                </v-chip>
-
-                <v-chip
-                  color="blue"
-                  class="ma-1"
-                  dense
-                  small
-                  outlined
-                  @click="seeAllGenreChips = !seeAllGenreChips"
-                  >{{ seeAllGenreChips ? 'Show less' : 'Show all' }}</v-chip
-                >
-              </div>
-
-              <!-- Clean/Certified Only -->
-              <div class="filterr">
-                <v-checkbox v-model="cleanOnly" hide-details class="mt-0" :disabled="certifiedOnly">
-                  <div
-                    slot="label"
-                    style="font-size: 85%; transform: translateY(9px) translateX(-5px)"
-                  >
-                    {{ $t('showOnlyClean') }} <v-icon color="green">mdi-content-cut</v-icon> |
-                    <v-icon color="green">mdi-emoticon-happy</v-icon>
-                  </div>
-                </v-checkbox>
-
-                <v-checkbox v-model="certifiedOnly" hide-details class="mt-0">
-                  <div
-                    slot="label"
-                    style="font-size: 85%; transform: translateY(9px) translateX(-5px)"
-                  >
-                    {{ $t('showOnlyCertified') }}
-                    <v-icon color="blue">mdi-content-cut</v-icon>
-                    | <v-icon color="blue">mdi-emoticon-happy</v-icon>
-                  </div>
-                </v-checkbox>
-              </div>
-            </div>
-          </v-col>
-
           <v-col class="pt-0">
             <!-- POSTERS -->
             <div v-if="loading">
@@ -468,6 +485,7 @@ export default {
   },
   data() {
     return {
+      mini: false,
       selectedItemInfo: {},
       showMovieDialog: false,
 
@@ -651,6 +669,12 @@ export default {
     },
   },
   methods: {
+    backToDefaultFilters() {},
+    onClickOutsideNavDrawer() {
+      if (this.isMobile && !this.mini) {
+        this.mini = !this.mini
+      }
+    },
     openMovieDialog(item) {
       this.showMovieDialog = true
       this.selectedItemInfo = {
