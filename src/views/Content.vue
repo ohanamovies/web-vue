@@ -19,7 +19,7 @@
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title>{{ $t('advanced_search') }}</v-list-item-title>
-          <v-list-item-subtitle>Ohana is amazing</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ $t('search_subtitle') }}</v-list-item-subtitle>
         </v-list-item-content>
         <v-btn icon @click.stop="mini = !mini">
           <v-icon v-if="!isMobile">mdi-chevron-left</v-icon>
@@ -30,29 +30,37 @@
       <!-- FILTERS -->
       <div v-if="mini == false" style="padding: 10px">
         <!-- SEARCH FIELD -->
-        <v-text-field
-          outlined
-          style="max-width: 400px"
-          type="search"
-          id="searchBox"
-          dense
-          name="search"
-          label="Search by title"
-          v-model="title"
-          autocomplete="off"
-          prepend-inner-icon="mdi-magnify"
-          hide-details
-          clearable
-          class="pa-0 mb-2"
-          @focus="$event.target.select()"
-          @keyup.enter="getData()"
-        >
-          <div slot="append" hidden>
-            <v-btn color="success" icon @click="getData()"
-              ><v-icon> mdi-movie-search</v-icon></v-btn
-            >
-          </div>
-        </v-text-field>
+        <form>
+          <!-- TODO: added the "form" wrapper to see if that triggers the submit button in ios keyboard-->
+          <v-text-field
+            outlined
+            style="max-width: 400px"
+            type="search"
+            id="searchBox"
+            dense
+            name="search"
+            label="Search by title"
+            v-model="title"
+            autocomplete="off"
+            prepend-inner-icon="mdi-magnify"
+            hide-details
+            clearable
+            class="pa-0 mb-2"
+            @focus="$event.target.select()"
+            @keyup.enter="
+              getData()
+              if (isMobile) {
+                mini = true
+              }
+            "
+          >
+            <div slot="append" hidden>
+              <v-btn color="success" icon @click="getData()"
+                ><v-icon> mdi-movie-search</v-icon></v-btn
+              >
+            </div>
+          </v-text-field>
+        </form>
 
         <div id="ActualFilters">
           <!-- Providers -->
@@ -341,7 +349,7 @@
 
       <v-container v-if="!mini">
         <div>
-          <span class="modern-link" @click="backToDefaultFilters()"
+          <span class="modern-link" @click="removeOhanaSettingsLocalStorage()"
             >Restaurar valores por defecto</span
           >
         </div>
@@ -726,7 +734,10 @@ export default {
       })
       return final
     },
-    backToDefaultFilters() {},
+    removeOhanaSettingsLocalStorage() {
+      localStorage.removeItem('ohanaSettings')
+      location.reload() //ugly, but was fast to do.
+    },
     onClickOutsideNavDrawer() {
       if (this.isMobile && !this.mini) {
         this.mini = !this.mini

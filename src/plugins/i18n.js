@@ -34,6 +34,7 @@ const messages = {
     value6Desc: 'We are no large corporation, we are community of movie fans like you. Ohana is non for profit organization',
     /**/
     advanced_search: 'Advanced search',
+    search_subtitle: `Find something great to watch!`,
     whatDoYouSkip: 'What do you want to skip?',
     showAdvanced: 'Hide Advenced Search | Show Advanced Search',
     safety: 'Safety',
@@ -76,6 +77,7 @@ const messages = {
     value6Desc: 'No somos una gran corporación, somos una comunidad de apasionados del cine, como tú. Ohana es una organización sin animo de lucro.',
     /**/
     advanced_search: 'Búsqueda avanzada',
+    search_subtitle: 'Encuentra el mejor contenido',
     whatDoYouSkip: '¿Qué quieres evitar?',
     showAdvanced: 'Ocultar búsqueda avanzada | Mostrar búsqueda avanzada',
     safety: 'Protección',
