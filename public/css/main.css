@@ -3309,3 +3309,64 @@ button:disabled,
     padding: 3em 0;
   }
 }
+
+
+/** Ohana overrides **/
+
+
+/** VUETIFY **/ 
+
+.mdi {
+  all: initial;
+}
+
+#vbtn1 {
+  border: none;
+  box-shadow: none;
+  color: white !important;
+
+  border-radius: 0px;
+}
+
+#vexpansionpannel > * > button {
+  border: none;
+  box-shadow: none;
+  border-radius: 0px;
+}
+
+.v-expansion-panel-header {
+  border: none !important;
+  box-shadow: none;
+  border-radius: 0px;
+}
+
+#vselect {
+  /*background: none;
+  border: none;*/
+  all: initial;
+  visibility: hidden;
+}
+
+#vselect:focus {
+  /*background: none;
+  border: none;
+  box-shadow: none;*/
+  all: initial;
+}
+
+/** autocomplete */
+.v-menu__content {
+  z-index: 999 !important;
+}
+
+.v-select__selections {
+  display: flex !important;
+}
+
+.v-select__selections > input {
+  all: initial !important;
+}
+
+.v-label {
+  font-weight: normal !important;
+}

@@ -1,7 +1,5 @@
 <template>
   <div class="subpage">
-    <my-header></my-header>
-
     <v-navigation-drawer
       v-click-outside="onClickOutsideNavDrawer"
       v-if="(!mini && isMobile) || !isMobile"
@@ -11,17 +9,19 @@
       :mini-variant="mini"
       v-model="showMenu"
       :width="375"
-      :style="{ zIndex: '99999', marginTop: isMobile ? '0px' : '44px', maxWidth: '90vw' }"
+      :style="{ zIndex: '9998', marginTop: isMobile ? '44px' : '44px', maxWidth: '90vw' }"
     >
-      <v-list-item class="px-2" two-line>
+      <v-list-item class="px-2" two-line v-if="mini == false">
+        <!--
         <v-list-item-avatar>
           <v-img src="/images/search.png"></v-img>
         </v-list-item-avatar>
-        <v-list-item-content>
+        -->
+        <v-list-item-content class="pl-2">
           <v-list-item-title>{{ $t('advanced_search') }}</v-list-item-title>
           <v-list-item-subtitle>{{ $t('search_subtitle') }}</v-list-item-subtitle>
         </v-list-item-content>
-        <v-btn icon @click.stop="mini = !mini">
+        <v-btn icon @click.stop="mini = !mini" class="vbtn">
           <v-icon v-if="!isMobile">mdi-chevron-left</v-icon>
           <v-icon v-if="isMobile">mdi-close</v-icon>
         </v-btn>
@@ -30,37 +30,36 @@
       <!-- FILTERS -->
       <div v-if="mini == false" style="padding: 10px">
         <!-- SEARCH FIELD -->
-        <form>
-          <!-- TODO: added the "form" wrapper to see if that triggers the submit button in ios keyboard-->
-          <v-text-field
-            outlined
-            style="max-width: 400px"
-            type="search"
-            id="searchBox"
-            dense
-            name="search"
-            label="Search by title"
-            v-model="title"
-            autocomplete="off"
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-            clearable
-            class="pa-0 mb-2"
-            @focus="$event.target.select()"
-            @keyup.enter="
-              getData()
-              if (isMobile) {
-                mini = true
-              }
-            "
-          >
-            <div slot="append" hidden>
-              <v-btn color="success" icon @click="getData()"
-                ><v-icon> mdi-movie-search</v-icon></v-btn
-              >
-            </div>
-          </v-text-field>
-        </form>
+
+        <!-- TODO: added the "form" wrapper to see if that triggers the submit button in ios keyboard-->
+        <v-text-field
+          outlined
+          style="max-width: 400px"
+          type="search"
+          id="searchBox"
+          dense
+          name="search"
+          label="Search by title"
+          v-model="title"
+          autocomplete="off"
+          prepend-inner-icon="mdi-magnify"
+          hide-details
+          clearable
+          class="pa-0 mb-2"
+          @focus="$event.target.select()"
+          @keyup.enter="
+            getData()
+            if (isMobile) {
+              mini = true
+            }
+          "
+        >
+          <div slot="append" hidden>
+            <v-btn color="success" icon @click="getData()"
+              ><v-icon> mdi-movie-search</v-icon></v-btn
+            >
+          </div>
+        </v-text-field>
 
         <div id="ActualFilters">
           <!-- Providers -->
@@ -143,7 +142,7 @@
               class="ma-1"
               small
               dense
-              v-for="(item, k) in availableGenres.slice(0, seeAllGenreChips ? 999 : 5)"
+              v-for="(item, k) in availableGenres.slice(0, seeAllGenreChips ? 999 : 6)"
               :key="k"
               @click="
                 genres.includes(item)
@@ -169,7 +168,14 @@
 
           <!-- Clean/Certified Only -->
           <div class="filterr">
-            <v-checkbox v-model="cleanOnly" hide-details class="mt-0" :disabled="certifiedOnly">
+            <!-- TODO: hiding this checkbox as the idea is that it's always checked -->
+            <v-checkbox
+              v-model="cleanOnly"
+              hide-details
+              class="mt-0"
+              :disabled="certifiedOnly"
+              v-if="true"
+            >
               <div slot="label" style="font-size: 85%; transform: translateY(9px) translateX(-5px)">
                 {{ $t('showOnlyClean') }} <v-icon color="green">mdi-content-cut</v-icon> |
                 <v-icon color="green">mdi-emoticon-happy</v-icon>
@@ -344,7 +350,7 @@
 
       <!-- END FILTERS -->
       <v-container class="pb-0" v-if="mini">
-        <v-btn color="gray" icon @click="mini = false"><v-icon>mdi-magnify</v-icon></v-btn>
+        <v-btn color="gray" icon @click="mini = false"><v-icon>mdi-chevron-right</v-icon></v-btn>
       </v-container>
 
       <v-container v-if="!mini">
@@ -363,7 +369,7 @@
 
     <section class="" id="main">
       <div class="inner">
-        <h4 style="margin-bottom: 20px">{{ $t('discoverContent') }}</h4>
+        <h4 style="margin-bottom: 20px">{{ $t('discoverContent_long') }}</h4>
 
         <v-dialog
           v-model="showMovieDialog"
@@ -523,6 +529,12 @@ export default {
       this.$router.currentRoute.path
     )
   },
+  props: {
+    isMobile: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       showMenu: false,
@@ -530,7 +542,6 @@ export default {
       selectedItemInfo: {},
       showMovieDialog: false,
 
-      windowWidth: 0,
       showFilters: false,
 
       seeAllGenreChips: false,
@@ -615,10 +626,6 @@ export default {
     },
   },
   computed: {
-    isMobile() {
-      // breakpoints for columns:  https://vuetifyjs.com/en/components/grids/
-      return this.windowWidth < 960
-    },
     statsRecap() {
       //Summary of the status by "status" (or icon). This populates the chips with the icons.
       let output = {
@@ -711,27 +718,44 @@ export default {
   },
   methods: {
     mergeItemsByImdbId(dataArray) {
-      //This funciton takes the original array from the server (this.data) and creates a new version with no duplidated imdb Ids.
+      //This function takes the original array from the server (this.data) and creates a new version with no duplidated imdb Ids.
       //For that, we take the keys from the first item, and then append "watch_url" values into a new array "watch_urls"
+
       let imdbIds = []
       let final = []
 
       dataArray.forEach((item) => {
         let imdb = item.imdb
+        let joinStatus = this.joinStatus(item.status, this.skipTags)
         if (!imdbIds.includes(imdb)) {
-          item.watch_urls = [item.watch_url]
-          item.watch_url = 'error: use watch_urls'
+          item.user_status = joinStatus //to be updated with next movies
+          item.providers = [
+            {
+              pid: item.id,
+              watch_url: item.watch_url,
+              user_status: joinStatus,
+              status: item.status,
+            },
+          ]
+          item.watch_url = 'error: use providers array'
+          item.status = 'error: use providers array'
+          item.id = 'error. use providers array'
           item.count = 1
           final.push(item)
           imdbIds.push(imdb)
         } else {
+          //this imdb id already exists, let's join providers
           let i = final.findIndex((x) => x.imdb == imdb)
-          final[i].watch_urls.push(item.watch_url)
+          final[i].providers.push({
+            pid: item.id,
+            watch_url: item.watch_url,
+            user_status: joinStatus,
+            status: item.status,
+          })
           final[i].count = final[i].count + 1
         }
-
-        console.log(final)
       })
+      console.log('final merged', final)
       return final
     },
     removeOhanaSettingsLocalStorage() {
@@ -746,16 +770,14 @@ export default {
     openMovieDialog(item) {
       this.showMovieDialog = true
       this.selectedItemInfo = {
-        joinStatus: this.joinStatus(item.status, this.skipTags),
+        joinStatus: item.providers[0].join_status, //todo: fix this
         icon: this.getShieldIcon(item),
         color: this.getShieldColor(item),
         providers: [], // this.getProvider(item.watch_urls),
         watch_urls: item.watch_urls,
       }
     },
-    onResize() {
-      this.windowWidth = window.innerWidth
-    },
+
     scrollToTop() {
       //workaround to show/hide the filters on mobile...
       //this.showSidebarFilters = !this.showSidebarFilters
@@ -955,8 +977,6 @@ export default {
             return
           }
 
-          //TODO: merge items with same IMDb Id
-
           if (this.page != 1) {
             console.log('pushing data ', data)
             if (data.length < 50) this.finishLoading = true
@@ -968,6 +988,7 @@ export default {
             this.data = data
           }
 
+          //merge items with same IMDb Id
           this.data = this.mergeItemsByImdbId(this.data)
 
           this.loading = false
@@ -976,9 +997,6 @@ export default {
   },
 
   mounted() {
-    window.addEventListener('resize', this.onResize)
-    this.onResize()
-
     this.loadLocalStorage()
 
     //load some data
@@ -994,9 +1012,6 @@ export default {
       }
     }
   },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.onResize)
-  },
 }
 </script>
 
@@ -1010,65 +1025,11 @@ body {
   overflow: auto;
 }
 
-.mdi {
-  all: initial;
-}
 #searchBox {
   box-shadow: none;
   width: 100%;
   background: none;
   border: none;
-}
-
-#vbtn1 {
-  border: none;
-  box-shadow: none;
-  color: white !important;
-
-  border-radius: 0px;
-}
-
-#vexpansionpannel > * > button {
-  border: none;
-  box-shadow: none;
-  border-radius: 0px;
-}
-
-.v-expansion-panel-header {
-  border: none !important;
-  box-shadow: none;
-  border-radius: 0px;
-}
-
-#vselect {
-  /*background: none;
-  border: none;*/
-  all: initial;
-  visibility: hidden;
-}
-
-#vselect:focus {
-  /*background: none;
-  border: none;
-  box-shadow: none;*/
-  all: initial;
-}
-
-/** autocomplete */
-.v-menu__content {
-  z-index: 999 !important;
-}
-
-.v-select__selections {
-  display: flex !important;
-}
-
-.v-select__selections > input {
-  all: initial !important;
-}
-
-.v-label {
-  font-weight: normal !important;
 }
 
 /*--------------------------*/

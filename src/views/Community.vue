@@ -1,8 +1,5 @@
 <template>
   <div class="subpage">
-    <!-- Header -->
-    <my-header></my-header>
-
     <section id="three" class="wrapper">
       <div class="inner">
         <header class="align-center">

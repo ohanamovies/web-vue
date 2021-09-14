@@ -2,7 +2,6 @@
   <div class="subpage">
     <section id="main" class="wrapper">
       <div class="inner">
-        <my-header></my-header>
         <header>
           <h1>Ohana Stats</h1>
           <p>
@@ -90,7 +89,7 @@ export default {
 
         { text: 'Movies with scenes', value: 'Movies with scenes' },
         { text: 'Total Filters', value: 'Total Scenes' },
-        { text: 'Movies with poster', value: 'Movies with poster' }
+        { text: 'Movies with poster', value: 'Movies with poster' },
       ],
       headers2: [
         { text: 'User', value: 'tags_user' },
@@ -105,8 +104,8 @@ export default {
         { text: 'Very profane', value: 'Very profane' },
         { text: 'Moderately profane', value: 'Moderately profane' },
         { text: 'Mildly profane', value: 'Mildly profane' },
-        { text: 'Slightly profane', value: 'Slightly profane' }
-      ]
+        { text: 'Slightly profane', value: 'Slightly profane' },
+      ],
     }
   },
 
@@ -116,12 +115,12 @@ export default {
       const url = 'https://api.ohanamovies.org/stats'
       let options = {
         method: 'POST',
-        body: JSON.stringify([])
+        body: JSON.stringify([]),
       }
       this.loading = true
       fetch(url, options)
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
           console.log('loaded data')
 
           for (let i = 0; i < data.q2.length; i++) {
@@ -130,11 +129,11 @@ export default {
           this.data2 = data.q2
           this.loading = false
         })
-    }
+    },
   },
   created() {
     this.getData()
-  }
+  },
 }
 </script>
 

@@ -1,6 +1,5 @@
 <template>
   <div class="subpage">
-    <my-header></my-header>
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
       <h1>Error 404. Page not found</h1>
 

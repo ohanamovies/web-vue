@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <!-- Header -->
-    <my-header></my-header>
+    <!-- <my-header></my-header> -->
 
     <!-- Banner -->
     <section class="banner" style="background-image: url(images/banner.jpg); min-height: 90vh">
@@ -198,6 +198,12 @@
 import sharedjs from '@/sharedjs'
 export default {
   name: 'Home',
+  props: {
+    isMobile: {
+      type: Boolean,
+      default: false,
+    },
+  },
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
     return sharedjs.headObject(

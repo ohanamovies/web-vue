@@ -1,8 +1,5 @@
 <template>
   <div class="subpage">
-    <!-- Header -->
-    <my-header></my-header>
-
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
       <!--   SPANISH TEXT -->
       <div class="inner" v-if="$i18n.locale == 'es'">
@@ -335,6 +332,12 @@
 import sharedjs from '@/sharedjs'
 const rawTags = require('../assets/raw_tags')
 export default {
+  props: {
+    isMobile: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       key: 'value',

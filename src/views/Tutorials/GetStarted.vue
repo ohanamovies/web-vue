@@ -1,7 +1,6 @@
 <template>
   <div class="subpage">
     <!-- Header -->
-    <my-header></my-header>
 
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
       <!--   SPANISH TEXT -->
