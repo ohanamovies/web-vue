@@ -109,7 +109,7 @@ export default {
 }
 </script>
 
-<style >
+<style>
 #vheader * a {
   color: #ffffff !important;
 

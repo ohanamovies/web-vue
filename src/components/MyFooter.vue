@@ -1,10 +1,8 @@
 <template>
   <footer id="footer">
     <div class="inner">
-      <h3 style="margin-bottom:10px !important">Get in touch</h3>
-      <p style="font-size: 90%; opacity:0.6">
-        We'd love to hear from you
-      </p>
+      <h3 style="margin-bottom: 10px !important">Get in touch</h3>
+      <p style="font-size: 90%; opacity: 0.6">We'd love to hear from you</p>
 
       <form action="#" method="post">
         <div class="field half first">
@@ -35,9 +33,7 @@
       </form>
       <!-- class="button"-->
 
-      <button @click="sendMessage()" style="background-color:white">
-        Send
-      </button>
+      <button @click="sendMessage()" style="background-color: white">Send</button>
       <br />
       <span>{{ infoText }}</span>
       <br />
@@ -61,7 +57,7 @@ export default {
       email: '',
       name: '',
       message: '',
-      infoText: ''
+      infoText: '',
     }
   },
   methods: {
@@ -85,17 +81,17 @@ export default {
 
       fetch(murl, {
         method: 'post',
-        body: fd
+        body: fd,
       })
-        .then(response => {
+        .then((response) => {
           return response.json()
         })
-        .then(myJson => {
+        .then((myJson) => {
           console.log(myJson) //message sent
           this.infoText = 'Message sent. Thank you!'
         })
-    }
-  }
+    },
+  },
 }
 </script>
 

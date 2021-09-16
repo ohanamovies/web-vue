@@ -17,48 +17,48 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
   },
   {
     path: '/about',
     name: 'About',
-    component: About
+    component: About,
   },
   {
     path: '/community',
     name: 'Community',
-    component: Community
+    component: Community,
   },
   {
     path: '/content',
     name: 'Content',
-    component: Content
+    component: Content,
   },
   {
     path: '/stats',
     name: 'Stats',
-    component: Stats
+    component: Stats,
   },
   {
     path: '/get-started/',
     name: 'GetStarted',
-    component: GetStarted
+    component: GetStarted,
   },
   {
     path: '/faqs',
     name: 'FAQs',
-    component: FAQs
+    component: FAQs,
   },
   {
     path: '/elements',
     name: 'Elements',
-    component: Elements
+    component: Elements,
   },
   {
     path: '/:catchAll(.*)',
     component: NotFoundComponent,
-    name: 'NotFound'
-  }
+    name: 'NotFound',
+  },
 ]
 
 const router = new VueRouter({
@@ -67,12 +67,12 @@ const router = new VueRouter({
   scrollBehavior: function (to) {
     if (to.hash) {
       return {
-        selector: to.hash
+        selector: to.hash,
       }
     } else {
       return { x: 0, y: 0 }
     }
-  }
+  },
 })
 
 /*
