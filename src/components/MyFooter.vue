@@ -42,7 +42,12 @@
 
       <div class="copyright">
         &copy; Ohana. Design:
-        <a href="https://templated.co">TEMPLATED</a>.
+        <a href="https://templated.co">TEMPLATED</a>. <br />
+        {{
+          isChrome
+            ? 'Well done! You are using Chrome'
+            : 'Note: To watch Ohana movies, you need to switch to Chrome browser and install your extension'
+        }}
         <!-- Images: <a href="https://unsplash.com">Unsplash</a>. -->
         <!-- Template and elements: https://templated.co/projection -->
       </div>
@@ -52,6 +57,12 @@
 
 <script>
 export default {
+  props: {
+    isChrome: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       email: '',

@@ -379,6 +379,8 @@
         >
           <movie-detail-page
             :isMobile="isMobile"
+            :isChrome="isChrome"
+            :hasApp="hasApp"
             :selection="selectedItemInfo"
             @close="showMovieDialog = false"
           ></movie-detail-page>
@@ -531,6 +533,14 @@ export default {
   },
   props: {
     isMobile: {
+      type: Boolean,
+      default: false,
+    },
+    isChrome: {
+      type: Boolean,
+      default: false,
+    },
+    hasApp: {
       type: Boolean,
       default: false,
     },

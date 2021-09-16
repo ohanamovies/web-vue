@@ -3,16 +3,16 @@
     <v-app>
       <v-main>
         <!-- Header: Needs to be put in each page, using <my-header></my-header> (why: because styling is different subpage vs home -->
-        <my-header :isMobile="isMobile"></my-header>
+        <my-header :isMobile="isMobile" :isChrome="isChrome"></my-header>
         <div>
           <!-- Router view loads the current route. Router defines which .vue file is now loaded in router/index.js -->
 
-          <router-view :isMobile="isMobile" />
+          <router-view :isMobile="isMobile" :isChrome="isChrome" :hasApp="hasApp" />
         </div>
 
         <!-- Footer: Imported here as component (Towards more modular coding) -->
         <!-- todo: for now forced to all pages by putting it in this App.vue component. If needed, remove from here and put the line of code in each subpage (if styling would depends on parent classes etc.) -->
-        <my-footer></my-footer>
+        <my-footer :isChrome="isChrome"></my-footer>
       </v-main>
     </v-app>
   </div>
@@ -29,6 +29,12 @@ export default {
     isMobile() {
       // breakpoints for columns:  https://vuetifyjs.com/en/components/grids/
       return this.windowWidth < 960
+    },
+    isChrome() {
+      return window.navigator.vendor == 'Google Inc.'
+    },
+    hasApp() {
+      return localStorage.hello_ohana
     },
   },
   mounted() {

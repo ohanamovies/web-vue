@@ -87,22 +87,46 @@
 
                 <!-- Watch on -->
 
-                <span
-                  class="modern-link"
-                  v-if="selection.join_status.status != 'done'"
-                  @click="show_watch_options = !show_watch_options"
-                  >{{ show_watch_options ? 'Hide options' : 'Watch options' }}</span
+                <div
+                  v-if="
+                    hasApp ||
+                    emulateApp ||
+                    (selection.join_status.status == 'done' && selection.join_status.cuts == 0)
+                  "
                 >
-                <div v-if="show_watch_options || selection.join_status.status == 'done'">
-                  <div
-                    v-for="(provider, index) in selection.providers"
-                    :key="index"
-                    style="margin: auto; margin-bottom: 10px"
+                  <span
+                    class="modern-link"
+                    v-if="selection.join_status.status != 'done'"
+                    @click="show_watch_options = !show_watch_options"
+                    >{{ show_watch_options ? 'Hide options' : 'Watch options' }}</span
                   >
-                    <a :href="provider.watch_url" target="_blank" class="button"
-                      >Watch on {{ getProvider(provider.watch_url) }}
-                    </a>
+                  <div v-if="show_watch_options || selection.join_status.status == 'done'">
+                    <div
+                      v-for="(provider, index) in selection.providers"
+                      :key="index"
+                      style="margin: auto; margin-bottom: 10px"
+                    >
+                      <a :href="provider.watch_url" target="_blank" class="button"
+                        >Watch on {{ getProvider(provider.watch_url) }}
+                      </a>
+                    </div>
                   </div>
+                </div>
+                <div v-else-if="isChrome">
+                  You need to
+                  <a
+                    href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
+                    target="_blank"
+                    >{{ $t('install') }}</a
+                  >
+                  Ohana to watch edited content safely.
+                  <br />
+                  <span class="modern-link" @click="emulateApp = true">See options anyway</span>
+                </div>
+                <div v-else-if="!isChrome">
+                  This browser is not compatible with Ohana (you need Google Chrome). Learn how to
+                  watch edited content
+                  <router-link to="/get-started">here</router-link>
                 </div>
 
                 <!--
@@ -214,6 +238,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    isChrome: {
+      type: Boolean,
+      default: false,
+    },
+    hasApp: {
+      type: Boolean,
+      default: false,
+    },
     selection: {
       type: Object,
       default: function () {
@@ -223,6 +255,7 @@ export default {
   },
   data() {
     return {
+      emulateApp: false,
       showSettingsWokrInProgressMessage: false,
       showOhanaDetails: false,
       show_watch_options: false,
