@@ -1,7 +1,8 @@
 <template>
   <div>
-    <v-card v-if="item.metadata">
+    <v-card v-if="item.metadata" @keydown.esc="closeMe()">
       <!-- header -->
+
       <v-card-title
         primary-title
         style="white-space: pre-wrap; word-break: keep-all; line-height: normal; margin-bottom: 5px"
@@ -10,6 +11,7 @@
           >{{ item.metadata.title }}
           <span style="font-size: 70%; color: gray"> ({{ mapping.year }})</span></span
         >
+        <!-- {{ selection }} -->
         <span class="mbutton">
           <v-icon @click="closeMe">mdi-close</v-icon>
         </span>
@@ -33,7 +35,7 @@
               <v-tabs-slider></v-tabs-slider>
               <v-tab>IMDb</v-tab>
               <v-tab>Ohana </v-tab>
-              <v-tab v-if="selection.joinStatus.status != 'missing'">Advanced</v-tab>
+              <v-tab>Advanced</v-tab>
               <v-tab v-if="false">Image</v-tab>
             </v-tabs>
 
@@ -83,8 +85,29 @@
                 </div>
                 <!-- tagged chips-->
 
+                <!-- Watch on -->
+
+                <span
+                  class="modern-link"
+                  v-if="selection.join_status.status != 'done'"
+                  @click="show_watch_options = !show_watch_options"
+                  >{{ show_watch_options ? 'Hide options' : 'Watch options' }}</span
+                >
+                <div v-if="show_watch_options || selection.join_status.status == 'done'">
+                  <div
+                    v-for="(provider, index) in selection.providers"
+                    :key="index"
+                    style="margin: auto; margin-bottom: 10px"
+                  >
+                    <a :href="provider.watch_url" target="_blank" class="button"
+                      >Watch on {{ getProvider(provider.watch_url) }}
+                    </a>
+                  </div>
+                </div>
+
+                <!--
                 <div
-                  v-for="(watch_url, index) in selection.watch_urls"
+                  v-for="(watch_url, index) in selection.watch_url"
                   :key="index"
                   style="margin-bottom: 10px"
                 >
@@ -92,11 +115,12 @@
                     >Watch on {{ getProvider(watch_url) }}
                   </a>
                 </div>
+                -->
               </v-tab-item>
 
               <!-- Ohana Details -->
-              <!-- TODO: for now, removing the wathc options if status == missing (to protect users a bit) -->
-              <v-tab-item v-if="selection.joinStatus.status != 'missing'">
+
+              <v-tab-item>
                 <span class="modern-link" @click="showOhanaDetails = !showOhanaDetails">{{
                   showOhanaDetails ? 'Hide Ohana details' : 'Show Ohana details'
                 }}</span>
@@ -170,7 +194,11 @@
     <v-card v-else>
       <v-card-text style="height: 250px">
         <div v-if="loading">Loading...</div>
-        <div v-else>Error</div>
+        <div v-else>
+          <span> Error!</span>
+          <br />
+          <span>{{ selection }}</span>
+        </div>
       </v-card-text>
     </v-card>
   </div>
@@ -197,6 +225,7 @@ export default {
     return {
       showSettingsWokrInProgressMessage: false,
       showOhanaDetails: false,
+      show_watch_options: false,
       tab: 1, //0: overview, 1: Ohana -> shall we start with Ohana?
       item: {},
 
@@ -210,6 +239,8 @@ export default {
     selection() {
       this.item = {} //reset
       this.getData()
+
+      this.resetView()
     },
   },
 
@@ -221,14 +252,14 @@ export default {
     },
 
     parsedURL() {
-      return provider.parseURL(this.selection.watch_urls[0]) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
+      return provider.parseURL(this.selection.watch_url) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
     },
 
     ohanaSummaryHtml() {
       //TODO: Draft (shall we add here a link to watch, if safe?)
-      let status = this.selection.joinStatus.status
-      let cuts = this.selection.joinStatus.cuts
-      let level = this.selection.joinStatus.level
+      let status = this.selection.join_status.status
+      let cuts = this.selection.join_status.cuts
+      let level = this.selection.join_status.level
 
       let type = this.item.metadata.type
 
@@ -306,8 +337,17 @@ export default {
       return { color, icon, count, badge, tag }
     },
     closeMe() {
-      this.tab = 1 //let's force this by default
+      //TODO: This doesn't apply if ESC or click outside, as dialog closes itself
+      //Reset view
+      this.resetView()
+
+      //emit close action
       this.$emit('close', false)
+    },
+    resetView() {
+      this.tab = 1 //let's force this by default
+      this.show_watch_options = false
+      this.showOhanaDetails = false
     },
     tagsDescription() {
       let x = {} //tag:desc
@@ -331,7 +371,7 @@ export default {
     getData() {
       let url = this.buildURL({
         action: 'getMovie',
-        id: this.parsedURL.id,
+        id: this.selection.id,
         season: this.parsedURL.season,
         episode: this.parsedURL.episode,
         title: this.parsedURL.title,
@@ -350,6 +390,7 @@ export default {
   mounted() {
     this.categories = rawTags.categories
     this.severities = rawTags.severitiesR
+
     this.getData()
   },
 }

@@ -2997,8 +2997,7 @@ button:disabled,
   -ms-transform: translatex(20em);
   transform: translatex(20em);
   -moz-transition: -moz-transform 0.2s ease-in-out, visibility 0.2s ease-in-out;
-  -webkit-transition: -webkit-transform 0.2s ease-in-out,
-    visibility 0.2s ease-in-out;
+  -webkit-transition: -webkit-transform 0.2s ease-in-out, visibility 0.2s ease-in-out;
   -ms-transition: -ms-transform 0.2s ease-in-out, visibility 0.2s ease-in-out;
   transition: transform 0.2s ease-in-out, visibility 0.2s ease-in-out;
   -webkit-overflow-scrolling: touch;
@@ -3310,11 +3309,9 @@ button:disabled,
   }
 }
 
-
 /** Ohana overrides **/
 
-
-/** VUETIFY **/ 
+/** VUETIFY **/
 
 .mdi {
   all: initial;
@@ -3326,6 +3323,7 @@ button:disabled,
   color: white !important;
 
   border-radius: 0px;
+  cursor: pointer;
 }
 
 #vexpansionpannel > * > button {

@@ -1,6 +1,3 @@
-
-
-
 function searchMatch_Aux(searchText, searchInText) {
   //this one cleans up the special characters, so no need to type them write. Also removes the lower/upper case matching.
   //Best to use the searchMatch_Smart() one
@@ -41,7 +38,7 @@ function searchMatch(searchText, searchInText) {
 
   var all_good = true
 
-  words.forEach(word => {
+  words.forEach((word) => {
     if (!searchMatch_Aux(word, searchInText)) {
       all_good = false
     }
@@ -52,26 +49,24 @@ function searchMatch(searchText, searchInText) {
 
 /**
  * This is a helper function to create the head object used by the vue-head plugin, to generate the metadata. Pending clarify if Search Engines crawl this properly as it is generated via javascript...
- * @param {*} title 
- * @param {*} description 
+ * @param {*} title
+ * @param {*} description
  * @param {*} path Current Path (use: this.$router.currentRoute.path)
- * @returns 
+ * @returns
  */
 function headObject(title, description, path) {
   let siteName = 'Ohana Movies'
   let url = window.location.host + '/#' + path
   let image = {
-    url: "https://ohanamovies.org/icons/apple-touch-icon-180x180.png",
+    url: 'https://ohanamovies.org/icons/apple-touch-icon-180x180.png',
     width: 180,
-    height: 180
+    height: 180,
   }
 
   let xx = {
-    link: [
-      { id: "canonical", rel: "canonical", href: url }
-    ],
+    link: [{ id: 'canonical', rel: 'canonical', href: url }],
     meta: [
-      { id: "meta-description", name: 'description', content: description },
+      { id: 'meta-description', name: 'description', content: description },
 
       //Open graph
       { id: 'og:title', name: 'og:title', content: title },
@@ -84,27 +79,26 @@ function headObject(title, description, path) {
       { id: 'og:image:height', name: 'og:image:height', content: image.height },
 
       //Twitter
-      { id: 'twitter:card', name: 'twitter:card', content: "summary_large_image" },
+      { id: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
       //TODO: { id: 'twitter:site', name: 'twitter:site', content:'@ohanamovies' },
       { id: 'twitter:title', name: 'twitter:title', content: title },
       { id: 'twitter:url', name: 'twitter:url', content: url },
       { id: 'twitter:description', name: 'twitter:description', content: description },
-      { id: 'twitter:image', name: 'twitter:image', content: image.url }
+      { id: 'twitter:image', name: 'twitter:image', content: image.url },
     ],
 
     title: {
       inner: title || 'Ohana Movies',
       complement: '',
       separator: '',
-      id: 'meta-title'
-    }
+      id: 'meta-title',
+    },
   }
 
   return xx
 }
 
-
 module.exports = {
   searchMatch,
-  headObject
+  headObject,
 }

@@ -174,7 +174,7 @@
               hide-details
               class="mt-0"
               :disabled="certifiedOnly"
-              v-if="true"
+              v-if="false"
             >
               <div slot="label" style="font-size: 85%; transform: translateY(9px) translateX(-5px)">
                 {{ $t('showOnlyClean') }} <v-icon color="green">mdi-content-cut</v-icon> |
@@ -463,7 +463,8 @@
                 :key="index"
                 @click="openMovieDialog(item)"
               >
-                <div class="image" style="width: 100%">
+                <!-- image-->
+                <div class="image" style="width: 100%; cursor: pointer">
                   <!-- poster_path -->
                   <img :src="item.poster" :alt="item.title" />
 
@@ -473,18 +474,17 @@
                     </v-icon>
                   </div>
                 </div>
-                <div class="content">
+                <!-- text -->
+                <div class="content" v-if="false">
                   <p style="font-size: 16px; line-height: normal">{{ item.title }}</p>
 
                   <p>
-                    <span v-for="(watch_url, index) in item.watch_urls" :key="index">
-                      <a target="_blank" :href="watch_url">{{ getProvider(watch_url) }}</a
-                      >&nbsp;&nbsp;
-                    </span>
+                    <a target="_blank" :href="watch_url">{{ getProvider(item.watch_url) }}</a
+                    >&nbsp;&nbsp;
 
                     <a
                       v-if="item.imdb"
-                      target="_blanck"
+                      target="_blank"
                       :href="'https://www.imdb.com/title/' + item.imdb"
                       >IMDB</a
                     >
@@ -657,7 +657,7 @@ export default {
         unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray', label: 'Unknown' },
       }
       for (let item of this.items) {
-        let join = this.joinStatus(item)
+        let join = this.joinStatus(item, this.skipTags)
         if (join.status == 'done') {
           if (join.cuts > 0 && join.level > 5) output['cut_certified'].count++
           if (join.cuts > 0 && join.level <= 5) output['cut_not_certified'].count++
@@ -717,6 +717,49 @@ export default {
     },
   },
   methods: {
+    mergeItemsByImdbId_sameStatus(dataArray) {
+      console.log('key-merge', dataArray)
+      let keys = []
+      let final = []
+
+      dataArray.forEach((item) => {
+        let imdb = item.imdb
+        let join_status = this.joinStatus(item.status, this.skipTags)
+        console.log('joinstatus', join_status)
+        let key = imdb + join_status.status + join_status.cuts + join_status.level //force status is the same
+
+        console.log('keyy: ', key, join_status)
+
+        if (!keys.includes(key)) {
+          item.aux_key = key
+          item.join_status = join_status
+          item.count = 1
+          item.providers = [
+            {
+              pid: item.id,
+              watch_url: item.watch_url,
+              join_status: join_status,
+              status: item.status,
+            },
+          ]
+          final.push(item)
+          keys.push(key)
+        } else {
+          console.log('mergeeee, ', item)
+          //this imdb id already exists, instead of adding it, we add just the provider info
+          //TODO: assuming first item has the right metadata (we could check and override that metadata to ensure best...)
+          let i = final.findIndex((x) => x.imdb == imdb)
+          final[i].providers.push({
+            pid: item.id,
+            watch_url: item.watch_url,
+            join_status: join_status,
+            status: item.status,
+          })
+          final[i].count = final[i].count + 1
+        }
+      })
+      return final
+    },
     mergeItemsByImdbId(dataArray) {
       //This function takes the original array from the server (this.data) and creates a new version with no duplidated imdb Ids.
       //For that, we take the keys from the first item, and then append "watch_url" values into a new array "watch_urls"
@@ -728,12 +771,12 @@ export default {
         let imdb = item.imdb
         let joinStatus = this.joinStatus(item.status, this.skipTags)
         if (!imdbIds.includes(imdb)) {
-          item.user_status = joinStatus //to be updated with next movies
+          item.join_status = joinStatus //to be updated with next movies
           item.providers = [
             {
               pid: item.id,
               watch_url: item.watch_url,
-              user_status: joinStatus,
+              join_status: joinStatus,
               status: item.status,
             },
           ]
@@ -749,7 +792,7 @@ export default {
           final[i].providers.push({
             pid: item.id,
             watch_url: item.watch_url,
-            user_status: joinStatus,
+            join_status: joinStatus,
             status: item.status,
           })
           final[i].count = final[i].count + 1
@@ -768,13 +811,18 @@ export default {
       }
     },
     openMovieDialog(item) {
+      console.log('itemmmm: ', item)
       this.showMovieDialog = true
       this.selectedItemInfo = {
-        joinStatus: item.providers[0].join_status, //todo: fix this
+        join_status: this.joinStatus(item.status, this.skipTags), //todo: fix this
+        id: item.id,
         icon: this.getShieldIcon(item),
         color: this.getShieldColor(item),
-        providers: [], // this.getProvider(item.watch_urls),
-        watch_urls: item.watch_urls,
+        providers: item.providers,
+        imbd: item.imdb,
+        aux_key: item.aux_key,
+
+        watch_url: item.watch_url,
       }
     },
 
@@ -986,10 +1034,11 @@ export default {
           } else {
             console.log('setting data')
             this.data = data
+            this.$forceUpdate()
           }
 
           //merge items with same IMDb Id
-          this.data = this.mergeItemsByImdbId(this.data)
+          this.data = this.mergeItemsByImdbId_sameStatus(this.data)
 
           this.loading = false
         })

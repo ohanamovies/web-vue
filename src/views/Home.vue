@@ -215,10 +215,6 @@ export default {
 }
 </script>
 
-
-
-
-
 <style scoped>
 @keyframes fadeInUp {
   from {

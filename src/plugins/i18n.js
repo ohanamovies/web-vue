@@ -15,7 +15,7 @@ const messages = {
     getStarted: 'Get started',
     discoverContent: 'Find Movies',
     discoverContent_long: 'Find something great to watch',
-    language: "Language",
+    language: 'Language',
     /* Highlighted values on top*/
     prop1: 'Health',
     prop1Desc: 'Mental health aware',
@@ -25,17 +25,23 @@ const messages = {
     prop3Desc: 'Built by people like you',
     /* Values displayed on the home view */
     value1: 'Mental health',
-    value1Desc: 'In a world with growing mental health issues, some scenes can harm the viewers. Ohana enables the creation of safe spaces. Ohana means nobody gets left behind.',
+    value1Desc:
+      'In a world with growing mental health issues, some scenes can harm the viewers. Ohana enables the creation of safe spaces. Ohana means nobody gets left behind.',
     value2: 'Choice',
-    value2Desc: 'Our aim is to empower you as a viewer, giving you the tools to choose what to watch and what not to. With Ohana the choice is yours',
+    value2Desc:
+      'Our aim is to empower you as a viewer, giving you the tools to choose what to watch and what not to. With Ohana the choice is yours',
     value3: 'Child protection',
-    value3Desc: 'Chilhood should be a time when kids can grow, explore and develop in a safe enviroment. Ohana helps create a safe enviroment for kids.',
+    value3Desc:
+      'Chilhood should be a time when kids can grow, explore and develop in a safe enviroment. Ohana helps create a safe enviroment for kids.',
     value4: "Women's rights",
-    value4Desc: 'We are not objects for mens satisfaction. Ohana helps us take action and fight the rape culture that impregnates too many movies.',
+    value4Desc:
+      'We are not objects for mens satisfaction. Ohana helps us take action and fight the rape culture that impregnates too many movies.',
     value5: 'Easy peasy',
-    value5Desc: 'We work right on your favourity providers, just install our Chrome extension, tell us your preferences, and keep watching movies as usual while we work for you in the background.',
+    value5Desc:
+      'We work right on your favourity providers, just install our Chrome extension, tell us your preferences, and keep watching movies as usual while we work for you in the background.',
     value6: 'Community',
-    value6Desc: 'We are no large corporation, we are community of movie fans like you. Ohana is non for profit organization',
+    value6Desc:
+      'We are no large corporation, we are community of movie fans like you. Ohana is non for profit organization',
     /**/
     advanced_search: 'Advanced search',
     search_subtitle: `Find something great to watch!`,
@@ -62,7 +68,7 @@ const messages = {
     getStarted: 'Empezar',
     discoverContent: 'Descubre contenido',
     discoverContent_long: 'Encuentra el mejor contenido',
-    language: "Idioma",
+    language: 'Idioma',
     /* Highlighted values on top*/
     prop1: 'Salud',
     prop1Desc: 'Concienciados del cuidado de la salud mental',
@@ -72,17 +78,23 @@ const messages = {
     prop3Desc: 'Creado por gente como tú',
     /* Values displayed on the home view */
     value1: 'Salud mental',
-    value1Desc: 'En un mundo con crecientes problemas de salud mental algunas escenas pueden dañar a los espectadores. Ohana permite la creación de espacios seguros, nadie se queda atrás.',
+    value1Desc:
+      'En un mundo con crecientes problemas de salud mental algunas escenas pueden dañar a los espectadores. Ohana permite la creación de espacios seguros, nadie se queda atrás.',
     value2: 'Libertad',
-    value2Desc: 'Nuestro objetivo es empoderarte como espectador, brindándote las herramientas para elegir qué ver y qué no. Con Ohana la elección es tuya.',
+    value2Desc:
+      'Nuestro objetivo es empoderarte como espectador, brindándote las herramientas para elegir qué ver y qué no. Con Ohana la elección es tuya.',
     value3: 'Protección infantil',
-    value3Desc: 'La infancia debe ser un momento en el que los niños puedan crecer, explorar y desarrollarse en un entorno seguro. Ohana ayuda a crear este entorno seguro para los niños.',
-    value4: "Derechos de la mujer",
-    value4Desc: 'No somos objetos para la satisfacción de los hombres. Ohana nos ayuda a tomar medidas y luchar contra la cultura de la violación que impregna demasiadas películas.',
+    value3Desc:
+      'La infancia debe ser un momento en el que los niños puedan crecer, explorar y desarrollarse en un entorno seguro. Ohana ayuda a crear este entorno seguro para los niños.',
+    value4: 'Derechos de la mujer',
+    value4Desc:
+      'No somos objetos para la satisfacción de los hombres. Ohana nos ayuda a tomar medidas y luchar contra la cultura de la violación que impregna demasiadas películas.',
     value5: 'Fácil y sencillo, para toda la familia',
-    value5Desc: 'Trabajamos directamente en sus proveedores favoritos, solo instale nuestra extensión de Chrome, díganos sus preferencias y siga viendo películas como de costumbre mientras trabajamos para usted en segundo plano.',
+    value5Desc:
+      'Trabajamos directamente en sus proveedores favoritos, solo instale nuestra extensión de Chrome, díganos sus preferencias y siga viendo películas como de costumbre mientras trabajamos para usted en segundo plano.',
     value6: 'Comunidad',
-    value6Desc: 'No somos una gran corporación, somos una comunidad de apasionados del cine, como tú. Ohana es una organización sin animo de lucro.',
+    value6Desc:
+      'No somos una gran corporación, somos una comunidad de apasionados del cine, como tú. Ohana es una organización sin animo de lucro.',
     /**/
     advanced_search: 'Búsqueda avanzada',
     search_subtitle: 'Encuentra el mejor contenido',
@@ -99,7 +111,6 @@ const messages = {
     moderate: 'Moderado',
     mild: 'Leve',
     slight: 'Ligero',
-
   },
 }
 

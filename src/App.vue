@@ -18,8 +18,6 @@
   </div>
 </template>
 
-
-
 <script>
 export default {
   data() {
@@ -33,11 +31,6 @@ export default {
       return this.windowWidth < 960
     },
   },
-  methods: {
-    onResize() {
-      this.windowWidth = window.innerWidth
-    },
-  },
   mounted() {
     window.addEventListener('resize', this.onResize)
     this.onResize()
@@ -45,9 +38,12 @@ export default {
   beforeDestroy() {
     window.removeEventListener('resize', this.onResize)
   },
+  methods: {
+    onResize() {
+      this.windowWidth = window.innerWidth
+    },
+  },
 }
 </script>
-
-
 
 <style></style>
