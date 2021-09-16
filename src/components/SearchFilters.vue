@@ -346,7 +346,7 @@
 </template>
 
 <script>
-const rawTags = require('../assets/raw_tags')
+//const rawTags = require('../assets/raw_tags')
 export default {
   props: {
     value: {

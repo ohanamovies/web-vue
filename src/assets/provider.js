@@ -55,19 +55,19 @@ https://ver.movistarplus.es/ficha?id=1857935
 */
 
 var provider = {
-  match: function(regex, haystack) {
+  match: function (regex, haystack) {
     var str = haystack.match(regex)
     return str ? '' + str[1] : ''
   },
 
-  getURL: function(meta) {
+  getURL: function (meta) {
     // In case we were giving the id instead of the metadata
     if (typeof meta == 'string') {
       var p = meta.split('_')
       meta = {
         [p[0]]: p[1],
         provider: p[0],
-        id: meta
+        id: meta,
       }
     }
 
@@ -91,7 +91,7 @@ var provider = {
     // body...
   },
 
-  getLinks: function() {
+  getLinks: function () {
     let host = window.location.hostname
     let links = []
     if (host.includes('netflix')) {
@@ -104,7 +104,7 @@ var provider = {
     return links
   },
 
-  parseURL: function(url) {
+  parseURL: function (url) {
     let url_elems
     try {
       url_elems = new URL(url)
@@ -121,7 +121,7 @@ var provider = {
     let meta = {
       url: url,
       provider: host,
-      pid: path + search
+      pid: path + search,
     }
 
     if (host.includes('netflix')) {
@@ -189,19 +189,16 @@ var provider = {
     return meta
   },
 
-  cleanTitle: function(title) {
+  cleanTitle: function (title) {
     if (typeof title !== 'string') return ''
     // Replace dividers
-    title = title
-      .replace(/-/g, ' ')
-      .replace(/_/g, ' ')
-      .replace(/ {2}/g, ' ')
+    title = title.replace(/-/g, ' ').replace(/_/g, ' ').replace(/ {2}/g, ' ')
     // Capitalize
     return title.charAt(0).toUpperCase() + title.slice(1)
   },
 
   // Here we are on the browser
-  getID: async function() {
+  getID: async function () {
     let url = window.location.href
     let meta = provider.parseURL(url)
 
@@ -239,7 +236,7 @@ var provider = {
       meta.pid = false
     }
     return meta
-  }
+  },
 }
 
 module.exports.getID = provider.getID
