@@ -198,7 +198,7 @@
                 <div v-if="skipTags.length > 0" style="display:inline;">
                   -->
             <b>{{ $t('safety') }}</b>
-            <v-chip class="ma-1" small dense v-for="(item, k) in statsRecap" :key="k">
+            <v-chip class="ma-1" small dense v-for="(safety, k) in safety_icons" :key="k">
               <!-- TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
                     @click="
                       statusFilter.includes(k)
@@ -207,9 +207,9 @@
                     "
                     :class="{ chipdown: statusFilter.includes(k) }"
                   >-->
-              <v-icon left small :color="item.color">{{ item.icon }}</v-icon>
-              <b v-if="true">{{ item.label }}</b>
-              <!--<b v-if="!loading">{{ item.label }}</b>-->
+              <v-icon left small :color="safety.color">{{ safety.icon }}</v-icon>
+              <b v-if="true">{{ safety.label }}</b>
+
               <v-progress-circular
                 v-else
                 :size="10"
@@ -455,13 +455,13 @@
               <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
             </div>
 
-            <div v-if="filteredList.length == 0 && !loading">
+            <div v-if="items.length == 0 && !loading">
               No {{ type }}s found matching your search.
             </div>
             <div class="posters_wrapper">
               <div
                 class="poster_card"
-                v-for="(item, index) in filteredList"
+                v-for="(item, index) in items"
                 :key="index"
                 @click="openMovieDialog(item)"
               >
@@ -636,50 +636,41 @@ export default {
     },
   },
   computed: {
-    statsRecap() {
-      //Summary of the status by "status" (or icon). This populates the chips with the icons.
-      let output = {
-        clean_certified: {
-          count: 0,
-          icon: 'mdi-emoticon-happy',
-          color: 'blue',
+    safety_icons() {
+      return [
+        {
           label: 'Certified clean',
+          icon: 'mdi-emoticon-happy',
+          color: 'blue',
         },
-        cut_certified: {
-          count: 0,
+        {
+          label: 'Certified with cuts',
           icon: 'mdi-content-cut',
           color: 'blue',
-          label: 'Certified with cuts',
         },
-        clean_not_certified: {
-          count: 0,
+        {
+          label: 'Clean',
+
           icon: 'mdi-emoticon-happy',
           color: 'green',
-          label: 'Clean',
         },
-        cut_not_certified: {
-          count: 0,
+        {
+          label: 'Cleaned by our users',
+
           icon: 'mdi-content-cut',
           color: 'green',
-          label: 'Cleaned by our users',
         },
-        missing: { count: 0, icon: 'mdi-flag-variant', color: 'red', label: 'Pending cut' },
-        unknown: { count: 0, icon: 'mdi-progress-question', color: 'gray', label: 'Unknown' },
-      }
-      for (let item of this.items) {
-        let join = this.joinStatus(item, this.skipTags)
-        if (join.status == 'done') {
-          if (join.cuts > 0 && join.level > 5) output['cut_certified'].count++
-          if (join.cuts > 0 && join.level <= 5) output['cut_not_certified'].count++
-          if (join.cuts == 0 && join.level > 5) output['clean_certified'].count++
-          if (join.cuts == 0 && join.level <= 5) output['clean_not_certified'].count++
-        } else if (join.status == 'missing') {
-          output['missing'].count++
-        } else {
-          output['unknown'].count++
-        }
-      }
-      return output
+        {
+          label: 'Pending cut',
+          icon: 'mdi-flag-variant',
+          color: 'red',
+        },
+        {
+          label: 'Unknown',
+          icon: 'mdi-progress-question',
+          color: 'gray',
+        },
+      ]
     },
 
     skipTags() {
@@ -700,28 +691,6 @@ export default {
       return x
     },
 
-    filteredList() {
-      return this.items
-      /*
-      TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
-      var xx = []
-      this.items.forEach(item => {
-        //TODO: Make this more efficient. It's too slow.
-
-        let icon = this.getShieldIcon(item)
-        let color = this.getShieldColor(item)
-
-        let add = false
-        if (this.statusFilter.length == 0) add = true //show everything
-        for (let status of this.statusFilter) {
-          if (this.statsRecap[status].color == color && this.statsRecap[status].icon == icon) {
-            add = true
-          }
-        }
-        if (add) xx.push(item)
-      })
-      return xx*/
-    },
     items() {
       return this.data
     },
@@ -949,6 +918,7 @@ export default {
       let status = 'done'
       let cuts = 0
       let level = Infinity
+
       for (var tag of skipTags) {
         // Set default
         let s = tagged[tag] || {}

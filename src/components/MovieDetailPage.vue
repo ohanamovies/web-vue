@@ -1,7 +1,8 @@
 <template>
   <div>
+    <!-- A: if we have valid data  -->
     <v-card v-if="item.metadata" @keydown.esc="closeMe()">
-      <!-- header -->
+      <!-- TITLE -->
 
       <v-card-title
         primary-title
@@ -16,13 +17,17 @@
           <v-icon @click="closeMe">mdi-close</v-icon>
         </span>
       </v-card-title>
+
+      <!-- SUBTITLE -->
       <v-card-subtitle>
         {{ 'TMDb Rating: ' + item.metadata.tmdb_rating }} |
         {{ 'Runtime: ' + item.metadata.runtime + ' mins' }}
       </v-card-subtitle>
-      <!-- Tabs -->
+
+      <!-- CONTENT -->
       <v-card-text>
         <v-row>
+          <!-- Image only if not isMobile -->
           <v-col cols="4" v-if="!isMobile">
             <img
               :src="'https://image.tmdb.org/t/p/w200' + item.metadata.poster"
@@ -30,6 +35,8 @@
               style="object-fit: contain; width: 100%"
             />
           </v-col>
+
+          <!-- Rest of info (in tabs for now) -->
           <v-col class="pt-0">
             <v-tabs v-model="tab" class="mb-3 pa-0">
               <v-tabs-slider></v-tabs-slider>
@@ -40,8 +47,9 @@
             </v-tabs>
 
             <v-tabs-items v-model="tab" style="height: 250px; overflow-y: auto">
-              <!-- overview -->
+              <!-- TAB 1: IMDB -->
               <v-tab-item>
+                <!-- Overview -->
                 <div class="overview">
                   {{ item.metadata.overview }}
                 </div>
@@ -58,6 +66,7 @@
                   >
                 </div>
 
+                <!-- Link to IMDb -->
                 <div>
                   <a
                     :href="'https://www.imdb.com/title/' + item.metadata.imdb"
@@ -68,65 +77,41 @@
                 </div>
               </v-tab-item>
 
-              <!-- Ohana -->
+              <!-- TAB 2: OHANA -->
               <v-tab-item>
                 <!-- Ohana Summary -->
-                <div class="notification">
-                  <v-row>
-                    <v-col cols="1">
-                      <v-icon :color="selection.color">{{
-                        selection.icon == 'none' ? 'mdi-alert' : selection.icon
-                      }}</v-icon>
-                    </v-col>
-                    <v-col>
-                      <span v-html="ohanaSummaryHtml"></span>
-                    </v-col>
-                  </v-row>
-                </div>
-                <!-- tagged chips-->
 
-                <!-- Watch on -->
-
-                <div
-                  v-if="
-                    hasApp ||
-                    emulateApp ||
-                    (selection.join_status.status == 'done' && selection.join_status.cuts == 0)
-                  "
-                >
-                  <span
-                    class="modern-link"
-                    v-if="selection.join_status.status != 'done'"
-                    @click="show_watch_options = !show_watch_options"
-                    >{{ show_watch_options ? 'Hide options' : 'Watch options' }}</span
-                  >
-                  <div v-if="show_watch_options || selection.join_status.status == 'done'">
-                    <div
-                      v-for="(provider, index) in selection.providers"
-                      :key="index"
-                      style="margin: auto; margin-bottom: 10px"
-                    >
-                      <a :href="provider.watch_url" target="_blank" class="button"
-                        >Watch on {{ getProvider(provider.watch_url) }}
-                      </a>
+                <div class="ohana-summary">
+                  <v-icon :color="selection.color" style="margin-right: 5px">
+                    {{ selection.icon == 'none' ? 'mdi-alert' : selection.icon }}
+                  </v-icon>
+                  <div style="margin: auto; margin-left: 0px">
+                    <span v-html="ohanaSummaryHtml"></span>
+                    <!-- TODO: figure this out -->
+                    <div v-if="false">
+                      <span
+                        v-if="
+                          selection.join_status.status == 'done' && selection.join_status.level < 6
+                        "
+                        class="modern-link"
+                        >Request certification</span
+                      >
+                      <span v-else-if="selection.join_status.status != 'done'" class="modern-link"
+                        >Ask community to check this movie</span
+                      >
                     </div>
                   </div>
                 </div>
-                <div v-else-if="isChrome">
-                  You need to
-                  <a
-                    href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
-                    target="_blank"
-                    >{{ $t('install') }}</a
-                  >
-                  Ohana to watch edited content safely.
-                  <br />
-                  <span class="modern-link" @click="emulateApp = true">See options anyway</span>
-                </div>
-                <div v-else-if="!isChrome">
-                  This browser is not compatible with Ohana (you need Google Chrome). Learn how to
-                  watch edited content
-                  <router-link to="/get-started">here</router-link>
+
+                <!-- Watch on -->
+                <div>
+                  <movie-watch-options
+                    style="margin-top: 20px"
+                    :isMobile="isMobile"
+                    :isChrome="isChrome"
+                    :hasApp="hasApp"
+                    :selection="selection"
+                  ></movie-watch-options>
                 </div>
 
                 <!--
@@ -142,13 +127,14 @@
                 -->
               </v-tab-item>
 
-              <!-- Ohana Details -->
-
+              <!-- TAB 3: ADVANCED -->
               <v-tab-item>
-                <span class="modern-link" @click="showOhanaDetails = !showOhanaDetails">{{
-                  showOhanaDetails ? 'Hide Ohana details' : 'Show Ohana details'
-                }}</span>
+                <!-- Ohana Details (cuts by category) -->
+                <span class="modern-link" @click="showOhanaDetails = !showOhanaDetails">
+                  {{ showOhanaDetails ? 'Hide Ohana details' : 'Show Ohana details' }}
+                </span>
                 <div id="filter-details" v-if="showOhanaDetails">
+                  <!-- tagged chips-->
                   <div
                     v-for="(cat, index) in categories"
                     :key="index"
@@ -172,22 +158,13 @@
                   </div>
                 </div>
 
+                <!-- Change my settings? -->
                 <div>
                   <br />
-                  <span
-                    class="modern-link"
-                    @click="showSettingsWokrInProgressMessage = !showSettingsWokrInProgressMessage"
-                    >{{
-                      showSettingsWokrInProgressMessage ? 'Hide message' : 'Change my settings'
-                    }}</span
-                  >
-                  <div v-if="showSettingsWokrInProgressMessage">
-                    Hey! We are working to improve this. In the meantime, you can change your
-                    settings in the advanced search section for the web, and within the chrome
-                    extension for watching.
-                  </div>
+                  <router-link class="modern-link" to="/settings">Change my settings</router-link>
                 </div>
 
+                <!-- Report an error -->
                 <div id="report-an-error">
                   <br />
                   <a
@@ -198,30 +175,20 @@
                   >
                 </div>
               </v-tab-item>
-
-              <!-- image -->
-
-              <v-tab-item v-if="false">
-                <img
-                  :src="'https://image.tmdb.org/t/p/w200' + item.metadata.poster"
-                  :alt="item.metadata.title"
-                  style="object-fit: contain"
-                />
-              </v-tab-item>
             </v-tabs-items>
           </v-col>
         </v-row>
       </v-card-text>
     </v-card>
 
-    <!-- if no data -->
+    <!-- B: if no data, show "loading" or "error" -->
     <v-card v-else>
       <v-card-text style="height: 250px">
         <div v-if="loading">Loading...</div>
         <div v-else>
           <span> Error!</span>
           <br />
-          <span>{{ selection }}</span>
+          <span v-if="false">{{ selection }}</span>
         </div>
       </v-card-text>
     </v-card>
@@ -232,7 +199,12 @@
 const provider = require('../assets/provider')
 const rawTags = require('../assets/raw_tags')
 
+import MovieWatchOptions from './MovieWatchOptions.vue'
+
 export default {
+  components: {
+    MovieWatchOptions,
+  },
   props: {
     isMobile: {
       type: Boolean,
@@ -255,10 +227,8 @@ export default {
   },
   data() {
     return {
-      emulateApp: false,
-      showSettingsWokrInProgressMessage: false,
       showOhanaDetails: false,
-      show_watch_options: false,
+
       tab: 1, //0: overview, 1: Ohana -> shall we start with Ohana?
       item: {},
 
@@ -298,19 +268,17 @@ export default {
 
       let text = ''
       if (status == 'unset') {
-        text = `To get the most out of Ohana, let us know what content you want to skip: close this popup and adjust your settings ${
-          !this.isMobile ? 'at the left of the screen' : 'at the top of the screen'
-        }.`
+        text = `To know if this ${type} is safe for you, let us know your preferences.`
       } else if (status == 'done' && cuts == 0) {
         text = `${
-          level > 5 ? 'We have certified that' : 'Our community says that'
-        } this ${type} is clean for your settings (no filters needed).`
+          level > 5 ? 'This' : 'Our community says that this'
+        } ${type} is clean for your settings. Nothing to edit here.`
       } else if (status == 'done' && cuts > 0) {
         text = `${
           level > 5 ? 'We' : 'Our community'
-        } have created filters for this ${type}, so that you can watch it safely with our Ohana Chrome extension.`
+        } created filters for this ${type} to make it safe.`
       } else if (status == 'missing') {
-        text = `Watchout! This ${type} has unsafe content for your settings.`
+        text = `Watchout! This ${type} is not ready to be watched safely.`
       } else {
         text = `Ouch! We don't have enough information about this ${type}. Sorry!`
       }
@@ -320,17 +288,6 @@ export default {
   },
 
   methods: {
-    getProvider(watchUrl) {
-      console.log('watchURL : ' + watchUrl)
-      let u = new URL(watchUrl)
-      let h = u.hostname.replace('www.', '')
-      if (h.includes('netflix')) return 'Netflix'
-      if (h.includes('hbo')) return 'HBO'
-      if (h.includes('movistar')) return 'Movistar'
-      if (h.includes('primevideo')) return 'Prime Video'
-      if (h.includes('disneyplus')) return 'Disney Plus'
-      return h
-    },
     tagged(tag) {
       tag = tag.replace('Slighty', 'Slightly')
       console.log('checking tag ' + tag, this.item)
@@ -439,7 +396,8 @@ export default {
   margin-right: 15px;
 }
 
-.notification {
+.ohana-summary {
+  display: flex;
   border: solid 1px lightgray;
   padding: 5px;
   margin-bottom: 8px;

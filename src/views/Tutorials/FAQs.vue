@@ -90,8 +90,8 @@
             </p>
 
             <p>
-              <v-icon color="green">mdi-content-cut</v-icon><b>Cut:</b> There was unwanted content,
-              but we will skip it all for you. When the icon is blue
+              <v-icon color="green">mdi-content-cut</v-icon><b>Edited:</b> There was unwanted
+              content, but we will skip it all for you. When the icon is blue
               <v-icon color="blue">mdi-content-cut</v-icon>, it means it has been reviewed by Ohana
               trusted editors.
             </p>

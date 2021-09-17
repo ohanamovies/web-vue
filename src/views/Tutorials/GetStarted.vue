@@ -64,11 +64,11 @@
                 <v-icon color="green">mdi-emoticon-happy</v-icon><b>Clean:</b> Content was
                 originally safe, it didn't need to be cut.<br />
 
-                <v-icon color="green">mdi-content-cut</v-icon><b>Cut:</b> There was unwanted
+                <v-icon color="green">mdi-content-cut</v-icon><b>Edited:</b> There was unwanted
                 content, but we will skip it all for you.<br />
 
                 <v-icon color="blue">mdi-emoticon-happy</v-icon> |
-                <v-icon color="blue">mdi-content-cut</v-icon><b>Ohana Clean/Cut:</b> Blue icons
+                <v-icon color="blue">mdi-content-cut</v-icon><b>Ohana Clean/Edited:</b> Blue icons
                 indicate it has been reviewed by Ohana trusted editors.<br />
 
                 <v-icon color="red">mdi-flag-variant</v-icon><b>Unsafe:</b> Unwanted content was
@@ -273,21 +273,22 @@
             </p>
             <div>
               <p>
-                <v-icon color="green">mdi-emoticon-happy</v-icon><b>Clean:</b> Content was
-                originally safe, it didn't need to be cut.<br />
+                <v-icon color="green" class="mb-1">mdi-emoticon-happy</v-icon><b>Clean:</b> Content
+                was originally safe, it didn't need to be cut.<br />
 
-                <v-icon color="green">mdi-content-cut</v-icon><b>Cut:</b> There was unwanted
-                content, but we will skip it all for you.<br />
+                <v-icon color="green" class="mb-1">mdi-content-cut</v-icon><b>Edited:</b> There was
+                unwanted content, but we will skip it all for you.<br />
 
-                <v-icon color="blue">mdi-emoticon-happy</v-icon> |
-                <v-icon color="blue">mdi-content-cut</v-icon><b>Ohana Clean/Cut:</b> Blue icons
-                indicate it has been reviewed by Ohana trusted editors.<br />
+                <v-icon color="blue" class="mb-1">mdi-emoticon-happy</v-icon> |
+                <v-icon color="blue" class="mb-1">mdi-content-cut</v-icon
+                ><b>Ohana Clean/Edited:</b> Blue icons indicate it has been reviewed by Ohana
+                trusted editors.<br />
 
-                <v-icon color="red">mdi-flag-variant</v-icon><b>Unsafe:</b> Unwanted content was
-                flagged, but it's not cut yet.<br />
+                <v-icon color="red" class="mb-1">mdi-flag-variant</v-icon><b>Unsafe:</b> Unwanted
+                content was flagged, but it's not cut yet.<br />
 
-                <v-icon color="gray">mdi-progress-question</v-icon><b>Unknown:</b> We can't help as
-                we don't have information yet.
+                <v-icon color="gray" class="mb-1">mdi-progress-question</v-icon><b>Unknown:</b> We
+                can't help as we don't have information yet.
               </p>
               <p>You will see those icons after telling us your sensitivity, in multiple places:</p>
               <ol>

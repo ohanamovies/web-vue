@@ -10,6 +10,7 @@ import Stats from '../views/Stats.vue'
 import GetStarted from '../views/Tutorials/GetStarted.vue'
 import FAQs from '../views/Tutorials/FAQs.vue'
 import NotFoundComponent from '../views/Tutorials/NotFoundComponent.vue'
+import Settings from '../views/Settings.vue'
 
 Vue.use(VueRouter)
 
@@ -48,6 +49,11 @@ const routes = [
     path: '/faqs',
     name: 'FAQs',
     component: FAQs,
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: Settings,
   },
   {
     path: '/elements',
