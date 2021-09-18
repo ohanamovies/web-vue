@@ -3,7 +3,7 @@
     <v-app>
       <v-main>
         <div
-          v-if="false"
+          v-if="devMode"
           style="
             position: fixed;
             top: 50px;
@@ -14,7 +14,7 @@
             border-radius: 5px;
           "
         >
-          <v-switch v-model="hasApp" hide-details :label="'hasApp: ' + hasApp"></v-switch>
+          <v-switch v-model="hasApp_dev" hide-details :label="'hasApp: ' + hasApp_dev"></v-switch>
         </div>
         <!-- Header: Needs to be put in each page, using <my-header></my-header> (why: because styling is different subpage vs home -->
         <my-header :isMobile="isMobile" :isChrome="isChrome"></my-header>
@@ -37,22 +37,25 @@ export default {
   data() {
     return {
       windowWidth: 0,
-      hasApp: false,
+      hasApp_dev: false,
     }
   },
   computed: {
+    devMode() {
+      return window.location.hostname == 'localhost'
+    },
     isMobile() {
       // breakpoints for columns:  https://vuetifyjs.com/en/components/grids/
       return this.windowWidth < 960
     },
 
-    /*hasApp() {
-      if (window.location.hostname == 'localhost') {
-        return false //so we can manually do testing by changing this value
+    hasApp() {
+      if (this.devMode) {
+        return this.hasApp_dev
       } else {
         return sessionStorage.has_ohana_extension ? true : false
       }
-    },*/
+    },
     isChrome() {
       return window.navigator.vendor == 'Google Inc.'
     },
