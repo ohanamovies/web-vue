@@ -1,37 +1,60 @@
 <template>
   <div>
-    <!-- Option 0: no settings -->
+    <!-- no settings -->
     <div v-if="no_settings">
       <router-link class="button special" to="/settings">Manage preferences</router-link>
     </div>
 
-    <!-- Option 1: Movie is clean -->
+    <!-- Movie is clean -->
     <div v-else-if="is_clean" style="margin-bottom: 5px"><b>Watch safely on</b></div>
 
-    <!-- Option 2": not clean, but user has app -->
-    <div v-else-if="hasApp">
-      <b>Watch the edited version on...</b>
-    </div>
-    <!-- Option 3: not clean, no app, but chrome -->
-    <div v-else-if="isChrome">
-      <!-- in chrome -->
-      <b>Watch safely with Ohana</b>
-      <a
-        href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
-        class="button special"
-        target="_blank"
-        >{{ $t('install') + ' Ohana' }}</a
-      >
-    </div>
-    <!-- Option 4: no clean, no app, no chrome -->
-    <div v-else>
-      To watch this safely, you need to install Ohana. But Ohana only works with Google Chrome.
+    <!--movie is edited -->
+    <div v-else-if="is_done">
+      <div v-if="hasApp">
+        <b>Watch the edited version on...</b>
+      </div>
 
-      <router-link class="button special" to="/get-started">Learn more</router-link>
+      <div v-else-if="isChrome">
+        <b>Watch the edited version with Ohana</b>
+        <br />
+        <a
+          href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
+          class="button special"
+          target="_blank"
+          >{{ $t('install') + ' Ohana' }}</a
+        >
+      </div>
+
+      <div v-else>
+        This browser is not compatible with Ohana.
+        <br />
+        <router-link class="button special" to="/get-started">Learn more</router-link>
+      </div>
+    </div>
+
+    <!-- movie is pending -->
+    <div v-else-if="is_missing">
+      <span class="modern-link">Request review</span>
+      <br />
+      <span class="modern-link" @click="bypassUnknown = true">Show watch options</span>
+    </div>
+
+    <div v-else-if="is_unknown">
+      <span class="modern-link">Request review</span>
+
+      <br />
+      <span class="modern-link" @click="bypassUnknown = true">Show watch options</span>
     </div>
 
     <!-- WATCH OPTIONS -->
-    <div v-if="hasApp || bypassApp || is_clean || bypassUnsafe">
+    <!-- <div v-if="is_clean || (hasApp && is_done) || bypassApp ||  (is_done || bypassUnsafe)"> -->
+    <div
+      v-if="
+        is_clean ||
+        ((is_done || bypassUnsafe) && (hasApp || bypassApp)) ||
+        (is_unknown && bypassUnknown)
+      "
+    >
       <div
         v-for="(provider, index) in selection.providers"
         :key="index"
@@ -62,15 +85,28 @@ export default {
     return {
       bypassApp: false,
       bypassUnsafe: false,
-      show_watch_options: false,
+      bypassUnknown: false,
     }
   },
   computed: {
+    no_settings() {
+      return this.selection.join_status.status == 'unset'
+    },
     is_clean() {
       return this.selection.join_status.status == 'done' && this.selection.join_status.cuts == 0
     },
-    no_settings() {
-      return this.selection.join_status.status == 'unset'
+    is_done() {
+      return this.selection.join_status.status == 'done'
+    },
+
+    is_unknown() {
+      return (
+        this.selection.join_status.status == 'unknown' ||
+        this.selection.join_status.status == 'unkown'
+      )
+    },
+    is_missing() {
+      return this.selection.join_status.status == 'missing'
     },
   },
   methods: {

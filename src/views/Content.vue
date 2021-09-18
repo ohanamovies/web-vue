@@ -468,7 +468,10 @@
                 <!-- image-->
                 <div class="image" style="width: 100%; cursor: pointer">
                   <!-- poster_path -->
-                  <img :src="item.poster" :alt="item.title" />
+                  <img
+                    :src="language == 'es' && item.poster_es ? item.poster_es : item.poster"
+                    :alt="item.title"
+                  />
 
                   <div class="shield" v-if="getShieldIcon(item) != 'none'">
                     <v-icon :color="getShieldColor(item)" width="60px">
@@ -636,6 +639,9 @@ export default {
     },
   },
   computed: {
+    language() {
+      return this.$i18n.locale.toLowerCase().split('-')[0]
+    },
     safety_icons() {
       return [
         {

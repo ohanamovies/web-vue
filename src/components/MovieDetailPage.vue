@@ -9,7 +9,9 @@
         style="white-space: pre-wrap; word-break: keep-all; line-height: normal; margin-bottom: 5px"
       >
         <span
-          >{{ item.metadata.title }}
+          >{{
+            language == 'es' && item.metdata.title_es ? item.metadata.title_es : item.metadata.title
+          }}
           <span style="font-size: 70%; color: gray"> ({{ mapping.year }})</span></span
         >
         <!-- {{ selection }} -->
@@ -51,7 +53,13 @@
               <v-tab-item>
                 <!-- Overview -->
                 <div class="overview">
-                  {{ item.metadata.overview }}
+                  {{
+                    language == 'es' && item.metadata.plot_es
+                      ? item.metadata.plot_es
+                      : item.metadata.plot
+                      ? item.metadata.plot
+                      : item.metadata.overview
+                  }}
                 </div>
 
                 <!-- Genres -->
@@ -248,6 +256,10 @@ export default {
   },
 
   computed: {
+    language() {
+      //TODO: use vuex?
+      return this.$i18n.locale.toLowerCase().split('-')[0]
+    },
     mapping() {
       return {
         year: this.item.metadata.released ? this.item.metadata.released.substring(0, 4) : '',
