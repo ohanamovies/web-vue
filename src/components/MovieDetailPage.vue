@@ -10,7 +10,9 @@
       >
         <span
           >{{
-            language == 'es' && item.metdata.title_es ? item.metadata.title_es : item.metadata.title
+            language == 'es' && item.metadata && item.metadata.title_es
+              ? item.metadata.title_es
+              : item.metadata.title
           }}
           <span style="font-size: 70%; color: gray"> ({{ mapping.year }})</span></span
         >
@@ -54,7 +56,7 @@
                 <!-- Overview -->
                 <div class="overview">
                   {{
-                    language == 'es' && item.metadata.plot_es
+                    language == 'es' && item.metadata && item.metadata.plot_es
                       ? item.metadata.plot_es
                       : item.metadata.plot
                       ? item.metadata.plot
