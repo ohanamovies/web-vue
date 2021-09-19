@@ -38,7 +38,7 @@
                 >
                 and click on 'Add to Chrome' to install our Chrome extension.
                 <span v-if="hasApp" style="color: green">✓</span
-                ><span v-else-if="isChrome" style="color: red">✗</span>
+                ><span v-else style="color: red">✗</span>
               </li>
               <li>Pin the extension so it's visible.</li>
             </ol>
@@ -258,7 +258,7 @@
                 >
                 and click on 'Add to Chrome' to install our Chrome extension.
                 <span v-if="hasApp" style="color: green">✓</span
-                ><span v-else-if="isChrome" style="color: red">✗</span>
+                ><span v-else style="color: red">✗</span>
               </li>
               <li>Pin the extension so it's visible.</li>
             </ol>

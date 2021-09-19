@@ -50,7 +50,7 @@
       </div>
 
       <!-- Clarify to users they can  scroll down -->
-      <div style="position: absolute; bottom: 80px; width: 100%">
+      <div style="position: absolute; bottom: 130px; width: 100%">
         <scroll-down-animation></scroll-down-animation>
       </div>
     </section>
