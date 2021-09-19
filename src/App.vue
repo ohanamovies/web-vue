@@ -2,19 +2,30 @@
   <div id="app">
     <v-app>
       <v-main>
-        <div
-          v-if="devMode"
-          style="
-            position: fixed;
-            top: 50px;
-            left: 50px;
-            z-index: 999999;
-            background-color: lightblue;
-            padding: 10px;
-            border-radius: 5px;
-          "
-        >
-          <v-switch v-model="hasApp_dev" hide-details :label="'hasApp: ' + hasApp_dev"></v-switch>
+        <div v-if="devMode" style="position: fixed; top: 0px; left: 50%; z-index: 999999">
+          <v-btn
+            color="red"
+            fab
+            bottom
+            right
+            small
+            dark
+            @click="showDevMenu = !showDevMenu"
+            style="z-index: 99999; cursor: pointer"
+          >
+            <!-- progress circle within the go-to-top button -->
+
+            <v-icon color="white" style="cursor: pointer">mdi-xml</v-icon>
+            <!-- TODO: may use mdi-tune -->
+          </v-btn>
+
+          <div
+            v-if="showDevMenu"
+            style="background-color: lightblue; padding: 10px; border-radius: 5px"
+          >
+            <b>Override:</b>
+            <v-switch v-model="hasApp_dev" hide-details :label="'hasApp: ' + hasApp_dev"></v-switch>
+          </div>
         </div>
         <!-- Header: Needs to be put in each page, using <my-header></my-header> (why: because styling is different subpage vs home -->
         <my-header :isMobile="isMobile" :isChrome="isChrome"></my-header>
@@ -38,6 +49,7 @@ export default {
     return {
       windowWidth: 0,
       hasApp_dev: false,
+      showDevMenu: false,
     }
   },
   computed: {
@@ -62,6 +74,7 @@ export default {
   },
   mounted() {
     window.addEventListener('resize', this.onResize)
+    this.hasApp_dev = this.hasApp
     this.onResize()
   },
   beforeDestroy() {

@@ -2,7 +2,9 @@
   <div>
     <!-- no settings -->
     <div v-if="no_settings">
-      <router-link class="button special" to="/settings">Manage preferences</router-link>
+      <router-link class="button special" to="/settings" target="_blank"
+        >Manage preferences</router-link
+      >
     </div>
 
     <!-- Movie is clean -->
@@ -36,11 +38,13 @@
     <div v-else-if="is_missing">
       <span class="modern-link">Request review</span>
       <br />
+      <br />
       <span class="modern-link" @click="bypassUnknown = true">Show watch options</span>
     </div>
 
     <div v-else-if="is_unknown">
       <span class="modern-link">Request review</span>
+      <br />
 
       <br />
       <span class="modern-link" @click="bypassUnknown = true">Show watch options</span>

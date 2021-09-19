@@ -33,7 +33,8 @@
           <p>No to get content skipped automatically.</p>
           <p>
             But you can still leverage on our website to find content that can be wathed without
-            skips. Just take a look at our <router-link to="/content">Content page</router-link>.
+            skips. Just take a look at our
+            <router-link to="/find-movies">Content page</router-link>.
           </p>
 
           <h3>What content can I skip with Ohana?</h3>
@@ -108,7 +109,7 @@
 
             <ol>
               <li>
-                In the <router-link to="/content">content</router-link> section of this website.
+                In the <router-link to="/find-movies">content</router-link> section of this website.
               </li>
               <li>In the browser section of the content providers (like Netflix).</li>
               <li>

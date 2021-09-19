@@ -13,9 +13,12 @@ const messages = {
     home: 'Home',
     about: 'About',
     getStarted: 'Get started',
-    discoverContent: 'Find Movies',
+    discoverContent: 'Find movies',
+    support_ohana: 'Support Ohana',
     discoverContent_long: 'Find something great to watch',
     language: 'Language',
+    /* Home */
+    scroll_for_more: 'Scroll for more ;)',
     /* Highlighted values on top*/
     prop1: 'Health',
     prop1Desc: 'Mental health aware',
@@ -66,9 +69,12 @@ const messages = {
     ome: 'Portada',
     about: 'Acerca de',
     getStarted: 'Empezar',
-    discoverContent: 'Descubre contenido',
+    discoverContent: 'Descubre películas',
+    support_ohana: 'Apoyar Ohana',
     discoverContent_long: 'Encuentra el mejor contenido',
     language: 'Idioma',
+    /* Home */
+    scroll_for_more: 'Sigue leyendo ;)',
     /* Highlighted values on top*/
     prop1: 'Salud',
     prop1Desc: 'Concienciados del cuidado de la salud mental',

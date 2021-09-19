@@ -46,7 +46,7 @@
         {{
           isChrome
             ? 'Well done! You are using Chrome'
-            : 'Note: To watch Ohana movies, you need to switch to Chrome browser and install your extension'
+            : 'Note: It seems your browser is not compatible with Ohana :( | Try Google Chrome'
         }}
         <!-- Images: <a href="https://unsplash.com">Unsplash</a>. -->
         <!-- Template and elements: https://templated.co/projection -->

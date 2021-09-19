@@ -25,6 +25,11 @@
             <h4>Step 1. Install Ohana</h4>
             <ol>
               <li>
+                Make sure you are using Google Chrome on a computer.
+                <span v-if="isChrome" style="color: green">✓</span
+                ><span v-else style="color: red">✗</span>
+              </li>
+              <li>
                 Follow
                 <a
                   href="https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf"
@@ -32,6 +37,8 @@
                   >this link</a
                 >
                 and click on 'Add to Chrome' to install our Chrome extension.
+                <span v-if="hasApp" style="color: green">✓</span
+                ><span v-else-if="isChrome" style="color: red">✗</span>
               </li>
               <li>Pin the extension so it's visible.</li>
             </ol>
@@ -62,7 +69,7 @@
             <div>
               <p>
                 <v-icon color="green">mdi-emoticon-happy</v-icon><b>Clean:</b> Content was
-                originally safe, it didn't need to be cut.<br />
+                originally safe, it didn't need to be edited.<br />
 
                 <v-icon color="green">mdi-content-cut</v-icon><b>Edited:</b> There was unwanted
                 content, but we will skip it all for you.<br />
@@ -72,7 +79,7 @@
                 indicate it has been reviewed by Ohana trusted editors.<br />
 
                 <v-icon color="red">mdi-flag-variant</v-icon><b>Unsafe:</b> Unwanted content was
-                flagged, but it's not cut yet.<br />
+                flagged, but movie hasn't been edited yet.<br />
 
                 <v-icon color="gray">mdi-progress-question</v-icon><b>Unknown:</b> We can't help as
                 we don't have information yet.
@@ -80,7 +87,8 @@
               <p>You will see those icons after telling us your sensitivity, in multiple places:</p>
               <ol>
                 <li>
-                  In the <router-link to="/content">content</router-link> section of this website.
+                  In the <router-link to="/find-movies">content</router-link> section of this
+                  website.
                 </li>
                 <li>In the browser section of the content providers (like Netflix).</li>
                 <li>
@@ -120,9 +128,9 @@
               You can easily identify which movies require editing by looking for the
               <i>Unkown</i> <v-icon color="gray">mdi-progress-question</v-icon> or <i>Unsafe</i>
               <v-icon color="red">mdi-flag-variant</v-icon> icons, either by browsing your favourite
-              provider or in the <router-link to="/content">content</router-link> section of this
-              website. (If you click on the <i>Unkown</i> and <i>Unsafe</i> label on the website,
-              you will see those movies that require editing).
+              provider or in the <router-link to="/find-movies">content</router-link> section of
+              this website. (If you click on the <i>Unkown</i> and <i>Unsafe</i> label on the
+              website, you will see those movies that require editing).
             </p>
 
             <h4>Step 2. Open the editor's sidebar</h4>
@@ -175,7 +183,7 @@
           <!--<div id="more">
             <h2>How to install Ohana</h2>
             <p>
-              As a basic, you can use <router-link to="/content">this section</router-link> of the
+              As a basic, you can use <router-link to="/find-movies">this section</router-link> of the
               Ohana website to find, among others, content that was originally clean and therefore
               ready for you to watch out of the box.
             </p>
@@ -237,6 +245,11 @@
             <h4>Step 1. Install Ohana</h4>
             <ol>
               <li>
+                Make sure you are using Google Chrome on a computer.
+                <span v-if="isChrome" style="color: green">✓</span
+                ><span v-else style="color: red">✗</span>
+              </li>
+              <li>
                 Follow
                 <a
                   href="https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf"
@@ -244,6 +257,8 @@
                   >this link</a
                 >
                 and click on 'Add to Chrome' to install our Chrome extension.
+                <span v-if="hasApp" style="color: green">✓</span
+                ><span v-else-if="isChrome" style="color: red">✗</span>
               </li>
               <li>Pin the extension so it's visible.</li>
             </ol>
@@ -274,7 +289,7 @@
             <div>
               <p>
                 <v-icon color="green" class="mb-1">mdi-emoticon-happy</v-icon><b>Clean:</b> Content
-                was originally safe, it didn't need to be cut.<br />
+                was originally safe, it didn't need to be edited.<br />
 
                 <v-icon color="green" class="mb-1">mdi-content-cut</v-icon><b>Edited:</b> There was
                 unwanted content, but we will skip it all for you.<br />
@@ -285,7 +300,7 @@
                 trusted editors.<br />
 
                 <v-icon color="red" class="mb-1">mdi-flag-variant</v-icon><b>Unsafe:</b> Unwanted
-                content was flagged, but it's not cut yet.<br />
+                content was flagged, but movie hasn't been edited yet.<br />
 
                 <v-icon color="gray" class="mb-1">mdi-progress-question</v-icon><b>Unknown:</b> We
                 can't help as we don't have information yet.
@@ -293,7 +308,8 @@
               <p>You will see those icons after telling us your sensitivity, in multiple places:</p>
               <ol>
                 <li>
-                  In the <router-link to="/content">content</router-link> section of this website.
+                  In the <router-link to="/find-movies">movies</router-link> section of this
+                  website.
                 </li>
                 <li>In the browser section of the content providers (like Netflix).</li>
                 <li>
@@ -333,7 +349,7 @@
               You can easily identify which movies require editing by looking for the
               <i>Unkown</i> <v-icon color="gray">mdi-progress-question</v-icon> or <i>Unsafe</i>
               <v-icon color="red">mdi-flag-variant</v-icon> icons, either by browsing your favourite
-              provider or in the <router-link to="/content">content</router-link> section of this
+              provider or in the <router-link to="/find-movies">movies</router-link> section of this
               website. (If you click on the <i>Unkown</i> and <i>Unsafe</i> label on the website,
               you will see those movies that require editing).
             </p>
@@ -388,7 +404,7 @@
           <!--<div id="more">
             <h2>How to install Ohana</h2>
             <p>
-              As a basic, you can use <router-link to="/content">this section</router-link> of the
+              As a basic, you can use <router-link to="/find-movies">this section</router-link> of the
               Ohana website to find, among others, content that was originally clean and therefore
               ready for you to watch out of the box.
             </p>
@@ -442,6 +458,10 @@ export default {
       'Learn how to watch clean content',
       this.$router.currentRoute.path
     )
+  },
+  props: {
+    isChrome: { type: Boolean, default: false },
+    hasApp: { type: Boolean, default: false },
   },
   data() {
     return {

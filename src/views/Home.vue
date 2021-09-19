@@ -4,13 +4,18 @@
     <!-- <my-header></my-header> -->
 
     <!-- Banner -->
-    <section class="banner" style="background-image: url(images/banner.jpg); min-height: 90vh">
+    <section class="banner home-background" style="height: 100vh">
       <div class="inner" style="border-top: none">
-        <header class="fadeInUp">
-          <h1>{{ $t('welcome') }}</h1>
+        <header>
+          <h1 class="fadeInUp" style="font-size: 3rem">{{ $t('welcome') }}</h1>
+          <p hidden style="color: white; font-size: 1.2rem" class="fadeIn">
+            Ohana is an amazing app that does amazing things
+          </p>
         </header>
 
-        <div class="flex">
+        <!-- @deprecated: TOP FEATURES NOW IN NEXT SECTION -->
+
+        <div class="flex" v-if="false">
           <div>
             <span class="icon fa-heart"></span>
             <h3>{{ $t('prop1') }}</h3>
@@ -29,24 +34,24 @@
             <p>{{ $t('prop3Desc') }}</p>
           </div>
         </div>
-
         <footer>
-          <a
-            href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
-            class="button special"
-            target="_blank"
-            style="margin: 5px"
-            >{{ $t('install') }}</a
-          >
+          <div class="fadeInDown">
+            <next-action :hasApp="hasApp" :isChrome="isChrome" :isMobile="isMobile"></next-action>
 
-          <!--<a
+            <!--<a
             href="https://www.patreon.com/ohanamovies"
             class="button special"
             target="_blank"
             style="margin: 5px;"
             >Donate
           </a>-->
+          </div>
         </footer>
+      </div>
+
+      <!-- Clarify to users they can  scroll down -->
+      <div style="position: absolute; bottom: 10px; width: 100%">
+        <scroll-down-animation></scroll-down-animation>
       </div>
     </section>
 
@@ -133,10 +138,14 @@
           <p>
             The ongoing development of Ohana is made possible by its communnity of volunteers,
             donors, and sponsors. Want to help?
-            <a href="https://www.patreon.com/ohanamovies" target="_blank" style="color: #469ae8"
-              >Visit our Patreon now!</a
-            >
           </p>
+          <a
+            class="button special"
+            href="https://www.patreon.com/ohanamovies"
+            target="_blank"
+            style="color: #469ae8"
+            >Visit our Patreon now!</a
+          >
         </article>
 
         <h3 style="font-size: 16pt; color: white; font-weight: 500; margin-top: 30px">Sponsors</h3>
@@ -196,10 +205,24 @@
 // @ is an alias to /src
 //import MyHeader from '@/components/MyHeader.vue' //now imported globally!
 import sharedjs from '@/sharedjs'
+import ScrollDownAnimation from '@/components/ScrollDownAnimation.vue'
+import NextAction from '@/components/NextAction.vue'
 export default {
   name: 'Home',
+  components: {
+    ScrollDownAnimation,
+    NextAction,
+  },
   props: {
     isMobile: {
+      type: Boolean,
+      default: false,
+    },
+    isChrome: {
+      type: Boolean,
+      default: false,
+    },
+    hasApp: {
       type: Boolean,
       default: false,
     },
@@ -216,69 +239,40 @@ export default {
 </script>
 
 <style scoped>
-@keyframes fadeInUp {
-  from {
-    transform: translate3d(0, 40px, 0);
-  }
+.text1 {
+  color: white;
+}
 
-  to {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
+#three * h3 {
+  font-weight: 700;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+/* BANNER - optimize image size a little bit */
+.home-background {
+  background-image: url('/images/banner-1500.jpg');
+  min-height: 90vh;
+}
+
+@media only screen and (max-width: 800px) {
+  .home-background {
+    background-image: url('/images/banner-800.jpg');
+    min-height: 90vh;
   }
 }
 
-@-webkit-keyframes fadeInUp {
-  from {
-    transform: translate3d(0, 40px, 0);
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
+@media only screen and (max-width: 600px) {
+  .home-background {
+    background-image: url('/images/banner-600.jpg');
+    min-height: 90vh;
   }
 }
 
-@keyframes fadeInDown {
-  from {
-    transform: translate3d(0, -40px, 0);
+@media only screen and (max-width: 400px) {
+  .home-background {
+    background-image: url('/images/banner-400.jpg');
+    min-height: 90vh;
   }
-
-  to {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fadeInDown {
-  from {
-    transform: translate3d(0, -40px, 0);
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
-}
-
-.fadeInUp {
-  animation-duration: 1s;
-  animation-fill-mode: both;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-
-  opacity: 0;
-  animation-name: fadeInUp;
-  -webkit-animation-name: fadeInUp;
-}
-
-.fadeInDown {
-  animation-duration: 1s;
-  animation-fill-mode: both;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-
-  opacity: 0;
-  animation-name: fadeInDown;
-  -webkit-animation-name: fadeInDown;
 }
 </style>

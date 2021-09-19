@@ -1,6 +1,6 @@
 <template>
   <div class="subpage">
-    <section id="three" class="wrapper">
+    <section id="main" class="wrapper" style="margin: auto">
       <div class="inner">
         <header class="align-center">
           <h2>Community</h2>
@@ -11,88 +11,63 @@
           <img src="images/pic01.jpg" alt="Pic 01" />
         </div>
         -->
-        <p>
-          A strong community is what makes the difference in a project like this. We need your help
-          building the first open database of films' scenes. With your help, anyone in the world
-          will be able to skip the undesired content in any film.
-        </p>
-
-        <div>
+        <div style="max-width: 600px; margin: auto">
           <p>
-            You can join the community and start contributing by downloading our Chrome extension.
+            A strong community is what makes the difference in a project like this. We need your
+            help building the first open database of films' scenes.
           </p>
-          <footer>
-            <a
-              href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
-              class="button special"
-              target="_blank"
-              >Download</a
-            >
-          </footer>
+          <p>
+            With your help, anyone in the world will be able to skip the undesired content in any
+            film.
+          </p>
+        </div>
 
-          <div>
-            <br />
-            <p>
-              You can also
-              <a href="https://www.patreon.com/ohanamovies" target="_blank">donate</a> to support
-              the development of Ohana.
-            </p>
-            <p>
-              You can also use the extension and let share your
-              <a href="https://forms.gle/cPr7XQhdS7x1y9hx7" target="_blank">feedback</a>.
-            </p>
+        <h2 style="text-align: center; font-size: 1.2rem">Join the Community</h2>
+        <div class="alex1-container">
+          <!-- install / edit movies -->
+
+          <div class="alex1">
+            <div>
+              <span v-if="!hasApp">Install our <b>Chrome extension</b> and start using it. </span>
+              <span v-else>
+                Use our Chrome extension to <b>flag unhealthy content</b>. Next users will be able
+                to skip it thanks to you!
+              </span>
+            </div>
+            <footer>
+              <next-action :hasApp="hasApp" :isChrome="isChrome" :isMobile="isMobile"></next-action>
+            </footer>
+          </div>
+
+          <!-- donate -->
+          <div class="alex1">
+            <div><b>Donate</b> to support the development of Ohana.</div>
+            <a class="button" href="https://www.patreon.com/ohanamovies" target="_blank">donate</a>
+          </div>
+
+          <!-- TODO: confirm if use this one: feedback -->
+          <div class="alex1" v-if="false">
+            <div>Share your <b>feedback</b> and thoughts</div>
+            <a class="button" href="https://forms.gle/cPr7XQhdS7x1y9hx7" target="_blank"
+              >feedback</a
+            >
+          </div>
+
+          <!-- TODO: Help coding? -->
+          <div class="alex1">
+            <div>Do you know how to <b>code</b>? We welcome developers!</div>
+            <a class="button disabled" href="" disabled>github</a>
+          </div>
+
+          <!-- share -->
+          <div class="alex1">
+            <div>
+              <b>Spread the word</b> about Ohana, so others can enjoy it and maybe join the
+              community
+            </div>
+            <!-- I got these buttons from simplesharebuttons.com -->
           </div>
         </div>
-
-        <!--
-        <div class="image round right">
-          <img src="images/pic02.jpg" alt="Pic 02" />
-        </div>
-        <p>
-          At vero eos et accusamus et iusto odio dignissimos ducimus qui
-          blanditiis praesentium voluptatum deleniti atque corrupti quos dolores
-          et quas molestias excepturi sint occaecati cupiditate non provident,
-          similique sunt in culpa qui officia deserunt mollitia animi, id est
-          laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita
-          distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
-          cumque nihil impedit quo minus id quod maxime placeat facere possimus,
-          omnis voluptas assumenda est, omnis dolor repellendus. Temporibus
-          autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-          eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
-          Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-          voluptatibus maiores alias consequatur aut perferendis doloribus
-          asperiores repellat.
-        </p>
-
-        <p>
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
-          aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos
-          qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-          dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed
-          quia non numquam eius modi tempora incidunt ut labore et dolore magnam
-          aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-          exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex
-          ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in
-          ea voluptate velit esse quam nihil molestiae consequatur, vel illum
-          qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et
-          accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-          voluptatum deleniti atque corrupti quos dolores et quas molestias
-          excepturi sint occaecati cupiditate non provident, similique sunt in
-          culpa qui officia deserunt mollitia animi, id est laborum et dolorum
-          fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam
-          libero tempore, cum soluta nobis est eligendi optio cumque nihil
-          impedit quo minus id quod maxime placeat facere possimus, omnis
-          voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-          quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-          eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
-          Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-          voluptatibus maiores alias consequatur aut perferendis doloribus
-          asperiores repellat.
-        </p>
-        -->
       </div>
     </section>
   </div>
@@ -100,7 +75,25 @@
 
 <script>
 import sharedjs from '@/sharedjs'
+import NextAction from '@/components/NextAction.vue'
 export default {
+  components: {
+    NextAction,
+  },
+  props: {
+    isMobile: {
+      type: Boolean,
+      default: false,
+    },
+    isChrome: {
+      type: Boolean,
+      default: false,
+    },
+    hasApp: {
+      type: Boolean,
+      default: false,
+    },
+  },
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
     return sharedjs.headObject(
@@ -117,4 +110,45 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.alex1-container {
+  display: flex;
+  justify-content: center;
+}
+
+.alex1 {
+  border: 1px solid rgba(100, 100, 100, 0.3);
+  border-radius: 5px;
+  padding: 20px;
+  margin: 10px;
+
+  flex: 1 1 0px;
+  max-width: 300px;
+}
+.alex1 > div {
+  height: 120px;
+  overflow-y: auto;
+}
+
+@media screen and (max-width: 950px) {
+  .alex1-container {
+    display: block;
+  }
+  .alex1-container > div {
+    margin: auto;
+    margin-bottom: 20px;
+  }
+
+  .alex1 > div {
+    height: auto;
+  }
+  .alex1 > .button {
+    margin-top: 20px;
+  }
+}
+
+#share-buttons * img {
+  height: 48px;
+  margin: 5px;
+}
+</style>

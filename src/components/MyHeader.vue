@@ -20,10 +20,13 @@
 
         <div v-if="!isMobile">
           <div>
+            <!-- Web routes -->
             <router-link :to="route.to" v-for="(route, index) in routes" :key="index">{{
               $t(route.key)
             }}</router-link>
 
+            <!-- Other menu items -->
+            <router-link to="/community">{{ $t('support_ohana') }}</router-link>
             <a
               style="text-transform: uppercase; cursor: pointer"
               @click="$i18n.locale = nextLan($i18n.locale)"
@@ -48,13 +51,22 @@
       style="z-index: 999999"
     >
       <v-list dense nav>
+        <!-- Web routes -->
         <v-list-item v-for="(route, index) in routes" :key="index" link :to="route.to">
           <v-list-item-content>
             <v-list-item-title>{{ $t(route.key) }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
+        <!-- Other menu items -->
         <v-divider></v-divider>
+
+        <v-list-item link to="/community">
+          <v-list-item-content>
+            <v-list-item-title>{{ $t('support_ohana') }}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item link to="">
           <v-list-item-content>
             <v-list-item-title
@@ -93,8 +105,9 @@ export default {
       routes: [
         { to: '/', key: 'home' },
         { to: '/get-started', key: 'getStarted' },
-        { to: '/content', key: 'discoverContent' },
+        { to: '/find-movies', key: 'discoverContent' },
         { to: '/about', key: 'about' },
+
         //{to: '/community', key: 'community'}
       ],
     }

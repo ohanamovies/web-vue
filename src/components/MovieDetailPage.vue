@@ -171,7 +171,9 @@
                 <!-- Change my settings? -->
                 <div>
                   <br />
-                  <router-link class="modern-link" to="/settings">Change my settings</router-link>
+                  <router-link class="modern-link" to="/settings" target="_blank"
+                    >Change my settings</router-link
+                  >
                 </div>
 
                 <!-- Report an error -->
@@ -189,6 +191,12 @@
           </v-col>
         </v-row>
       </v-card-text>
+
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <!-- TODO: implement this -->
+        <span class="modern-link">Feedback</span>
+      </v-card-actions>
     </v-card>
 
     <!-- B: if no data, show "loading" or "error" -->

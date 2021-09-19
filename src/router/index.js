@@ -36,6 +36,11 @@ const routes = [
     component: Content,
   },
   {
+    path: '/find-movies',
+    name: 'find-movies',
+    component: Content,
+  },
+  {
     path: '/stats',
     name: 'Stats',
     component: Stats,
@@ -68,7 +73,7 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  //mode: 'history',
+  mode: 'history',
   routes: routes,
   scrollBehavior: function (to) {
     if (to.hash) {

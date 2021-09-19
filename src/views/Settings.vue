@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <section style="margin-top: 44px">
-      <div style="margin: auto; margin-top: 150px">
+  <div class="subpage">
+    <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
+      <div class="inner">
         <p>This page is work in progress</p>
       </div>
     </section>
