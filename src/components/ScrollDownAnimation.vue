@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="container">
+    <div class="scroll-container">
       <div style="position: relative">
-        <div class="chevron"></div>
-        <div class="chevron"></div>
-        <div class="chevron"></div>
+        <div class="scroll-chevron"></div>
+        <div class="scroll-chevron"></div>
+        <div class="scroll-chevron"></div>
       </div>
     </div>
     <div style="color: white; font-size: 0.9rem">{{ $t('scroll_for_more') }}</div>
@@ -16,17 +16,17 @@ export default {}
 </script>
 
 <style scoped>
-.container {
+.scroll-container {
   position: absolute;
-  bottom: 80px;
-  left: calc(50% - 28px);
+  bottom: 70px;
+  left: calc(50% - 14px);
   width: 100%;
 
   width: 24px;
   height: 24px;
 }
 
-.chevron {
+.scroll-chevron {
   position: absolute;
   width: 28px;
   height: 8px;
@@ -35,16 +35,16 @@ export default {}
   animation: move 3s ease-out infinite;
 }
 
-.chevron:first-child {
+.scroll-chevron:first-child {
   animation: move 3s ease-out 1s infinite;
 }
 
-.chevron:nth-child(2) {
+.scroll-chevron:nth-child(2) {
   animation: move 3s ease-out 2s infinite;
 }
 
-.chevron:before,
-.chevron:after {
+.scroll-chevron:before,
+.scroll-chevron:after {
   content: ' ';
   position: absolute;
   top: 0;
@@ -53,12 +53,12 @@ export default {}
   background: #fff;
 }
 
-.chevron:before {
+.scroll-chevron:before {
   left: 0;
   transform: skew(0deg, 30deg);
 }
 
-.chevron:after {
+.scroll-chevron:after {
   right: 0;
   width: 50%;
   transform: skew(0deg, -30deg);
@@ -82,7 +82,7 @@ export default {}
   }
 }
 
-.text {
+.scroll-text {
   display: block;
   margin-top: 75px;
   margin-left: -30px;
