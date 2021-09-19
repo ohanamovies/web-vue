@@ -121,6 +121,7 @@
                     :isChrome="isChrome"
                     :hasApp="hasApp"
                     :selection="selection"
+                    :title="item.metadata ? item.metadata.title : ''"
                   ></movie-watch-options>
                 </div>
 
@@ -171,19 +172,8 @@
                 <!-- Change my settings? -->
                 <div>
                   <br />
-                  <router-link class="modern-link" to="/settings" target="_blank"
-                    >Change my settings</router-link
-                  >
-                </div>
-
-                <!-- Report an error -->
-                <div id="report-an-error">
-                  <br />
-                  <a
-                    class="modern-link"
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSfIi64Ge0or3yOHn9TaEJY4y4rw2irHTeTmnLI_W7kMHx79CQ/viewform"
-                    target="_blank"
-                    >Report an error</a
+                  <router-link class="modern-link" to="/settings"
+                    >Change my preferences</router-link
                   >
                 </div>
               </v-tab-item>
@@ -194,8 +184,19 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <!-- TODO: implement this -->
-        <span class="modern-link">Feedback</span>
+        <!-- Feedbak button -->
+        <a
+          class="modern-link"
+          target="_blank"
+          :href="
+            'https://docs.google.com/forms/d/e/1FAIpQLScnTNbXu79Sbinmlw6QhBIa5T76T0QCEMFLt4OIiSN08aHQKw/viewform?usp=pp_url&entry.2077317668=' +
+            '[feedback]' +
+            item.metadata.title +
+            ' - imdb:' +
+            item.metadata.imdb
+          "
+          >Feedback</a
+        >
       </v-card-actions>
     </v-card>
 

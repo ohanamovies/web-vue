@@ -26,7 +26,6 @@
             }}</router-link>
 
             <!-- Other menu items -->
-            <router-link to="/community">{{ $t('support_ohana') }}</router-link>
             <a
               style="text-transform: uppercase; cursor: pointer"
               @click="$i18n.locale = nextLan($i18n.locale)"
@@ -60,12 +59,6 @@
 
         <!-- Other menu items -->
         <v-divider></v-divider>
-
-        <v-list-item link to="/community">
-          <v-list-item-content>
-            <v-list-item-title>{{ $t('support_ohana') }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
 
         <v-list-item link to="">
           <v-list-item-content>
@@ -106,6 +99,9 @@ export default {
         { to: '/', key: 'home' },
         { to: '/get-started', key: 'getStarted' },
         { to: '/find-movies', key: 'discoverContent' },
+
+        { to: '/community', key: 'support_ohana' },
+
         { to: '/about', key: 'about' },
 
         //{to: '/community', key: 'community'}

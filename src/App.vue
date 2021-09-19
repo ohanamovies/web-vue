@@ -25,6 +25,13 @@
           >
             <b>Override:</b>
             <v-switch v-model="hasApp_dev" hide-details :label="'hasApp: ' + hasApp_dev"></v-switch>
+            <br />
+            User Feedback:
+            <a
+              href="https://docs.google.com/forms/d/1zthFWG8OGugKAPxYpcKwBSbOnwfNRIGJ4Q66UIuJUvs/edit#responses"
+              target="_blank"
+              >check responses</a
+            >
           </div>
         </div>
         <!-- Header: Needs to be put in each page, using <my-header></my-header> (why: because styling is different subpage vs home -->

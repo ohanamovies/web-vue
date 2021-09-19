@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- no settings -->
+
     <div v-if="no_settings">
       <router-link class="button special" to="/settings" target="_blank"
         >Manage preferences</router-link
@@ -36,14 +37,22 @@
 
     <!-- movie is pending -->
     <div v-else-if="is_missing">
-      <span class="modern-link">Request review</span>
+      <a class="modern-link" :href="feedback_link" target="_blank">Request review</a>
       <br />
       <br />
-      <span class="modern-link" @click="bypassUnknown = true">Show watch options</span>
+      <!-- TODO: bypassApp is not being very effective -->
+      <span
+        class="modern-link"
+        @click="
+          bypassUnsafe = true
+          bypassApp = true
+        "
+        >Show watch options anyway</span
+      >
     </div>
 
     <div v-else-if="is_unknown">
-      <span class="modern-link">Request review</span>
+      <a class="modern-link" :href="feedback_link" target="_blank">Request review</a>
       <br />
 
       <br />
@@ -84,6 +93,10 @@ export default {
         return {}
       },
     },
+    title: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -111,6 +124,15 @@ export default {
     },
     is_missing() {
       return this.selection.join_status.status == 'missing'
+    },
+    feedback_link() {
+      return (
+        'https://docs.google.com/forms/d/e/1FAIpQLScnTNbXu79Sbinmlw6QhBIa5T76T0QCEMFLt4OIiSN08aHQKw/viewform?usp=pp_url&entry.2077317668=' +
+        '[request]: ' +
+        this.title +
+        ' - imdb:' +
+        this.selection.imdb
+      )
     },
   },
   methods: {

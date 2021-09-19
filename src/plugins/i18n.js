@@ -61,6 +61,8 @@ const messages = {
     moderate: 'Moderate',
     mild: 'Mild',
     slight: 'Slight',
+    /*others */
+    restore_deafult_values: 'Restore default values',
   },
   es: {
     whatIsOhana: '¿Qué es Ohana?',
@@ -117,6 +119,8 @@ const messages = {
     moderate: 'Moderado',
     mild: 'Leve',
     slight: 'Ligero',
+    /*others */
+    restore_deafult_values: 'Restaurar valores por defecto',
   },
 }
 
