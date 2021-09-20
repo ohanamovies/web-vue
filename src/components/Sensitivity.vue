@@ -192,6 +192,7 @@ export default {
       //Fire event for hooks in extension
       const event = new Event('ohana-settings-changed', this.skipTags)
       document.dispatchEvent(event)
+      console.log('[web] Settings event dispatched!', this.skipTags)
     },
     loadLocalStorage() {
       let s = localStorage.ohanaSettings
