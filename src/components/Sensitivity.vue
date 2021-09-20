@@ -2,6 +2,7 @@
   <!-- Sensitivity -->
   <div>
     <div class="filterr">
+      <v-btn @click="skipTags2sliders()">adsfsafd</v-btn>
       <h4 style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</h4>
       <p>Mark below the kind of content you want to avoid while watching movies.</p>
 
@@ -127,12 +128,9 @@
         </my-tooltip>
       </div>
     </div>
-    <span
-      class="modern-link"
-      @click="removeOhanaSettingsLocalStorage()"
-      style="margin-bottom: 30px"
-      >{{ $t('restore_deafult_values') }}</span
-    >
+    <span class="modern-link" @click="removeOhanaSettings()" style="margin-bottom: 30px">{{
+      $t('restore_deafult_values')
+    }}</span>
   </div>
 </template>
 
@@ -147,26 +145,29 @@ export default {
   },
   data() {
     return {
+      skipTags: ['Very erotic'],
       sexSlider: 2,
       vioSlider: 1,
       profSlider: 1,
     }
   },
   watch: {
+    sexSlider() {
+      this.sliders2skipTags()
+    },
+    vioSlider() {
+      this.sliders2skipTags()
+    },
+    profSlider() {
+      this.sliders2skipTags()
+    },
     skipTags() {
-      this.updateLocalStorage()
+      this.skipTags2sliders()
+      this.saveSkipTags()
       this.$emit('change', this.skipTags)
     },
   },
   computed: {
-    skipTags() {
-      var sex = rawTags.severities[0].slice(5 - this.sexSlider, 4)
-      var vio = rawTags.severities[1].slice(5 - this.vioSlider, 4)
-      var prof = rawTags.severities[2].slice(5 - this.profSlider, 4)
-      var tags = [...sex, ...vio, ...prof]
-      return tags
-    },
-
     tagsDescription() {
       let x = {} //tag:desc
       rawTags.content.forEach((cat) => {
@@ -178,45 +179,69 @@ export default {
     },
   },
   methods: {
-    updateLocalStorage() {
-      let x = {
-        sliders: {
-          sexSlider: this.sexSlider,
-          vioSlider: this.vioSlider,
-          profSlider: this.profSlider,
-        },
+    sliders2skipTags() {
+      var sex = rawTags.severities[0].slice(5 - this.sexSlider, 4)
+      var vio = rawTags.severities[1].slice(5 - this.vioSlider, 4)
+      var prof = rawTags.severities[2].slice(5 - this.profSlider, 4)
+      var tags = [...sex, ...vio, ...prof]
+      this.skipTags = tags
+    },
+    skipTags2sliders() {
+      //Convert the array of skipTags into sliders' values
+
+      for (let i = 0; i < rawTags.severities.length; i++) {
+        //Reversed, so we go from very to slight:
+        for (let j = rawTags.severities[i].length - 1; j >= 0; j--) {
+          const tag = rawTags.severities[i][j]
+
+          if (this.skipTags.includes(tag)) {
+            if (i == 0) this.sexSlider = 5 - j
+            if (i == 1) this.vioSlider = 5 - j
+            if (i == 2) this.profSlider = 5 - j
+          }
+        }
       }
-      localStorage.ohanaSettings = JSON.stringify(x)
+    },
+    sendEvent(name, detail) {
+      let event = new CustomEvent(name, { detail: detail })
+      document.dispatchEvent(event)
+    },
+    listenEvent(name, callback) {
+      document.addEventListener(name, function (e) {
+        callback(e.detail)
+      })
+    },
+    saveSkipTags() {
+      //Save on localStorage (just in caes)
       localStorage.skipTags = JSON.stringify(this.skipTags)
 
-      //Fire event for hooks in extension
-      let settings = { skipTags: this.skipTags }
-      const event = new CustomEvent('ohana-settings-change', {
-        detail: settings,
-      })
-      document.dispatchEvent(event)
-      console.log('[web] Settings event dispatched!', settings)
+      //Send event for hooks in extension (so it can save on chrome.storage)
+      this.sendEvent('ohana-skipTags-change', this.skipTags)
     },
-    loadLocalStorage() {
-      let s = localStorage.ohanaSettings
-      if (s && s != 'undefined') {
-        let x = JSON.parse(localStorage.ohanaSettings)
 
-        //update caring tags
-        let xx = x.sliders
-        this.sexSlider = xx.sexSlider
-        this.vioSlider = xx.vioSlider
-        this.profSlider = xx.profSlider
+    loadSkipTags() {
+      //We load from localStorage. If settings in extension, these will be overriden.
+      if (localStorage.skipTags) {
+        this.skipTags = JSON.parse(localStorage.skipTags)
+      } else {
+        this.skipTags = ['Very erotic']
       }
+
+      //subscribe to changes from the extension, and override when they arrive
+      //TODO: Confirm this subscriction to listener isn't too late...
+      this.listenEvent('ohana-skipTags-change', (skipTags) => {
+        console.log('[web] skipTags changed ', skipTags)
+        this.skipTags = skipTags
+      })
     },
-    removeOhanaSettingsLocalStorage() {
+    removeOhanaSettings() {
       localStorage.removeItem('ohanaSettings')
       localStorage.removeItem('skipTags')
       location.reload() //ugly, but was fast to do.
     },
   },
   mounted() {
-    this.loadLocalStorage()
+    this.loadSkipTags()
   },
 }
 </script>

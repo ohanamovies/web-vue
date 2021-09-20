@@ -55,7 +55,10 @@ export default {
   data() {
     return {
       windowWidth: 0,
+
       hasApp_dev: false,
+      extensionDetectedViaHook: false,
+
       showDevMenu: false,
     }
   },
@@ -72,7 +75,7 @@ export default {
       if (this.devMode) {
         return this.hasApp_dev
       } else {
-        return sessionStorage.has_ohana_extension ? true : false
+        return this.extensionDetectedViaHook
       }
     },
     isChrome() {
@@ -80,8 +83,20 @@ export default {
     },
   },
   mounted() {
+    //check if hasApp by listening to hook from the extension.
+    if (this.devMode) {
+      return this.hasApp_dev
+    } else {
+      document.addEventListener('extension_present', () => {
+        console.log('[web] Ohana Extension detected!')
+        this.extensionDetectedViaHook = true
+      })
+    }
+
+    this.hasApp_dev = this.hasApp //default value for hasApp_dev (we can always override)
+
+    //resize:
     window.addEventListener('resize', this.onResize)
-    this.hasApp_dev = this.hasApp
     this.onResize()
   },
   beforeDestroy() {
