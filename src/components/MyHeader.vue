@@ -99,6 +99,7 @@ export default {
         { to: '/', key: 'home' },
         { to: '/get-started', key: 'getStarted' },
         { to: '/find-movies', key: 'discoverContent' },
+        { to: '/settings', key: 'settings' },
 
         { to: '/community', key: 'support_ohana' },
 
