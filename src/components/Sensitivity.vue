@@ -2,7 +2,6 @@
   <!-- Sensitivity -->
   <div>
     <div class="filterr">
-      <v-btn @click="skipTags2sliders()">adsfsafd</v-btn>
       <h4 style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</h4>
       <p>Mark below the kind of content you want to avoid while watching movies.</p>
 
@@ -232,8 +231,9 @@ export default {
       } else {
         //subscribe to changes from the extension, and override when they arrive
         //TODO: Confirm this subscriction to listener isn't too late...
+        console.log('[web] listening to skiptags change')
         this.listenEvent('ohana-skipTags-change', (skipTags) => {
-          console.log('[web] skipTags changed ', skipTags)
+          console.log('[web] skipTags changed listened ', skipTags)
           this.skipTags = skipTags
         })
       }
