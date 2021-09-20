@@ -188,6 +188,10 @@ export default {
       }
       localStorage.ohanaSettings = JSON.stringify(x)
       localStorage.skipTags = JSON.stringify(this.skipTags)
+
+      //Fire event for hooks in extension
+      const event = new Event('ohana-settings-changed', this.skipTags)
+      document.dispatchEvent(event)
     },
     loadLocalStorage() {
       let s = localStorage.ohanaSettings
