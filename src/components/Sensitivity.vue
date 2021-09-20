@@ -203,8 +203,9 @@ export default {
       }
     },
     sendEvent(name, detail) {
-      let event = new CustomEvent(name, { detail: detail })
-      document.dispatchEvent(event)
+      console.log('would send event ' + name + ', but not yet', detail)
+      //let event = new CustomEvent(name, { detail: detail })
+      //document.dispatchEvent(event)
     },
     listenEvent(name, callback) {
       document.addEventListener(name, function (e) {
@@ -221,18 +222,21 @@ export default {
 
     loadSkipTags() {
       //We load from localStorage. If settings in extension, these will be overriden.
-      if (localStorage.skipTags) {
-        this.skipTags = JSON.parse(localStorage.skipTags)
-      } else {
-        this.skipTags = ['Very erotic']
-      }
 
-      //subscribe to changes from the extension, and override when they arrive
-      //TODO: Confirm this subscriction to listener isn't too late...
-      this.listenEvent('ohana-skipTags-change', (skipTags) => {
-        console.log('[web] skipTags changed ', skipTags)
-        this.skipTags = skipTags
-      })
+      if (!this.hasApp) {
+        if (localStorage.skipTags) {
+          this.skipTags = JSON.parse(localStorage.skipTags)
+        } else {
+          this.skipTags = ['Very erotic']
+        }
+      } else {
+        //subscribe to changes from the extension, and override when they arrive
+        //TODO: Confirm this subscriction to listener isn't too late...
+        this.listenEvent('ohana-skipTags-change', (skipTags) => {
+          console.log('[web] skipTags changed ', skipTags)
+          this.skipTags = skipTags
+        })
+      }
     },
     removeOhanaSettings() {
       localStorage.removeItem('ohanaSettings')
