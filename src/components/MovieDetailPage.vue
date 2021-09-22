@@ -32,7 +32,7 @@
       <v-card-text>
         <v-row>
           <!-- Image only if not isMobile -->
-          <v-col cols="4" v-if="!isMobile">
+          <v-col cols="4" v-if="!isMobile && selection.join_status.status != 'missing'">
             <img
               :src="'https://image.tmdb.org/t/p/w200' + item.metadata.poster"
               :alt="item.metadata.title"

@@ -458,6 +458,9 @@
               </div>
             </div>
             <!-- text -->
+            <div class="placeholder-title" v-if="item.join_status.status == 'missing'">
+              <span>{{ item.title }}</span>
+            </div>
             <div class="content" v-if="false"></div>
           </div>
         </div>
@@ -634,7 +637,7 @@ export default {
   },
   methods: {
     mergeItemsByImdbId_sameStatus(dataArray) {
-      //This merges items with same status (keeping as main the one with highest level), unless there are cuts, in which case we don't merge unless same number of cuts and same level
+      //This merges items with same imdb id (keeping as main the one with highest level), unless there are cuts, in which case we don't merge unless same number of cuts and same level
       //This also modifies a bit the item structure, adding join_status, and providers: [{pid, watch_url, join_status, status}]
 
       let keys = [] //to track which items we can merge
@@ -650,9 +653,10 @@ export default {
 
         //if clean, we don't need to have same level to merge (we just keep highest)
         let imdb = item.imdb
+
         let key = ''
         if (provider.join_status.cuts == 0) {
-          key = imdb + provider.join_status.status + provider.join_status.cuts
+          key = imdb //+ provider.join_status.status + provider.join_status.cuts
         } else {
           key =
             imdb +
@@ -660,6 +664,7 @@ export default {
             provider.join_status.cuts +
             provider.join_status.level
         }
+        //console.log('imdb: ' + imdb + ' | key: ' + key, item)
 
         if (!keys.includes(key)) {
           //first time this movie apperas
@@ -956,6 +961,25 @@ div.posters_wrapper div.poster_card div.content {
   position: absolute !important;
   background: black;
   opacity: 0;
+  height: 100%;
+  font-size: 90%;
+  color: white !important;
+  z-index: 98;
+}
+
+.poster_card > .placeholder-title {
+  position: absolute !important;
+  font-size: 1.3rem !important;
+  text-align: center;
+  cursor: pointer;
+
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  word-break: break-all;
+  padding: 50%;
+
+  padding-left: 5px;
+  padding-right: 5px;
   height: 100%;
   font-size: 90%;
   color: white !important;
