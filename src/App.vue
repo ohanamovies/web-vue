@@ -84,14 +84,10 @@ export default {
   },
   mounted() {
     //check if hasApp by listening to hook from the extension.
-    if (this.devMode) {
-      return this.hasApp_dev
-    } else {
-      document.addEventListener('extension_present', () => {
-        console.log('[web] Ohana Extension detected!')
-        this.extensionDetectedViaHook = true
-      })
-    }
+    document.addEventListener('extension_present', () => {
+      console.log('[web] Ohana Extension detected!')
+      this.hasApp = true
+    })
 
     this.hasApp_dev = this.hasApp //default value for hasApp_dev (we can always override)
 

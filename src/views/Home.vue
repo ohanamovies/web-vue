@@ -36,7 +36,53 @@
         </div>
         <footer>
           <div class="fadeInDown">
-            <next-action :hasApp="hasApp" :isChrome="isChrome" :isMobile="isMobile"></next-action>
+            <div v-if="isChrome && !hasApp">
+              <a
+                href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
+                class="button special"
+                target="_blank"
+                style="margin: 5px"
+                >{{ $t('install') }}</a
+              >
+            </div>
+
+            <div v-else-if="!isChrome">
+              <router-link to="get-started" class="button special">{{
+                $t('getStarted')
+              }}</router-link>
+            </div>
+
+            <div>
+              <!--
+              <div style="display: flex; justify-content: center">
+                <v-text-field
+                  outlined
+                  style="max-width: 400px; background-color: #6cc091"
+                  type="search"
+                  id="homeSearchBox"
+                  color="ligthblue"
+                  dense
+                  name="search"
+                  label="Search by title"
+                  autocomplete="off"
+                  prepend-inner-icon="mdi-magnify"
+                  hide-details
+                  clearable
+                  class="pa-0 mb-2"
+                  @focus="$event.target.select()"
+                >
+                  <div slot="append" hidden>
+                    <v-btn color="success" icon @click="getData()"
+                      ><v-icon> mdi-movie-search</v-icon></v-btn
+                    >
+                  </div>
+                </v-text-field>
+              </div>
+              -->
+              <router-link to="/find-movies" class="button special" style="margin: 5px">{{
+                $t('discoverContent')
+              }}</router-link>
+            </div>
 
             <!--<a
             href="https://www.patreon.com/ohanamovies"
@@ -206,12 +252,11 @@
 //import MyHeader from '@/components/MyHeader.vue' //now imported globally!
 import sharedjs from '@/sharedjs'
 import ScrollDownAnimation from '@/components/ScrollDownAnimation.vue'
-import NextAction from '@/components/NextAction.vue'
+
 export default {
   name: 'Home',
   components: {
     ScrollDownAnimation,
-    NextAction,
   },
   props: {
     isMobile: {
@@ -274,5 +319,12 @@ export default {
     background-image: url('/images/banner-400.jpg');
     min-height: 90vh;
   }
+}
+
+#homeSearchBox {
+  box-shadow: none;
+  width: 100%;
+  background: none;
+  border: none;
 }
 </style>

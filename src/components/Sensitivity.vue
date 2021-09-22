@@ -208,6 +208,7 @@ export default {
     },
     listenEvent(name, callback) {
       document.addEventListener(name, function (e) {
+        console.log('[web] raw listen', name, e.detail)
         callback(e.detail)
       })
     },
@@ -246,6 +247,11 @@ export default {
   },
   mounted() {
     this.loadSkipTags()
+
+    this.listenEvent('ohana-skipTags-change', (skipTags) => {
+      console.log('[web] skipTags changed listened ', skipTags)
+      this.skipTags = skipTags
+    })
   },
 }
 </script>

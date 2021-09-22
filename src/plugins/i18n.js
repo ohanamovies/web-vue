@@ -14,6 +14,7 @@ const messages = {
     about: 'About',
     settings: 'Settings',
     getStarted: 'Get started',
+    learnMore: 'Learn more',
     discoverContent: 'Find movies',
     support_ohana: 'Support Ohana',
     discoverContent_long: 'Find something great to watch',
@@ -62,6 +63,8 @@ const messages = {
     moderate: 'Moderate',
     mild: 'Mild',
     slight: 'Slight',
+    /*movie popup */
+    confidence: 'Confidence',
     /*others */
     restore_deafult_values: 'Restore default values',
   },
@@ -73,6 +76,7 @@ const messages = {
     about: 'Acerca de',
     settings: 'Ajustes',
     getStarted: 'Empezar',
+    learnMore: 'Descubre cómo',
     discoverContent: 'Descubre películas',
     support_ohana: 'Apoyar Ohana',
     discoverContent_long: 'Encuentra el mejor contenido',
@@ -121,6 +125,8 @@ const messages = {
     moderate: 'Moderado',
     mild: 'Leve',
     slight: 'Ligero',
+    /*movie popup */
+    confidence: 'Fiabilidad',
     /*others */
     restore_deafult_values: 'Restaurar valores por defecto',
   },

@@ -37,6 +37,7 @@
               :src="'https://image.tmdb.org/t/p/w200' + item.metadata.poster"
               :alt="item.metadata.title"
               style="object-fit: contain; width: 100%"
+              :class="[selection.join_status.status == 'missing' ? 'blur_image' : '']"
             />
           </v-col>
 
@@ -97,21 +98,32 @@
                   </v-icon>
                   <div style="margin: auto; margin-left: 0px">
                     <span v-html="ohanaSummaryHtml"></span>
-                    <!-- TODO: figure this out -->
-                    <div v-if="false">
-                      <span
-                        v-if="
-                          selection.join_status.status == 'done' && selection.join_status.level < 6
-                        "
-                        class="modern-link"
-                        >Request certification</span
-                      >
-                      <span v-else-if="selection.join_status.status != 'done'" class="modern-link"
-                        >Ask community to check this movie</span
-                      >
-                    </div>
                   </div>
                 </div>
+
+                <!-- Confidence badge -->
+                <fc-tooltip
+                  :text="
+                    cofidence(selection.join_status.level) > 99
+                      ? 'Information has been verified by Ohana trusted editors'
+                      : `Information hasn't been verified by Ohana directly`
+                  "
+                  :bottom="true"
+                  style="z-index: 99999999"
+                >
+                  <span
+                    style="
+                      font-size: 0.7rem;
+                      font-weight: 600;
+                      text-align: right;
+                      cursor: pointer;
+                      margin-right: 5px;
+                    "
+                    >{{ $t('confidence') }}: {{ cofidence(selection.join_status.level) }}%</span
+                  ><v-icon color="blue" x-small v-if="cofidence(selection.join_status.level) > 99"
+                    >mdi-check-decagram
+                  </v-icon>
+                </fc-tooltip>
 
                 <!-- Watch on -->
                 <div>
@@ -158,12 +170,17 @@
                         :key="index2"
                         style="display: inline-block"
                       >
-                        <v-chip x-small class="ma-1">
-                          <v-icon left x-small :color="tagged(sev).color">{{
-                            tagged(sev).icon
-                          }}</v-icon>
-                          {{ tagged(sev).tag + tagged(sev).badge }}
-                        </v-chip>
+                        <fc-tooltip
+                          :text="'Confidence: ' + cofidence(tagged(sev).level) + '%'"
+                          :top="true"
+                        >
+                          <v-chip x-small class="ma-1">
+                            <v-icon left x-small :color="tagged(sev).color">{{
+                              tagged(sev).icon
+                            }}</v-icon>
+                            {{ tagged(sev).tag + tagged(sev).badge }}
+                          </v-chip>
+                        </fc-tooltip>
                       </div>
                     </div>
                   </div>
@@ -215,8 +232,9 @@
 </template>
 
 <script>
-const provider = require('../assets/provider')
-const rawTags = require('../assets/raw_tags')
+const provider = require('@/assets/provider')
+const rawTags = require('@/assets/raw_tags')
+import ohana from '@/assets/ohana'
 
 import MovieWatchOptions from './MovieWatchOptions.vue'
 
@@ -311,44 +329,45 @@ export default {
   },
 
   methods: {
-    tagged(tag) {
-      tag = tag.replace('Slighty', 'Slightly')
-      console.log('checking tag ' + tag, this.item)
-      //this returns the icon, color, and number of scenes for the given tags (used for the chips.)
-      let icon
-      let color
-
-      let badge = ''
-      let status
-      let level
-
-      let auxx = this.item.scenes.filter((x) => x.tags.includes(tag))
-      let count = auxx.length
-
-      try {
-        status = this.item.tagged[tag].status
-        level = this.item.tagged[tag]['modified'][1]
-      } catch (error) {
-        status = 'unknown'
-        level = '-1'
-        badge = ' (??)'
-      }
-
-      if (status == 'done') {
-        color = level > 5 ? 'blue' : 'green'
-        icon = count > 0 ? 'mdi-content-cut' : 'mdi-emoticon-happy'
-
-        if (count > 0) badge = ' (' + count + ')'
-      } else if (status == 'missing' || status == 'pending') {
-        color = 'red'
-        icon = 'mdi-flag-variant'
-      } else {
-        icon = 'mdi-progress-question'
-        color = 'gray'
-      }
-
-      return { color, icon, count, badge, tag }
+    cofidence(level) {
+      return Math.round((level / 6) * 100, 2)
     },
+    final_status(tag) {
+      //For the given tag, get the status{} with the highest level, out of all the providers
+      let status = {}
+      let max_level = -1
+      this.selection.providers.forEach((p) => {
+        try {
+          if (p.status[tag].level > max_level) {
+            max_level = p.status[tag].level
+            status = p.status[tag]
+          }
+        } catch (error) {
+          //nothing
+        }
+      })
+
+      return status
+    },
+
+    tagged(tag) {
+      tag = tag.replace('Slighty', 'Slightly') //just in case!
+      let final_status = this.final_status(tag)
+      return {
+        color: ohana.movies.getShieldColor(final_status.status, final_status.level),
+        icon: ohana.movies.getShieldIcon(final_status.status, final_status.cuts),
+        count: final_status.count,
+        level: final_status.level || 0,
+        badge:
+          final_status.status == 'unknown'
+            ? ' (??)'
+            : final_status.cuts > 0
+            ? ` (${final_status.cuts})`
+            : '',
+        tag: tag,
+      }
+    },
+
     closeMe() {
       //TODO: This doesn't apply if ESC or click outside, as dialog closes itself
       //Reset view
@@ -371,18 +390,9 @@ export default {
       })
       return x
     },
-    buildURL(query) {
-      // Build url
-      var out = []
-      for (var key in query) {
-        out.push(key + '=' + encodeURIComponent(query[key]))
-      }
-      var url = 'https://api.ohanamovies.org/dev?' + out.join('&')
-      console.log(query, url)
-      return url
-    },
+
     getData() {
-      let url = this.buildURL({
+      let url = ohana.utils.buildURL({
         action: 'getMovie',
         id: this.selection.id,
         season: this.parsedURL.season,
@@ -423,7 +433,7 @@ export default {
   display: flex;
   border: solid 1px lightgray;
   padding: 5px;
-  margin-bottom: 8px;
+  margin-bottom: 0px;
   margin-top: 0px;
   white-space: pre-wrap;
   word-break: keep-all;

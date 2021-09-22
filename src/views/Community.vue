@@ -28,14 +28,39 @@
 
           <div class="alex1">
             <div>
-              <span v-if="!hasApp">Install our <b>Chrome extension</b> and start using it. </span>
-              <span v-else>
-                Use our Chrome extension to <b>flag unhealthy content</b>. Next users will be able
-                to skip it thanks to you!
+              <span>Install our <b>Chrome extension</b> and start using it.</span>
+            </div>
+            <footer style="text-align: center">
+              <a
+                href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
+                class="button special"
+                target="_blank"
+                style="margin: 5px"
+                >{{ $t('install') }}</a
+              >
+
+              <span v-if="hasApp" class="support-tip"
+                ><b>Well done!</b> It seems you already installed our extension</span
+              >
+              <span class="support-tip" v-else-if="isChrome"
+                ><b>Note:</b> It seems your browser is compatible :)</span
+              >
+              <span class="support-tip" v-else><b>Note:</b> Ohana only works on Chrome</span>
+            </footer>
+          </div>
+
+          <!-- use the app -->
+          <div class="alex1">
+            <div>
+              <span>
+                Go ahead and <b>flag unhealthy content</b>. Next users will be able to skip it
+                thanks to you!
               </span>
             </div>
             <footer>
-              <next-action :hasApp="hasApp" :isChrome="isChrome" :isMobile="isMobile"></next-action>
+              <router-link to="get-started" class="button special">{{
+                $t('learnMore')
+              }}</router-link>
             </footer>
           </div>
 
@@ -61,10 +86,7 @@
 
           <!-- share -->
           <div class="alex1">
-            <div>
-              <b>Spread the word</b> about Ohana, so others can enjoy it and maybe join the
-              community
-            </div>
+            <div><b>Spread the word</b> about Ohana, so others can enjoy and support it</div>
             <!-- I got these buttons from simplesharebuttons.com -->
           </div>
         </div>
@@ -75,11 +97,8 @@
 
 <script>
 import sharedjs from '@/sharedjs'
-import NextAction from '@/components/NextAction.vue'
+
 export default {
-  components: {
-    NextAction,
-  },
   props: {
     isMobile: {
       type: Boolean,
@@ -114,6 +133,7 @@ export default {
 .alex1-container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .alex1 {
@@ -123,10 +143,10 @@ export default {
   margin: 10px;
 
   flex: 1 1 0px;
-  max-width: 300px;
+  max-width: 350px;
 }
 .alex1 > div {
-  height: 120px;
+  height: 130px;
   overflow-y: auto;
 }
 
@@ -150,5 +170,10 @@ export default {
 #share-buttons * img {
   height: 48px;
   margin: 5px;
+}
+.support-tip {
+  font-size: 0.8rem;
+  display: block;
+  line-height: normal;
 }
 </style>

@@ -90,7 +90,7 @@
               dense
               small
               class="ma-1"
-              @click="setType('movie')"
+              @click="type = 'movie'"
               :class="{ chipdown: type == 'movie' }"
             >
               <span> {{ $t('movies') }}</span>
@@ -99,7 +99,7 @@
               dense
               small
               class="ma-1"
-              @click="setType('show')"
+              @click="type = 'show'"
               :class="{ chipdown: type == 'show' }"
               ><span>{{ $t('shows') }}</span>
             </v-chip>
@@ -402,99 +402,65 @@
           ></v-progress-linear>
         </div>
 
-        <v-row>
-          <v-col class="pt-0">
-            <!-- search 2 -->
-
-            <div>
-              <v-text-field
-                outlined
-                style="max-width: 400px"
-                type="search"
-                id="searchBox"
-                dense
-                name="search"
-                label="Search by title"
-                v-model="title"
-                autocomplete="off"
-                prepend-inner-icon="mdi-magnify"
-                hide-details
-                clearable
-                class="pa-0 mb-2"
-                @focus="$event.target.select()"
-                @keyup.enter="getData()"
+        <!-- search top -->
+        <div id="search-top">
+          <v-text-field
+            outlined
+            style="max-width: 400px"
+            type="search"
+            id="searchBox"
+            dense
+            name="search"
+            label="Search by title"
+            v-model="title"
+            autocomplete="off"
+            prepend-inner-icon="mdi-magnify"
+            hide-details
+            clearable
+            class="pa-0 mb-2"
+            @focus="$event.target.select()"
+            @keyup.enter="getData()"
+          >
+            <div slot="append" hidden>
+              <v-btn color="success" icon @click="getData()"
+                ><v-icon> mdi-movie-search</v-icon></v-btn
               >
-                <div slot="append" hidden>
-                  <v-btn color="success" icon @click="getData()"
-                    ><v-icon> mdi-movie-search</v-icon></v-btn
-                  >
-                </div>
-              </v-text-field>
             </div>
+          </v-text-field>
+        </div>
 
-            <!-- POSTERS -->
+        <!-- POSTERS -->
+        <div v-if="loading">
+          <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
+        </div>
 
-            <div v-if="loading">
-              <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
-            </div>
+        <div v-if="items.length == 0 && !loading">No {{ type }}s found matching your search.</div>
+        <div class="posters_wrapper">
+          <div
+            class="poster_card"
+            v-for="(item, index) in items"
+            :key="index"
+            @click="openMovieDialog(item)"
+          >
+            <!-- image-->
+            <div class="image" style="width: 100%; cursor: pointer">
+              <!-- poster_path -->
+              <img
+                :src="language == 'es' && item.poster_es ? item.poster_es : item.poster"
+                :alt="item.title"
+                :class="[item.join_status.status == 'missing' ? 'blur_image' : '']"
+              />
 
-            <div v-if="items.length == 0 && !loading">
-              No {{ type }}s found matching your search.
-            </div>
-            <div class="posters_wrapper">
-              <div
-                class="poster_card"
-                v-for="(item, index) in items"
-                :key="index"
-                @click="openMovieDialog(item)"
-              >
-                <!-- image-->
-                <div class="image" style="width: 100%; cursor: pointer">
-                  <!-- poster_path -->
-                  <img
-                    :src="language == 'es' && item.poster_es ? item.poster_es : item.poster"
-                    :alt="item.title"
-                  />
-
-                  <div class="shield" v-if="getShieldIcon(item) != 'none'">
-                    <v-icon :color="getShieldColor(item)" width="60px">
-                      {{ getShieldIcon(item) }}
-                    </v-icon>
-                  </div>
-                </div>
-                <!-- text -->
-                <div class="content" v-if="false">
-                  <p style="font-size: 16px; line-height: normal">{{ item.title }}</p>
-
-                  <p>
-                    <a target="_blank" :href="watch_url">{{ getProvider(item.watch_url) }}</a
-                    >&nbsp;&nbsp;
-
-                    <a
-                      v-if="item.imdb"
-                      target="_blank"
-                      :href="'https://www.imdb.com/title/' + item.imdb"
-                      >IMDB</a
-                    >
-                  </p>
-                  <p
-                    v-for="(cs, index) in Object.keys(getSkipScenes(item))"
-                    :key="index"
-                    :style="{
-                      color: cs == 'pending' ? 'red' : cs == 'safe' ? 'green' : 'yellow',
-                      lineHeight: 'normal',
-                      fontSize: '13px',
-                    }"
-                  >
-                    <span style="text-transform: capitalize">{{ cs }}:</span>
-                    {{ getSkipScenes(item)[cs].join(', ') }}
-                  </p>
-                  <span style="position: absolute; bottom: 5px">{{ item.provider }}</span>
-                </div>
+              <div class="shield" v-if="getShieldIcon(item) != 'none'">
+                <v-icon :color="getShieldColor(item)" size="18">
+                  {{ getShieldIcon(item) }}
+                </v-icon>
               </div>
             </div>
-          </v-col>
-        </v-row>
+            <!-- text -->
+            <div class="content" v-if="false"></div>
+          </div>
+        </div>
       </div>
     </section>
   </div>
@@ -503,6 +469,9 @@
 <script>
 //const rawTags = require('../assets/raw_tags')
 import sharedjs from '@/sharedjs'
+
+import ohana from '@/assets/ohana'
+
 import MovieDetailPage from '../components/MovieDetailPage'
 //const { searchMatch } = require('../sharedjs')
 export default {
@@ -546,6 +515,7 @@ export default {
         { text: 'Netflix', value: 'netflix' },
         { text: 'HBO', value: 'hboespana' },
         { text: 'Disney+', value: 'disneyplus' },
+        { text: 'Prime Video', value: 'primevideo' },
         { text: 'Movistar', value: 'movistar' },
         { text: 'Rakuten', value: 'rakuten' },
         { text: 'Youtube', value: 'youtube' },
@@ -597,7 +567,10 @@ export default {
     },
     certifiedOnly(newValue) {
       this.getData()
-      if (newValue) this.cleanOnly = true
+      if (newValue) this.cleanOnly = true //also make sure clean only is selected
+    },
+    type() {
+      this.getData()
     },
     title() {
       clearTimeout(this.titleTimeout)
@@ -653,14 +626,6 @@ export default {
       } else {
         return ['Very erotic']
       }
-
-      /*
-      var sex = rawTags.severities[0].slice(5 - this.sexSlider, 4)
-      var vio = rawTags.severities[1].slice(5 - this.vioSlider, 4)
-      var prof = rawTags.severities[2].slice(5 - this.profSlider, 4)
-      var tags = [...sex, ...vio, ...prof]
-      return tags
-      */
     },
 
     items() {
@@ -669,87 +634,57 @@ export default {
   },
   methods: {
     mergeItemsByImdbId_sameStatus(dataArray) {
-      console.log('key-merge', dataArray)
-      let keys = []
-      let final = []
+      //This merges items with same status (keeping as main the one with highest level), unless there are cuts, in which case we don't merge unless same number of cuts and same level
+      //This also modifies a bit the item structure, adding join_status, and providers: [{pid, watch_url, join_status, status}]
+
+      let keys = [] //to track which items we can merge
+      let final = [] //new array with items (merge and added join_status)
 
       dataArray.forEach((item) => {
-        let imdb = item.imdb
-        let join_status = this.joinStatus(item.status, this.skipTags)
-        console.log('joinstatus', join_status)
-        let key = imdb + join_status.status + join_status.cuts + join_status.level //force status is the same
+        let provider = {
+          pid: item.id,
+          watch_url: item.watch_url,
+          join_status: this.joinStatus(item.status, this.skipTags),
+          status: item.status,
+        }
 
-        console.log('keyy: ', key, join_status)
+        //if clean, we don't need to have same level to merge (we just keep highest)
+        let imdb = item.imdb
+        let key = ''
+        if (provider.join_status.cuts == 0) {
+          key = imdb + provider.join_status.status + provider.join_status.cuts
+        } else {
+          key =
+            imdb +
+            provider.join_status.status +
+            provider.join_status.cuts +
+            provider.join_status.level
+        }
 
         if (!keys.includes(key)) {
-          item.aux_key = key
-          item.join_status = join_status
+          //first time this movie apperas
+          item.join_status = provider.join_status
           item.count = 1
-          item.providers = [
-            {
-              pid: item.id,
-              watch_url: item.watch_url,
-              join_status: join_status,
-              status: item.status,
-            },
-          ]
+          item.providers = [provider]
           final.push(item)
           keys.push(key)
         } else {
-          console.log('mergeeee, ', item)
-          //this imdb id already exists, instead of adding it, we add just the provider info
-          //TODO: assuming first item has the right metadata (we could check and override that metadata to ensure best...)
+          //this imdb id already exists, with similar enough ohana status
           let i = final.findIndex((x) => x.imdb == imdb)
-          final[i].providers.push({
-            pid: item.id,
-            watch_url: item.watch_url,
-            join_status: join_status,
-            status: item.status,
-          })
+
+          if (provider.join_status.level > final[i].join_status.level) {
+            item.join_status = provider.join_status
+            item.count = final[i].count
+            item.providers = [provider, ...final[i].providers]
+
+            final[i] = item
+          } else {
+            final[i].providers.push(provider)
+          }
+
           final[i].count = final[i].count + 1
         }
       })
-      return final
-    },
-    mergeItemsByImdbId(dataArray) {
-      //This function takes the original array from the server (this.data) and creates a new version with no duplidated imdb Ids.
-      //For that, we take the keys from the first item, and then append "watch_url" values into a new array "watch_urls"
-
-      let imdbIds = []
-      let final = []
-
-      dataArray.forEach((item) => {
-        let imdb = item.imdb
-        let joinStatus = this.joinStatus(item.status, this.skipTags)
-        if (!imdbIds.includes(imdb)) {
-          item.join_status = joinStatus //to be updated with next movies
-          item.providers = [
-            {
-              pid: item.id,
-              watch_url: item.watch_url,
-              join_status: joinStatus,
-              status: item.status,
-            },
-          ]
-          item.watch_url = 'error: use providers array'
-          item.status = 'error: use providers array'
-          item.id = 'error. use providers array'
-          item.count = 1
-          final.push(item)
-          imdbIds.push(imdb)
-        } else {
-          //this imdb id already exists, let's join providers
-          let i = final.findIndex((x) => x.imdb == imdb)
-          final[i].providers.push({
-            pid: item.id,
-            watch_url: item.watch_url,
-            join_status: joinStatus,
-            status: item.status,
-          })
-          final[i].count = final[i].count + 1
-        }
-      })
-      console.log('final merged', final)
       return final
     },
 
@@ -768,7 +703,6 @@ export default {
         color: this.getShieldColor(item),
         providers: item.providers,
         imdb: item.imdb,
-        aux_key: item.aux_key,
 
         watch_url: item.watch_url,
       }
@@ -780,133 +714,19 @@ export default {
       scroll(0, 0)
     },
     getProvider(watchUrl) {
-      let u = new URL(watchUrl)
-      let h = u.hostname.replace('www.', '')
-      if (h.includes('netflix')) return 'Netflix'
-      if (h.includes('hbo')) return 'HBO'
-      if (h.includes('movistar')) return 'Movistar'
-      if (h.includes('primevideo')) return 'Prime Video'
-      if (h.includes('disneyplus')) return 'Disney Plus'
-      return h
-    },
-    setType(type) {
-      this.type = type
-      this.getData()
-      this.data = []
+      return ohana.providers.getName(watchUrl)
     },
 
-    translateStatus(status) {
-      switch (status) {
-        case 'done':
-          return 'filtered'
-        case 'missing':
-          return 'pending'
-        default:
-          return 'unknown'
-      }
-    },
-    getSkipScenes(item) {
-      //returns JSON with {tagName: status}, only for the tags user cares.
-
-      var taggedAux = {}
-
-      var skipTagsR = [...this.skipTags].reverse() //reverse to show severe first
-      skipTagsR.forEach((label) => {
-        let tagStatus = item.status[label]
-
-        //missing
-        if (tagStatus && tagStatus.status == 'missing') {
-          if (!taggedAux.pending) taggedAux.pending = []
-          taggedAux.pending.push(label)
-          //done
-        } else if (tagStatus && tagStatus.status == 'done') {
-          if (!taggedAux.safe) taggedAux.safe = []
-          label += ' (' + (tagStatus ? tagStatus.cuts : 0) + ')'
-          taggedAux.safe.push(label)
-          //unknown
-        } else {
-          if (!taggedAux.unknown) taggedAux.unknown = []
-          taggedAux.unknown.push(label)
-        }
-      })
-      return taggedAux
-    },
     getShieldColor(item) {
-      let join = this.joinStatus(item.status, this.skipTags)
-
-      if (join.status == 'done') {
-        if (join.level > 5) return 'blue'
-        return 'green'
-      } else if (join.status == 'missing') {
-        return 'red'
-      } else {
-        return 'gray'
-      }
+      return ohana.movies.getShieldColor(item.join_status.status, item.join_status.level)
     },
     getShieldIcon(item) {
       if (!this.skipTags.length) return 'none'
-
-      let join = this.joinStatus(item.status, this.skipTags)
-
-      //pick the right icon
-      if (join.status == 'done' && join.cuts == 0) {
-        return 'mdi-emoticon-happy'
-      } else if (join.status == 'done') {
-        return 'mdi-content-cut'
-      } else if (join.status == 'missing') {
-        return 'mdi-flag-variant'
-      } else {
-        return 'mdi-progress-question'
-      }
+      return ohana.movies.getShieldIcon(item.join_status.status, item.join_status.cuts)
     },
 
     joinStatus(tagged, skipTags) {
-      if (!tagged) return { status: 'unknown', cuts: 0, level: 0 }
-      if (!skipTags || !skipTags.length) return { status: 'unset', cuts: 0, level: 0 }
-      let status = 'done'
-      let cuts = 0
-      let level = Infinity
-
-      for (var tag of skipTags) {
-        // Set default
-        let s = tagged[tag] || {}
-        // Set num cuts/scenes & min user level
-        if (s.cuts) cuts += s.cuts
-        level = Math.min(level, s.level || 0)
-        // Set watchability status
-        if (s.status == 'missing') {
-          status = 'missing'
-        } else if (s.status != 'done') {
-          status = 'unknown'
-        }
-      }
-      return { status: status, cuts: cuts, level: level }
-    },
-
-    /*getShield(item) {
-      // If EVERY skipTags is included in tags_done.done
-      if (this.skipTags.every(x => item.tags_done.includes(x))) {
-        return 'done'
-      }
-
-      // If ANY skipTags is included in tags_missing
-      if (this.skipTags.some(x => item.tags_missing.includes(x))) {
-        return 'missing'
-      }
-
-      // Otherwise
-      return 'unknown'
-    },*/
-
-    buildURL(query) {
-      // Build url
-      var out = []
-      for (var key in query) {
-        out.push(key + '=' + encodeURIComponent(query[key]))
-      }
-      var url = 'https://api.ohanamovies.org/dev?' + out.join('&')
-      console.log(query, url)
-      return url
+      return ohana.movies.joinStatus(tagged, skipTags)
     },
 
     getMoreData() {
@@ -934,7 +754,7 @@ export default {
       let fetchedAt = new Date()
       this.fetchedAt = fetchedAt
 
-      var url = this.buildURL({
+      var url = ohana.utils.buildURL({
         action: 'findMovies',
         title: this.title ? this.title : '',
         clean: !this.title && this.cleanOnly ? JSON.stringify(this.skipTags) : '[]',
@@ -1088,6 +908,11 @@ div.posters_wrapper .image > img {
   height: 100%;
 }
 
+.blur_image {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+
 div.posters_wrapper div.poster_card div.content {
   width: 100%;
   padding: 26px 10px 12px 10px;
@@ -1104,16 +929,17 @@ div.posters_wrapper div.poster_card div.content {
   bottom: 0px;
   right: 0px;
 
-  width: 38px;
-  height: 38px;
+  width: 35px;
+  height: 35px;
   box-sizing: border-box;
   z-index: 99; /* make sure it stays on top of content*/
 }
 
 .shield i {
   background-color: white;
-  border-radius: 15px;
+  border-radius: 25px;
   padding: 5px;
+  margin: 3px;
 }
 
 .certified {

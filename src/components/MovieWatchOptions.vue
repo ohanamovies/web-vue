@@ -26,6 +26,15 @@
           target="_blank"
           >{{ $t('install') + ' Ohana' }}</a
         >
+        <br /><br />
+        <span
+          class="modern-link"
+          @click="
+            bypassUnsafe = true
+            bypassApp = true
+          "
+          >Show watch options anyway</span
+        >
       </div>
 
       <div v-else>
