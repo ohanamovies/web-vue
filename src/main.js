@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './plugins/vuex'
 // vue-head
 import VueHead from 'vue-head'
 
@@ -15,6 +16,7 @@ import '@mdi/font/css/materialdesignicons.css'
 import i18n from '@/plugins/i18n'
 
 Vue.use(VueHead)
+//Vue.use(Vuex) //not sure if redundant...
 
 Vue.config.productionTip = false
 
@@ -22,6 +24,8 @@ new Vue({
   i18n,
   router,
   VueHead,
+
   vuetify,
+  store,
   render: (h) => h(App),
 }).$mount('#app')

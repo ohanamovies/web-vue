@@ -237,6 +237,7 @@ const rawTags = require('@/assets/raw_tags')
 import ohana from '@/assets/ohana'
 
 import MovieWatchOptions from './MovieWatchOptions.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -285,6 +286,7 @@ export default {
   },
 
   computed: {
+    ...mapState(['store_example']), //work in progress, playing a bit with vuex.
     language() {
       //TODO: use vuex?
       return this.$i18n.locale.toLowerCase().split('-')[0]
