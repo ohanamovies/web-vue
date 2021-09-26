@@ -3,9 +3,7 @@
     <!-- no settings -->
 
     <div v-if="no_settings">
-      <router-link class="button special" to="/settings" target="_blank"
-        >Manage preferences</router-link
-      >
+      <router-link class="button special" to="/settings">Manage preferences</router-link>
     </div>
 
     <!-- Movie is clean -->

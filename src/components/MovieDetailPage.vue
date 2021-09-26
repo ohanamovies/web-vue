@@ -168,7 +168,7 @@
                         style="display: inline-block"
                       >
                         <fc-tooltip
-                          :text="'Confidence: ' + cofidence(tagged(sev).level) + '%'"
+                          :text="$t('confidence') + ': ' + cofidence(tagged(sev).level) + '%'"
                           :top="true"
                         >
                           <v-chip x-small class="ma-1">
