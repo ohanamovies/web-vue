@@ -8,46 +8,45 @@
         <div>
           Aquí encontraras una introducción sobre como usar Ohana:
           <ol>
-            <li><a href="/#how-to-watch">How to watch clean movies</a></li>
-            <li><a href="/#how-to-create-filters">How to create filters</a></li>
+            <li><a href="/#how-to-watch">Cómo ver películas cortadas</a></li>
+            <li><a href="/#how-to-create-filters">Cómo crear filtros</a></li>
           </ol>
           <p>
-            To learn what's Ohana visit our <router-link to="/about">About section</router-link>.
-            For a list of the most frequency asked questions visit our
+            Para saber qué es Ohana, visite nuestro <router-link to="/about">About section</router-link>.
+            Para obtener una lista de las preguntas más frecuentes, visite nuestro 
             <router-link to="/faqs">FAQs</router-link>.
           </p>
         </div>
 
         <div id="main-tutorial-content">
           <div id="how-to-watch">
-            <h2>How to watch a clean movie</h2>
+            <h2>Cómo ver películas cortadas</h2>
 
-            <h4>Step 1. Install Ohana</h4>
+            <h4>Paso 1. Instalar Ohana</h4>
             <ol>
               <li>
-                Make sure you are using Google Chrome on a computer.
+                Asegúrate de estar usando Google Chrome en un ordenador.
                 <span v-if="isChrome" style="color: green">✓</span
-                ><span v-else style="color: red">✗</span>
+                ><span *v-else style="color: red">✗</span>
               </li>
               <li>
-                Follow
+                Vaya al 
                 <a
                   href="https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf"
                   target="_blank"
-                  >this link</a
+                  >siguiente link</a
                 >
-                and click on 'Add to Chrome' to install our Chrome extension.
+                y haga clic en 'Agregar a Chrome' para instalar nuestra extensión de Chrome.
                 <span v-if="hasApp" style="color: green">✓</span
                 ><span v-else style="color: red">✗</span>
               </li>
-              <li>Pin the extension so it's visible.</li>
+              <li>Fija la extensión para que quede visible.</li>
             </ol>
 
-            <h4>Step 2. Define your sensitivity</h4>
+            <h4>Paso 2. Define tu sensibilidad</h4>
 
             <p>
-              You can now define what kind of content you want to skip. These settings will be used
-              all around to customize your Ohana experience.
+              Ahora puede escoger qué tipo de contenido desea omitir. Esta configuración se utilizará para personalizar toda su experiencia Ohana.
             </p>
 
             <p>
@@ -57,20 +56,17 @@
             </p>
 
             <p>
-              Open the main page of your favorite content providers:
+              Abra la página principal de sus proveedores de contenido favoritos:
               <a href="https://www.netflix.com" target="_blank">Netflix</a>,
               <a href="https://es.hboespana.com/" target="_blank">HBO</a>,
               <a href="https://www.disneyplus.com/" target="_blank">Disney Plus</a>,
-              <a href="https://ver.movistarplus.es//" target="_blank">Movistar Plus</a>, and click
-              on the Ohana icon to open the Ohana extension popup. Follow the instructions on the
-              popup to define your settings.
+              <a href="https://ver.movistarplus.es//" target="_blank">Movistar Plus</a>, y haga clic en en el icono de Ohana para abrir la ventana emergente de la extensión de Ohana. A continuación solo siga las instrucciones para definir su configuración.
             </p>
 
-            <h4>Step 3. Find a good clean movie to watch</h4>
+            <h4>Paso 3. Encuentra una buena película limpia para ver</h4>
 
             <p>
-              To help you find a good clean movie we use a set of icons to let you known if (based
-              on your personal settings) a movie / show can be watched safely.
+              Para ayudarlo a encontrar una buena película limpia, usamos un conjunto de íconos para hacerle saber si (basado en su configuración personal) se puede ver una película / serie de forma segura.
             </p>
 
             <p>
@@ -81,157 +77,144 @@
 
             <div>
               <p>
-                <v-icon color="green">mdi-emoticon-happy</v-icon><b>Clean:</b> Content was
-                originally safe, it didn't need to be edited.<br />
-
-                <v-icon color="green">mdi-content-cut</v-icon><b>Edited:</b> There was unwanted
-                content, but we will skip it all for you.<br />
-
+                <v-icon color="green">mdi-emoticon-happy</v-icon><b>Limpio:</b> El contenido era originalmente seguro, no necesitaba ser editado.<br />
+                <v-icon color="green">mdi-content-cut</v-icon><b>Editado:</b> Había contenido no deseado, pero lo omitiremos por ti.<br />
                 <v-icon color="blue">mdi-emoticon-happy</v-icon> |
-                <v-icon color="blue">mdi-content-cut</v-icon><b>Ohana Clean/Edited:</b> Blue icons
-                indicate it has been reviewed by Ohana trusted editors.<br />
-
-                <v-icon color="red">mdi-flag-variant</v-icon><b>Unsafe:</b> Unwanted content was
-                flagged, but movie hasn't been edited yet.<br />
-
-                <v-icon color="gray">mdi-progress-question</v-icon><b>Unknown:</b> We can't help as
-                we don't have information yet.
+                <v-icon color="blue">mdi-content-cut</v-icon><b>Ohana Clean/Edited:</b> Los iconos azules indican que ha sido revisado por editores de confianza de Ohana.<br />
+                <v-icon color="red">mdi-flag-variant</v-icon><b>Unsafe:</b> Se ha marcado el contenido como no deseado, pero la película aún no se ha editado.<br />
+                <v-icon color="gray">mdi-progress-question</v-icon><b>Unknown:</b> No podemos ayudar porque aún no tenemos información.
               </p>
-              <p>You will see those icons after telling us your sensitivity, in multiple places:</p>
+              <p>Verá esos íconos después de decirnos tu sensibilidad, en varios lugares:</p>
               <ol>
                 <li>
-                  In the <router-link to="/find-movies">content</router-link> section of this
-                  website.
+                  En la sección de <router-link to="/find-movies">contenido</router-link> de nuestra web.
                 </li>
-                <li>In the browser section of the content providers (like Netflix).</li>
+                <li>Desde la página web de los proveedores de contenido (como Netflix).</li>
                 <li>
-                  In the Chrome toolbar: the Ohana icon will be replaced by the filtering status
-                  icon when watching a movie
+                  En la barra de herramientas de Chrome: el ícono de Ohana será reemplazado por el ícono de estado de filtrado al ver una película.
                 </li>
               </ol>
 
-              <h4>Step 4. Enjoy the movie!</h4>
+              <h4>Paso 4. ¡Disfruta de la película!</h4>
               <p>
-                Grab some popcorn an enjoy the movie! We will skip all the unwanted content for you!
+                ¡Coge unas palomitas y disfruta de la película! ¡Saltaremos todo el contenido no deseado por ti!
               </p>
 
-              <h4>Step 5. Pro tip</h4>
+              <h4>Paso 5. Consejo de pro</h4>
               <p>
-                While watching a movie/show, the Ohana logo on the Chrome toolbar will change to let
-                you know if, based on your settings, that movie/show is safe to watch.
+                Mientras ve una película / serie, el logotipo de Ohana en la barra de herramientas de Chrome cambiará para informarle si, 
+                según su configuración, esa película / serie es seguro para ver según sus filtros personales.
               </p>
               <br />
               <p>
-                If you click on the icon, you will see a detailed list of scenes being skipped. Here
-                you can manually define which scenes to skip and which ones to watch on a one to one
-                basis
+                Si hace clic en el icono, verá una lista detallada de las escenas que se van a saltar. Aquí puede definir manualmente qué escenas 
+                omitir y cuáles poder ver.
               </p>
             </div>
           </div>
 
           <div id="how-to-create-filters">
-            <h2>How to create new filters</h2>
+            <h2>Cómo crear nuevos filtros</h2>
 
-            <h4>Step 1. Get ready</h4>
+            <h4>Paso 1. Preparación</h4>
             <p>
-              Make sure you have Ohana installed and that you have selected a good movie/series to
-              filter.
+              Asegúrate de haber instalado Ohana y de que has seleccionado una película o serie que quieras filtrar.
             </p>
             <p>
-              You can easily identify which movies require editing by looking for the
-              <i>Unkown</i> <v-icon color="gray">mdi-progress-question</v-icon> or <i>Unsafe</i>
-              <v-icon color="red">mdi-flag-variant</v-icon> icons, either by browsing your favourite
-              provider or in the <router-link to="/find-movies">content</router-link> section of
-              this website. (If you click on the <i>Unkown</i> and <i>Unsafe</i> label on the
-              website, you will see those movies that require editing).
-            </p>
-
-            <h4>Step 2. Open the editor's sidebar</h4>
-            <p>
-              Start watching the movie/episode you want to create filters for. Open the Ohana
-              extension popup and click on the 'Edit filters' button.
-            </p>
-            <p>
-              A sidebar will open. Follow the instructions to login/register and become an Ohana
-              editor! When you first register you will join as a <i>Young Padawan</i>, as you grow
-              in the use of Ohana and increase your community recognition, you will progress into a
-              <i>Jedi Master</i> with full editing powers!
+              Puedes identificar de forma fácil qué películas requieren edición mirando el icono de 
+              <i>Desconocido</i> <v-icon color="gray">mdi-progress-question</v-icon> o <i>Inseguro</i>
+              <v-icon color="red">mdi-flag-variant</v-icon>, desde tu distribuidor de películas favorito:
+              (Netflix, Disney+, HBO...); o bien desde la sección de <router-link to="/find-movies">contenido</router-link> 
+              de esta web. (Si tu haces clic sobre la etiqueta <i>Desconocido</i> o <i>Inseguro</i> en la web, 
+              verás las películas que requieren edición).
             </p>
 
-            <h4>Step 3. Create filters</h4>
+            <h4>Paso 2. Abre el editor de Ohana</h4>
             <p>
-              Grab some popcorn and start watching the movie/series. If you spot anything you want
-              to flag, press the "New filter" button or the keyboard shortcut "Alt + N". (If you
-              already know where the unwanted scene is, you can fastforward to that time and follow
-              the same process).
+              Empieza a ver la película o serie sobre la cual quieres realizar tus filtros.
+              Para ello es necesario que abras la extensión de Ohana y hagas clic sobre el botón 'Editar filtros'.
             </p>
             <p>
-              To protect you from unwanted content, while adding a scene the video will get muted
-              and a bit blurred. You can control this behaviour with the 'blur on mark' and 'mute on
-              mark' inputs.
-            </p>
-            <p>
-              To mark the end of an unwanted scene press "End filter" or "Alt + N". A popup asking
-              you to fine tune the filter will open.
+              La extensión se abrirá. Sigue las instrucciones de registro y ¡Forma parte del grupo de editores de Ohana!
+              Solo por registrarte como editor, serás un miembro <i>Joven Padawan</i>. Tan pronto como empieces a usar 
+              Ohana, ganes en experiencia y reconocimiento como editor, pasarás a ser un
+              <i>Maestro Jedi</i> con pleno uso de poderes de edición!
             </p>
 
-            <h4>Step 4. Fine tune filters</h4>
-            <p>Follow the instrucctions on the popup to fine tune the created filter...</p>
+            <h4>Paso 3. Creación de Filtros</h4>
+            <p>
+              Disfruta de unas palomitas y empieza a ver una película o serie. Si ves algo que quieras
+              editar, presiona en el botón "Nuevo filtro" o mediante el atajo de teclado "Alt + N". (Si ya
+              conoces donde está la escena que quieres editar, puedes avanzar a ese momento y continuar con el mismo proceso) 
+              
+            </p>
+            <p>
+              Para protegerte durante la edición de ese contenido que no deseas ver, el vídeo será silenciado
+              y quedará lieramente borroso. Puedes controls estos dos efectos mediante los botones de 'borroso' y 'silenciar'.
+            </p>
+            <p>
+              Para indicar el final de una escena no deseada, presiona "Finalizar filtro" o "Alt + N". 
+              Se abrirá una ventana emergente que te pedirá que ajustes el filtro.
+            </p>
 
-            <h4>Step 5. Set filter status</h4>
+            <h4>Paso 4. Afinar los filtros</h4>
+            <p>
+            Siga las instrucciones de la ventana emergente para ajustar el filtro creado ...
+            </p>
+
+            <h4>Paso 5. Establecer el estado del filtro</h4>
 
             <p>
-              Repeat steps 3 and 4 until all the unwanted scenes have been added. And last but not
-              least, it is importat to update the filter status to let everyone know this movie is
-              now safe to watch!
+              Repite los pasos 3 y 4 hasta que hayas añadido todas las escenas no deseadas. 
+              Por último, pero no menos importante, es importante actualizar el estado del 
+              filtro para que todos sepan que ahora es seguro ver esta película.
             </p>
 
             <p>
-              Click the "Set filter status" button and select, for each category &amp; tag, the
-              right status. Click on save and you are done! Now everyone in the world can enjoy a
-              clean movie/episode! In the name of everyone: thank you, you are a hero!
+            Haz clic en el botón "Establecer estado del filtro" y selecciona, para cada categoría y etiqueta, 
+            el estado correcto. Haga clic en guardar y ¡listo! ¡Ahora todo el mundo puede disfrutar de la película o episodio! 
+            En nombre de toda ´la comunidad de Ohana
+            ¡Gracias, eres un héroe!
             </p>
           </div>
 
           <!--<div id="more">
-            <h2>How to install Ohana</h2>
+            <h2> Cómo instalar Ohana</h2>
             <p>
-              As a basic, you can use <router-link to="/find-movies">this section</router-link> of the
-              Ohana website to find, among others, content that was originally clean and therefore
-              ready for you to watch out of the box.
+              
+              Como básico, puede usar <router-link to="/find-movies"> esta sección </router-link> de la web de Ohana
+              para buscar, entre otros, contenido que originalmente estaba editado y, por tanto, listo para que lo veas.
             </p>
             <p>
-              That requires no installation.
+              Esta opción no requiere que te instales nada.
             </p>
             <p>
-              But you may also want to watch those other movies that would be great if you could
-              just skip few specific scenes.
+              Pero es posible que desees ver otras películas que sería genial que omitiera alguna de sus escenas.
+              
             </p>
             <p>
-              We thoguth the same, and since we knew how to code, we created our Ohana Chrome
-              extension.
+              Pensamos lo mismo, y como sabíamos cómo programar, creamos nuestra extensión Ohana Chrome.
             </p>
             <p>
-              By installing it, you can watch content and we will take care of removing the pieces
-              that you don't want to watch.
+              Al instalarlo podrás ver contenido y nosotros nos encargaremos de quitar las escenas piezas que no deseas ver.
             </p>
             <p>This works as long as you:</p>
             <ol>
-              <li>Watch movies or shows using Chrome browser on a computer.</li>
-              <li>Have the Ohana extension installed in that browser.</li>
-              <li>Watch the content using one of the Ohana compatible platforms (link).</li>
-              <li>
-                You have an active account on that platform. Ohana will act as a remote to
-                automatically skip content, but you need to take care of accessing the content
+              <li>Ves películas o series desde tu navegador Chrome en un ordenador.</li>
+              <li>Tienes la extensión Ohana instalada en Chrome.</li>
+              <li>Veas contenido usando una de las plataformas compatibles con Ohana (enlace).</li>
+              <li>Tienes una cuenta activa en una de las plataformas compatibles. Ohana actuará como un control remoto 
+              para omitir contenido automáticamente, pero debes encargarte de poder
+              acceder al contenido.
               </li>
               <li>
-                The movie/show you are watching has been reviewed by Ohana or one of our editor.
+                La película o serie que estás viendo ha sido revisada por Ohana o uno de nuestros editores.
               </li>
             </ol>
           </div>
 
           <div>
-            <h2>How to find &amp; watch filtered movies?</h2>
+            <h2>¿Cómo buscar y ver películas filtradas?</h2>
           </div>-->
         </div>
       </div>
@@ -239,7 +222,7 @@
       <!--   DEFAULT TEXT -->
       <div class="inner" v-else>
         <div>
-          Here you will find a quick introduction on how to use Ohana, this is:
+          Aquí encontrarás una introducción rápida sobre cómo usar Ohana, esto es:
           <ol>
             <li><a href="#how-to-watch">How to watch clean movies</a></li>
             <li><a href="#how-to-create-filters">How to create filters</a></li>
