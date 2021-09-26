@@ -284,11 +284,9 @@ export default {
 
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
-    return sharedjs.headObject(
-      'Welcome to Ohana Movies',
-      "Ohana is your automated tv remote to skip unwanted content: Sex scenes, too violent content, disgusting scenes... You name it, we get rid of it making sure you don't miss the plot.",
-      this.$router.currentRoute.path
-    )
+    let title = 'Ohana Movies'
+    let desc = 'Ohana enables you to watch your favorite movies in a healthy way'
+    return sharedjs.headObject(title, desc)
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile']),

@@ -102,12 +102,11 @@ import { mapState } from 'vuex'
 export default {
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
-    return sharedjs.headObject(
-      'Our Community - Ohana',
-      'Meet (and join!) our community of volunteers',
-      this.$router.currentRoute.path
-    )
+    let title = 'Our Community - Ohana'
+    let desc = 'Meet (and join!) our community of volunteers'
+    return sharedjs.headObject(title, desc)
   },
+
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile']),
   },

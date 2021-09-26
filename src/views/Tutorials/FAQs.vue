@@ -144,11 +144,9 @@ export default {
 
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
-    return sharedjs.headObject(
-      'FAQs - Ohana',
-      'Have questions about Ohana Movies? We are here to answer them!',
-      this.$router.currentRoute.path
-    )
+    let title = 'FAQs - Ohana'
+    let desc = 'Have questions about Ohana Movies? We are here to answer them!'
+    return sharedjs.headObject(title, desc)
   },
 
   data() {

@@ -479,13 +479,13 @@ export default {
   components: {
     MovieDetailPage,
   },
+
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
-    return sharedjs.headObject(
-      'Find something clean to watch - Ohana',
-      'Browse throught hundreds of safe movies and tv shows, edited with love by our community',
-      this.$router.currentRoute.path
-    )
+    let title = 'Find something clean to watch - Ohana'
+    let desc =
+      'Browse throught hundreds of safe movies and tv shows, edited with love by our community'
+    return sharedjs.headObject(title, desc)
   },
 
   data() {

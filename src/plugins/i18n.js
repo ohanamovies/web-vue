@@ -69,6 +69,8 @@ const messages = {
     confidence: 'Confidence',
     /*others */
     restore_deafult_values: 'Restore default values',
+    navigate_to_home: 'Navigate to home',
+    manage_preferences: 'Manage preferences',
   },
   es: {
     whatIsOhana: '¿Qué es Ohana?',
@@ -81,7 +83,7 @@ const messages = {
     settings: 'Ajustes',
     getStarted: 'Empezar',
     learnMore: 'Descubre cómo',
-    discoverContent: 'Descubre películas',
+    discoverContent: 'Ver películas',
     support_ohana: 'Apoyar Ohana',
     discoverContent_long: 'Encuentra el mejor contenido',
     language: 'Idioma',
@@ -133,6 +135,8 @@ const messages = {
     confidence: 'Fiabilidad',
     /*others */
     restore_deafult_values: 'Restaurar valores por defecto',
+    navigate_to_home: 'Ir a la portada',
+    manage_preferences: 'Ajustar mis preferencias',
   },
 }
 

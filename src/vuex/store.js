@@ -17,6 +17,7 @@ const store = new Vuex.Store({
     skipTags: [],
     hasApp: false,
     extension_version: false,
+
     isChrome: false,
     isMobile: false,
   },
@@ -42,7 +43,7 @@ const store = new Vuex.Store({
     [mutations.IS_GOOGLE_CHROME](state, value) {
       state.isChrome = value
     },
-    [mutations.IS_MOBILE_CHANGE](state, value) {
+    [mutations.SET_IS_MOBILE](state, value) {
       state.isMobile = value
     },
   },
@@ -51,8 +52,8 @@ const store = new Vuex.Store({
       console.log('action: updateSettings', settings)
 
       //1. Update web
-      //commit(mutations.SET_SETTINGS, settings)
-      commit(mutations.IS_GOOGLE_CHROME, true)
+      commit(mutations.SET_SETTINGS, settings)
+      //commit(mutations.IS_GOOGLE_CHROME, true)
 
       //2. Ask the extension to save (they will trigger save extension when done too)
       let e = ohana.extension.events.SETTINGS_WEB_TO_EXTENSION

@@ -51,6 +51,12 @@
             </p>
 
             <p>
+              <router-link class="button special" to="/community">{{
+                $t('manage_preferences')
+              }}</router-link>
+            </p>
+
+            <p>
               Open the main page of your favorite content providers:
               <a href="https://www.netflix.com" target="_blank">Netflix</a>,
               <a href="https://es.hboespana.com/" target="_blank">HBO</a>,
@@ -66,6 +72,13 @@
               To help you find a good clean movie we use a set of icons to let you known if (based
               on your personal settings) a movie / show can be watched safely.
             </p>
+
+            <p>
+              <router-link class="button special" to="/find-movies">{{
+                $t('discoverContent')
+              }}</router-link>
+            </p>
+
             <div>
               <p>
                 <v-icon color="green">mdi-emoticon-happy</v-icon><b>Clean:</b> Content was
@@ -269,6 +282,11 @@
               You can now define what kind of content you want to skip. These settings will be used
               all around to customize your Ohana experience.
             </p>
+            <p>
+              <router-link class="button special" to="/community">{{
+                $t('manage_preferences')
+              }}</router-link>
+            </p>
 
             <p>
               Open the main page of your favorite content providers:
@@ -286,6 +304,13 @@
               To help you find a good clean movie we use a set of icons to let you known if (based
               on your personal settings) a movie / show can be watched safely.
             </p>
+
+            <p>
+              <router-link class="button special" to="/find-movies">{{
+                $t('discoverContent')
+              }}</router-link>
+            </p>
+
             <div>
               <p>
                 <v-icon color="green" class="mb-1">mdi-emoticon-happy</v-icon><b>Clean:</b> Content
@@ -455,11 +480,9 @@ const rawTags = require('../../assets/raw_tags')
 export default {
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
-    return sharedjs.headObject(
-      'Get started - Ohana',
-      'Learn how to watch clean content',
-      this.$router.currentRoute.path
-    )
+    let title = 'Get started - Ohana'
+    let desc = 'Learn how to watch clean content'
+    return sharedjs.headObject(title, desc)
   },
 
   data() {

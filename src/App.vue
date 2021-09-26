@@ -53,48 +53,31 @@
 <script>
 import ohana from '@/assets/ohana'
 import { mutations } from '@/vuex/types'
+import { mapState } from 'vuex'
 
 export default {
+  watch: {
+    hasApp_dev(newValue) {
+      //Override what we received from the extension
+      this.$store.commit(mutations.SET_HAS_APP, newValue)
+    },
+  },
   data() {
     return {
       windowWidth: 0,
-
       hasApp_dev: false,
-      extensionDetectedViaHook: false,
-
       showDevMenu: false,
     }
   },
   computed: {
+    ...mapState(['isChrome', 'isMobile', 'hasApp']),
     devMode() {
       return window.location.hostname == 'localhost'
-    },
-    isMobile() {
-      // breakpoints for columns:  https://vuetifyjs.com/en/components/grids/
-      //return this.windowWidth < 960
-      return this.$store.state.isMobile
-    },
-
-    hasApp() {
-      return this.$store.state.hasApp
-      /*if (this.devMode) {
-        return this.hasApp_dev
-      } else {
-        return this.$store.state.hasExtension
-      }*/
-    },
-    isChrome() {
-      return this.$store.state.isChrome
     },
   },
   mounted() {
     //check if hasApp by listening to hook from the extension.
     this.checkExtension()
-
-    document.addEventListener('extension_present', () => {
-      console.log('[web] Ohana Extension detected!')
-      this.hasApp = true
-    })
 
     this.hasApp_dev = this.hasApp //default value for hasApp_dev (we can always override)
 
@@ -112,14 +95,15 @@ export default {
       if (this.windowWidth < 960) {
         is_mobile = true
       }
-      this.$store.commit(mutations.IS_MOBILE_CHANGE, is_mobile)
+      this.$store.commit(mutations.SET_IS_MOBILE, is_mobile)
+      //TODO: we should also re-evaluate the isChrome... as mobiles are not valid browsers
     },
     checkExtension() {
       //extension:
       const events = ohana.extension.events
 
       //Settings?
-      const default_settings = { username: '', skip_tags: [] }
+      const default_settings = { username: '', skip_tags: ['Very erotic'] }
       console.log('localStorage.settings', localStorage.settings)
       let settings = localStorage.settings ? JSON.parse(localStorage.settings) : default_settings
 
