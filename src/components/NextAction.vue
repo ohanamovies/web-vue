@@ -23,20 +23,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  props: {
-    isMobile: {
-      type: Boolean,
-      default: false,
-    },
-    isChrome: {
-      type: Boolean,
-      default: false,
-    },
-    hasApp: {
-      type: Boolean,
-      default: false,
-    },
+  computed: {
+    ...mapState(['isChrome', 'hasApp', 'isMobile']),
   },
 }
 </script>

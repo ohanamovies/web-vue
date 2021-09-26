@@ -9,6 +9,8 @@ const messages = {
   en: {
     whatIsOhana: 'What is Ohana?',
     welcome: 'Welcome to Ohana',
+    homeHeroText1: 'We are what we watch',
+    homeHeroText2: 'Ohana enables you to watch your favorite movies in a healthy way',
     install: 'Install',
     home: 'Home',
     about: 'About',
@@ -20,7 +22,7 @@ const messages = {
     discoverContent_long: 'Find something great to watch',
     language: 'Language',
     /* Home */
-    scroll_for_more: 'Scroll for more ;)',
+    scroll_for_more: 'Scroll to learn more ;)',
     /* Highlighted values on top*/
     prop1: 'Health',
     prop1Desc: 'Mental health aware',
@@ -71,6 +73,8 @@ const messages = {
   es: {
     whatIsOhana: '¿Qué es Ohana?',
     welcome: 'Bienvenido a Ohana',
+    homeHeroText1: 'Somos lo que vemos',
+    homeHeroText2: 'Ohana te permite ver tus películas favoritas de forma saludable',
     install: 'Instalar',
     ome: 'Portada',
     about: 'Acerca de',
@@ -82,7 +86,7 @@ const messages = {
     discoverContent_long: 'Encuentra el mejor contenido',
     language: 'Idioma',
     /* Home */
-    scroll_for_more: 'Sigue leyendo ;)',
+    scroll_for_more: 'Baja para saber más ;)',
     /* Highlighted values on top*/
     prop1: 'Salud',
     prop1Desc: 'Concienciados del cuidado de la salud mental',

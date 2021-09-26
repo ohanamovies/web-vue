@@ -361,9 +361,6 @@
           :style="{ marginTop: isMobile ? '40px' : '0px', zIndex: 99999999999998 }"
         >
           <movie-detail-page
-            :isMobile="isMobile"
-            :isChrome="isChrome"
-            :hasApp="hasApp"
             :selection="selectedItemInfo"
             @close="showMovieDialog = false"
           ></movie-detail-page>
@@ -434,13 +431,13 @@
           <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
         </div>
 
-        <div v-if="items.length == 0 && !loading">No {{ type }}s found matching your search.</div>
+        <div v-if="data.length == 0 && !loading">No {{ type }}s found matching your search.</div>
         <div class="posters_wrapper">
           <div
             class="poster_card"
-            v-for="(item, index) in items"
+            v-for="(item, index) in data"
             :key="index"
-            @click="openMovieDialog(item)"
+            @click="openMovieDialog(item, index)"
           >
             <!-- image-->
             <div class="image" style="width: 100%; cursor: pointer">
@@ -476,6 +473,7 @@ import sharedjs from '@/sharedjs'
 import ohana from '@/assets/ohana'
 
 import MovieDetailPage from '../components/MovieDetailPage'
+import { mapState } from 'vuex'
 //const { searchMatch } = require('../sharedjs')
 export default {
   components: {
@@ -489,11 +487,7 @@ export default {
       this.$router.currentRoute.path
     )
   },
-  props: {
-    isMobile: { type: Boolean, default: false },
-    isChrome: { type: Boolean, default: false },
-    hasApp: { type: Boolean, default: false },
-  },
+
   data() {
     return {
       showMenu: false,
@@ -583,6 +577,7 @@ export default {
     },
   },
   computed: {
+    ...mapState(['isChrome', 'hasApp', 'isMobile']),
     language() {
       return this.$i18n.locale.toLowerCase().split('-')[0]
     },
@@ -624,16 +619,12 @@ export default {
     },
 
     skipTags() {
-      if (localStorage.skipTags) {
-        return JSON.parse(localStorage.skipTags)
-      } else {
-        return ['Very erotic']
-      }
+      return this.$store.state.settings.skip_tags || []
     },
 
-    items() {
+    /*items() {
       return this.data
-    },
+    },*/
   },
   methods: {
     mergeItemsByImdbId_sameStatus(dataArray) {
@@ -698,7 +689,7 @@ export default {
         this.mini = !this.mini
       }
     },
-    openMovieDialog(item) {
+    openMovieDialog(item, index) {
       console.log('itemmmm: ', item)
       this.showMovieDialog = true
       this.selectedItemInfo = {
@@ -708,7 +699,7 @@ export default {
         color: this.getShieldColor(item),
         providers: item.providers,
         imdb: item.imdb,
-
+        index: index,
         watch_url: item.watch_url,
       }
     },
@@ -766,6 +757,8 @@ export default {
         providers: JSON.stringify(this.providers),
         certified: this.certifiedOnly ? JSON.stringify(this.skipTags) : '[]',
         genres: JSON.stringify(this.genres),
+        sort_by: 'certified_date',
+        sort_dir: 'desc',
         type: this.type,
         page: this.page,
       })
@@ -975,7 +968,8 @@ div.posters_wrapper div.poster_card div.content {
 
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
-  word-break: break-all;
+  /*word-break: break-all;*/
+  white-space: pre-wrap;
   padding: 50%;
 
   padding-left: 5px;

@@ -41,6 +41,15 @@
         This browser is not compatible with Ohana.
         <br />
         <router-link class="button special" to="/get-started">Learn more</router-link>
+        <br /><br />
+        <span
+          class="modern-link"
+          @click="
+            bypassUnsafe = true
+            bypassApp = true
+          "
+          >Show watch options anyway</span
+        >
       </div>
     </div>
 
@@ -91,11 +100,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
-    isChrome: { type: Boolean, default: false },
-    hasApp: { type: Boolean, default: false },
-    isMobile: { type: Boolean, default: false },
     selection: {
       type: Object,
       deafult() {
@@ -115,6 +123,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['isChrome', 'hasApp', 'isMobile']),
     no_settings() {
       return this.selection.join_status.status == 'unset'
     },

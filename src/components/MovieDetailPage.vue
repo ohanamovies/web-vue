@@ -129,9 +129,6 @@
                 <div>
                   <movie-watch-options
                     style="margin-top: 20px"
-                    :isMobile="isMobile"
-                    :isChrome="isChrome"
-                    :hasApp="hasApp"
                     :selection="selection"
                     :title="item.metadata ? item.metadata.title : ''"
                   ></movie-watch-options>
@@ -189,9 +186,31 @@
                 <!-- Change my settings? -->
                 <div>
                   <br />
-                  <router-link class="modern-link" to="/settings"
-                    >Change my preferences</router-link
+                  <span
+                    class="modern-link"
+                    @click="showMyPreferences = true"
+                    v-if="!showMyPreferences"
                   >
+                    Check my preferences
+                  </span>
+                  <div v-if="showMyPreferences">
+                    <b style="font-size: 90%">This is what you are trying to avoid:</b>
+                    <br />
+                    <v-chip
+                      class="ma-1"
+                      x-small
+                      dense
+                      v-for="(item, k) in skipTags"
+                      :key="k"
+                      :class="{ chipdown: skipTags.includes(item) }"
+                    >
+                      {{ item }}
+                    </v-chip>
+
+                    <v-chip color="blue" class="ma-1" dense x-small outlined to="/settings"
+                      >Change...</v-chip
+                    >
+                  </div>
                 </div>
               </v-tab-item>
             </v-tabs-items>
@@ -244,18 +263,6 @@ export default {
     MovieWatchOptions,
   },
   props: {
-    isMobile: {
-      type: Boolean,
-      default: false,
-    },
-    isChrome: {
-      type: Boolean,
-      default: false,
-    },
-    hasApp: {
-      type: Boolean,
-      default: false,
-    },
     selection: {
       type: Object,
       default: function () {
@@ -265,7 +272,8 @@ export default {
   },
   data() {
     return {
-      showOhanaDetails: false,
+      showOhanaDetails: true,
+      showMyPreferences: false,
 
       tab: 1, //0: overview, 1: Ohana -> shall we start with Ohana?
       item: {},
@@ -286,10 +294,14 @@ export default {
   },
 
   computed: {
-    ...mapState(['store_example']), //work in progress, playing a bit with vuex.
+    ...mapState(['isChrome', 'hasApp', 'isMobile']),
+    skipTags() {
+      return this.$store.state.settings.skip_tags || []
+    },
+
     language() {
       //TODO: use vuex?
-      return this.$i18n.locale.toLowerCase().split('-')[0]
+      return ohana.user.language
     },
     mapping() {
       return {
@@ -381,7 +393,8 @@ export default {
     resetView() {
       this.tab = 1 //let's force this by default
       this.show_watch_options = false
-      this.showOhanaDetails = false
+      this.showOhanaDetails = true
+      this.showMyPreferences = false
     },
     tagsDescription() {
       let x = {} //tag:desc

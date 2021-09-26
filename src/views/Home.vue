@@ -7,9 +7,29 @@
     <section class="banner home-background" style="height: 100vh">
       <div class="inner" style="border-top: none">
         <header>
-          <h1 class="fadeInUp" style="font-size: 3rem">{{ $t('welcome') }}</h1>
-          <p hidden style="color: white; font-size: 1.2rem" class="fadeIn">
-            Ohana is an amazing app that does amazing things
+          <!--
+          <h1 class="fadeInUp" style="font-size: 3rem; margin-bottom: 5px">{{ $t('welcome') }}</h1>
+          <h2
+            style="
+              color: white;
+              font-weight: 400;
+              font-size: 1.2rem;
+              margin-top: 0px;
+              padding-top: 10px;
+              margin-bottom: 40px;
+            "
+          >
+            <span>We are what we watch... </span>
+
+            <span>Watch healthy with our software</span>
+          </h2>
+          -->
+
+          <h1 class="fadeInUp" style="font-size: 2.2rem; margin-bottom: 10px">
+            {{ $t('homeHeroText1') }}
+          </h1>
+          <p style="color: white; font-size: 1.2rem" class="fadeIn">
+            {{ $t('homeHeroText2') }}
           </p>
         </header>
 
@@ -192,6 +212,8 @@
             style="color: #469ae8"
             >Visit our Patreon now!</a
           >
+          <br />
+          <router-link to="/community" class="modern-link">Discover other ways to help</router-link>
         </article>
 
         <h3 style="font-size: 16pt; color: white; font-weight: 500; margin-top: 30px">Sponsors</h3>
@@ -252,26 +274,14 @@
 //import MyHeader from '@/components/MyHeader.vue' //now imported globally!
 import sharedjs from '@/sharedjs'
 import ScrollDownAnimation from '@/components/ScrollDownAnimation.vue'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
   components: {
     ScrollDownAnimation,
   },
-  props: {
-    isMobile: {
-      type: Boolean,
-      default: false,
-    },
-    isChrome: {
-      type: Boolean,
-      default: false,
-    },
-    hasApp: {
-      type: Boolean,
-      default: false,
-    },
-  },
+
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
     return sharedjs.headObject(
@@ -279,6 +289,9 @@ export default {
       "Ohana is your automated tv remote to skip unwanted content: Sex scenes, too violent content, disgusting scenes... You name it, we get rid of it making sure you don't miss the plot.",
       this.$router.currentRoute.path
     )
+  },
+  computed: {
+    ...mapState(['isChrome', 'hasApp', 'isMobile']),
   },
 }
 </script>

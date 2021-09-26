@@ -77,16 +77,12 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'Header',
-
-  props: {
-    isMobile: {
-      type: Boolean,
-      default: false,
-    },
-  },
   computed: {
+    ...mapState(['isChrome', 'hasApp', 'isMobile']),
     isHome() {
       return this.$route.path == '/'
     },

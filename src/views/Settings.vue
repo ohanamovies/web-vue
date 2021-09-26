@@ -2,24 +2,43 @@
   <div class="subpage">
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
       <div class="inner">
-        <p style="color: red"><b>Warning:</b> This page is now work in progress</p>
-        <p>
-          Right now, these settings apply only to this website. Make sure you manage your settings
-          on the extension too!
-        </p>
+        <h1 v-if="hasApp && settings.username">
+          <b>Hello {{ settings.username }} (level {{ settings.level }})</b>
+        </h1>
 
-        <p>We are working to make it possible that:</p>
+        <div v-if="hasApp">
+          <p>You have our extension installed (v {{ extension_version }})</p>
 
-        <ul>
-          <li>
-            This settings would apply to this browser everywhere: both in the extension and while
-            searching for movies
-          </li>
-          <li>
-            If you sign in, your preferences follow you everywhere, even to your mobile - to be
-            confirmed
-          </li>
-        </ul>
+          <p>
+            <b>Note:</b>
+            These settings apply only to this browser. If you sign in in a separated browser (e.g.:
+            Firefox, or other device like a phone), you will have to set your preferences again.
+          </p>
+        </div>
+
+        <div v-else style="margin-bottom: 20px">
+          <p>
+            <b>Warning:</b>
+            <span v-if="isChrome">
+              You don't have our extension installed (or are using an old version). You will need it
+              if you want to watch edited content.
+            </span>
+            <span v-else>
+              To watch edited content, you need to switch to a compatible browser, and install our
+              Chrome Extension.
+            </span>
+
+            <a
+              v-if="isChrome && !hasApp"
+              href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
+              target="_blank"
+              style="margin: 5px"
+              >{{ $t('install') }}</a
+            >
+
+            <router-link v-else-if="!isChrome" to="get-started">{{ $t('learnMore') }}</router-link>
+          </p>
+        </div>
 
         <!-- Sensitivity -->
         <Sensitivity @change="test1 = JSON.stringify($event)" style="margin-bottom: 30px" />
@@ -31,21 +50,22 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Sensitivity from '../components/Sensitivity.vue'
+
 //import sharedjs from '@/sharedjs'
 export default {
   components: {
     Sensitivity,
   },
-  props: {
-    isMobile: { type: Boolean, default: false },
-    isChrome: { type: Boolean, default: false },
-    hasApp: { type: Boolean, default: false },
-  },
+
   data() {
     return {
       test1: 0,
     }
+  },
+  computed: {
+    ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'extension_version']),
   },
 }
 </script>

@@ -5,129 +5,22 @@
       <h4 style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</h4>
       <p>Mark below the kind of content you want to avoid while watching movies.</p>
 
-      <b>Sex/Nudity:</b>
-      <div class="sliderticks">
-        <my-tooltip :text="tagsDescription['Very erotic']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: sexSlider > 1 }"
-            @click="sexSlider = sexSlider > 1 ? 1 : 2"
+      <div v-for="(cat, i) in categories" :key="i">
+        <b>{{ cat }}</b>
+        <div class="sliderticks">
+          <my-tooltip
+            :text="tagsDescription[tag]"
+            v-for="(tag, j) in raw_tags.severitiesR[i]"
+            :key="j"
           >
-            {{ $t('severe') }}
-          </v-chip>
-        </my-tooltip>
-
-        <my-tooltip :text="tagsDescription['Moderately erotic']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: sexSlider > 2 }"
-            @click="sexSlider = sexSlider > 2 ? 2 : 3"
-            >{{ $t('moderate') }}</v-chip
-          >
-        </my-tooltip>
-        <my-tooltip :text="tagsDescription['Mildly erotic']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: sexSlider > 3 }"
-            @click="sexSlider = sexSlider > 3 ? 3 : 4"
-            >{{ $t('mild') }}</v-chip
-          >
-        </my-tooltip>
-        <my-tooltip :text="tagsDescription['Slightly erotic']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: sexSlider > 4 }"
-            @click="sexSlider = sexSlider > 4 ? 4 : 5"
-            >{{ $t('slight') }}</v-chip
-          ></my-tooltip
-        >
-      </div>
-      <!--  cols="12" sm="6" md="4" -->
-      <b>Violence/Gore: </b>
-      <div class="sliderticks">
-        <my-tooltip :text="tagsDescription['Very gory']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: vioSlider > 1 }"
-            @click="vioSlider = vioSlider > 1 ? 1 : 2"
-            >{{ $t('severe') }}</v-chip
-          >
-        </my-tooltip>
-        <my-tooltip :text="tagsDescription['Moderately gory']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: vioSlider > 2 }"
-            @click="vioSlider = vioSlider > 2 ? 2 : 3"
-            >{{ $t('moderate') }}</v-chip
-          >
-        </my-tooltip>
-        <my-tooltip :text="tagsDescription['Mildly gory']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: vioSlider > 3 }"
-            @click="vioSlider = vioSlider > 3 ? 3 : 4"
-            >{{ $t('mild') }}</v-chip
-          >
-        </my-tooltip>
-        <my-tooltip :text="tagsDescription['Slightly gory']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: vioSlider > 4 }"
-            @click="vioSlider = vioSlider > 4 ? 4 : 5"
-            >{{ $t('slight') }}</v-chip
-          >
-        </my-tooltip>
-      </div>
-
-      <b>Profanity: </b>
-      <div class="sliderticks">
-        <my-tooltip :text="tagsDescription['Very profane']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: profSlider > 1 }"
-            @click="profSlider = profSlider > 1 ? 1 : 2"
-            >{{ $t('severe') }}</v-chip
-          >
-        </my-tooltip>
-        <my-tooltip :text="tagsDescription['Moderately profane']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: profSlider > 2 }"
-            @click="profSlider = profSlider > 2 ? 2 : 3"
-            >{{ $t('moderate') }}</v-chip
-          >
-        </my-tooltip>
-        <my-tooltip :text="tagsDescription['Mildly profane']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: profSlider > 3 }"
-            @click="profSlider = profSlider > 3 ? 3 : 4"
-            >{{ $t('mild') }}</v-chip
-          >
-        </my-tooltip>
-        <my-tooltip :text="tagsDescription['Slightly profane']">
-          <v-chip
-            dense
-            small
-            :class="{ skip: profSlider > 4 }"
-            @click="profSlider = profSlider > 4 ? 4 : 5"
-            >{{ $t('slight') }}</v-chip
-          >
-        </my-tooltip>
+            <v-chip dense small :class="{ skip: skip_tags.includes(tag) }" @click="toggleTag(i, j)">
+              {{ $t(severities[j]) }}
+            </v-chip>
+          </my-tooltip>
+        </div>
       </div>
     </div>
-    <span class="modern-link" @click="removeOhanaSettings()" style="margin-bottom: 30px">{{
+    <span class="modern-link" @click="reset2default()" style="margin-bottom: 30px">{{
       $t('restore_deafult_values')
     }}</span>
   </div>
@@ -135,38 +28,30 @@
 
 <script>
 const rawTags = require('../assets/raw_tags')
+
+//import ohana from '@/assets/ohana'
+import { mapState } from 'vuex'
 //import sharedjs from '@/sharedjs'
+
 export default {
-  props: {
-    isMobile: { type: Boolean, default: false },
-    isChrome: { type: Boolean, default: false },
-    hasApp: { type: Boolean, default: false },
-  },
   data() {
-    return {
-      skipTags: ['Very erotic'],
-      sexSlider: 2,
-      vioSlider: 1,
-      profSlider: 1,
-    }
+    return {}
   },
-  watch: {
-    sexSlider() {
-      this.sliders2skipTags()
-    },
-    vioSlider() {
-      this.sliders2skipTags()
-    },
-    profSlider() {
-      this.sliders2skipTags()
-    },
-    skipTags() {
-      this.skipTags2sliders()
-      this.saveSkipTags()
-      this.$emit('change', this.skipTags)
-    },
-  },
+  watch: {},
   computed: {
+    ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
+    skip_tags() {
+      return this.$store.state.settings.skip_tags
+    },
+    categories() {
+      return this.raw_tags.categories.slice(0, 3) //remove "others"
+    },
+    severities() {
+      return ['severe', 'moderate', 'mild', 'slight']
+    },
+    raw_tags() {
+      return rawTags
+    },
     tagsDescription() {
       let x = {} //tag:desc
       rawTags.content.forEach((cat) => {
@@ -178,80 +63,41 @@ export default {
     },
   },
   methods: {
-    sliders2skipTags() {
-      var sex = rawTags.severities[0].slice(5 - this.sexSlider, 4)
-      var vio = rawTags.severities[1].slice(5 - this.vioSlider, 4)
-      var prof = rawTags.severities[2].slice(5 - this.profSlider, 4)
-      var tags = [...sex, ...vio, ...prof]
-      this.skipTags = tags
-    },
-    skipTags2sliders() {
-      //Convert the array of skipTags into sliders' values
+    toggleTag(cat_index, sev_index) {
+      console.log('goooo', cat_index, sev_index)
 
-      for (let i = 0; i < rawTags.severities.length; i++) {
-        //Reversed, so we go from very to slight:
-        for (let j = rawTags.severities[i].length - 1; j >= 0; j--) {
-          const tag = rawTags.severities[i][j]
+      let skip_tags = [...this.skip_tags]
 
-          if (this.skipTags.includes(tag)) {
-            if (i == 0) this.sexSlider = 5 - j
-            if (i == 1) this.vioSlider = 5 - j
-            if (i == 2) this.profSlider = 5 - j
-          }
-        }
+      let tag = this.raw_tags.severitiesR[cat_index][sev_index]
+
+      let n = skip_tags.indexOf(tag) == -1 ? sev_index + 1 : sev_index //n will tell us how many tags of this sev we need to add (adding/removing the clicked one)
+
+      //remove all tags in this category (will re-add soon)
+      for (let j = 0; j < this.raw_tags.severitiesR[cat_index].length; j++) {
+        const tag = this.raw_tags.severitiesR[cat_index][j]
+        let i = skip_tags.indexOf(tag)
+        if (i != -1) skip_tags.splice(i, 1)
       }
-    },
-    sendEvent(name, detail) {
-      console.log('would send event ' + name + ', but not yet', detail)
-      //let event = new CustomEvent(name, { detail: detail })
-      //document.dispatchEvent(event)
-    },
-    listenEvent(name, callback) {
-      document.addEventListener(name, function (e) {
-        console.log('[web] raw listen', name, e.detail)
-        callback(e.detail)
-      })
-    },
-    saveSkipTags() {
-      //Save on localStorage (just in caes)
-      localStorage.skipTags = JSON.stringify(this.skipTags)
 
-      //Send event for hooks in extension (so it can save on chrome.storage)
-      this.sendEvent('ohana-skipTags-change', this.skipTags)
-    },
-
-    loadSkipTags() {
-      //We load from localStorage. If settings in extension, these will be overriden.
-
-      if (!this.hasApp) {
-        if (localStorage.skipTags) {
-          this.skipTags = JSON.parse(localStorage.skipTags)
-        } else {
-          this.skipTags = ['Very erotic']
-        }
-      } else {
-        //subscribe to changes from the extension, and override when they arrive
-        //TODO: Confirm this subscriction to listener isn't too late...
-        console.log('[web] listening to skiptags change')
-        this.listenEvent('ohana-skipTags-change', (skipTags) => {
-          console.log('[web] skipTags changed listened ', skipTags)
-          this.skipTags = skipTags
-        })
+      //add the ones that make sense based on the one clicked
+      for (let j = 0; j < n; j++) {
+        const tag = this.raw_tags.severitiesR[cat_index][j]
+        skip_tags.push(tag)
       }
-    },
-    removeOhanaSettings() {
-      localStorage.removeItem('ohanaSettings')
-      localStorage.removeItem('skipTags')
-      location.reload() //ugly, but was fast to do.
-    },
-  },
-  mounted() {
-    this.loadSkipTags()
 
-    this.listenEvent('ohana-skipTags-change', (skipTags) => {
-      console.log('[web] skipTags changed listened ', skipTags)
-      this.skipTags = skipTags
-    })
+      let settings = this.$store.state.settings
+      settings.skip_tags = skip_tags
+
+      this.$store.dispatch('updateSettings', settings)
+    },
+
+    reset2default() {
+      let defaultSkipTags = ['Very erotic']
+      let settings = this.$store.state.settings
+      settings.skip_tags = [...defaultSkipTags]
+
+      this.$store.dispatch('updateSettings', settings)
+    },
   },
 }
 </script>

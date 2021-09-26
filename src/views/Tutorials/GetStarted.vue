@@ -449,7 +449,9 @@
 
 <script>
 import sharedjs from '@/sharedjs'
+import { mapState } from 'vuex'
 const rawTags = require('../../assets/raw_tags')
+
 export default {
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
@@ -459,10 +461,7 @@ export default {
       this.$router.currentRoute.path
     )
   },
-  props: {
-    isChrome: { type: Boolean, default: false },
-    hasApp: { type: Boolean, default: false },
-  },
+
   data() {
     return {
       key: 'value',
@@ -475,6 +474,9 @@ export default {
       //   { text: 'Rakuten', value: 'rakuten' }
       // ]
     }
+  },
+  computed: {
+    ...mapState(['isChrome', 'hasApp', 'isMobile']),
   },
 }
 </script>

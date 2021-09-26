@@ -1,9 +1,15 @@
+const user = {
+  language() {
+    return this.$i18n.locale.toLowerCase().split('-')[0]
+  },
+}
+
 const movies = {
   /**
    *
    * @param {*} tagged
    * @param {Array} skipTags e.g.: ["Very erotic", "Very profane"]
-   * @returns {{status, cuts, level}}
+   * @returns {{status: string, cuts: number, level: number}}
    */
   joinStatus(tagged, skipTags) {
     if (!tagged) return { status: 'unknown', cuts: 0, level: 0 }
@@ -88,10 +94,26 @@ const utils = {
     console.log(query, url)
     return url
   },
+  isGoogleChrome() {
+    //TODO: make this robust, as this is not as accurate (MS Edge returns true)
+    //return window.navigator.vendor == 'Google Inc.'
+    return /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor)
+  },
+}
+
+const extension = {
+  events: {
+    //This is shared between extension/content-script-web and web/App.vue
+    EXTENSION_PRESENT: 'EXTENSION_PRESENT',
+    SETTINGS_WEB_TO_EXTENSION: 'SETTINGS_WEB_TO_EXTENSION',
+    SETTINGS_EXT_TO_WEB: 'SETTINGS_EXT_TO_WEB',
+  },
 }
 
 module.exports = {
+  user,
   movies,
   providers,
   utils,
+  extension,
 }

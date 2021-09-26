@@ -97,22 +97,9 @@
 
 <script>
 import sharedjs from '@/sharedjs'
+import { mapState } from 'vuex'
 
 export default {
-  props: {
-    isMobile: {
-      type: Boolean,
-      default: false,
-    },
-    isChrome: {
-      type: Boolean,
-      default: false,
-    },
-    hasApp: {
-      type: Boolean,
-      default: false,
-    },
-  },
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
     return sharedjs.headObject(
@@ -120,6 +107,9 @@ export default {
       'Meet (and join!) our community of volunteers',
       this.$router.currentRoute.path
     )
+  },
+  computed: {
+    ...mapState(['isChrome', 'hasApp', 'isMobile']),
   },
   data() {
     return {
