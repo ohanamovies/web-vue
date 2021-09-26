@@ -194,7 +194,7 @@
                     Check my preferences
                   </span>
                   <div v-if="showMyPreferences">
-                    <b style="font-size: 90%">This is what you are trying to avoid:</b>
+                    <b style="font-size: 90%">This is what you asked to skip:</b>
                     <br />
                     <v-chip
                       class="ma-1"

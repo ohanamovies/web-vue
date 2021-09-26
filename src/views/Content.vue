@@ -569,6 +569,9 @@ export default {
     type() {
       this.getData()
     },
+    skipTags() {
+      this.getData()
+    },
     title() {
       clearTimeout(this.titleTimeout)
       this.titleTimeout = setTimeout(() => {
@@ -635,6 +638,13 @@ export default {
       let final = [] //new array with items (merge and added join_status)
 
       dataArray.forEach((item) => {
+        //temp fix on HBO:
+        let idaux = item.id.split('_')
+        if (idaux[0] == 'hboespana') {
+          item.watch_url = 'https://es.hboespana.com/movies/-/' + idaux[1]
+          console.log('item.watch_url', item.watch_url)
+        }
+
         let provider = {
           pid: item.id,
           watch_url: item.watch_url,
@@ -657,7 +667,10 @@ export default {
         }
         //console.log('imdb: ' + imdb + ' | key: ' + key, item)
 
-        if (!keys.includes(key)) {
+        if (!imdb) {
+          //TODO: Find another way (so far done to hide the not-good-looking stuff)
+          //skip this item
+        } else if (!keys.includes(key)) {
           //first time this movie apperas
           item.join_status = provider.join_status
           item.count = 1
