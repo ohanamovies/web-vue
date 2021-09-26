@@ -73,7 +73,8 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  //mode: 'history', //this wasn't working on netlify, it should (hopefully) work now that we created the public/_redirects file as per https://answers.netlify.com/t/vue-app-not-routing-correctly-when-deployed/6363/4
+  //this wasn't working on netlify, it should (hopefully) work now that we created the public/_redirects file as per https://answers.netlify.com/t/vue-app-not-routing-correctly-when-deployed/6363/4
+  mode: 'history',
   routes: routes,
   scrollBehavior: function (to) {
     if (to.hash) {
