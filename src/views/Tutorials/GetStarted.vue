@@ -144,7 +144,7 @@
                 Mientras ves una película / serie, el logotipo de Ohana en la barra de herramientas
                 de Chrome cambiará para informarte si, según tus ajustes, esa película / serie ha
                 resultado saludable.
-              <br />
+              </p>
               <p>
                 Si haces clic en el icono, verás una lista detallada de las escenas que se van a
                 saltar. Aquí puedes definir manualmente qué escenas omitir y cuáles poder ver.
