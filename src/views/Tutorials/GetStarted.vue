@@ -45,7 +45,7 @@
             <ol>
               <li>
                 <b>Importante:</b> Asegúrate de estar usando
-                <a href="https://www.google.com/chrome/" target="_blank">Google Chrome</a> en un
+                <a href="https://www.google.com/chrome/" target="_blank">Google Chrome</a> en tu
                 ordenador. <span v-if="isChrome" style="color: green">✓</span
                 ><span v-else style="color: red">✗</span>
               </li>
@@ -56,7 +56,7 @@
                   target="_blank"
                   >siguiente link</a
                 >
-                y haz clic en 'Agregar a Chrome' para instalar nuestra extensión de Chrome.
+                y haz clic en 'Agregar a Chrome' para instalar nuestra extensión.
                 <span v-if="hasApp" style="color: green">✓</span
                 ><span v-else style="color: red">✗</span>
               </li>
@@ -66,7 +66,7 @@
             <h4>Paso 2. Define tu sensibilidad</h4>
 
             <p>
-              Ahora puedes escoger qué tipo de contenido quiers evitar. Esta configuración servirá
+              Ahora puedes escoger qué tipo de contenido quieres evitar. Esta configuración servirá
               para personalizar tu experiencia Ohana en todas partes.
             </p>
 
@@ -145,7 +145,6 @@
                 de Chrome cambiará para informarte si, según tus ajustes, esa película / serie ha
                 resultado saludable.
               </p>
-              <br />
               <p>
                 Si haces clic en el icono, verás una lista detallada de las escenas que se van a
                 saltar. Aquí puedes definir manualmente qué escenas omitir y cuáles poder ver.
@@ -181,7 +180,7 @@
               La extensión se abrirá. Sigue las instrucciones de registro y ¡Forma parte del grupo
               de editores de Ohana! Solo por registrarte como editor, serás un miembro
               <i>Joven Padawan</i>. Tan pronto como empieces a usar Ohana, ganes en experiencia y
-              reconocimiento como editor, pasarás a ser un <i>Maestro Jedi</i> con pleno uso de
+              reconocimiento como editor, pasarás a ser un <i>Maestro Jedi</i> ¡con pleno uso de
               poderes de edición!
             </p>
 
@@ -216,7 +215,7 @@
             <p>
               Haz clic en el botón "Establecer estado del filtro" y selecciona, para cada categoría
               y etiqueta, el estado correcto. Haga clic en guardar y ¡listo! ¡Ahora todo el mundo
-              puede disfrutar de la película o episodio! En nombre de toda ´la comunidad de Ohana
+              puede disfrutar de la película o episodio! En nombre de toda la comunidad de Ohana
               ¡Gracias, eres un héroe!
             </p>
           </div>
