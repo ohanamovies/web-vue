@@ -103,7 +103,10 @@ export default {
       const events = ohana.extension.events
 
       //Settings?
-      const default_settings = { username: '', skip_tags: ['Very erotic'] }
+      const default_settings = {
+        username: '',
+        skip_tags: this.$store.state.defaultSkipTags,
+      }
       console.log('localStorage.settings', localStorage.settings)
       let settings = localStorage.settings ? JSON.parse(localStorage.settings) : default_settings
 

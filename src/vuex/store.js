@@ -12,6 +12,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    defaultSkipTags: ['Very erotic', 'Moderately erotic', 'Very profane'],
     settings: { username: '', skip_tags: [] },
 
     skipTags: [],

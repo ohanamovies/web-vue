@@ -92,7 +92,7 @@ export default {
     },
 
     reset2default() {
-      let defaultSkipTags = ['Very erotic']
+      let defaultSkipTags = this.$store.state.defaultSkipTags
       let settings = this.$store.state.settings
       settings.skip_tags = [...defaultSkipTags]
 
@@ -102,22 +102,24 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 .sliderticks .v-chip {
   margin: 4px;
 }
 
-.skip .v-chip__content:before {
-  content: url('https://api.iconify.design/mdi:eye-off.svg?height=12');
+.skip .v-chip__content::before {
+  content: url('https://api.iconify.design/mdi:eye-off.svg?height=12&color=white');
   color: white !important;
-  opacity: 0.4;
+  opacity: 0.9;
   /*padding-top: 3px;*/
-  padding-right: 2px;
+  padding-top: 2px;
+  padding-right: 3px;
 }
 
 .skip {
-  background-color: #9e9e9e !important;
+  background-color: #6cc091 !important; /* #9e9e9e !important;*/
   border-color: #9e9e9e !important;
+  color: white !important;
   padding: 10px !important;
   /*color: white !important;*/
 }

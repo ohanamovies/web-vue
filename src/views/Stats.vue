@@ -152,15 +152,6 @@ h2 {
   margin-bottom: 5px;
 }
 
-/** */
-.skip .v-chip__content:before {
-  content: url('https://api.iconify.design/mdi:eye-off.svg?height=12');
-  color: white !important;
-  opacity: 0.4;
-  padding-top: 3px;
-  padding-right: 2px;
-}
-
 .skip {
   background-color: #9e9e9e !important;
   border-color: #9e9e9e !important;
