@@ -171,7 +171,7 @@
         </div>
 
         <div id="what-is-ohana">
-          <h2>{{ $t('whatIsOhana') }}</h2>
+          <h2>What is Ohana?</h2>
           <div class="image" style="float: right; padding: 10px">
             <img src="images/means-family.jpg" height="275px" />
           </div>
