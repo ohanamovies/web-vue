@@ -65,12 +65,10 @@
           tipo de escena? Ver a alguien robar es muy diferente a robar, ver porno es usar a la gente por placer.-->
 
           <h4>Escenas inquietantes</h4>
-          <p>
-          Desagradable, aterrador, repugnante... Podemos filtrar todo tipo de contenido, teniendo una especial mención en poder evitar también:<br />
-          - Contenido  para aquellas personas con adicciones (problemas con el juego, el alcohol, la pornografía...).<br />
+          Desagradable, aterrador, repugnante... Podemos filtrar todo tipo de contenido, teniendo una especial mención en poder evitar también:
+          - Contenido  para aquellas personas con adicciones (problemas con el juego, el alcohol, la pornografía...).
           - También podemos retirar aquellas escenas que contengan fobias o temas que puedan afectar a personas con trastorno por
           estrés postraumático y les pueda desencadenar flashbacks.
-          </p>
 
           <!--<h4>Otros usos</h4>
           <p>Filtrado ideológico (No hacemos eso aquí) Alejar al público / reducir la visibilidad de ciertas ideas / grupos. Línea fina con la educativa.
@@ -223,12 +221,10 @@
           different to stealing, watching porn is using people for pleasure.-->
 
           <h4>Disturbing scenes</h4>
-           <p>
-          Unpleasant, terrifying, disgusting ... We can filter all kinds of content, having a special mention in being able to avoid also:<br />
-          - Content for those with addictions (problems with gambling, alcohol, pornography ...).<br />
+          Unpleasant, terrifying, disgusting ... We can filter all kinds of content, having a special mention in being able to avoid also:
+          - Content for those with addictions (problems with gambling, alcohol, pornography ...).
           - We can also remove those scenes that contain phobias
           or topics that can affect people with post-traumatic stress disorder and can trigger flashbacks.
-          </p>
 
           <!--<h4>Other uses</h4>
           <p>Ideological filtering (We don't do that here) Keep the public from/reduce the visibility
