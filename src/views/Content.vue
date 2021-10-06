@@ -138,9 +138,9 @@
             >
           </div>
 
-          <!-- Clean/Certified Only -->
+          <!-- Clean/Certified Only - ->
           <div class="filterr">
-            <!-- TODO: hiding this checkbox as the idea is that it's always checked -->
+            <!- - TODO: hiding this checkbox as the idea is that it's always checked - ->
             <v-checkbox
               v-model="cleanOnly"
               hide-details
@@ -161,7 +161,7 @@
                 | <v-icon color="blue">mdi-emoticon-happy</v-icon>
               </div>
             </v-checkbox>
-          </div>
+          </div>-->
 
           <!-- Content safety chips -->
           <div class="filterr" v-if="false">
