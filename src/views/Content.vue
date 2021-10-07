@@ -169,7 +169,7 @@
               <div style="overflow-x: auto;  white-space: nowrap; ">
                 <div v-if="skipTags.length > 0" style="display:inline;">
                   -->
-            <b>{{ $t('safety') }}</b>
+            <b>{{ $t('safety') }}:</b>
             <v-chip class="ma-1" small dense v-for="(safety, k) in safety_icons" :key="k">
               <!-- TODO: COMMENTED AS A TEMPORAL SOLUTION TO AVOID LOCAL FILTERING
                     @click="
@@ -195,7 +195,7 @@
 
         <!-- Sensitivity -->
         <div class="filterr">
-          <h4 style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</h4>
+          <b>{{ $t('whatDoYouSkip') }}: </b>
 
           <v-chip
             class="ma-1"
@@ -514,8 +514,8 @@ export default {
         { text: 'Disney+', value: 'disneyplus' },
         { text: 'Prime Video', value: 'primevideo' },
         { text: 'Movistar', value: 'movistar' },
-        { text: 'Rakuten', value: 'rakuten' },
-        { text: 'Youtube', value: 'youtube' },
+        /*{ text: 'Rakuten', value: 'rakuten' },
+        { text: 'Youtube', value: 'youtube' },*/
       ],
 
       certifiedOnly: false,
