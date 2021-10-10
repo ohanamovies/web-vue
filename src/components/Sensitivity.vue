@@ -6,7 +6,7 @@
       <p>Mark below the kind of content you want to avoid while watching movies.</p>
 
       <div v-for="(cat, i) in categories" :key="i">
-        <b>{{ cat }}</b>
+        <b>{{ cat == 'Profanity' ? 'Language' : cat }}</b>
         <div class="sliderticks">
           <my-tooltip
             :text="tagsDescription[tag]"
@@ -64,8 +64,6 @@ export default {
   },
   methods: {
     toggleTag(cat_index, sev_index) {
-      console.log('goooo', cat_index, sev_index)
-
       let skip_tags = [...this.skip_tags]
 
       let tag = this.raw_tags.severitiesR[cat_index][sev_index]

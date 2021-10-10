@@ -128,19 +128,19 @@ var content = [
       {
         value: 'Mildly profane',
         title: 'Mildly profane',
-        description: '',
+        description: 'Mild language, eg: h*ll, d*mn...',
         implies: ['Slighty profane'],
       },
       {
         value: 'Moderately profane',
         title: 'Moderately profane',
-        description: '',
+        description: 'Swear words',
         implies: ['Slighty profane', 'Mildly profane'],
       },
       {
         value: 'Very profane',
         title: 'Very profane',
-        description: '',
+        description: 'Blasphemy: Speaking sacrilegiously about God or sacred things',
         implies: ['Slighty profane', 'Mildly profane', 'Moderately profane'],
       },
     ],
