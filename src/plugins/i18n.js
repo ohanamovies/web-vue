@@ -52,7 +52,7 @@ const messages = {
     /**/
     advanced_search: 'Advanced search',
     search_subtitle: `Find something great to watch!`,
-    whatDoYouSkip: 'What do you want to skip?',
+    whatDoYouSkip: 'Unhealthy content to skip',
     showAdvanced: 'Hide Advenced Search | Show Advanced Search',
     safety: 'Safety',
     movies: 'Movies',
@@ -118,7 +118,7 @@ const messages = {
     /**/
     advanced_search: 'Búsqueda avanzada',
     search_subtitle: 'Encuentra el mejor contenido',
-    whatDoYouSkip: '¿Qué quieres evitar?',
+    whatDoYouSkip: 'Contenido no saludable a evitar',
     showAdvanced: 'Ocultar búsqueda avanzada | Mostrar búsqueda avanzada',
     safety: 'Protección',
     movies: 'Películas',
