@@ -344,7 +344,7 @@ export default {
 
   methods: {
     cofidence(level) {
-      return Math.round((level / 6) * 100, 2)
+      return Math.round((level / 6) * 50 + 40, 2)
     },
     final_status(tag) {
       //For the given tag, get the status{} with the highest level, out of all the providers

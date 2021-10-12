@@ -84,7 +84,7 @@ const messages = {
     getStarted: 'Empezar',
     learnMore: 'Descubre cómo',
     discoverContent: 'Ver películas',
-    support_ohana: 'Apoyar Ohana',
+    support_ohana: 'Colabora',
     discoverContent_long: 'Encuentra el mejor contenido',
     language: 'Idioma',
     /* Home */
