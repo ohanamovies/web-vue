@@ -10,6 +10,17 @@ import ohana from '@/assets/ohana'
 
 Vue.use(Vuex)
 
+function checkSettings(settings) {
+  if (!settings.skip_tags) {
+    settings.skip_tags = store.state.defaultSkipTags
+  }
+
+  if (!settings.username) {
+    settings.username = ''
+  }
+  return settings
+}
+
 const store = new Vuex.Store({
   state: {
     defaultSkipTags: ['Very erotic', 'Moderately erotic', 'Very profane'],
@@ -29,6 +40,9 @@ const store = new Vuex.Store({
     //trigger mutations by using store.commit(mutationName, payload)
 
     [mutations.SET_SETTINGS](state, settings) {
+      //0. verify settings structure, use default if not right
+      settings = checkSettings(settings)
+
       //1. Save locally as fallback (in case no extension or removed later)
       localStorage.settings = JSON.stringify(settings)
 
@@ -51,6 +65,8 @@ const store = new Vuex.Store({
   actions: {
     updateSettings({ commit }, settings) {
       console.log('action: updateSettings', settings)
+
+      settings = checkSettings(settings)
 
       //1. Update web
       commit(mutations.SET_SETTINGS, settings)
