@@ -11,6 +11,7 @@ import GetStarted from '../views/Tutorials/GetStarted.vue'
 import FAQs from '../views/Tutorials/FAQs.vue'
 import NotFoundComponent from '../views/Tutorials/NotFoundComponent.vue'
 import Settings from '../views/Settings.vue'
+import Bye from '../views/Bye.vue'
 
 Vue.use(VueRouter)
 
@@ -46,9 +47,14 @@ const routes = [
     component: Stats,
   },
   {
-    path: '/get-started/',
+    path: '/get-started',
     name: 'GetStarted',
     component: GetStarted,
+  },
+  {
+    path: '/bye',
+    name: 'Bye',
+    component: Bye,
   },
   {
     path: '/faqs',
