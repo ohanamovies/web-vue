@@ -99,6 +99,18 @@ export default {
       //TODO: we should also re-evaluate the isChrome... as mobiles are not valid browsers
     },
     checkExtension() {
+      //0. listen to changes on localStorage (in case things change in another page and we don't have the extension)
+      window.addEventListener('storage', (e) => {
+        //Note: this is not fired for changes on same page, so should be safe :)
+        if (e.key == 'settings') {
+          if (e.newValue != e.oldValue) {
+            console.log('Changes detected on local storage on another page: Updating store here')
+            let new_settings = JSON.parse(e.newValue)
+            this.$store.commit(mutations.SET_SETTINGS, new_settings)
+          }
+        }
+      })
+
       //extension:
       const events = ohana.extension.events
 
