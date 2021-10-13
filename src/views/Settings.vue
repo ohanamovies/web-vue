@@ -2,6 +2,23 @@
   <div class="subpage">
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
       <div class="inner">
+        <div v-if="welcoming" style="padding: 10px; margin-bottom: 50px">
+          <h1 style="font-size: 18pt; font-weigth: 700">Thanks for installing Ohana!</h1>
+          <p>Here some next steps you may find useful:</p>
+          <ul>
+            <li>Review the default skip preferences below, and change if you wish.</li>
+            <li>
+              Check the <router-link to="/get-started">get started guide</router-link> to learn how
+              to use Ohana to both watch and edit movies.
+            </li>
+            <li>
+              Learn how you can help: <router-link to="/community">support ohana</router-link>
+            </li>
+            <li>Log-in or create a user (go to the extension popup)</li>
+          </ul>
+          <hr />
+        </div>
+
         <h1 v-if="hasApp && settings.username">
           <b>Hello {{ settings.username }} (level {{ settings.level }})</b>
         </h1>
@@ -66,6 +83,14 @@ export default {
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'extension_version']),
+    welcoming() {
+      var urlParams = new URLSearchParams(window.location.search)
+      if (urlParams.get('source') == 'install') {
+        return true
+      } else {
+        return false
+      }
+    },
   },
 }
 </script>

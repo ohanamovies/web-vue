@@ -353,6 +353,24 @@
     <section class="" id="main">
       <div class="inner">
         <h4 style="margin-bottom: 20px">{{ $t('discoverContent_long') }}</h4>
+        <div
+          v-if="type === 'show'"
+          style="
+            color: white;
+            background-color: rgba(74, 74, 74, 0.5);
+            border-radius: 5px;
+            padding: 8px;
+            margin-bottom: 10px;
+            font-size: 80%;
+            max-width: 500px;
+          "
+        >
+          We are still working to make this page useful for shows (managing seasons, episodes...).
+          Thanks for your patiente!
+          <router-link style="color: rgb(4, 85, 186); font-weight: bold" to="/community"
+            >Learn how you can help</router-link
+          >
+        </div>
 
         <v-dialog
           v-model="showMovieDialog"

@@ -11,21 +11,36 @@ import ohana from '@/assets/ohana'
 Vue.use(Vuex)
 
 function checkSettings(settings) {
-  if (!settings.skip_tags) {
-    settings.skip_tags = store.state.defaultSkipTags
+  if (settings && settings.ignore_default_settings) {
+    // Force default values if any key has a different data type
+    for (var key in store.state.default_settings) {
+      if (typeof store.state.default_settings[key] !== typeof settings[key]) {
+        settings[key] = store.state.default_settings[key]
+      }
+    }
+    return settings
+  } else {
+    return store.state.default_settings
   }
-
-  if (!settings.username) {
-    settings.username = ''
-  }
-  return settings
 }
 
 const store = new Vuex.Store({
   state: {
-    defaultSkipTags: ['Very erotic', 'Moderately erotic', 'Very profane'],
-    settings: { username: '', skip_tags: [] },
-
+    settings: {},
+    default_settings: {
+      username: '',
+      skip_tags: ['Very erotic', 'Moderately erotic', 'Very profane'],
+      ignore_default_settings: true,
+      pause_after_adding_scene: false,
+      playbackRate_on_mark: 1.5,
+      mute_on_mark: true,
+      blur_on_mark: 12,
+      mute_on_edit: true,
+      blur_on_edit: 8,
+      level: 0,
+      authToken: '',
+      welcomed: false,
+    },
     skipTags: [],
     hasApp: false,
     extension_version: false,
@@ -40,7 +55,7 @@ const store = new Vuex.Store({
     //trigger mutations by using store.commit(mutationName, payload)
 
     [mutations.SET_SETTINGS](state, settings) {
-      //0. verify settings structure, use default if not right
+      //0. validate settings structure, use default where not right
       settings = checkSettings(settings)
 
       //1. Save locally as fallback (in case no extension or removed later)

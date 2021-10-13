@@ -103,19 +103,27 @@ export default {
       const events = ohana.extension.events
 
       //Settings?
-      const default_settings = {
-        username: '',
-        skip_tags: this.$store.state.defaultSkipTags,
-      }
+      const default_settings = this.$store.state.default_settings
+
       console.log('localStorage.settings', localStorage.settings)
       let settings = localStorage.settings ? JSON.parse(localStorage.settings) : default_settings
 
       this.$store.commit(mutations.SET_SETTINGS, settings)
 
       //Settings change from the extension (propagate here)
-      document.addEventListener(events.SETTINGS_EXT_TO_WEB, (s) => {
-        console.log('[web] Settings from extension received', s.detail)
-        this.$store.commit(mutations.SET_SETTINGS, s.detail)
+      document.addEventListener(events.SETTINGS_EXT_TO_WEB, (e) => {
+        let s = e.detail
+        if (s.welcomed) {
+          console.log('[web] Settings from extension received. Updating store!', s)
+          this.$store.commit(mutations.SET_SETTINGS, s)
+        } else {
+          settings.welcomed = new Date().getTime()
+          console.log('[web] welcoming: ', settings.welcomed)
+          console.log(
+            `[web] Extension tried to push settings, but those aren't yet welcomed, so ignoring and sending back our web ones, with updated settings.welcome`
+          )
+          this.$store.dispatch('updateSettings', settings)
+        }
       })
 
       //Extension detected

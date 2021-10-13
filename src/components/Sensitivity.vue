@@ -13,7 +13,12 @@
             v-for="(tag, j) in raw_tags.severitiesR[i]"
             :key="j"
           >
-            <v-chip dense small :class="{ skip: skip_tags.includes(tag) }" @click="toggleTag(i, j)">
+            <v-chip
+              dense
+              small
+              :class="{ skip: skip_tags ? skip_tags.includes(tag) : false }"
+              @click="toggleTag(i, j)"
+            >
               {{ $t(severities[j]) }}
             </v-chip>
           </my-tooltip>
@@ -90,9 +95,8 @@ export default {
     },
 
     reset2default() {
-      let defaultSkipTags = this.$store.state.defaultSkipTags
       let settings = this.$store.state.settings
-      settings.skip_tags = [...defaultSkipTags]
+      settings.skip_tags = [...this.$store.state.default_settings.skip_tags]
 
       this.$store.dispatch('updateSettings', settings)
     },
