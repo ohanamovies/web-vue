@@ -20,6 +20,7 @@ function checkSettings(settings) {
     }
     return settings
   } else {
+    console.error('[alex] ouch', settings)
     return store.state.default_settings
   }
 }
@@ -39,7 +40,7 @@ const store = new Vuex.Store({
       blur_on_edit: 8,
       level: 0,
       authToken: '',
-      welcomed: false,
+      welcomed: 0,
     },
     skipTags: [],
     hasApp: false,
@@ -79,9 +80,11 @@ const store = new Vuex.Store({
   },
   actions: {
     updateSettings({ commit }, settings) {
-      console.log('action: updateSettings', settings)
+      console.log('[alex] action: updateSettings', settings)
 
       settings = checkSettings(settings)
+
+      console.log('[alex] action: cleaned settings: ', settings)
 
       //1. Update web
       commit(mutations.SET_SETTINGS, settings)
