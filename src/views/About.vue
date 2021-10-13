@@ -14,8 +14,8 @@
           </ol>
           <p>
             Para comenzar a usar Ohana visite nuestra sección
-            <router-link to="get-started">empezar</router-link>. Para obtener una lista de las preguntas más frecuentes,
-            visite nuestro <router-link to="/faqs">FAQs</router-link>.
+            <router-link to="get-started">empezar</router-link>. Para obtener una lista de las
+            preguntas más frecuentes, visite nuestro <router-link to="/faqs">FAQs</router-link>.
           </p>
         </div>
 
@@ -25,31 +25,37 @@
             <img src="images/means-family.jpg" height="275px" />
           </div>
           <p>
-            Ohana es una comunidad de familias y apasionados del cine como tú que comparten la pasión por las buenas películas limpias.
+            Ohana es una comunidad de familias y apasionados del cine como tú que comparten la
+            pasión por las buenas películas limpias.
           </p>
           <p>
-            Como comunidad, desarrollamos un conjunto de herramientas que ayudan a las personas a ver películas sin tener que preocuparse
-            por el contenido molesto o inapropiado que no quieren ver (escenas de sexo, contenido violento, etc.)
+            Como comunidad, desarrollamos un conjunto de herramientas que ayudan a las personas a
+            ver películas sin tener que preocuparse por el contenido molesto o inapropiado que no
+            quieren ver (escenas de sexo, contenido violento, etc.)
           </p>
           <p>
-            Nuestra extensión de Chrome se integra en Netflix, HBO, etc., lo que permite a los usuarios omitir aquellas escenas que no
-            quieren ver. ¡Con Ohana tú decides qué mirar y qué saltar!
+            Nuestra extensión de Chrome se integra en Netflix, HBO, etc., lo que permite a los
+            usuarios omitir aquellas escenas que no quieren ver. ¡Con Ohana tú decides qué mirar y
+            qué saltar!
             <!--¿No quieres ver escenas sangrientas? Dile a Ohana que se salte el contenido muy violento.-->
           </p>
           <p>
-            Si te gustan las películas geniales, pero no te gusta ver escenas inapropiadas, te encantará conocer Ohana.
+            Si te gustan las películas geniales, pero no te gusta ver escenas inapropiadas, te
+            encantará conocer Ohana.
           </p>
         </div>
 
         <div id="why-skipping">
           <h2>¿Por qué decidir qué ver?</h2>
 
-          ¿Por qué quieres saltarte escenas? ¿No es eso censura? Son muchas las razones por las que la gente podría querer saltarse escenas...
+          ¿Por qué quieres saltarte escenas? ¿No es eso censura? Son muchas las razones por las que
+          la gente podría querer saltarse escenas...
 
           <h4>Propósito educativo</h4>
 
-          Algunas escenas muestran comportamientos moralmente incorrectos como buenos (por ejemplo, el tipo genial es el traficante de drogas /
-          abusador sexual / ...). Esto empuja a los niños (y a todos realmente) a ver esas acciones como buenas.
+          Algunas escenas muestran comportamientos moralmente incorrectos como buenos (por ejemplo,
+          el tipo genial es el traficante de drogas / abusador sexual / ...). Esto empuja a los
+          niños (y a todos realmente) a ver esas acciones como buenas.
           <!--Podemos mostrar una pancarta en lugar de saltarnos la escena, ayudando a los padres a discutirla con sus hijos (y con los adultos
           conscientes de la perspectiva moral de la escena).
           Lo importante aquí es si la mala acción se presenta como buena. Pero una pancarta para escenas con ejemplos morales positivos también
@@ -57,18 +63,21 @@
 
           <h4>Usar vs amar</h4>
           <p>
-          Creemos que las personas deben ser amadas, no utilizadas. Queremos abordar el sexo como una forma de mostrar amor / entregarnos a la
-          otra persona. De esta forma tratamos de evitar utilizar a otras personas (ya sea físicamente o en un video) como herramienta para obtener placer.
+            Creemos que las personas deben ser amadas, no utilizadas. Queremos abordar el sexo como
+            una forma de mostrar amor / entregarnos a la otra persona. De esta forma tratamos de
+            evitar utilizar a otras personas (ya sea físicamente o en un video) como herramienta
+            para obtener placer.
           </p>
 
           <!--Aquí es importante si la escena está destinada a despertar al espectador (hay mucha desnudez en la capilla sixtina) ¿Ocurre esto con algún otro
           tipo de escena? Ver a alguien robar es muy diferente a robar, ver porno es usar a la gente por placer.-->
 
           <h4>Escenas inquietantes</h4>
-          Desagradable, aterrador, repugnante... Podemos filtrar todo tipo de contenido, teniendo una especial mención en poder evitar también:
-          - Contenido  para aquellas personas con adicciones (problemas con el juego, el alcohol, la pornografía...).
-          - También podemos retirar aquellas escenas que contengan fobias o temas que puedan afectar a personas con trastorno por
-          estrés postraumático y les pueda desencadenar flashbacks.
+          Desagradable, aterrador, repugnante... Podemos filtrar todo tipo de contenido, teniendo
+          una especial mención en poder evitar también: - Contenido para aquellas personas con
+          adicciones (problemas con el juego, el alcohol, la pornografía...). - También podemos
+          retirar aquellas escenas que contengan fobias o temas que puedan afectar a personas con
+          trastorno por estrés postraumático y les pueda desencadenar flashbacks.
 
           <!--<h4>Otros usos</h4>
           <p>Filtrado ideológico (No hacemos eso aquí) Alejar al público / reducir la visibilidad de ciertas ideas / grupos. Línea fina con la educativa.
@@ -81,21 +90,26 @@
         <div id="vision-statement">
           <h2>¿Por qué estamos aquí? (Visión)</h2>
           <blockquote>
-            Tenemos el sueño de que algún día Internet (y en especial ver películas) ayude a las personas a descubrir los valores familiares.
+            Tenemos el sueño de que algún día Internet (y en especial ver películas) ayude a las
+            personas a descubrir los valores familiares.
           </blockquote>
           <ol>
             <li>
-              Tenemos el sueño de que algún día todos puedan filtrar sin problemas el contenido no deseado <b>[evitar lo malo]</b>
+              Tenemos el sueño de que algún día todos puedan filtrar sin problemas el contenido no
+              deseado <b>[evitar lo malo]</b>
             </li>
             <li>
-              Tenemos el sueño de que algún día Internet promoverá el acceso y la creación de películas con buenos valores <b>[promover lo bueno]</b>
+              Tenemos el sueño de que algún día Internet promoverá el acceso y la creación de
+              películas con buenos valores <b>[promover lo bueno]</b>
             </li>
             <li>
-              Tenemos el sueño de que algún día los malos contenidos se conviertan en una oportunidad para aprender y discutir sobre las cosas
-              buenas <b>[transformar lo malo en bueno]</b>
+              Tenemos el sueño de que algún día los malos contenidos se conviertan en una
+              oportunidad para aprender y discutir sobre las cosas buenas
+              <b>[transformar lo malo en bueno]</b>
             </li>
             <li>
-              Tenemos el sueño de que un día este espíritu salte a la sociedad en general <b>[hasta el infinito y más allá]</b>
+              Tenemos el sueño de que un día este espíritu salte a la sociedad en general
+              <b>[hasta el infinito y más allá]</b>
             </li>
           </ol>
         </div>
@@ -131,12 +145,12 @@
 
         <div id="how-can-i-help">
           <h2>¿Cómo puedo ayudar?</h2>
-          Ohana es una comunidad de usuarios sin fines de lucro que brinda un servicio gratuito
-          a la sociedad. Por eso contamos con el apoyo de nuestros miembros.
+          Ohana es una comunidad de usuarios sin fines de lucro que brinda un servicio gratuito a la
+          sociedad. Por eso contamos con el apoyo de nuestros miembros.
           <ol>
             <li>
-              <b>Feedback.</b> Acabamos de empezar, así que tus ideas nos ayudarán a ser aún mejores.
-              Haznos saber <a href="https://forms.gle/cPr7XQhdS7x1y9hx7">qué piensas.</a>
+              <b>Feedback.</b> Acabamos de empezar, así que tus ideas nos ayudarán a ser aún
+              mejores. Haznos saber <a href="https://forms.gle/cPr7XQhdS7x1y9hx7">qué piensas.</a>
             </li>
             <li><b>Compártelo.</b> ¿Te gusta Ohana? ¡Compártelo con tus amigos y familiares!</li>
             <li>
@@ -221,10 +235,11 @@
           different to stealing, watching porn is using people for pleasure.-->
 
           <h4>Disturbing scenes</h4>
-          Unpleasant, terrifying, disgusting ... We can filter all kinds of content, having a special mention in being able to avoid also:
-          - Content for those with addictions (problems with gambling, alcohol, pornography ...).
-          - We can also remove those scenes that contain phobias
-          or topics that can affect people with post-traumatic stress disorder and can trigger flashbacks.
+          Unpleasant, terrifying, disgusting ... We can filter all kinds of content, having a
+          special mention in being able to avoid also: - Content for those with addictions (problems
+          with gambling, alcohol, pornography ...). - We can also remove those scenes that contain
+          phobias or topics that can affect people with post-traumatic stress disorder and can
+          trigger flashbacks.
 
           <!--<h4>Other uses</h4>
           <p>Ideological filtering (We don't do that here) Keep the public from/reduce the visibility
