@@ -395,7 +395,7 @@ export default {
       this.tab = 1 //let's force this by default
       this.show_watch_options = false
       this.showOhanaDetails = true
-      this.showMyPreferences = false
+      this.showMyPreferences = true
     },
     tagsDescription() {
       let x = {} //tag:desc
