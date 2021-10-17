@@ -67,6 +67,7 @@ const messages = {
     slight: 'Slight',
     /*movie popup */
     confidence: 'Confidence',
+    feedbackPopUp: 'Report a mistake',
     /*others */
     restore_deafult_values: 'Restore default values',
     navigate_to_home: 'Navigate to home',
@@ -133,6 +134,8 @@ const messages = {
     slight: 'Ligero',
     /*movie popup */
     confidence: 'Fiabilidad',
+    feedbackPopUp: 'Reportar un error',
+
     /*others */
     restore_deafult_values: 'Restaurar valores por defecto',
     navigate_to_home: 'Ir a la portada',

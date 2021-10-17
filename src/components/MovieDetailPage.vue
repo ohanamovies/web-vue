@@ -221,6 +221,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <!-- Feedbak button -->
+
         <a
           class="modern-link"
           target="_blank"
@@ -231,7 +232,7 @@
             ' - imdb:' +
             item.metadata.imdb
           "
-          >Feedback</a
+          >{{ $t('feedbackPopUp') }}</a
         >
       </v-card-actions>
     </v-card>
@@ -273,7 +274,7 @@ export default {
   data() {
     return {
       showOhanaDetails: true,
-      showMyPreferences: false,
+      showMyPreferences: true,
 
       tab: 1, //0: overview, 1: Ohana -> shall we start with Ohana?
       item: {},

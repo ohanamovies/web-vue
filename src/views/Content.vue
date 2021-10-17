@@ -418,7 +418,7 @@
         </div>
 
         <!-- search top -->
-        <div id="search-top">
+        <div id="search-top" style="display: flex">
           <v-text-field
             outlined
             style="max-width: 400px"
@@ -442,7 +442,27 @@
               >
             </div>
           </v-text-field>
+
+          <!-- advanced button more visible with search-->
+          <v-btn
+            :icon="isMobile"
+            :outlined="!isMobile"
+            @click="mini = !mini"
+            class="vbtn mt-1 ml-3"
+            :width="isMobile ? '' : '130'"
+          >
+            <v-icon>mdi-tune</v-icon>
+            {{ isMobile ? '' : 'advanced' }}
+          </v-btn>
         </div>
+        <p>
+          Results based on your
+          <router-link to="/settings" class="modern-link" style="font-size: 100%"
+            >settings</router-link
+          >
+          and
+          <span @click="mini = !mini" class="modern-link" style="font-size: 100%">filters</span>
+        </p>
 
         <!-- POSTERS -->
         <div v-if="loading">
