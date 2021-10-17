@@ -456,12 +456,14 @@
           </v-btn>
         </div>
         <p>
-          Results based on your
-          <router-link to="/settings" class="modern-link" style="font-size: 100%"
-            >settings</router-link
+          {{ $t('resultsBasedOn')[0] }}
+          <router-link to="/settings" class="modern-link" style="font-size: 100%">
+            {{ $t('resultsBasedOn')[1] }}</router-link
           >
-          and
-          <span @click="mini = !mini" class="modern-link" style="font-size: 100%">filters</span>
+          {{ $t('resultsBasedOn')[2] }}
+          <span @click="mini = !mini" class="modern-link" style="font-size: 100%">
+            {{ $t('resultsBasedOn')[3] }}</span
+          >
         </p>
 
         <!-- POSTERS -->

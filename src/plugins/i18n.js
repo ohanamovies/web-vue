@@ -68,6 +68,7 @@ const messages = {
     /*movie popup */
     confidence: 'Confidence',
     feedbackPopUp: 'Report a mistake',
+    resultsBasedOn: ['Results based on your', 'settings', 'and', 'filters'],
     /*others */
     restore_deafult_values: 'Restore default values',
     navigate_to_home: 'Navigate to home',
@@ -135,6 +136,7 @@ const messages = {
     /*movie popup */
     confidence: 'Fiabilidad',
     feedbackPopUp: 'Reportar un error',
+    resultsBasedOn: ['Resultados en función de tus', 'ajustes', 'y', 'filtros'],
 
     /*others */
     restore_deafult_values: 'Restaurar valores por defecto',
