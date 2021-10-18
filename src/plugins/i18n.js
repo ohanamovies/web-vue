@@ -67,7 +67,7 @@ const messages = {
     slight: 'Slight',
     /*movie popup */
     confidence: 'Confidence',
-    feedbackPopUp: 'Report a mistake',
+    feedbackPopUp: 'Report an error',
     resultsBasedOn: ['Results based on your', 'settings', 'and', 'filters'],
     /*others */
     restore_deafult_values: 'Restore default values',
