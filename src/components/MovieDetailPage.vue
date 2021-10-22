@@ -14,8 +14,7 @@
               ? item.metadata.title_es
               : item.metadata.title
           }}
-          <span style="font-size: 70%; color: gray"> ({{ mapping.year }})</span></span
-        >
+        </span>
         <!-- {{ selection }} -->
         <span class="mbutton">
           <v-icon @click="closeMe">mdi-close</v-icon>
@@ -24,8 +23,12 @@
 
       <!-- SUBTITLE -->
       <v-card-subtitle>
-        {{ 'TMDb Rating: ' + item.metadata.tmdb_rating }} |
-        {{ 'Runtime: ' + item.metadata.runtime + ' mins' }}
+        {{ item.metadata.tmdb_rating }}
+        <v-icon style="font-size: 100%; vertical-align: text-top; color: orange; margin-left: -3px"
+          >mdi-star</v-icon
+        >
+        | {{ item.metadata.runtime + ' mins' }} |
+        {{ mapping.year }}
       </v-card-subtitle>
 
       <!-- CONTENT -->
@@ -45,7 +48,7 @@
           <v-col class="pt-0">
             <v-tabs v-model="tab" class="mb-3 pa-0">
               <v-tabs-slider></v-tabs-slider>
-              <v-tab>IMDb</v-tab>
+              <v-tab>Overview</v-tab>
               <v-tab>Ohana </v-tab>
               <v-tab>Advanced</v-tab>
               <v-tab v-if="false">Image</v-tab>
@@ -102,7 +105,7 @@
                 </div>
 
                 <!-- Confidence badge -->
-                <fc-tooltip
+                <!--<fc-tooltip
                   :text="
                     cofidence(selection.join_status.level) > 99
                       ? 'Information has been verified by Ohana trusted editors'
@@ -123,7 +126,7 @@
                   ><v-icon color="blue" x-small v-if="cofidence(selection.join_status.level) > 99"
                     >mdi-check-decagram
                   </v-icon>
-                </fc-tooltip>
+                </fc-tooltip>-->
 
                 <!-- Watch on -->
                 <div>

@@ -73,17 +73,17 @@ var provider = {
 
     for (let provider in meta) {
       if (provider == 'netflix') {
-        return 'https://www.netflix.com/title/' + meta.netflix
+        return 'https://www.netflix.com/watch/' + meta.netflix
       } else if (provider == 'hboespana') {
         if (meta.type == 'show') {
           return 'https://es.hboespana.com/search'
         } else {
-          return 'https://es.hboespana.com/search'
+          return 'https://es.hboespana.com/movies/-/' + meta.hboespana + '/play'
         }
       } else if (provider == 'disneyplus') {
         return 'https://www.disneyplus.com/en-gb/video/' + meta.disneyplus
       } else if (provider == 'primevideo') {
-        return 'https://primevideo.com/detail?gti=' + meta.primevideo
+        return 'https://primevideo.com/watch?gti=' + meta.primevideo
       } else if (provider == 'movistarplus') {
         return 'https://ver.movistarplus.es/ficha?id=' + meta.movistarplus
       }
