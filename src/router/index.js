@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
+import Home2 from '../views/Home2.vue'
+import About2 from '../views/About2.vue'
 import Community from '../views/Community.vue'
 import Content from '../views/Content.vue'
 import Elements from '../views/Elements.vue'
@@ -20,6 +22,16 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/magic',
+    name: 'Home2',
+    component: Home2,
+  },
+  {
+    path: '/about2',
+    name: 'About2',
+    component: About2,
   },
   {
     path: '/about',
