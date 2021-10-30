@@ -428,6 +428,10 @@ export default {
 <style>
 /* Note: i had to remove the "scoped" keyword after style to override the input styles*/
 
+header {
+  background: transparent !important;
+}
+
 body {
   /* We need to limit the height and show a scrollbar
   height: 300px;*/
