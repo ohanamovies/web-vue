@@ -151,11 +151,10 @@
               class="poster"
               v-for="(item, index) in data"
               :key="index"
-              @click="openMovieDialog(item, index)"
+              @click="openMovieDialog(item)"
             >
               <!-- image-->
               <div class="image" style="width: 100%; cursor: pointer">
-                <!-- poster_path -->
                 <img
                   :src="getPoster(item)"
                   :alt="getTitle(item)"
@@ -185,7 +184,7 @@
 import sharedjs from '@/sharedjs'
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
-import MovieDetailPage from '../components/MovieDetailPage'
+import MovieDetailPage from '../components/MovieDetailPage2'
 
 export default {
   components: {
@@ -321,19 +320,10 @@ export default {
         this.mini = !this.mini
       }
     },
-    openMovieDialog(item, index) {
+    openMovieDialog(item) {
       console.log('itemmmm: ', item)
       this.showMovieDialog = true
-      this.selectedItemInfo = {
-        join_status: this.joinStatus(item.status, this.skipTags), //todo: fix this
-        id: item.id,
-        icon: this.getShieldIcon(item),
-        color: this.getShieldColor(item),
-        providers: item.providers,
-        imdb: item.imdb,
-        index: index,
-        watch_url: item.watch_url,
-      }
+      this.selectedItemInfo = item
     },
 
     scrollToTop() {
