@@ -301,7 +301,7 @@ export default {
   methods: {
     getPoster(item) {
       if (!item || !item.poster) return
-      return 'https://image.tmdb.org/t/p/w200' + item.poster[this.language] || item.poster['en']
+      return 'https://image.tmdb.org/t/p/w200' + item.poster[this.language] || item.poster['en'] //TODO: use size w154?
     },
     getTitle(item) {
       if (!item || !item.title) return
@@ -428,10 +428,6 @@ export default {
 <style>
 /* Note: i had to remove the "scoped" keyword after style to override the input styles*/
 
-header {
-  background: transparent !important;
-}
-
 body {
   /* We need to limit the height and show a scrollbar
   height: 300px;*/
@@ -495,6 +491,7 @@ div.posters_wrapper2 {
   white-space: nowrap;
   -ms-overflow-style: none; /* Hide scrollbar IE and Edge */
   scrollbar-width: none; /* Hide scrollbar Firefox */
+  padding-top: 10px; /* we need some space to elevate the poster on hover */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -514,6 +511,11 @@ div.posters_wrapper2 div.poster {
   overflow: hidden;
   max-width: 140px;
   min-width: 140px;
+  transition: top ease 0.4s;
+}
+
+div.posters_wrapper2 div.poster:hover {
+  top: -5px; /* elevate the poster a bit on hover (this works best with transition property) */
 }
 
 div.posters_wrapper2 .image {
@@ -522,7 +524,7 @@ div.posters_wrapper2 .image {
 }
 
 div.posters_wrapper2 .image > img {
-  object-fit: contain;
+  object-fit: cover;
   width: 100%;
   height: 100%;
 }

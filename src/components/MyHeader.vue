@@ -6,7 +6,7 @@
         :absolute="isHome"
         flat
         dense
-        :color="isHome ? 'rgba(0, 0, 0, 0)' : '#6cc091'"
+        :color="isHome || isNewHome ? 'rgba(0, 0, 0, 0)' : '#6cc091'"
         dark
         :style="{
           zIndex: '99999',
@@ -85,6 +85,9 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile']),
     isHome() {
       return this.$route.path == '/'
+    },
+    isNewHome() {
+      return this.$route.path == '/magic'
     },
   },
   data() {
