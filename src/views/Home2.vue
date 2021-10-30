@@ -481,7 +481,7 @@ textarea {
 }
 
 #posters {
-  background-color: black;
+  background-color: #141414;
 }
 
 #posters > .inner {

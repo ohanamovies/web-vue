@@ -106,36 +106,6 @@
                 <span class="modern-link" @click="showOhanaDetails = !showOhanaDetails">
                   {{ showOhanaDetails ? 'Hide Ohana details' : 'Show Ohana details' }}
                 </span>
-
-                <!-- Change my settings? -->
-                <div>
-                  <br />
-                  <span
-                    class="modern-link"
-                    @click="showMyPreferences = true"
-                    v-if="!showMyPreferences"
-                  >
-                    Check my preferences
-                  </span>
-                  <div v-if="showMyPreferences">
-                    <b style="font-size: 90%">This is what you asked to skip:</b>
-                    <br />
-                    <v-chip
-                      class="ma-1"
-                      x-small
-                      dense
-                      v-for="(item, k) in skipTags"
-                      :key="k"
-                      :class="{ chipdown: skipTags.includes(item) }"
-                    >
-                      {{ item }}
-                    </v-chip>
-
-                    <v-chip color="blue" class="ma-1" dense x-small outlined to="/settings"
-                      >Change...</v-chip
-                    >
-                  </div>
-                </div>
               </div>
             </div>
           </v-col>
@@ -146,24 +116,19 @@
         <v-spacer></v-spacer>
         <!-- Feedbak button -->
 
-        <a
-          class="modern-link"
-          target="_blank"
-          :href="
-            'https://docs.google.com/forms/d/e/1FAIpQLScnTNbXu79Sbinmlw6QhBIa5T76T0QCEMFLt4OIiSN08aHQKw/viewform?usp=pp_url&entry.2077317668=' +
-            '[feedback]' +
-            item.title +
-            ' - imdb:' +
-            item.imdb
-          "
-          >{{ $t('feedbackPopUp') }}</a
+        <a v-if="is_unknown || is_missing" class="modern-link" :href="feedback_link" target="_blank"
+          >Request review</a
         >
+        <span style="width: 10px"></span>
+        <a class="modern-link" :href="feedback_link" target="_blank">{{ $t('feedbackPopUp') }}</a>
+        <span style="width: 10px"></span>
+        <a class="modern-link" to="/settings">Change settings</a>
       </v-card-actions>
     </v-card>
 
     <!-- B: if no data, show "loading" or "error" -->
     <v-card v-else>
-      <v-card-text style="height: 250px">
+      <v-card-text style="height: 350px">
         <div v-if="loading">Loading...</div>
         <div v-else>
           <span> Error!</span>
@@ -180,7 +145,7 @@ const provider = require('@/assets/provider')
 const rawTags = require('@/assets/raw_tags')
 import ohana from '@/assets/ohana'
 
-import MovieWatchOptions from './MovieWatchOptions.vue'
+import MovieWatchOptions from './MovieWatchOptions2.vue'
 import { mapState } from 'vuex'
 
 export default {
@@ -212,7 +177,7 @@ export default {
   watch: {
     selection() {
       this.item = {} //reset
-      //this.getData()
+      this.getData()
       this.resetView()
     },
   },
@@ -221,6 +186,25 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile']),
     skipTags() {
       return this.$store.state.settings.skip_tags || []
+    },
+
+    feedback_link() {
+      return (
+        'https://docs.google.com/forms/d/e/1FAIpQLScnTNbXu79Sbinmlw6QhBIa5T76T0QCEMFLt4OIiSN08aHQKw/viewform?usp=pp_url&entry.2077317668=' +
+        '[request]: ' +
+        this.item.title.primary +
+        ' - imdb:' +
+        this.item.imdb
+      )
+    },
+    is_unknown() {
+      return (
+        this.selection.join_status.status == 'unknown' ||
+        this.selection.join_status.status == 'unkown'
+      )
+    },
+    is_missing() {
+      return this.selection.join_status.status == 'missing'
     },
 
     language() {
@@ -338,6 +322,7 @@ export default {
     },
 
     getData() {
+      this.item = this.selection
       let url = ohana.utils.buildURL({
         action: 'getMovie',
         imdb: this.selection.imdb,
@@ -357,7 +342,6 @@ export default {
   mounted() {
     this.categories = rawTags.categories
     this.severities = rawTags.severitiesR
-
     this.getData()
   },
 }
