@@ -4,12 +4,12 @@
     <!-- <my-header></my-header> -->
 
     <!-- Banner -->
-    <section class="banner home-background" style="height: 60vh !important">
-      <div style="margin-top: 10vh">
-        <h1 class="fadeInUp" style="font-size: 2.2rem; margin-bottom: 10px">
+    <section class="banner home-background" style="min-height: 20vh !important">
+      <div class="inner" style="border: none; padding: 0px !important">
+        <h1 class="fadeInUp" style="margin-bottom: 5px">
           {{ $t('homeHeroText1') }}
         </h1>
-        <p style="color: white; font-size: 1.2rem" class="fadeIn">
+        <p style="color: white" class="fadeIn">
           {{ $t('homeHeroText2') }}
         </p>
 
@@ -39,7 +39,7 @@
     </section>
 
     <section class="" id="posters">
-      <div class="inner" style="margin-top: 30px">
+      <div class="inner">
         <!--<div
           v-if="type === 'show'" class="warning"
           style="
@@ -143,7 +143,7 @@
         <div v-if="data.length == 0 && !loading">No {{ type }}s found matching your search.</div>
 
         <div v-for="(section, index) in sections" :key="index" style="max-width: 90%; margin: auto">
-          <h3 style="color: white; margin: 20px 0 0 0">{{ section.title }}</h3>
+          <h3 style="color: white; margin: 0; padding-top: 20px">{{ section.title }}</h3>
 
           <!-- POSTERS -->
           <div class="posters_wrapper2">
@@ -647,9 +647,6 @@ hr {
 }
 
 /* BANNER - optimize image size a little bit */
-.home-background {
-  min-height: 60vh;
-}
 
 .home-background {
   background-image: url('/images/banner-1500.jpg');
