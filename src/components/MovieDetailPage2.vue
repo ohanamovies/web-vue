@@ -21,6 +21,26 @@
         <v-icon class="star">mdi-star</v-icon>
         - {{ item.runtime + ' mins' }} -
         {{ item.released }}
+
+        <span>
+          -
+          <fc-tooltip
+            v-for="(g, index) in item.brief_status"
+            :key="index"
+            :text="getText(g, index)"
+          >
+            <v-chip :color="getColor(g)" x-small class="mr-1">{{ g }}</v-chip>
+          </fc-tooltip>
+        </span>
+
+        <span>
+          -
+          <fc-tooltip v-for="(g, index) in item.movieValues" :key="index" :text="getText(g, index)">
+            <v-chip :color="g.status > 0 ? 'green' : 'red'" x-small class="mr-1">{{
+              index
+            }}</v-chip>
+          </fc-tooltip>
+        </span>
       </v-card-subtitle>
 
       <!-- CONTENT -->
@@ -38,7 +58,7 @@
 
           <!-- Rest of info (in tabs for now) -->
           <v-col class="pt-0">
-            <div style="height: 250px; overflow-y: auto">
+            <div style="height: 350px; overflow-y: auto">
               <!-- TAB 1: IMDB -->
               <div>
                 <!-- Overview -->
@@ -46,34 +66,28 @@
 
                 <!-- Genres -->
                 <div style="margin-top: 5px">
-                  <b style="font-size: 0.8em">Genres: </b>
-                  <v-chip v-for="(g, index) in item.genres" :key="index" small class="mr-1">{{
-                    g
-                  }}</v-chip>
-                </div>
-
-                <div style="margin-top: 5px">
-                  <b style="font-size: 0.8em">Scenes: </b>
-                  <v-chip v-for="(g, index) in item.genres" :key="index" small class="mr-1">{{
-                    g
-                  }}</v-chip>
-                </div>
-
-                <div style="margin-top: 5px">
-                  <b style="font-size: 0.8em">Values: </b>
-                  <v-chip v-for="(g, index) in item.genres" :key="index" small class="mr-1">{{
+                  <b>Genres: </b>
+                  <v-chip v-for="(g, index) in item.genres" :key="index" x-small class="mr-1">{{
                     g
                   }}</v-chip>
                 </div>
 
                 <!-- Link to IMDb -->
                 <div>
+                  <b>More on: </b>
                   <a
                     :href="'https://www.imdb.com/title/' + item.imdb"
                     target="_blank"
                     style="font-size: 0.8em"
-                    >Read more on IMDb</a
-                  >
+                    >IMDb </a
+                  >,
+                  <a
+                    v-if="item.tmdb"
+                    :href="'https://www.themoviedb.org/' + item.tmdb"
+                    target="_blank"
+                    style="font-size: 0.8em"
+                    >TMDB
+                  </a>
                 </div>
               </div>
 
@@ -98,14 +112,6 @@
                     :title="item ? item.title : ''"
                   ></movie-watch-options>
                 </div>
-              </div>
-
-              <!-- TAB 3: ADVANCED -->
-              <div>
-                <!-- Ohana Details (cuts by category) -->
-                <span class="modern-link" @click="showOhanaDetails = !showOhanaDetails">
-                  {{ showOhanaDetails ? 'Hide Ohana details' : 'Show Ohana details' }}
-                </span>
               </div>
             </div>
           </v-col>
@@ -260,6 +266,13 @@ export default {
   },
 
   methods: {
+    getColor(tag) {
+      if (this.skipTags.includes(tag)) return 'red'
+      return 'lightgray'
+    },
+    getText(tag) {
+      return 'this a tooltip explaining the tag underneath... ' + tag
+    },
     final_status(tag) {
       //For the given tag, get the status{} with the highest level, out of all the providers
       let status = {}
@@ -335,6 +348,8 @@ export default {
         .then((data) => {
           let x = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly". Let's fix here to avoid other ifelse around
           this.item = JSON.parse(x)
+          this.item.brief_status = ['Very erotic', 'Mildly gory', 'Moderately profane']
+          this.item.movieValues = { Family: { status: -1 }, 'Cuidado necesitados': { status: 1 } }
           this.loading = false
         })
     },
@@ -373,6 +388,7 @@ export default {
   vertical-align: text-top !important;
   color: orange !important;
   margin-left: -3px !important;
+  /*margin: -3px 3px 3px 0px !important*/
 }
 
 .v-overlay--active {

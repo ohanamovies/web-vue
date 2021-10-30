@@ -2,6 +2,8 @@
   <div>
     <!-- no settings -->
 
+    <b>Watch options: </b>
+
     <div v-if="no_settings">
       <router-link class="button special" to="/settings">{{
         $t('manage_preferences')
