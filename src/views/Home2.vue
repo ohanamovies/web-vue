@@ -38,7 +38,7 @@
       </div>
     </section>
 
-    <section class="" id="posters">
+    <section id="posters">
       <div class="inner">
         <!--<div
           v-if="type === 'show'" class="warning"
@@ -87,6 +87,30 @@
           <v-icon v-else color="white" style="cursor: pointer">mdi-thumb-up</v-icon>
           <!- - TODO: may use mdi-tune - ->
         </v-btn>-->
+
+        <v-text-field
+          outlined
+          style="max-width: 400px"
+          type="search"
+          id="searchBox"
+          dense
+          name="search"
+          label="Search by title"
+          v-model="title"
+          autocomplete="off"
+          prepend-inner-icon="mdi-magnify"
+          hide-details
+          clearable
+          class="pa-0 mb-2"
+          @focus="$event.target.select()"
+          @keyup.enter="getData()"
+        >
+          <div slot="append" hidden>
+            <v-btn color="success" icon @click="getData()"
+              ><v-icon> mdi-movie-search</v-icon></v-btn
+            >
+          </div>
+        </v-text-field>
 
         <!-- search top - ->
         <div id="search-top" style="display: flex">
@@ -143,13 +167,13 @@
         <div v-if="data.length == 0 && !loading">No {{ type }}s found matching your search.</div>
 
         <div v-for="(section, index) in sections" :key="index" style="max-width: 90%; margin: auto">
-          <h3 style="color: white; margin: 0; padding-top: 20px">{{ section.title }}</h3>
+          <h4 style="color: white; margin: 0; padding-top: 20px">{{ section.title }}</h4>
 
           <!-- POSTERS -->
           <div class="posters_wrapper2">
             <div
               class="poster"
-              v-for="(item, index) in data"
+              v-for="(item, index) in bestMovies(index)"
               :key="index"
               @click="openMovieDialog(item)"
             >
@@ -230,14 +254,40 @@ export default {
       ],
 
       sections: [
-        { title: 'Cleaned for you by Ohana' },
-        { title: 'Family' },
-        { title: '...' },
-        { title: 'Best rated' },
-        { title: 'Classic movies' },
+        {
+          title: 'Cleaned for you by Ohana',
+          filter: (a) => {
+            return a
+          },
+        },
+        {
+          title: 'Family',
+          filter: (a) => {
+            if (!a.genres) return false
+            return a.genres.includes('Family')
+          },
+        },
+        {
+          title: '...',
+          filter: (a) => {
+            return a
+          },
+        },
+        {
+          title: 'Best rated',
+          filter: (a) => {
+            return a.imdbRating > 7 && a.imdbVotes > 1000
+          },
+        },
+        {
+          title: 'Classic movies',
+          filter: (a) => {
+            return a.released < 1990
+          },
+        },
       ],
 
-      title: 'die hard',
+      title: 'star wars',
       titleTimeout: null,
 
       providers: [],
@@ -315,6 +365,11 @@ export default {
       return ohana.movies.getShieldIcon(item.join_status.status, item.join_status.cuts)
     },
 
+    bestMovies(section) {
+      console.log(this.data)
+      return this.data.filter(this.sections[section].filter)
+    },
+
     onClickOutsideNavDrawer() {
       if (this.isMobile && !this.mini) {
         this.mini = !this.mini
@@ -350,7 +405,7 @@ export default {
     getData(more) {
       if (!more) {
         //if not more, let's scroll to top instead of keeping old scroll.
-        this.scrollToTop()
+        //this.scrollToTop()
         this.data = []
       }
 
@@ -412,14 +467,14 @@ export default {
     this.getData()
 
     // Detect when scrolled to bottom.
-    const footer = document.querySelector('#footer')
+    /*const footer = document.querySelector('#footer')
     const body = document.getElementsByTagName('body')[0]
     body.onscroll = () => {
       let left = body.clientHeight - window.innerHeight - footer.clientHeight - window.scrollY
       if (left < 200) {
         this.getMoreData()
       }
-    }
+    }*/
   },
 }
 </script>
@@ -481,8 +536,9 @@ textarea {
 }
 
 #posters > .inner {
-  max-width: 950px;
+  max-width: 1050px;
   margin: auto;
+  padding-bottom: 80px;
 }
 
 div.posters_wrapper2 {

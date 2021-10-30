@@ -17,7 +17,7 @@
 
       <!-- SUBTITLE -->
       <v-card-subtitle>
-        {{ item.tmdbRating }}
+        {{ item.imdbRating }}
         <v-icon class="star">mdi-star</v-icon>
         - {{ item.runtime + ' mins' }} -
         {{ item.released }}
@@ -57,7 +57,7 @@
           </v-col>
 
           <!-- Rest of info (in tabs for now) -->
-          <v-col class="pt-0">
+          <v-col>
             <div style="height: 350px; overflow-y: auto">
               <!-- TAB 1: IMDB -->
               <div>
@@ -91,26 +91,22 @@
                 </div>
               </div>
 
-              <!-- TAB 2: OHANA -->
+              <!-- Watch on -->
               <div>
-                <!-- Ohana Summary -->
+                <movie-watch-options
+                  style="margin-top: 20px"
+                  :selection="selection"
+                  :title="item ? item.title : ''"
+                ></movie-watch-options>
+              </div>
 
-                <div class="ohana-summary">
-                  <v-icon :color="selection.color" style="margin-right: 5px">
-                    {{ selection.icon == 'none' ? 'mdi-alert' : selection.icon }}
-                  </v-icon>
-                  <div style="margin: auto; margin-left: 0px">
-                    <span v-html="ohanaSummaryHtml"></span>
-                  </div>
-                </div>
-
-                <!-- Watch on -->
-                <div>
-                  <movie-watch-options
-                    style="margin-top: 20px"
-                    :selection="selection"
-                    :title="item ? item.title : ''"
-                  ></movie-watch-options>
+              <!-- Ohana Summary -->
+              <div class="ohana-summary">
+                <v-icon :color="selection.color" style="margin-right: 5px">
+                  {{ selection.icon == 'none' ? 'mdi-alert' : selection.icon }}
+                </v-icon>
+                <div style="margin: auto; margin-left: 0px">
+                  <span v-html="ohanaSummaryHtml"></span>
                 </div>
               </div>
             </div>
@@ -123,12 +119,11 @@
         <!-- Feedbak button -->
 
         <a v-if="is_unknown || is_missing" class="modern-link" :href="feedback_link" target="_blank"
-          >Request review</a
-        >
-        <span style="width: 10px"></span>
-        <a class="modern-link" :href="feedback_link" target="_blank">{{ $t('feedbackPopUp') }}</a>
-        <span style="width: 10px"></span>
-        <a class="modern-link" to="/settings">Change settings</a>
+          >Request review
+        </a>
+        <a v-else class="modern-link" :href="feedback_link" target="_blank">{{
+          $t('feedbackPopUp')
+        }}</a>
       </v-card-actions>
     </v-card>
 
