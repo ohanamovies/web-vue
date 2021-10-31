@@ -10,7 +10,7 @@ const messages = {
     whatIsOhana: 'What is Ohana?',
     welcome: 'Welcome to Ohana',
     homeHeroText1: 'We are what we watch',
-    homeHeroText2: 'Ohana enables you to watch your favorite movies in a healthy way',
+    homeHeroText2: 'Ohana lets you to watch your favorite movies in a healthy way',
     install: 'Install',
     home: 'Home',
     about: 'About',

@@ -34,6 +34,31 @@ const movies = {
     return { status: status, cuts: cuts, level: level }
   },
 
+  joinStatus2(tagged, skipTags) {
+    console.log(tagged, skipTags)
+    if (!tagged) return { status: 'unknown', cuts: 0, trust: 0 }
+    if (!skipTags || !skipTags.length) return { status: 'unset', cuts: 0, trust: 0 }
+    let health = 100
+    let cuts = 0
+    let trust = Infinity
+    let status = 'unset'
+
+    for (var tag of skipTags) {
+      // Set default
+      let s = tagged[tag] || {}
+      // Set num cuts/scenes & min user level
+      if (s.cuts) cuts += s.cuts
+      trust = Math.min(trust, s.trust || 0)
+      health = Math.min(health, s.health || 0)
+    }
+
+    if (health > 50) status = 'done'
+    else if (health < -50) status = 'missing'
+    else status = 'mixed'
+    if (trust < 2) status = 'unknown'
+    return { status: status, health: health, cuts: cuts, trust: trust }
+  },
+
   /**
    *
    * @param {string} status done, missing, unknown

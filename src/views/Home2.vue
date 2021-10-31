@@ -192,7 +192,7 @@
               </div>
               <!-- text -->
               <div class="placeholder-title" v-if="item.join_status.status == 'missing'">
-                <span>{{ item.title }}</span>
+                <span>{{ getTitle(item) }}</span>
               </div>
               <div class="content" v-if="false"></div>
             </div>
@@ -358,7 +358,7 @@ export default {
       return item.title[this.language] || item.title['en'] || item.title['primary']
     },
     getShieldColor(item) {
-      return ohana.movies.getShieldColor(item.join_status.status, item.join_status.level)
+      return ohana.movies.getShieldColor(item.join_status.status, item.join_status.trust)
     },
     getShieldIcon(item) {
       if (!this.skipTags.length) return 'none'
@@ -366,7 +366,7 @@ export default {
     },
 
     bestMovies(section) {
-      console.log(this.data)
+      if (!this.data) return this.data
       return this.data.filter(this.sections[section].filter)
     },
 
@@ -391,7 +391,7 @@ export default {
     },
 
     joinStatus(tagged, skipTags) {
-      return ohana.movies.joinStatus(tagged, skipTags)
+      return ohana.movies.joinStatus2(tagged, skipTags)
     },
 
     getMoreData() {
@@ -454,7 +454,7 @@ export default {
           }
 
           for (var i = 0; i < data.length; i++) {
-            data[i].join_status = this.joinStatus(data[i].status, this.skipTags)
+            data[i].join_status = this.joinStatus(data[i].movieContent, this.skipTags)
           }
 
           this.loading = false
