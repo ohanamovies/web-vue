@@ -19,23 +19,20 @@
       <v-card-subtitle>
         {{ item.imdbRating }}
         <v-icon class="star">mdi-star</v-icon>
-        - {{ item.runtime + ' mins' }} -
-        {{ item.released }}
+        - {{ item.runtime + ' mins' }} - {{ item.released }} -
 
         <span>
-          -
           <fc-tooltip
             v-for="(g, index) in item.brief_status"
             :key="index"
             :text="getText(g, index)"
           >
-            <v-chip :color="getColor(g)" x-small class="mr-1">{{ g }}</v-chip>
+            <v-chip :color="getColor(index, g)" x-small class="mr-1">{{ index }}</v-chip>
           </fc-tooltip>
         </span>
 
         <span>
-          -
-          <fc-tooltip v-for="(g, index) in item.movieValues" :key="index" :text="getText(g, index)">
+          <fc-tooltip v-for="(g, index) in item.movieValues" :key="index" :text="getText(index, g)">
             <v-chip :color="g.status > 0 ? 'green' : 'red'" x-small class="mr-1">{{
               index
             }}</v-chip>
@@ -261,48 +258,30 @@ export default {
   },
 
   methods: {
-    getColor(tag) {
-      if (this.skipTags.includes(tag)) return 'red'
+    getColor(key, value) {
+      console.log(value)
+      if (this.skipTags.includes(key)) {
+        if (value.health < -0.5) return 'red'
+        return 'orange'
+      }
       return 'lightgray'
     },
-    getText(tag) {
-      return 'this a tooltip explaining the tag underneath... ' + tag
+    getText(key, value) {
+      console.log(value)
+      return 'this a tooltip explaining the tag underneath... ' + key
     },
-    final_status(tag) {
-      //For the given tag, get the status{} with the highest level, out of all the providers
-      let status = {}
-      console.log(tag)
-      /*let max_level = -1
-      this.selection.providers.forEach((p) => {
-        try {
-          if (p.status[tag].level > max_level) {
-            max_level = p.status[tag].level
-            status = p.status[tag]
-          }
-        } catch (error) {
-          //nothing
+    getSummary(status) {
+      let brief_status = {}
+      for (let cat of ['erotic', 'gory', 'profane']) {
+        for (let sev of ['Very', 'Moderately', 'Mildly', 'Slightly']) {
+          let tag = sev + ' ' + cat
+          let s = status[tag]
+          if (s.health > 0.5 && s.trust > 1) continue
+          brief_status[tag] = s
+          break
         }
-      })*/
-
-      return status
-    },
-
-    tagged(tag) {
-      tag = tag.replace('Slighty', 'Slightly') //just in case!
-      let final_status = this.final_status(tag)
-      return {
-        color: ohana.movies.getShieldColor(final_status.status, final_status.level),
-        icon: ohana.movies.getShieldIcon(final_status.status, final_status.cuts),
-        count: final_status.count,
-        level: final_status.level || 0,
-        badge:
-          final_status.status == 'unknown'
-            ? ' (??)'
-            : final_status.cuts > 0
-            ? ` (${final_status.cuts})`
-            : '',
-        tag: tag,
       }
+      return brief_status
     },
 
     closeMe() {
@@ -343,8 +322,8 @@ export default {
         .then((data) => {
           let x = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly". Let's fix here to avoid other ifelse around
           this.item = JSON.parse(x)
-          this.item.brief_status = ['Very erotic', 'Mildly gory', 'Moderately profane']
-          this.item.movieValues = { Family: { status: -1 }, 'Cuidado necesitados': { status: 1 } }
+          this.item.brief_status = this.getSummary(this.item.movieContent)
+          this.item.movieValues = {} //{ Family: { status: -1 }, 'Cuidado necesitados': { status: 1 } }
           this.loading = false
         })
     },

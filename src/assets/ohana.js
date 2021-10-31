@@ -35,13 +35,14 @@ const movies = {
   },
 
   joinStatus2(tagged, skipTags) {
-    console.log(tagged, skipTags)
     if (!tagged) return { status: 'unknown', cuts: 0, trust: 0 }
     if (!skipTags || !skipTags.length) return { status: 'unset', cuts: 0, trust: 0 }
     let health = 100
     let cuts = 0
     let trust = Infinity
     let status = 'unset'
+    let color = 'red'
+    let icon = ''
 
     for (var tag of skipTags) {
       // Set default
@@ -52,11 +53,26 @@ const movies = {
       health = Math.min(health, s.health || 0)
     }
 
-    if (health > 50) status = 'done'
-    else if (health < -50) status = 'missing'
-    else status = 'mixed'
-    if (trust < 2) status = 'unknown'
-    return { status: status, health: health, cuts: cuts, trust: trust }
+    if (health > 50) {
+      status = 'done'
+      color = 'green'
+      icon = 'none'
+    } else if (health < -50) {
+      status = 'missing'
+      color = 'red'
+      icon = 'mdi-heart-broken'
+    } else {
+      status = 'mixed'
+      color = 'orange'
+      icon = 'mdi-heart-half-full'
+    }
+    if (trust < 2 || trust == Infinity) {
+      status = 'unknown'
+      color = 'lightgray'
+      icon = 'mdi-progress-question'
+    }
+
+    return { status: status, health: health, cuts: cuts, trust: trust, icon: icon, color: color }
   },
 
   /**

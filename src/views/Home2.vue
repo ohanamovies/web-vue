@@ -184,9 +184,9 @@
                   :alt="getTitle(item)"
                   :class="[item.join_status.status == 'missing' ? 'blur_image' : '']"
                 />
-                <div class="shield" v-if="getShieldIcon(item) != 'none'">
-                  <v-icon :color="getShieldColor(item)" size="18">
-                    {{ getShieldIcon(item) }}
+                <div class="shield" v-if="item.join_status.icon != 'none'">
+                  <v-icon :color="item.join_status.color" size="18">
+                    {{ item.join_status.icon }}
                   </v-icon>
                 </div>
               </div>
@@ -357,14 +357,6 @@ export default {
       if (!item || !item.title) return
       return item.title[this.language] || item.title['en'] || item.title['primary']
     },
-    getShieldColor(item) {
-      return ohana.movies.getShieldColor(item.join_status.status, item.join_status.trust)
-    },
-    getShieldIcon(item) {
-      if (!this.skipTags.length) return 'none'
-      return ohana.movies.getShieldIcon(item.join_status.status, item.join_status.cuts)
-    },
-
     bestMovies(section) {
       if (!this.data) return this.data
       return this.data.filter(this.sections[section].filter)
