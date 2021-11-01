@@ -141,7 +141,7 @@ export default {
     getLogo(provider) {
       if (provider == 'netflix') return 'images/netflix.png'
       if (provider == 'justwatch') return 'images/justwatch.jpg'
-      if (provider == 'primevideo') return 'images/netflix.png'
+      if (provider == 'primevideo') return 'images/primevideo.png'
       if (provider == 'disneyplus') return 'images/disneyplus.png'
       if (provider == 'hboespana') return 'images/hbomax.png'
       if (provider == 'hbomax') return 'images/hbomax.png'

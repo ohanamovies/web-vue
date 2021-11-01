@@ -53,20 +53,20 @@ const movies = {
       health = Math.min(health, s.health || 0)
     }
 
-    if (health > 50) {
+    if (health > 0.5) {
       status = 'done'
       color = 'green'
       icon = 'none'
-    } else if (health < -50) {
+    } else if (health < -0.5) {
       status = 'missing'
       color = 'red'
       icon = 'mdi-heart-broken'
     } else {
       status = 'mixed'
       color = 'orange'
-      icon = 'mdi-heart-half-full'
+      icon = 'mdi-heart-broken'
     }
-    if (trust < 2 || trust == Infinity) {
+    if (trust <= 1 || trust == Infinity) {
       status = 'unknown'
       color = 'lightgray'
       icon = 'mdi-progress-question'

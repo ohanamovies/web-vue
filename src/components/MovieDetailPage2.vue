@@ -8,9 +8,9 @@
         primary-title
         style="white-space: pre-wrap; word-break: keep-all; line-height: normal; margin-bottom: 5px"
       >
-        <span>{{ title }}</span>
+        <span style="max-width: calc(100% - 30px)">{{ title }}</span>
         <!-- {{ selection }} -->
-        <span class="mbutton">
+        <span style="margin: 0 5px auto auto">
           <v-icon @click="closeMe">mdi-close</v-icon>
         </span>
       </v-card-title>
@@ -58,11 +58,9 @@
             <div style="height: 350px; overflow-y: auto">
               <div>
                 <!-- Genres -->
-                <div style="margin-top: 5px">
+                <div style="display: flex; justify-content: space-between">
                   <b>Overview: </b>
-                  <v-chip v-for="(g, index) in item.genres" :key="index" x-small class="mr-1">{{
-                    g
-                  }}</v-chip>
+                  <i style="font-size: 85%">{{ item.genres.join(' - ') }}</i>
                 </div>
 
                 <!-- Overview -->
@@ -116,22 +114,24 @@
                   <span v-html="ohanaSummaryHtml"></span>
                 </div>
               </div>
+
+              <!-- Feedbak button -->
+              <div style="text-align: right; padding-right: 10px">
+                <a
+                  v-if="is_unknown || is_missing"
+                  class="modern-link"
+                  :href="feedback_link"
+                  target="_blank"
+                  >Request review
+                </a>
+                <a v-else class="modern-link" :href="feedback_link" target="_blank">{{
+                  $t('feedbackPopUp')
+                }}</a>
+              </div>
             </div>
           </v-col>
         </v-row>
       </v-card-text>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <!-- Feedbak button -->
-
-        <a v-if="is_unknown || is_missing" class="modern-link" :href="feedback_link" target="_blank"
-          >Request review
-        </a>
-        <a v-else class="modern-link" :href="feedback_link" target="_blank">{{
-          $t('feedbackPopUp')
-        }}</a>
-      </v-card-actions>
     </v-card>
 
     <!-- B: if no data, show "loading" or "error" -->
@@ -350,11 +350,6 @@ export default {
 <style>
 .v-slide-group__prev {
   display: none !important;
-}
-
-.mbutton {
-  margin-left: auto;
-  margin-right: 15px;
 }
 
 .ohana-summary {
