@@ -160,21 +160,31 @@
             {{ $t('resultsBasedOn')[3] }}</span
           >
         </p>-->
-        <div v-if="loading">
-          <v-progress-linear indeterminate color="#4bae77"></v-progress-linear>
-        </div>
 
         <div v-if="data.length == 0 && !loading">No {{ type }}s found matching your search.</div>
 
-        <div v-for="(section, index) in sections" :key="index" style="max-width: 90%; margin: auto">
+        <div
+          v-else
+          v-for="(section, index) in sections"
+          :key="index"
+          style="max-width: 90%; margin: auto"
+        >
           <h4 style="color: white; margin: 0; padding-top: 20px">{{ section.title }}</h4>
 
+          <!-- POSTERS (loading placeholder) -->
+          <div v-if="loading" class="posters_wrapper2">
+            <div class="poster" v-for="n in 10" :key="n">
+              <div class="image" style="width: 100%">
+                <img src="/images/empty-poster.png" class="waiting" alt="loading" />
+              </div>
+            </div>
+          </div>
           <!-- POSTERS -->
-          <div class="posters_wrapper2">
+          <div v-else class="posters_wrapper2">
             <div
               class="poster"
-              v-for="(item, index) in bestMovies(index)"
-              :key="index"
+              v-for="(item, index2) in bestMovies(index)"
+              :key="index2"
               @click="openMovieDialog(item)"
             >
               <!-- image-->
@@ -597,7 +607,6 @@ div.posters_wrapper2 div.poster div.content {
   position: absolute;
   bottom: 0px;
   right: 0px;
-
   width: 35px;
   height: 35px;
   box-sizing: border-box;
@@ -711,6 +720,26 @@ hr {
 @media only screen and (max-width: 400px) {
   .home-background {
     background-image: url('/images/banner-400.jpg');
+  }
+}
+
+.waiting {
+  background-color: gray;
+  animation-name: fading;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+}
+
+@keyframes fading {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.4;
   }
 }
 

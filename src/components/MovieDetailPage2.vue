@@ -56,35 +56,45 @@
           <!-- Rest of info (in tabs for now) -->
           <v-col>
             <div style="height: 350px; overflow-y: auto">
-              <!-- TAB 1: IMDB -->
               <div>
-                <!-- Overview -->
-                <div class="overview">{{ plot }}</div>
-
                 <!-- Genres -->
                 <div style="margin-top: 5px">
-                  <b>Genres: </b>
+                  <b>Overview: </b>
                   <v-chip v-for="(g, index) in item.genres" :key="index" x-small class="mr-1">{{
                     g
                   }}</v-chip>
                 </div>
 
+                <!-- Overview -->
+                <div class="overview" v-if="plot.length < 400 || viewMore">
+                  {{ plot }}
+                  <a v-if="plot.length >= 400" @click="viewMore = false">view less</a>
+                </div>
+                <div v-else>
+                  {{ plot.slice(0, 300) }}...
+                  <a @click="viewMore = true">view more</a>
+                </div>
+
                 <!-- Link to IMDb -->
-                <div>
+                <div style="margin: 10px 0 -10px 0">
                   <b>More on: </b>
-                  <a
-                    :href="'https://www.imdb.com/title/' + item.imdb"
-                    target="_blank"
-                    style="font-size: 0.8em"
-                    >IMDb </a
-                  >,
-                  <a
-                    v-if="item.tmdb"
-                    :href="'https://www.themoviedb.org/' + item.tmdb"
-                    target="_blank"
-                    style="font-size: 0.8em"
-                    >TMDB
-                  </a>
+                  <div>
+                    <a
+                      class="provider-link"
+                      target="_blank"
+                      :href="'https://www.imdb.com/title/' + item.imdb"
+                    >
+                      <img src="images/imdb.png" />
+                    </a>
+
+                    <a
+                      class="provider-link"
+                      target="_blank"
+                      :href="'https://www.themoviedb.org/' + item.tmdb"
+                    >
+                      <img src="images/tmdb.png" />
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -97,8 +107,8 @@
                 ></movie-watch-options>
               </div>
 
-              <!-- Ohana Summary -->
-              <div class="ohana-summary">
+              <!-- Ohana Summary HIDING WHILE BROKEN -->
+              <div v-if="false" class="ohana-summary">
                 <v-icon :color="selection.color" style="margin-right: 5px">
                   {{ selection.icon == 'none' ? 'mdi-alert' : selection.icon }}
                 </v-icon>
@@ -169,6 +179,7 @@ export default {
       categories: [],
       severities: [],
       loading: false,
+      viewMore: false,
     }
   },
 

@@ -77,22 +77,16 @@
 
     <!-- WATCH OPTIONS -->
     <!-- <div v-if="is_clean || (hasApp && is_done) || bypassApp ||  (is_done || bypassUnsafe)"> -->
-    <div
-      v-if="
-        is_clean ||
-        ((is_done || bypassUnsafe) && (hasApp || bypassApp)) ||
-        (is_unknown && bypassUnknown)
-      "
-    >
-      <div
+    <div v-else>
+      <a
+        class="provider-link"
         v-for="(provider, index) in selection.providers"
         :key="index"
-        style="margin: auto; margin-bottom: 10px"
+        target="_blank"
+        :href="getLink(provider.provider, provider.providerID)"
       >
-        <a :href="provider.watch_url" target="_blank" class="button"
-          >{{ getProvider(provider.watch_url) }}
-        </a>
-      </div>
+        <img :src="getLogo(provider.provider)" />
+      </a>
     </div>
   </div>
 </template>
@@ -133,7 +127,6 @@ export default {
     is_done() {
       return this.selection.join_status.status == 'done'
     },
-
     is_unknown() {
       return (
         this.selection.join_status.status == 'unknown' ||
@@ -145,19 +138,31 @@ export default {
     },
   },
   methods: {
-    getProvider(watchUrl) {
-      console.log('watchURL : ' + watchUrl)
-      let u = new URL(watchUrl)
-      let h = u.hostname.replace('www.', '')
-      if (h.includes('netflix')) return 'Netflix'
-      if (h.includes('hbo')) return 'HBO'
-      if (h.includes('movistar')) return 'Movistar'
-      if (h.includes('primevideo')) return 'Prime Video'
-      if (h.includes('disneyplus')) return 'Disney Plus'
-      return h
+    getLogo(provider) {
+      if (provider == 'netflix') return 'images/netflix.png'
+      if (provider == 'justwatch') return 'images/justwatch.jpg'
+      if (provider == 'primevideo') return 'images/netflix.png'
+      if (provider == 'disneyplus') return 'images/disneyplus.png'
+      if (provider == 'hboespana') return 'images/hbomax.png'
+      if (provider == 'hbomax') return 'images/hbomax.png'
+    },
+    getLink(provider, providerID) {
+      providerID = providerID.split('_')[1]
+      if (provider == 'netflix') return 'https://www.netflix.com/watch/' + providerID
+      if (provider == 'hboespana')
+        return 'https://es.hboespana.com/movies/-/' + providerID + '/play'
+      if (provider == 'disneyplus') return 'https://www.disneyplus.com/en-gb/video/' + providerID
+      if (provider == 'primevideo') return 'https://primevideo.com/watch?gti=' + providerID
+      if (provider == 'movistarplus') return 'https://ver.movistarplus.es/ficha?id=' + providerID
     },
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.provider-link > img {
+  width: 35px;
+  margin: 2px;
+  border-radius: 5px;
+}
+</style>
