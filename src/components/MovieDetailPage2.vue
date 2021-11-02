@@ -279,7 +279,7 @@ export default {
     },
     getText(key, value) {
       console.log(value)
-      return 'this a tooltip explaining the tag underneath... ' + key
+      return 'this a tooltip explaining the tag underneath... ' + JSON.stringify(key)
     },
     getSummary(status) {
       let brief_status = {}

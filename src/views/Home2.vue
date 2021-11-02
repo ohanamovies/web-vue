@@ -88,30 +88,32 @@
           <!- - TODO: may use mdi-tune - ->
         </v-btn>-->
 
-        <v-text-field
-          outlined
-          style="max-width: 400px"
-          type="search"
-          id="searchBox"
-          dense
-          name="search"
-          label="Search by title"
-          v-model="title"
-          autocomplete="off"
-          prepend-inner-icon="mdi-magnify"
-          hide-details
-          clearable
-          class="pa-0 mb-2"
-          @focus="$event.target.select()"
-          @keyup.enter="getData()"
-        >
-          <div slot="append" hidden>
-            <v-btn color="success" icon @click="getData()"
-              ><v-icon> mdi-movie-search</v-icon></v-btn
-            >
-          </div>
-        </v-text-field>
-
+        <div style="max-width: 90%; padding-top: 20px; margin: auto">
+          <v-text-field
+            outlined
+            dark
+            style="max-width: 400px"
+            type="search"
+            id="searchBox"
+            dense
+            name="search"
+            label="Search by title"
+            v-model="title"
+            autocomplete="off"
+            prepend-inner-icon="mdi-magnify"
+            hide-details
+            clearable
+            class="pa-0 mb-2"
+            @focus="$event.target.select()"
+            @keyup.enter="getData()"
+          >
+            <div slot="append" hidden>
+              <v-btn color="success" icon @click="getData()"
+                ><v-icon> mdi-movie-search</v-icon></v-btn
+              >
+            </div>
+          </v-text-field>
+        </div>
         <!-- search top - ->
         <div id="search-top" style="display: flex">
           <v-text-field
@@ -161,7 +163,9 @@
           >
         </p>-->
 
-        <div v-if="data.length == 0 && !loading">No {{ type }}s found matching your search.</div>
+        <div style="max-width: 90%; margin: auto" v-if="data.length == 0 && !loading">
+          No {{ type }}s found matching your search.
+        </div>
 
         <div
           v-else
@@ -186,6 +190,7 @@
               v-for="(item, index2) in bestMovies(index)"
               :key="index2"
               @click="openMovieDialog(item)"
+              :style="{ borderBottom: '4px solid ' + item.join_status.color }"
             >
               <!-- image-->
               <div class="image" style="width: 100%; cursor: pointer">
