@@ -1,83 +1,51 @@
 <template>
   <div>
-    <!-- no settings -->
-
     <b>Watch options: </b>
 
+    <!-- no settings -->
     <div v-if="no_settings">
       <router-link class="button special" to="/settings">{{
         $t('manage_preferences')
       }}</router-link>
     </div>
 
-    <!-- Movie is clean -->
-    <div v-else-if="is_clean" style="margin-bottom: 5px"><b>Watch safely on</b></div>
-
     <!--movie is edited -->
     <div v-else-if="is_done">
-      <div v-if="hasApp">
-        <b>Watch the edited version on...</b>
-      </div>
+      <i v-if="hasApp">Watch edited on:</i>
 
       <div v-else-if="isChrome">
         <b>Watch the edited version with Ohana</b>
         <br />
         <a
           href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
-          class="button special"
+          class="modern-link"
           target="_blank"
           >{{ $t('install') + ' Ohana' }}</a
         >
         <br /><br />
-        <span
-          class="modern-link"
-          @click="
-            bypassUnsafe = true
-            bypassApp = true
-          "
-          >Show watch options anyway</span
-        >
+        <span class="modern-link" @click="bypass = true">Show watch options anyway</span>
       </div>
 
       <div v-else>
         This browser is not compatible with Ohana.
         <br />
-        <router-link class="button special" to="/get-started">Learn more</router-link>
+        <router-link to="/get-started">Learn more</router-link>
         <br /><br />
-        <span
-          class="modern-link"
-          @click="
-            bypassUnsafe = true
-            bypassApp = true
-          "
-          >Show watch options anyway</span
-        >
+        <span class="modern-link" @click="bypass = true">Show watch options anyway</span>
       </div>
     </div>
 
     <!-- movie is pending -->
     <div v-else-if="is_missing">
-      <br />
-      <br />
-      <!-- TODO: bypassApp is not being very effective -->
-      <span
-        class="modern-link"
-        @click="
-          bypassUnsafe = true
-          bypassApp = true
-        "
-        >Show watch options anyway</span
-      >
+      <span class="modern-link" @click="bypass = true">Show watch options anyway</span>
     </div>
 
     <div v-else-if="is_unknown">
-      <br />
-      <span class="modern-link" @click="bypassUnknown = true">Show watch options</span>
+      <span class="modern-link" @click="bypass = true">Show watch options</span>
     </div>
 
     <!-- WATCH OPTIONS -->
-    <!-- <div v-if="is_clean || (hasApp && is_done) || bypassApp ||  (is_done || bypassUnsafe)"> -->
-    <div v-else>
+    <div v-if="is_clean || (hasApp && is_done) || bypass">
       <a
         class="provider-link"
         v-for="(provider, index) in selection.providers"
@@ -111,9 +79,7 @@ export default {
   },
   data() {
     return {
-      bypassApp: false,
-      bypassUnsafe: false,
-      bypassUnknown: false,
+      bypass: false,
     }
   },
   computed: {

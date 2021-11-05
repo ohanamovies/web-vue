@@ -3,8 +3,39 @@
     <!-- Header -->
     <!-- <my-header></my-header> -->
 
+    <div class="sticky2">
+      <div style="margin: auto auto auto 0px">Ohana</div>
+      <div>
+        <v-text-field
+          outlined
+          dark
+          type="search"
+          id="searchBox"
+          dense
+          single-line
+          label="Search by title"
+          v-model="title"
+          autocomplete="off"
+          prepend-inner-icon="mdi-magnify"
+          hide-details
+          clearable
+          @focus="$event.target.select()"
+          @keyup.enter="getData()"
+        >
+        </v-text-field>
+      </div>
+      <div>
+        <v-icon style="color: white" v-if="isMobile">mdi-information</v-icon>
+        <span v-else>About</span>
+      </div>
+      <div>
+        <v-icon style="color: white" v-if="isMobile">mdi-cog</v-icon>
+        <span v-else>Settings</span>
+      </div>
+    </div>
+
     <!-- Banner -->
-    <section class="banner home-background" style="min-height: 20vh !important">
+    <section v-if="!title" class="banner home-background" style="min-height: 20vh !important">
       <div class="inner" style="border: none; padding: 0px !important">
         <h1 class="fadeInUp" style="margin-bottom: 5px">
           {{ $t('homeHeroText1') }}
@@ -17,22 +48,18 @@
           <div v-if="isChrome && !hasApp">
             <a
               href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
-              class="button special"
+              class="btn"
               target="_blank"
               style="margin: 5px"
               >{{ $t('install') }}</a
             >
           </div>
           <div v-if="hasApp">
-            <router-link to="community" class="button special">{{
-              $t('support_ohana')
-            }}</router-link>
+            <router-link to="community" class="btn">{{ $t('support_ohana') }}</router-link>
           </div>
 
           <div v-else-if="!isChrome">
-            <router-link to="get-started" class="button special">{{
-              $t('getStarted')
-            }}</router-link>
+            <router-link to="get-started" class="btn">{{ $t('getStarted') }}</router-link>
           </div>
         </div>
       </div>
@@ -40,151 +67,33 @@
 
     <section id="posters">
       <div class="inner">
-        <!--<div
-          v-if="type === 'show'" class="warning"
-          style="
-            color: white;
-            background-color: rgba(74, 74, 74, 0.5);
-            border-radius: 5px;
-            padding: 8px;
-            margin-bottom: 10px;
-            font-size: 80%;
-            max-width: 500px;
-          "
-        >
-          We are still working to make this page useful for shows (managing seasons, episodes...).
-          Thanks for your patiente!
-          <router-link style="color: rgb(4, 85, 186); font-weight: bold" to="/community"
-            >Learn how you can help</router-link
-          >
-        </div>-->
-
-        <v-dialog
-          v-model="showMovieDialog"
-          scrollable
-          width="750"
-          :style="{ marginTop: isMobile ? '40px' : '0px', zIndex: 99999999999998 }"
-        >
-          <movie-detail-page
-            :selection="selectedItemInfo"
-            @close="showMovieDialog = false"
-          ></movie-detail-page>
-        </v-dialog>
-
-        <!-- Floating button to show/hide filters -->
-        <!--<v-btn
-          color="#6cc091"
-          fab
-          bottom
-          right
-          fixed
-          dark
-          @click="mini = !mini"
-          style="z-index: 99999; cursor: pointer"
-        >
-          <!- - progress circle within the go-to-top button - ->
-          <v-icon v-if="mini" color="white" style="cursor: pointer">mdi-tune</v-icon>
-          <v-icon v-else color="white" style="cursor: pointer">mdi-thumb-up</v-icon>
-          <!- - TODO: may use mdi-tune - ->
-        </v-btn>-->
-
-        <div style="max-width: 90%; padding-top: 20px; margin: auto">
-          <v-text-field
-            outlined
-            dark
-            style="max-width: 400px"
-            type="search"
-            id="searchBox"
-            dense
-            name="search"
-            label="Search by title"
-            v-model="title"
-            autocomplete="off"
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-            clearable
-            class="pa-0 mb-2"
-            @focus="$event.target.select()"
-            @keyup.enter="getData()"
-          >
-            <div slot="append" hidden>
-              <v-btn color="success" icon @click="getData()"
-                ><v-icon> mdi-movie-search</v-icon></v-btn
-              >
-            </div>
-          </v-text-field>
+        <div v-if="!title" class="resultsBasedOn">
+          <p style="margin: auto">
+            {{ $t('resultsBasedOn')[0] }}
+            <router-link to="/settings" class="modern-link" style="font-size: 100%">
+              {{ $t('resultsBasedOn')[1] }}</router-link
+            >
+            {{ $t('resultsBasedOn')[2] }}
+            <span @click="mini = !mini" class="modern-link" style="font-size: 100%">
+              {{ $t('resultsBasedOn')[3] }}</span
+            >
+          </p>
         </div>
-        <!-- search top - ->
-        <div id="search-top" style="display: flex">
-          <v-text-field
-            outlined
-            style="max-width: 400px"
-            type="search"
-            id="searchBox"
-            dense
-            name="search"
-            label="Search by title"
-            v-model="title"
-            autocomplete="off"
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-            clearable
-            class="pa-0 mb-2"
-            @focus="$event.target.select()"
-            @keyup.enter="getData()"
-          >
-            <div slot="append" hidden>
-              <v-btn color="success" icon @click="getData()"
-                ><v-icon> mdi-movie-search</v-icon></v-btn
-              >
-            </div>
-          </v-text-field>
-
-          <!- - advanced button more visible with search- ->
-          <v-btn
-            :icon="isMobile"
-            :outlined="!isMobile"
-            @click="mini = !mini"
-            class="vbtn mt-1 ml-3"
-            :width="isMobile ? '' : '130'"
-          >
-            <v-icon>mdi-tune</v-icon>
-            {{ isMobile ? '' : 'advanced' }}
-          </v-btn>
-        </div>
-        <p>
-          {{ $t('resultsBasedOn')[0] }}
-          <router-link to="/settings" class="modern-link" style="font-size: 100%">
-            {{ $t('resultsBasedOn')[1] }}</router-link
-          >
-          {{ $t('resultsBasedOn')[2] }}
-          <span @click="mini = !mini" class="modern-link" style="font-size: 100%">
-            {{ $t('resultsBasedOn')[3] }}</span
-          >
-        </p>-->
-
-        <div style="max-width: 90%; margin: auto" v-if="data.length == 0 && !loading">
-          No {{ type }}s found matching your search.
+        <div v-else style="padding-top: 50px">
+          <div style="max-width: 90%; margin: auto" v-if="data.length == 0 && !loading">
+            No titles found matching your search.
+          </div>
         </div>
 
         <div
-          v-else
-          v-for="(section, index) in sections"
+          v-for="(section, index) in getSections()"
           :key="index"
           style="max-width: 90%; margin: auto"
         >
           <h4 style="color: white; margin: 0; padding-top: 20px">{{ section.title }}</h4>
 
-          <!-- POSTERS (loading placeholder) -->
-          <div v-if="loading" class="posters_wrapper2">
-            <div class="poster" v-for="n in 10" :key="n">
-              <div class="image" style="width: 100%">
-                <img src="/images/empty-poster.png" class="waiting" alt="loading" />
-              </div>
-            </div>
-          </div>
           <!-- POSTERS -->
-          <div v-else class="posters_wrapper2">
+          <div class="posters_wrapper2">
             <div
               class="poster"
               v-for="(item, index2) in bestMovies(index)"
@@ -211,10 +120,36 @@
               </div>
               <div class="content" v-if="false"></div>
             </div>
+            <!-- Dummy poster to avoid collapse- ->
+            <div class="poster">
+              <div class="image" style="width: 100%">
+                <img src="/images/empty-poster.png" alt="dummy" />
+              </div>
+            </div>-->
+          </div>
+          <!-- POSTERS (loading placeholder) -->
+          <div v-if="loading" class="posters_wrapper2">
+            <div class="poster" v-for="n in 10" :key="n">
+              <div class="image" style="width: 100%">
+                <img src="/images/empty-poster.png" class="waiting" alt="loading" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <v-dialog
+      v-model="showMovieDialog"
+      scrollable
+      width="750"
+      :style="{ marginTop: isMobile ? '40px' : '0px', zIndex: 99999999999998 }"
+    >
+      <movie-detail-page
+        :selection="selectedItemInfo"
+        @close="showMovieDialog = false"
+      ></movie-detail-page>
+    </v-dialog>
   </div>
 </template>
 
@@ -302,7 +237,7 @@ export default {
         },
       ],
 
-      title: 'star wars',
+      title: '',
       titleTimeout: null,
 
       providers: [],
@@ -347,6 +282,7 @@ export default {
       this.getData()
     },
     title() {
+      this.data = []
       clearTimeout(this.titleTimeout)
       this.titleTimeout = setTimeout(() => {
         this.getData()
@@ -364,6 +300,10 @@ export default {
     },
   },
   methods: {
+    getSections() {
+      if (this.title) return [{ title: 'Search results' }]
+      else return this.sections
+    },
     getPoster(item) {
       if (!item || !item.poster) return
       return 'https://image.tmdb.org/t/p/w200' + item.poster[this.language] || item.poster['en'] //TODO: use size w154?
@@ -374,6 +314,7 @@ export default {
     },
     bestMovies(section) {
       if (!this.data) return this.data
+      if (!this.sections[section].filter) return this.data
       return this.data.filter(this.sections[section].filter)
     },
 
@@ -386,12 +327,6 @@ export default {
       console.log('itemmmm: ', item)
       this.showMovieDialog = true
       this.selectedItemInfo = item
-    },
-
-    scrollToTop() {
-      //workaround to show/hide the filters on mobile...
-      //this.showSidebarFilters = !this.showSidebarFilters
-      scroll(0, 0)
     },
     getProvider(watchUrl) {
       return ohana.providers.getName(watchUrl)
@@ -410,16 +345,11 @@ export default {
     },
 
     getData(more) {
-      if (!more) {
-        //if not more, let's scroll to top instead of keeping old scroll.
-        //this.scrollToTop()
-        this.data = []
-      }
-
       this.loading = true
 
       if (!more) {
         console.log('first page')
+        this.data = []
         this.page = 1
         this.finishLoading = false
       }
@@ -432,7 +362,7 @@ export default {
         clean: !this.title ? JSON.stringify(this.skipTags) : '[]',
         providers: JSON.stringify(this.providers),
         genres: JSON.stringify(this.genres),
-        sort_by: 'certified_date',
+        sort_by: 'imdbRating',
         sort_dir: 'desc',
         type: this.type,
         page: this.page,
@@ -575,6 +505,13 @@ div.posters_wrapper2 div.poster {
   max-width: 140px;
   min-width: 140px;
   transition: top ease 0.4s;
+}
+
+@media only screen and (max-width: 600px) {
+  div.posters_wrapper2 div.poster {
+    max-width: 110px;
+    min-width: 110px;
+  }
 }
 
 div.posters_wrapper2 div.poster:hover {
@@ -753,5 +690,38 @@ hr {
   width: 100%;
   background: none;
   border: none;
+}
+
+.sticky2 {
+  color: white !important;
+  display: flex;
+  position: fixed;
+  top: 0;
+  padding: 0 5px;
+  width: 100%;
+  background-color: #141414;
+  z-index: 99999999;
+}
+
+.sticky2 > div {
+  color: white;
+  display: flex;
+  padding: 5px 10px;
+  margin: auto 0px;
+}
+
+.btn {
+  background: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: black !important;
+}
+
+.resultsBasedOn {
+  width: 100%;
+  display: flex;
+  padding: 10px;
+  color: white;
 }
 </style>

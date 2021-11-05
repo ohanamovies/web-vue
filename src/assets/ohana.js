@@ -54,7 +54,7 @@ const movies = {
     }
 
     if (health > 0.5) {
-      status = 'done'
+      status = cuts ? 'done' : 'clean'
       color = 'green'
       icon = 'none'
     } else if (health < -0.5) {
