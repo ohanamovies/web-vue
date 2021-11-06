@@ -181,7 +181,7 @@ export default {
 
       seeAllGenreChips: false,
       showSidebarFilters: true,
-      pageSize: 100,
+      pageSize: 50,
 
       statusFilter: [],
 
@@ -331,7 +331,7 @@ export default {
       let query = section.query
       query.action = 'findMovies'
       //query.providers = JSON.stringify(this.providers)
-      query.page = Math.round(section.data.length / this.pageSize)
+      query.page = Math.round(section.data.length / this.pageSize) + 1
       query.newAPI = true
       if (index == 0) {
         // title section
