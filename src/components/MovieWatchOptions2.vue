@@ -1,51 +1,17 @@
 <template>
   <div>
-    <b>Watch options: </b>
-
-    <!-- no settings -->
-    <div v-if="no_settings">
-      <router-link class="button special" to="/settings">{{
-        $t('manage_preferences')
-      }}</router-link>
-    </div>
-
-    <!--movie is edited -->
-    <div v-else-if="is_done">
-      <i v-if="hasApp">Watch edited on:</i>
-
-      <div v-else-if="isChrome">
-        <b>Watch the edited version with Ohana</b>
-        <br />
-        <a
-          href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
-          class="modern-link"
-          target="_blank"
-          >{{ $t('install') + ' Ohana' }}</a
-        >
-        <br /><br />
-        <span class="modern-link" @click="bypass = true">Show watch options anyway</span>
-      </div>
-
-      <div v-else>
-        This browser is not compatible with Ohana.
-        <br />
-        <router-link to="/get-started">Learn more</router-link>
-        <br /><br />
-        <span class="modern-link" @click="bypass = true">Show watch options anyway</span>
-      </div>
-    </div>
-
-    <!-- movie is pending -->
-    <div v-else-if="is_missing">
-      <span class="modern-link" @click="bypass = true">Show watch options anyway</span>
-    </div>
-
-    <div v-else-if="is_unknown">
-      <span class="modern-link" @click="bypass = true">Show watch options</span>
+    <!-- Section title -->
+    <div>
+      <b v-if="is_clean">Watch options (healthy): </b>
+      <b v-else-if="is_missing">Watch options (unhealthy): </b>
+      <b v-else-if="is_unknown">Watch options (unknown): </b>
+      <b v-else-if="is_mixed">Watch options (mixed): </b>
+      <b v-else-if="is_done || hasApp">Watch options (edited): </b>
+      <b v-else-if="no_settings">Watch options (no settings): </b>
     </div>
 
     <!-- WATCH OPTIONS -->
-    <div v-if="is_clean || (hasApp && is_done) || bypass">
+    <div v-if="is_clean || (is_done && hasApp) || bypass">
       <a
         class="provider-link"
         v-for="(provider, index) in selection.providers"
@@ -55,6 +21,50 @@
       >
         <img :src="getLogo(provider.provider)" />
       </a>
+
+      <span v-if="!selection.providers.length">
+        <a
+          class="provider-link"
+          v-if="selection.tmdb"
+          target="_blank"
+          :href="'https://www.themoviedb.org/' + selection.tmdb + '/watch'"
+        >
+          <img src="images/tmdb.png" />
+        </a>
+        <span v-else>Sorry, no known providers available</span>
+      </span>
+    </div>
+
+    <!-- no settings -->
+    <div v-else-if="no_settings">
+      <router-link class="button special" to="/settings">{{
+        $t('manage_preferences')
+      }}</router-link>
+    </div>
+
+    <!--movie is edited -->
+    <div v-else-if="is_done && !hasApp">
+      <div v-if="isChrome">
+        <i>Installing Ohana is required to remove unhealthy scenes: </i>
+        <a
+          href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
+          class="modern-link"
+          target="_blank"
+          >{{ $t('install') + ' Ohana' }}</a
+        >
+      </div>
+      <div v-else>
+        This browser is not compatible with Ohana.
+        <router-link to="/get-started">Learn more</router-link>
+      </div>
+    </div>
+
+    <!-- movie is pending -->
+    <div v-if="is_missing || is_unknown || (is_done && !hasApp) || is_mixed">
+      <span v-if="!bypass" class="modern-link" @click="bypass = true"
+        >Show watch options anyway</span
+      >
+      <!--<span v-else class="modern-link" @click="bypass = false">Hide watch options</span>-->
     </div>
   </div>
 </template>
@@ -70,17 +80,19 @@ export default {
         return {}
       },
     },
-    title: {
-      type: Object,
-      deafult() {
-        return {}
-      },
-    },
   },
   data() {
     return {
       bypass: false,
     }
+  },
+  watch: {
+    selection: {
+      handler: function () {
+        this.bypass = false
+      },
+      deep: true,
+    },
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile']),
@@ -88,10 +100,13 @@ export default {
       return this.selection.join_status.status == 'unset'
     },
     is_clean() {
-      return this.selection.join_status.status == 'done' && this.selection.join_status.cuts == 0
+      return this.selection.join_status.status == 'clean'
     },
     is_done() {
       return this.selection.join_status.status == 'done'
+    },
+    is_mixed() {
+      return this.selection.join_status.status == 'mixed'
     },
     is_unknown() {
       return (
@@ -109,6 +124,7 @@ export default {
       if (provider == 'justwatch') return 'images/justwatch.jpg'
       if (provider == 'primevideo') return 'images/primevideo.png'
       if (provider == 'disneyplus') return 'images/disneyplus.png'
+      if (provider == 'movistarplus') return 'images/movistarplus.png'
       if (provider == 'hboespana') return 'images/hbomax.png'
       if (provider == 'hbomax') return 'images/hbomax.png'
     },

@@ -9,7 +9,6 @@
         <v-text-field
           outlined
           dark
-          type="search"
           id="searchBox"
           dense
           single-line
@@ -20,9 +19,12 @@
           hide-details
           clearable
           @focus="$event.target.select()"
-          @keyup.enter="getData()"
         >
         </v-text-field>
+      </div>
+      <div>
+        <v-icon style="color: white" v-if="isMobile">mdi-cog</v-icon>
+        <span v-else>Collab</span>
       </div>
       <div>
         <v-icon style="color: white" v-if="isMobile">mdi-information</v-icon>
@@ -35,7 +37,7 @@
     </div>
 
     <!-- Banner -->
-    <section v-if="!title" class="banner home-background" style="min-height: 20vh !important">
+    <section v-show="!title" class="banner home-background" style="min-height: 20vh !important">
       <div class="inner" style="border: none; padding: 0px !important">
         <h1 class="fadeInUp" style="margin-bottom: 5px">
           {{ $t('homeHeroText1') }}
@@ -80,58 +82,53 @@
           </p>
         </div>
         <div v-else style="padding-top: 50px">
-          <div style="max-width: 90%; margin: auto" v-if="data.length == 0 && !loading">
+          <div
+            style="max-width: 90%; margin: auto"
+            v-if="sections[0].data.length == 0 && !sections[0].loading"
+          >
             No titles found matching your search.
           </div>
         </div>
 
-        <div
-          v-for="(section, index) in getSections()"
-          :key="index"
-          style="max-width: 90%; margin: auto"
-        >
-          <h4 style="color: white; margin: 0; padding-top: 20px">{{ section.title }}</h4>
+        <div v-for="(section, index) in sections" :key="index" style="max-width: 90%; margin: auto">
+          <div v-show="(title && index == 0) || (!title && index != 0)" :data-id="index">
+            <h4 style="color: white; margin: 0; padding-top: 20px">{{ section.title }}</h4>
 
-          <!-- POSTERS -->
-          <div class="posters_wrapper2">
-            <div
-              class="poster"
-              v-for="(item, index2) in bestMovies(index)"
-              :key="index2"
-              @click="openMovieDialog(item)"
-              :style="{ borderBottom: '4px solid ' + item.join_status.color }"
-            >
-              <!-- image-->
-              <div class="image" style="width: 100%; cursor: pointer">
-                <img
-                  :src="getPoster(item)"
-                  :alt="getTitle(item)"
-                  :class="[item.join_status.status == 'missing' ? 'blur_image' : '']"
-                />
-                <div class="shield" v-if="item.join_status.icon != 'none'">
-                  <v-icon :color="item.join_status.color" size="18">
-                    {{ item.join_status.icon }}
-                  </v-icon>
+            <!-- POSTERS -->
+            <div class="posters_wrapper2">
+              <div
+                class="poster"
+                v-for="(item, index2) in section.data"
+                :key="index2"
+                @click="openMovieDialog(item)"
+                :style="{ borderBottom: '4px solid ' + item.join_status.color }"
+              >
+                <!-- image-->
+                <div class="image" style="width: 100%; cursor: pointer">
+                  <img
+                    :src="getPoster(item)"
+                    :alt="getTitle(item)"
+                    :class="[item.join_status.status == 'missing' ? 'blur_image' : '']"
+                  />
+                  <div class="shield" v-if="item.join_status.icon != 'none'">
+                    <v-icon :color="item.join_status.color" size="18">
+                      {{ item.join_status.icon }}
+                    </v-icon>
+                  </div>
                 </div>
+                <!-- text -->
+                <div class="placeholder-title" v-if="item.join_status.status == 'missing'">
+                  <span>{{ getTitle(item) }}</span>
+                </div>
+                <div class="content" v-if="false"></div>
               </div>
-              <!-- text -->
-              <div class="placeholder-title" v-if="item.join_status.status == 'missing'">
-                <span>{{ getTitle(item) }}</span>
-              </div>
-              <div class="content" v-if="false"></div>
             </div>
-            <!-- Dummy poster to avoid collapse- ->
-            <div class="poster">
-              <div class="image" style="width: 100%">
-                <img src="/images/empty-poster.png" alt="dummy" />
-              </div>
-            </div>-->
-          </div>
-          <!-- POSTERS (loading placeholder) -->
-          <div v-if="loading" class="posters_wrapper2">
-            <div class="poster" v-for="n in 10" :key="n">
-              <div class="image" style="width: 100%">
-                <img src="/images/empty-poster.png" class="waiting" alt="loading" />
+            <!-- POSTERS (loading placeholder) -->
+            <div v-show="!section.data.length" class="posters_wrapper2">
+              <div class="poster" v-for="n in 10" :key="n">
+                <div class="image" style="width: 100%">
+                  <img src="/images/empty-poster.png" class="waiting" alt="loading" />
+                </div>
               </div>
             </div>
           </div>
@@ -184,12 +181,7 @@ export default {
 
       seeAllGenreChips: false,
       showSidebarFilters: true,
-
-      data: [],
-      loading: true,
-      fetchedAt: '', //aux variable to make sure we refresh data with latest getData() request, not last arriving (async)
-      page: 1,
-      finishLoading: false,
+      pageSize: 100,
 
       statusFilter: [],
 
@@ -205,35 +197,34 @@ export default {
 
       sections: [
         {
+          title: 'Search results',
+          data: [],
+          query: {},
+        },
+        {
           title: 'Cleaned for you by Ohana',
-          filter: (a) => {
-            return a
-          },
+          data: [],
+          query: {},
         },
         {
           title: 'Family',
-          filter: (a) => {
-            if (!a.genres) return false
-            return a.genres.includes('Family')
-          },
+          data: [],
+          query: { genres: ['Family'] },
         },
         {
           title: '...',
-          filter: (a) => {
-            return a
-          },
+          data: [],
+          query: {},
         },
         {
           title: 'Best rated',
-          filter: (a) => {
-            return a.imdbRating > 7 && a.imdbVotes > 1000
-          },
+          data: [],
+          query: { imdbRating: 7, imdbVotes: 1000 },
         },
         {
           title: 'Classic movies',
-          filter: (a) => {
-            return a.released < 1990
-          },
+          data: [],
+          query: { releasedBefore: 1990 },
         },
       ],
 
@@ -270,23 +261,19 @@ export default {
   },
   watch: {
     providers() {
-      this.getData()
-    },
-    genres() {
-      this.getData()
-    },
-    type() {
-      this.getData()
+      console.log('updated providers')
+      this.getAllData()
     },
     skipTags() {
-      this.getData()
+      console.log('updated skipTags')
+      this.getAllData()
     },
     title() {
-      this.data = []
+      this.sections[0].data = []
       clearTimeout(this.titleTimeout)
       this.titleTimeout = setTimeout(() => {
-        this.getData()
-      }, 900)
+        this.getData(0)
+      }, 500)
     },
   },
   computed: {
@@ -300,10 +287,6 @@ export default {
     },
   },
   methods: {
-    getSections() {
-      if (this.title) return [{ title: 'Search results' }]
-      else return this.sections
-    },
     getPoster(item) {
       if (!item || !item.poster) return
       return 'https://image.tmdb.org/t/p/w200' + item.poster[this.language] || item.poster['en'] //TODO: use size w154?
@@ -312,12 +295,6 @@ export default {
       if (!item || !item.title) return
       return item.title[this.language] || item.title['en'] || item.title['primary']
     },
-    bestMovies(section) {
-      if (!this.data) return this.data
-      if (!this.sections[section].filter) return this.data
-      return this.data.filter(this.sections[section].filter)
-    },
-
     onClickOutsideNavDrawer() {
       if (this.isMobile && !this.mini) {
         this.mini = !this.mini
@@ -331,87 +308,75 @@ export default {
     getProvider(watchUrl) {
       return ohana.providers.getName(watchUrl)
     },
-
-    joinStatus(tagged, skipTags) {
-      return ohana.movies.joinStatus2(tagged, skipTags)
+    scrolled(section, index) {
+      console.log('scrolled', section, index)
     },
 
-    getMoreData() {
-      if (this.finishLoading || this.loading) return
-      this.loading = true
-      this.page += 1
-      console.log('getMoreData ', this.page)
-      this.getData(true)
-    },
-
-    getData(more) {
-      this.loading = true
-
-      if (!more) {
-        console.log('first page')
-        this.data = []
-        this.page = 1
-        this.finishLoading = false
+    getAllData() {
+      for (var i = 1; i < this.sections.length; i++) {
+        this.getData(i)
       }
-      let fetchedAt = new Date()
-      this.fetchedAt = fetchedAt
+    },
 
-      var url = ohana.utils.buildURL({
-        action: 'findMovies',
-        title: this.title ? this.title : '',
-        clean: !this.title ? JSON.stringify(this.skipTags) : '[]',
-        providers: JSON.stringify(this.providers),
-        genres: JSON.stringify(this.genres),
-        sort_by: 'imdbRating',
-        sort_dir: 'desc',
-        type: this.type,
-        page: this.page,
-        newAPI: true,
-      })
+    getData(index) {
+      console.log('getData', index)
+      let section = this.sections[index]
+      if (!section) return console.log('no section ', index)
 
+      // Handle loading status
+      if (section.loading || section.finishLoading) return
+      section.loading = true
+
+      // Build queries
+      let query = section.query
+      query.action = 'findMovies'
+      //query.providers = JSON.stringify(this.providers)
+      query.page = Math.round(section.data.length / this.pageSize)
+      query.newAPI = true
+      if (index == 0) {
+        // title section
+        query.title = this.title
+      } else {
+        query.clean = JSON.stringify(this.skipTags)
+      }
+
+      // Fetch data
+      var url = ohana.utils.buildURL(query)
       fetch(url)
         .then((r) => r.json())
         .then((data) => {
-          console.log('[getData] ', this.page, fetchedAt)
-          if (fetchedAt != this.fetchedAt) {
-            console.log('[getData] old request. ignoring')
-            return
-          }
-
-          if (this.page != 1) {
-            console.log('pushing data ', data)
-            if (data.length < 50) this.finishLoading = true
-            this.data = [...this.data, ...data]
-            this.$forceUpdate()
-            console.log('total data length', this.data.length)
-          } else {
-            console.log('setting data')
-            this.data = data
-            this.$forceUpdate()
-          }
+          if (data.length < this.pageSize) section.finishLoading = true
 
           for (var i = 0; i < data.length; i++) {
-            data[i].join_status = this.joinStatus(data[i].movieContent, this.skipTags)
+            data[i].join_status = ohana.movies.joinStatus2(data[i].movieContent, this.skipTags)
+            data[i].brief_status = ohana.movies.getSummary(data[i].movieContent)
+            data[i].movieValues = {} // TODO
           }
+          section.data = [...section.data, ...data]
 
-          this.loading = false
+          console.log(section.data)
+          this.$forceUpdate()
+          section.loading = false
         })
     },
   },
 
   mounted() {
     //load some data
-    this.getData()
-
+    //this.getAllData()
     // Detect when scrolled to bottom.
-    /*const footer = document.querySelector('#footer')
-    const body = document.getElementsByTagName('body')[0]
-    body.onscroll = () => {
-      let left = body.clientHeight - window.innerHeight - footer.clientHeight - window.scrollY
-      if (left < 200) {
-        this.getMoreData()
+    const wrappers = document.querySelectorAll('.posters_wrapper2')
+    for (var i = 0; i < wrappers.length; i++) {
+      wrappers[i].onscroll = (event) => {
+        let target = event.target
+        let remaining = target.scrollWidth - (target.scrollLeft + target.offsetWidth)
+        if (remaining < 500) {
+          let id = target.parentElement.dataset.id
+          console.log('Scroll left:', remaining, '. Get data from: ', id)
+          this.getData(id)
+        }
       }
-    }*/
+    }
   },
 }
 </script>

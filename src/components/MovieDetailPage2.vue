@@ -53,7 +53,7 @@
             />
           </v-col>
 
-          <!-- Rest of info (in tabs for now) -->
+          <!-- Rest of info -->
           <v-col>
             <div style="height: 350px; overflow-y: auto">
               <div>
@@ -74,7 +74,7 @@
                 </div>
 
                 <!-- Link to IMDb -->
-                <div style="margin: 10px 0 -10px 0">
+                <div style="margin: 10px 0">
                   <b>More on: </b>
                   <div>
                     <a
@@ -98,11 +98,7 @@
 
               <!-- Watch on -->
               <div>
-                <movie-watch-options
-                  style="margin-top: 20px"
-                  :selection="selection"
-                  :title="item ? item.title : ''"
-                ></movie-watch-options>
+                <movie-watch-options :selection="selection"></movie-watch-options>
               </div>
 
               <!-- Ohana Summary HIDING WHILE BROKEN -->
@@ -134,14 +130,13 @@
       </v-card-text>
     </v-card>
 
-    <!-- B: if no data, show "loading" or "error" -->
+    <!-- B: if no data, show "error" -->
     <v-card v-else>
       <v-card-text style="height: 350px">
-        <div v-if="loading">Loading...</div>
-        <div v-else>
+        <div>
           <span> Error!</span>
           <br />
-          <span v-if="false">{{ selection }}</span>
+          <span>{{ item }}</span>
         </div>
       </v-card-text>
     </v-card>
@@ -170,24 +165,20 @@ export default {
   },
   data() {
     return {
-      showOhanaDetails: true,
-      showMyPreferences: true,
-
-      tab: 1, //0: overview, 1: Ohana -> shall we start with Ohana?
       item: {},
-
       categories: [],
       severities: [],
-      loading: false,
       viewMore: false,
     }
   },
 
   watch: {
-    selection() {
-      this.item = {} //reset
-      this.getData()
-      this.resetView()
+    selection: {
+      handler: function () {
+        console.log('updated selection', this.selection)
+        this.getData()
+      },
+      deep: true,
     },
   },
 
@@ -281,33 +272,10 @@ export default {
       console.log(value)
       return 'this a tooltip explaining the tag underneath... ' + JSON.stringify(key)
     },
-    getSummary(status) {
-      let brief_status = {}
-      for (let cat of ['erotic', 'gory', 'profane']) {
-        for (let sev of ['Very', 'Moderately', 'Mildly', 'Slightly']) {
-          let tag = sev + ' ' + cat
-          let s = status[tag]
-          if (s.health > 0.5 && s.trust > 1) continue
-          brief_status[tag] = s
-          break
-        }
-      }
-      return brief_status
-    },
-
     closeMe() {
       //TODO: This doesn't apply if ESC or click outside, as dialog closes itself
-      //Reset view
-      this.resetView()
-
       //emit close action
       this.$emit('close', false)
-    },
-    resetView() {
-      this.tab = 1 //let's force this by default
-      this.show_watch_options = false
-      this.showOhanaDetails = true
-      this.showMyPreferences = true
     },
     tagsDescription() {
       let x = {} //tag:desc
@@ -326,23 +294,21 @@ export default {
         imdb: this.selection.imdb,
         newAPI: true,
       })
-      console.log('[alex] getting movie data', this.selection.watch_url, url)
-      this.loading = true
+      console.log('[alex] getting movie data', url)
       fetch(url)
         .then((r) => r.text())
         .then((data) => {
           let x = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly". Let's fix here to avoid other ifelse around
           this.item = JSON.parse(x)
-          this.item.brief_status = this.getSummary(this.item.movieContent)
+          this.item.brief_status = ohana.movies.getSummary(this.item.movieContent)
           this.item.movieValues = {} //{ Family: { status: -1 }, 'Cuidado necesitados': { status: 1 } }
-          this.loading = false
         })
     },
   },
   mounted() {
     this.categories = rawTags.categories
     this.severities = rawTags.severitiesR
-    this.getData()
+    //this.getData()
   },
 }
 </script>

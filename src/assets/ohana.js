@@ -75,6 +75,25 @@ const movies = {
     return { status: status, health: health, cuts: cuts, trust: trust, icon: icon, color: color }
   },
 
+  getSummary(status) {
+    let brief_status = {}
+    try {
+      for (let cat of ['erotic', 'gory', 'profane']) {
+        for (let sev of ['Very', 'Moderately', 'Mildly', 'Slightly']) {
+          let tag = sev + ' ' + cat
+          let s = status[tag]
+          if (!s) continue // TODO: this continues if there is no info...
+          if (s.health > 0.5 && s.trust > 1) continue
+          brief_status[tag] = s
+          break
+        }
+      }
+    } catch (e) {
+      console.error('[getSummary]', e)
+    }
+    return brief_status
+  },
+
   /**
    *
    * @param {string} status done, missing, unknown
