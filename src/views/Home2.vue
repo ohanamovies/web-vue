@@ -23,16 +23,20 @@
         </v-text-field>
       </div>
       <div>
-        <v-icon style="color: white" v-if="isMobile">mdi-cog</v-icon>
+        <v-icon style="color: white" v-if="isMobile">mdi-account-group</v-icon>
         <span v-else>Collab</span>
       </div>
       <div>
-        <v-icon style="color: white" v-if="isMobile">mdi-information</v-icon>
+        <v-icon style="color: white" v-if="isMobile">mdi-information-outline</v-icon>
         <span v-else>About</span>
       </div>
       <div>
-        <v-icon style="color: white" v-if="isMobile">mdi-cog</v-icon>
+        <v-icon style="color: white" v-if="isMobile">mdi-cog-outline</v-icon>
         <span v-else>Settings</span>
+      </div>
+      <div>
+        <v-icon style="color: white" v-if="isMobile">mdi-translate</v-icon>
+        <span v-else>Language</span>
       </div>
     </div>
 
@@ -332,6 +336,7 @@ export default {
       query.action = 'findMovies'
       //query.providers = JSON.stringify(this.providers)
       query.page = Math.round(section.data.length / this.pageSize) + 1
+      query.pageSize = this.pageSize
       query.newAPI = true
       if (index == 0) {
         // title section
@@ -671,8 +676,16 @@ hr {
 .sticky2 > div {
   color: white;
   display: flex;
-  padding: 5px 10px;
+  padding: 4px;
   margin: auto 0px;
+}
+
+.sticky2 > div > span {
+  padding: 0 5px;
+}
+
+.sticky2 > .v-icon.v-icon {
+  font-size: 20px;
 }
 
 .btn {

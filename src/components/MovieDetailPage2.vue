@@ -298,8 +298,11 @@ export default {
       fetch(url)
         .then((r) => r.text())
         .then((data) => {
-          let x = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly". Let's fix here to avoid other ifelse around
-          this.item = JSON.parse(x)
+          data = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly".
+          let d = JSON.parse(data)
+          if (!d.title) return console.log('wrong data...')
+          this.item = d
+
           this.item.brief_status = ohana.movies.getSummary(this.item.movieContent)
           this.item.movieValues = {} //{ Family: { status: -1 }, 'Cuidado necesitados': { status: 1 } }
         })
@@ -308,7 +311,7 @@ export default {
   mounted() {
     this.categories = rawTags.categories
     this.severities = rawTags.severitiesR
-    //this.getData()
+    this.getData()
   },
 }
 </script>
