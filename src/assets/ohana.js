@@ -75,6 +75,13 @@ const movies = {
     return { status: status, health: health, cuts: cuts, trust: trust, icon: icon, color: color }
   },
 
+  addInfo(movie, skipTags) {
+    movie.join_status = movies.joinStatus2(movie.movieContent, skipTags)
+    movie.brief_status = movies.getSummary(movie.movieContent)
+    movie.movieValues = {} // TODO
+    return movie
+  },
+
   getSummary(status) {
     let brief_status = {}
     try {

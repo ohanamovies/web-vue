@@ -4,8 +4,8 @@
     <!-- <my-header></my-header> -->
 
     <div class="sticky2">
-      <div style="margin: auto auto auto 0px">Ohana</div>
-      <div>
+      <div>Ohana</div>
+      <div style="margin: auto auto auto 0px">
         <v-text-field
           outlined
           dark
@@ -23,20 +23,22 @@
         </v-text-field>
       </div>
       <div>
-        <v-icon style="color: white" v-if="isMobile">mdi-account-group</v-icon>
-        <span v-else>Collab</span>
+        <router-link to="/community" style="color: white; text-decoration: none">
+          <v-icon style="color: white" v-if="isMobile">mdi-account-group</v-icon>
+          <span v-else>Collab</span>
+        </router-link>
       </div>
       <div>
-        <v-icon style="color: white" v-if="isMobile">mdi-information-outline</v-icon>
-        <span v-else>About</span>
+        <router-link to="/about" style="color: white; text-decoration: none">
+          <v-icon style="color: white" v-if="isMobile">mdi-information-outline</v-icon>
+          <span v-else>About</span>
+        </router-link>
       </div>
       <div>
-        <v-icon style="color: white" v-if="isMobile">mdi-cog-outline</v-icon>
-        <span v-else>Settings</span>
-      </div>
-      <div>
-        <v-icon style="color: white" v-if="isMobile">mdi-translate</v-icon>
-        <span v-else>Language</span>
+        <router-link to="/settings" style="color: white; text-decoration: none">
+          <v-icon style="color: white" v-if="isMobile">mdi-cog-outline</v-icon>
+          <span v-else>Settings</span>
+        </router-link>
       </div>
     </div>
 
@@ -278,7 +280,6 @@ export default {
     language() {
       return this.$i18n.locale.toLowerCase().split('-')[0]
     },
-
     skipTags() {
       return this.$store.state.settings.skip_tags || []
     },
@@ -301,9 +302,6 @@ export default {
       console.log('itemmmm: ', item)
       this.showMovieDialog = true
       this.selectedItemInfo = item
-    },
-    getProvider(watchUrl) {
-      return ohana.providers.getName(watchUrl)
     },
     getAllData() {
       for (var i = 1; i < this.sections.length; i++) {
@@ -349,9 +347,7 @@ export default {
 
           // Do some data formatting and push to data array
           for (var i = 0; i < data.length; i++) {
-            data[i].join_status = ohana.movies.joinStatus2(data[i].movieContent, this.skipTags)
-            data[i].brief_status = ohana.movies.getSummary(data[i].movieContent)
-            data[i].movieValues = {} // TODO
+            ohana.movies.addInfo(data[i], this.skipTags)
           }
           section.data = [...section.data, ...data]
 

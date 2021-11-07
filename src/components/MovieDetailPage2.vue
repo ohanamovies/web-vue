@@ -301,10 +301,8 @@ export default {
           data = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly".
           let d = JSON.parse(data)
           if (!d.title) return console.log('wrong data...')
-          this.item = d
-
-          this.item.brief_status = ohana.movies.getSummary(this.item.movieContent)
-          this.item.movieValues = {} //{ Family: { status: -1 }, 'Cuidado necesitados': { status: 1 } }
+          console.log('getData ', d)
+          this.item = ohana.movies.addInfo(d, this.skipTags)
         })
     },
   },
