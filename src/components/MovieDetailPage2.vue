@@ -44,7 +44,7 @@
       <v-card-text>
         <v-row>
           <!-- Image only if not isMobile -->
-          <v-col cols="4" v-if="!isMobile && selection.join_status.status != 'missing'">
+          <v-col cols="4" v-if="!isMobile">
             <img
               :src="poster"
               :alt="item.title"

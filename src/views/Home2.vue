@@ -79,20 +79,9 @@
             <router-link to="/settings" class="modern-link" style="font-size: 100%">
               {{ $t('resultsBasedOn')[1] }}</router-link
             >
-            {{ $t('resultsBasedOn')[2] }}
-            <span @click="mini = !mini" class="modern-link" style="font-size: 100%">
-              {{ $t('resultsBasedOn')[3] }}</span
-            >
           </p>
         </div>
-        <div v-else style="padding-top: 50px">
-          <div
-            style="max-width: 90%; margin: auto"
-            v-if="sections[0].data.length == 0 && !sections[0].loading"
-          >
-            No titles found matching your search.
-          </div>
-        </div>
+        <div v-else style="padding-top: 50px"></div>
 
         <div v-for="(section, index) in sections" :key="index" style="max-width: 90%; margin: auto">
           <div v-show="(title && index == 0) || (!title && index != 0)" :data-id="index">
@@ -128,12 +117,15 @@
               </div>
             </div>
             <!-- POSTERS (loading placeholder) -->
-            <div v-show="!section.data.length" class="posters_wrapper2">
+            <div v-show="section.loading" class="posters_wrapper2">
               <div class="poster" v-for="n in 10" :key="n">
                 <div class="image" style="width: 100%">
                   <img src="/images/empty-poster.png" class="waiting" alt="loading" />
                 </div>
               </div>
+            </div>
+            <div v-show="index == 0 && !section.loading && !section.data.length">
+              <div style="color: white; margin: auto">No titles found matching your search.</div>
             </div>
           </div>
         </div>
@@ -213,7 +205,7 @@ export default {
         {
           title: 'Family',
           data: [],
-          query: { genres: ['Family'] },
+          query: { genres: JSON.stringify(['Animation']) },
         },
         {
           title: '...',
@@ -223,12 +215,12 @@ export default {
         {
           title: 'Best rated',
           data: [],
-          query: { imdbRating: 7, imdbVotes: 1000 },
+          query: { imdbRating: 8 }, // sort is done by number of votes
         },
         {
           title: 'Classic movies',
           data: [],
-          query: { releasedBefore: 1990 },
+          query: { releasedBefore: 1970 },
         },
       ],
 
@@ -273,7 +265,8 @@ export default {
       this.getAllData()
     },
     title() {
-      this.sections[0].data = []
+      this.sections[0].loading = true
+      this.sections[0].data = [] // Clean results
       clearTimeout(this.titleTimeout)
       this.titleTimeout = setTimeout(() => {
         this.getData(0)
@@ -312,10 +305,6 @@ export default {
     getProvider(watchUrl) {
       return ohana.providers.getName(watchUrl)
     },
-    scrolled(section, index) {
-      console.log('scrolled', section, index)
-    },
-
     getAllData() {
       for (var i = 1; i < this.sections.length; i++) {
         this.getData(i)
@@ -327,8 +316,9 @@ export default {
       let section = this.sections[index]
       if (!section) return console.log('no section ', index)
 
-      // Handle loading status
-      if (section.loading || section.finishLoading) return
+      // Handle loading status (avoid loading multiple times)
+      if (index != 0 && (section.loading || section.finishLoading))
+        return console.log('already loading')
       section.loading = true
 
       // Build queries
@@ -338,8 +328,8 @@ export default {
       query.page = Math.round(section.data.length / this.pageSize) + 1
       query.pageSize = this.pageSize
       query.newAPI = true
+      // Add either title (index == 0) or tags we want to be clean
       if (index == 0) {
-        // title section
         query.title = this.title
       } else {
         query.clean = JSON.stringify(this.skipTags)
@@ -350,8 +340,14 @@ export default {
       fetch(url)
         .then((r) => r.json())
         .then((data) => {
+          // Ignore results from deprecated search queries
+          if (index == 0 && query.title != this.title)
+            return console.log('ignoring results', query.title, this.title)
+
+          // Mark loading as finished (when result length is shorter than page size)
           if (data.length < this.pageSize) section.finishLoading = true
 
+          // Do some data formatting and push to data array
           for (var i = 0; i < data.length; i++) {
             data[i].join_status = ohana.movies.joinStatus2(data[i].movieContent, this.skipTags)
             data[i].brief_status = ohana.movies.getSummary(data[i].movieContent)
@@ -375,7 +371,7 @@ export default {
       wrappers[i].onscroll = (event) => {
         let target = event.target
         let remaining = target.scrollWidth - (target.scrollLeft + target.offsetWidth)
-        if (remaining < 500) {
+        if (remaining < 1000) {
           let id = target.parentElement.dataset.id
           console.log('Scroll left:', remaining, '. Get data from: ', id)
           this.getData(id)
@@ -552,7 +548,7 @@ div.posters_wrapper2 div.poster div.content {
   z-index: 98;
 }
 
-.poster > .placeholder-title {
+.placeholder-title {
   position: absolute !important;
   font-size: 1.3rem !important;
   text-align: center;

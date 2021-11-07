@@ -78,6 +78,7 @@ const movies = {
   getSummary(status) {
     let brief_status = {}
     try {
+      if (!status) return brief_status
       for (let cat of ['erotic', 'gory', 'profane']) {
         for (let sev of ['Very', 'Moderately', 'Mildly', 'Slightly']) {
           let tag = sev + ' ' + cat
