@@ -1,11 +1,10 @@
 <template>
   <div class="home">
     <!-- Header -->
-    <!-- <my-header></my-header> -->
-
     <div class="sticky2">
-      <div>Ohana</div>
-      <div style="margin: auto auto auto 0px">
+      <div v-if="!isMobile" style="margin: auto auto auto 48%; font-size: 24px">Ohana</div>
+      <div v-else style="margin: auto auto auto 5px">Ohana</div>
+      <div>
         <v-text-field
           outlined
           dark
@@ -21,12 +20,6 @@
           @focus="$event.target.select()"
         >
         </v-text-field>
-      </div>
-      <div>
-        <router-link to="/community" style="color: white; text-decoration: none">
-          <v-icon style="color: white" v-if="isMobile">mdi-account-group</v-icon>
-          <span v-else>Collab</span>
-        </router-link>
       </div>
       <div>
         <router-link to="/about" style="color: white; text-decoration: none">
@@ -58,16 +51,13 @@
               href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
               class="btn"
               target="_blank"
-              style="margin: 5px"
               >{{ $t('install') }}</a
             >
+            <router-link to="about" class="btn">{{ $t('learnMore') }}</router-link>
           </div>
           <div v-if="hasApp">
             <router-link to="community" class="btn">{{ $t('support_ohana') }}</router-link>
-          </div>
-
-          <div v-else-if="!isChrome">
-            <router-link to="get-started" class="btn">{{ $t('getStarted') }}</router-link>
+            <router-link to="about" class="btn">{{ $t('learnMore') }}</router-link>
           </div>
         </div>
       </div>
@@ -210,6 +200,11 @@ export default {
           query: { genres: JSON.stringify(['Animation']) },
         },
         {
+          title: 'Forgiveness',
+          data: [],
+          query: { values: JSON.stringify(['Forgiveness']) },
+        },
+        {
           title: 'Documentaries',
           data: [],
           query: { genres: JSON.stringify(['Documentary']) },
@@ -267,13 +262,15 @@ export default {
       this.getAllData()
     },
     title() {
-      this.sections[0].loading = false
-      this.sections[0].finishLoading = false
+      this.sections[0].loading = true // Show loading placeholders
       this.sections[0].data = [] // Clean results
       clearTimeout(this.titleTimeout)
       this.titleTimeout = setTimeout(() => {
+        // Override loading and finishLoading (to force loading even if already loading)
+        this.sections[0].finishLoading = false
+        this.sections[0].loading = false
         this.getData(0)
-      }, 500)
+      }, 400)
     },
   },
   computed: {
@@ -670,7 +667,7 @@ hr {
   color: white;
   display: flex;
   padding: 4px;
-  margin: auto 0px;
+  margin: auto 5px;
 }
 
 .sticky2 > div > span {
@@ -685,6 +682,7 @@ hr {
   background: white;
   padding: 5px 10px;
   border-radius: 4px;
+  margin: 10px;
   text-decoration: none;
   color: black !important;
 }
@@ -694,5 +692,19 @@ hr {
   display: flex;
   padding: 10px;
   color: white;
+}
+
+section:after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  transform: translateY(-100%);
+  background: linear-gradient(transparent, #141414);
+  pointer-events: none;
 }
 </style>
