@@ -1,5 +1,5 @@
 <template>
-  <div id="vheader">
+  <div id="vheader" v-if="no_magic">
     <div>
       <v-app-bar
         :fixed="!isHome"
@@ -88,6 +88,9 @@ export default {
     },
     isNewHome() {
       return this.$route.path == '/magic'
+    },
+    no_magic() {
+      return !window.location.href.includes('magic')
     },
   },
   data() {

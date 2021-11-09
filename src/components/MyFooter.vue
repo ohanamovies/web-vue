@@ -1,5 +1,5 @@
 <template>
-  <footer id="footer">
+  <footer id="footer" v-if="no_magic">
     <div class="inner">
       <h3 style="margin-bottom: 10px !important">Get in touch</h3>
       <p style="font-size: 90%; opacity: 0.6">We'd love to hear from you</p>
@@ -70,6 +70,11 @@ export default {
       message: '',
       infoText: '',
     }
+  },
+  computed: {
+    no_magic() {
+      return !window.location.href.includes('magic')
+    },
   },
   methods: {
     sendMessage() {

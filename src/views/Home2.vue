@@ -662,8 +662,8 @@ hr {
   top: 0;
   padding: 0 5px;
   width: 100%;
-  background-color: #141414;
-  z-index: 99999999;
+  background-color: transparent;
+  z-index: 9999;
 }
 
 .sticky2 > div {
