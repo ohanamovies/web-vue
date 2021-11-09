@@ -210,9 +210,9 @@ export default {
           query: { genres: JSON.stringify(['Animation']) },
         },
         {
-          title: '...',
+          title: 'Documentaries',
           data: [],
-          query: {},
+          query: { genres: JSON.stringify(['Documentary']) },
         },
         {
           title: 'Best rated',
@@ -267,7 +267,8 @@ export default {
       this.getAllData()
     },
     title() {
-      this.sections[0].loading = true
+      this.sections[0].loading = false
+      this.sections[0].finishLoading = false
       this.sections[0].data = [] // Clean results
       clearTimeout(this.titleTimeout)
       this.titleTimeout = setTimeout(() => {
@@ -315,8 +316,8 @@ export default {
       if (!section) return console.log('no section ', index)
 
       // Handle loading status (avoid loading multiple times)
-      if (index != 0 && (section.loading || section.finishLoading))
-        return console.log('already loading')
+      if (section.loading) return console.log('already loading')
+      if (section.finishLoading) return console.log('already finished loading')
       section.loading = true
 
       // Build queries
