@@ -430,6 +430,7 @@ textarea {
 
 #posters {
   background-color: #141414;
+  min-height: 100vh;
 }
 
 #posters > .inner {
@@ -694,7 +695,7 @@ hr {
   color: white;
 }
 
-section:after {
+.banner:after {
   content: '';
   display: block;
   width: 100%;
