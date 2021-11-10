@@ -195,7 +195,7 @@ export default {
           query: {},
         },
         {
-          title: 'Family',
+          title: 'Watch with kids',
           data: [],
           query: { genres: JSON.stringify(['Animation']) },
         },
@@ -205,15 +205,21 @@ export default {
           query: { values: JSON.stringify(['Forgiveness']) },
         },
         {
-          title: 'Documentaries',
+          title: 'Caring',
           data: [],
-          query: { genres: JSON.stringify(['Documentary']) },
+          query: { values: JSON.stringify(['Caring']) },
         },
         {
           title: 'Best rated',
           data: [],
           query: { imdbRating: 8 }, // sort is done by number of votes
         },
+        {
+          title: 'Documentaries',
+          data: [],
+          query: { genres: JSON.stringify(['Documentary']) },
+        },
+
         {
           title: 'Classic movies',
           data: [],
@@ -327,6 +333,8 @@ export default {
       // Add either title (index == 0) or tags we want to be clean
       if (index == 0) {
         query.title = this.title
+      } else if (index == 1) {
+        query.edited = JSON.stringify(this.skipTags)
       } else {
         query.clean = JSON.stringify(this.skipTags)
       }

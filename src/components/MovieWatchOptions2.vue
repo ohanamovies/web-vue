@@ -23,15 +23,14 @@
       </a>
 
       <span v-if="!selection.providers.length">
+        <span>Sorry, no known providers available</span>
         <a
-          class="provider-link"
+          class="modern-link"
           v-if="selection.tmdb"
           target="_blank"
           :href="'https://www.themoviedb.org/' + selection.tmdb + '/watch'"
-        >
-          <img src="images/tmdb.png" />
+          >try tmdb.
         </a>
-        <span v-else>Sorry, no known providers available</span>
       </span>
     </div>
 
