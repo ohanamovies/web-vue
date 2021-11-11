@@ -77,19 +77,32 @@ const movies = {
 
   addInfo(movie, skipTags) {
     movie.join_status = movies.joinStatus2(movie.movieContent, skipTags)
-    movie.brief_status = movies.getSummary(movie.movieContent)
-    movie.movieValues = {} // TODO
+    movie.brief_status = movies.getSummary(movie)
+    if (typeof movie.movieValues == 'string')
+      movie.movieValues = movies.parse(movie.movieValues, {})
     return movie
   },
 
-  getSummary(status) {
+  parse(json, def) {
+    try {
+      let data = JSON.parse(json)
+      if (data) return data
+    } catch (e) {
+      console.log(e)
+    }
+    return def
+  },
+
+  getSummary(movie) {
+    let content = movie.movieContent
+    //let status = movie.filterStatus
     let brief_status = {}
     try {
-      if (!status) return brief_status
+      if (!content) return brief_status
       for (let cat of ['erotic', 'gory', 'profane']) {
         for (let sev of ['Very', 'Moderately', 'Mildly', 'Slightly']) {
           let tag = sev + ' ' + cat
-          let s = status[tag]
+          let s = content[tag]
           if (!s) continue // TODO: this continues if there is no info...
           if (s.health > 0.5 && s.trust > 1) continue
           brief_status[tag] = s

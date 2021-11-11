@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- Section title -->
+    <!-- Section title 
     <div>
       <b v-if="is_clean">Watch options (healthy): </b>
       <b v-else-if="is_missing">Watch options (unhealthy): </b>
@@ -8,7 +8,7 @@
       <b v-else-if="is_mixed">Watch options (mixed): </b>
       <b v-else-if="is_done || hasApp">Watch options (edited): </b>
       <b v-else-if="no_settings">Watch options (no settings): </b>
-    </div>
+    </div>-->
 
     <!-- WATCH OPTIONS -->
     <div v-if="is_clean || (is_done && hasApp) || bypass">
