@@ -365,7 +365,7 @@ export default {
 
   mounted() {
     //load some data
-    //this.getAllData()
+    if (this.skipTags && this.skipTags.length) this.getAllData()
     // Detect when scrolled to bottom.
     const wrappers = document.querySelectorAll('.posters_wrapper2')
     for (var i = 0; i < wrappers.length; i++) {

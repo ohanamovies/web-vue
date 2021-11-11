@@ -1,14 +1,14 @@
 <template>
   <div>
-    <!-- Section title 
+    <!-- Section title -->
     <div>
-      <b v-if="is_clean">Watch options (healthy): </b>
-      <b v-else-if="is_missing">Watch options (unhealthy): </b>
-      <b v-else-if="is_unknown">Watch options (unknown): </b>
-      <b v-else-if="is_mixed">Watch options (mixed): </b>
-      <b v-else-if="is_done || hasApp">Watch options (edited): </b>
-      <b v-else-if="no_settings">Watch options (no settings): </b>
-    </div>-->
+      <b>Watch options: </b>
+      <i v-if="is_missing">(beware unhealthy content)</i>
+      <i v-else-if="is_unknown">(beware unknown content)</i>
+      <i v-else-if="is_mixed">(beware mixed content)</i>
+      <i v-else-if="is_done || hasApp">(edited)</i>
+      <i v-else-if="no_settings">(no settings)</i>
+    </div>
 
     <!-- WATCH OPTIONS -->
     <div v-if="is_clean || (is_done && hasApp) || bypass">
@@ -60,9 +60,9 @@
 
     <!-- movie is pending -->
     <div v-if="is_missing || is_unknown || (is_done && !hasApp) || is_mixed">
-      <span v-if="!bypass" class="modern-link" @click="bypass = true"
-        >Show watch options anyway</span
-      >
+      <span v-if="!bypass">
+        <span class="modern-link" @click="bypass = true">Show watch options anyway</span>
+      </span>
       <!--<span v-else class="modern-link" @click="bypass = false">Hide watch options</span>-->
     </div>
   </div>

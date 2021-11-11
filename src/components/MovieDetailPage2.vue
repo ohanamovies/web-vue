@@ -70,23 +70,21 @@
                 <a @click="viewMore = true">view more</a>
               </div>
 
+              <div style="text-align: center; margin: 10px 0px">
+                <v-icon
+                  v-if="item.join_status.icon != 'none'"
+                  :color="item.join_status.color"
+                  style="margin-right: 5px"
+                >
+                  {{ item.join_status.icon }}
+                </v-icon>
+                <span :style="'color: ' + item.join_status.color">
+                  {{ ohanaSummary }}
+                </span>
+              </div>
+
               <!-- Watch on -->
-              <div style="margin: 20px 0">
-                <div style="display: flex; justify-content: space-between">
-                  <b style="min-width: fit-content">Watch options: </b>
-                  <span>
-                    <v-icon
-                      v-if="item.join_status.icon != 'none'"
-                      :color="item.join_status.color"
-                      style="margin-right: 5px"
-                    >
-                      {{ item.join_status.icon }}
-                    </v-icon>
-                    <div :style="'text-align: right; color: ' + item.join_status.color">
-                      {{ ohanaSummary }}
-                    </div>
-                  </span>
-                </div>
+              <div style="margin: 10px 0">
                 <movie-watch-options :selection="item"></movie-watch-options>
               </div>
 
