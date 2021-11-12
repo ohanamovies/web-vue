@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <!-- Header -->
+
     <div class="sticky2">
       <div v-if="!isMobile" style="margin: auto auto auto 48%; font-size: 24px">Ohana</div>
       <div v-else style="margin: auto auto auto 5px">Ohana</div>
@@ -434,7 +435,8 @@ textarea {
 }
 
 #posters > .inner {
-  max-width: 1050px;
+  /*max-width: 1050px;*/
+  max-width: 1300px;
   margin: auto;
   padding-bottom: 80px;
 }
@@ -463,15 +465,15 @@ div.posters_wrapper2 div.poster {
   align-content: flex-start;
   border-radius: 8px;
   overflow: hidden;
-  max-width: 140px;
-  min-width: 140px;
+  max-width: 150px;
+  min-width: 150px;
   transition: top ease 0.4s;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 400px) {
   div.posters_wrapper2 div.poster {
-    max-width: 110px;
-    min-width: 110px;
+    max-width: 120px;
+    min-width: 120px;
   }
 }
 
