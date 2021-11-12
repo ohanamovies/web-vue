@@ -9,7 +9,7 @@
         style="white-space: pre-wrap; word-break: keep-all; line-height: normal; margin-bottom: 5px"
       >
         <span style="max-width: calc(100% - 30px)">{{ title }}</span>
-        <!-- {{ selection }} -->
+        <!-- {{ item }} -->
         <span style="margin: 0 5px auto auto">
           <v-icon @click="closeMe">mdi-close</v-icon>
         </span>
@@ -27,15 +27,13 @@
             :key="index"
             :text="getText(g, index)"
           >
-            <v-chip :color="getColor(index, g)" x-small class="mr-1">{{ index }}</v-chip>
+            <v-chip :color="getColor(index, g)" small class="mr-1">{{ index }}</v-chip>
           </fc-tooltip>
         </span>
 
         <span>
           <fc-tooltip v-for="(g, index) in item.movieValues" :key="index" :text="getText(index, g)">
-            <v-chip :color="g.status > 0 ? 'green' : 'red'" x-small class="mr-1">{{
-              index
-            }}</v-chip>
+            <v-chip :color="getValueColor(index, g)" small class="mr-1">{{ index }}</v-chip>
           </fc-tooltip>
         </span>
       </v-card-subtitle>
@@ -49,65 +47,66 @@
               :src="poster"
               :alt="item.title"
               style="object-fit: contain; width: 100%"
-              :class="[selection.join_status.status == 'missing' ? 'blur_image' : '']"
+              :class="[item.join_status.status == 'missing' ? 'blur_image' : '']"
             />
           </v-col>
 
           <!-- Rest of info -->
           <v-col>
             <div style="height: 350px; overflow-y: auto">
-              <div>
-                <!-- Genres -->
-                <div style="display: flex; justify-content: space-between">
-                  <b>Overview: </b>
-                  <i style="font-size: 85%">{{ item.genres.join(' - ') }}</i>
-                </div>
+              <!-- Genres -->
+              <div style="display: flex; justify-content: space-between">
+                <b>Overview: </b>
+                <i style="font-size: 85%">{{ item.genres.join(' - ') }}</i>
+              </div>
 
-                <!-- Overview -->
-                <div class="overview" v-if="plot.length < 400 || viewMore">
-                  {{ plot }}
-                  <a v-if="plot.length >= 400" @click="viewMore = false">view less</a>
-                </div>
-                <div v-else>
-                  {{ plot.slice(0, 300) }}...
-                  <a @click="viewMore = true">view more</a>
-                </div>
+              <!-- Overview -->
+              <div class="overview" v-if="plot.length < 400 || viewMore">
+                {{ plot }}
+                <a v-if="plot.length >= 400" @click="viewMore = false"> view less</a>
+              </div>
+              <div v-else>
+                {{ plot.slice(0, 300) }}...
+                <a @click="viewMore = true">view more</a>
+              </div>
 
-                <!-- Link to IMDb -->
-                <div style="margin: 10px 0">
-                  <b>More on: </b>
-                  <div>
-                    <a
-                      class="provider-link"
-                      target="_blank"
-                      :href="'https://www.imdb.com/title/' + item.imdb"
-                    >
-                      <img src="images/imdb.png" />
-                    </a>
-
-                    <a
-                      class="provider-link"
-                      target="_blank"
-                      :href="'https://www.themoviedb.org/' + item.tmdb"
-                    >
-                      <img src="images/tmdb.png" />
-                    </a>
-                  </div>
-                </div>
+              <div style="text-align: center; margin: 10px 0px">
+                <v-icon
+                  v-if="item.join_status.icon != 'none'"
+                  :color="item.join_status.color"
+                  style="margin-right: 5px"
+                >
+                  {{ item.join_status.icon }}
+                </v-icon>
+                <span :style="'color: ' + item.join_status.color">
+                  {{ ohanaSummary }}
+                </span>
               </div>
 
               <!-- Watch on -->
-              <div>
-                <movie-watch-options :selection="selection"></movie-watch-options>
+              <div style="margin: 10px 0">
+                <movie-watch-options :selection="item"></movie-watch-options>
               </div>
 
-              <!-- Ohana Summary HIDING WHILE BROKEN -->
-              <div v-if="false" class="ohana-summary">
-                <v-icon :color="selection.color" style="margin-right: 5px">
-                  {{ selection.icon == 'none' ? 'mdi-alert' : selection.icon }}
-                </v-icon>
-                <div style="margin: auto; margin-left: 0px">
-                  <span v-html="ohanaSummaryHtml"></span>
+              <!-- Link to IMDb -->
+              <div style="margin: 20px 0">
+                <b>More on: </b>
+                <div>
+                  <a
+                    class="provider-link"
+                    target="_blank"
+                    :href="'https://www.imdb.com/title/' + item.imdb"
+                  >
+                    <img src="images/imdb.png" />
+                  </a>
+
+                  <a
+                    class="provider-link"
+                    target="_blank"
+                    :href="'https://www.themoviedb.org/' + item.tmdb"
+                  >
+                    <img src="images/tmdb.png" />
+                  </a>
                 </div>
               </div>
 
@@ -198,13 +197,10 @@ export default {
       )
     },
     is_unknown() {
-      return (
-        this.selection.join_status.status == 'unknown' ||
-        this.selection.join_status.status == 'unkown'
-      )
+      return this.item.join_status.status == 'unknown' || this.item.join_status.status == 'unkown'
     },
     is_missing() {
-      return this.selection.join_status.status == 'missing'
+      return this.item.join_status.status == 'missing'
     },
 
     language() {
@@ -227,32 +223,26 @@ export default {
     },
 
     parsedURL() {
-      return provider.parseURL(this.selection.watch_url) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
+      return provider.parseURL(this.item.watch_url) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
     },
 
-    ohanaSummaryHtml() {
-      //TODO: Draft (shall we add here a link to watch, if safe?)
-      let status = this.selection.join_status.status
-      let cuts = this.selection.join_status.cuts
-      let level = this.selection.join_status.level
-
+    ohanaSummary() {
+      //TODO: Draft (shall we add here a link to watch, if healthy?)
+      let status = this.item.join_status.status
       let type = this.item.type
-
       let text = ''
       if (status == 'unset') {
-        text = `To know if this ${type} is safe for you, let us know your preferences.`
-      } else if (status == 'done' && cuts == 0) {
-        text = `${
-          level > 5 ? 'This' : 'Our community says that this'
-        } ${type} is clean for your settings. Nothing to edit here.`
-      } else if (status == 'done' && cuts > 0) {
-        text = `${
-          level > 5 ? 'We' : 'Our community'
-        } created filters for this ${type} to make it safe.`
+        text = `To know if this ${type} is healthy for you, let us know your preferences.`
+      } else if (status == 'clean') {
+        text = `This ${type} is healthy for your settings.`
+      } else if (status == 'done') {
+        text = `We've created filters for this ${type} to make it healthy.`
       } else if (status == 'missing') {
-        text = `Watchout! This ${type} is not ready to be watched safely.`
+        text = `Watchout! This ${type} is not ready to be watched healthily.`
+      } else if (status == 'mixed') {
+        text = `Watchout! This ${type} might contain unhealthy content.`
       } else {
-        text = `Ouch! We don't have enough information about this ${type}. Sorry!`
+        text = `Ouch! We don't know if this content if healthy!`
       }
 
       return text
@@ -266,6 +256,12 @@ export default {
         if (value.health < -0.5) return 'red'
         return 'orange'
       }
+      return 'lightgray'
+    },
+    getValueColor(key, value) {
+      //if (value.trust < 2) return 'orange'
+      if (value.health < -0.5) return 'red'
+      if (value.health > 0.5) return 'green'
       return 'lightgray'
     },
     getText(key, value) {
@@ -291,7 +287,7 @@ export default {
       this.item = this.selection
       let url = ohana.utils.buildURL({
         action: 'getMovie',
-        imdb: this.selection.imdb,
+        imdb: this.item.imdb,
         newAPI: true,
       })
       console.log('[alex] getting movie data', url)
@@ -319,7 +315,7 @@ export default {
   display: none !important;
 }
 
-.ohana-summary {
+/*.ohana-summary {
   display: flex;
   border: solid 1px lightgray;
   padding: 5px;
@@ -328,7 +324,7 @@ export default {
   white-space: pre-wrap;
   word-break: keep-all;
   line-height: normal;
-}
+}*/
 
 .star {
   font-size: 100% !important;
@@ -349,5 +345,14 @@ export default {
   font-weight: bold;
   font-size: 10pt;
   text-decoration: none;
+}
+
+.v-chip {
+  padding: 0 10px;
+  margin-bottom: 2px;
+}
+
+.v-chip.v-size--small {
+  font-size: 12px;
 }
 </style>
