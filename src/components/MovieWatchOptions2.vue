@@ -2,25 +2,33 @@
   <div>
     <!-- Section title -->
     <div v-if="bypass">
-      <b>Watch options: </b>
+      <b>Watch options </b>
       <i v-if="is_missing">(beware unhealthy content)</i>
       <i v-else-if="is_unknown">(beware unknown content)</i>
       <i v-else-if="is_mixed">(beware mixed content)</i>
       <i v-else-if="is_done || hasApp">(edited)</i>
       <i v-else-if="no_settings">(no settings)</i>
     </div>
+    <div v-else-if="is_clean || (is_done && hasApp) || bypass">
+      <b>Watch options</b>
+    </div>
 
     <!-- WATCH OPTIONS -->
     <div v-if="is_clean || (is_done && hasApp) || bypass">
-      <a
-        class="provider-link"
-        v-for="(provider, index) in selection.providers"
-        :key="index"
-        target="_blank"
-        :href="getLink(provider.provider, provider.providerID)"
-      >
-        <img :src="getLogo(provider.provider)" />
-      </a>
+      <!-- providers -->
+      <div style="display: flex">
+        <div v-for="(provider, index) in selection.providers" :key="index">
+          <a
+            v-if="provider.provider != 'justwatch'"
+            class="provider-link"
+            target="_blank"
+            :href="getLink(provider.provider, provider.providerID)"
+          >
+            <img :src="getLogo(provider.provider)" :alt="provider.provider" />
+          </a>
+        </div>
+      </div>
+      <!-- JustWatch -->
 
       <span v-if="!selection.providers.length">
         <span>Sorry, no known providers available. </span>
@@ -32,13 +40,20 @@
           >Try tmdb.
         </a>
       </span>
+
+      <div style="font-size: 80%">
+        {{ selection.providers.length ? 'Powered by' : 'You may search on ' }}
+        <a href="https://www.justwatch.com" target="_blank">
+          <img height="9" src="images/providers/justwatch-rectangle.png" alt="JustWatch" />
+        </a>
+      </div>
     </div>
 
     <!-- no settings -->
     <div v-else-if="no_settings">
-      <router-link class="button special" to="/settings">{{
-        $t('manage_preferences')
-      }}</router-link>
+      <router-link class="button special" to="/settings"
+        >{{ $t('manage_preferences') }}<v-icon>mdi-account-cog-outline</v-icon></router-link
+      >
     </div>
 
     <!--movie is edited -->
@@ -119,13 +134,13 @@ export default {
   },
   methods: {
     getLogo(provider) {
-      if (provider == 'netflix') return 'images/netflix.png'
-      if (provider == 'justwatch') return 'images/justwatch.jpg'
-      if (provider == 'primevideo') return 'images/primevideo.png'
-      if (provider == 'disneyplus') return 'images/disneyplus.png'
-      if (provider == 'movistarplus') return 'images/movistarplus.png'
-      if (provider == 'hboespana') return 'images/hbomax.png'
-      if (provider == 'hbomax') return 'images/hbomax.png'
+      if (provider == 'netflix') return 'images/providers/netflix.png'
+      if (provider == 'justwatch') return 'images/providers/justwatch.jpg'
+      if (provider == 'primevideo') return 'images/providers/primevideo.png'
+      if (provider == 'disneyplus') return 'images/providers/disneyplus.png'
+      if (provider == 'movistarplus') return 'images/providers/movistarplus.png'
+      if (provider == 'hboespana') return 'images/providers/hbomax.png'
+      if (provider == 'hbomax') return 'images/providers/hbomax.png'
     },
     getLink(provider, providerID) {
       providerID = providerID.split('_')[1]
@@ -145,5 +160,13 @@ export default {
   width: 35px;
   margin: 2px;
   border-radius: 5px;
+}
+
+.provider-link-rectangle > img {
+  height: 16px;
+  margin: 2px 10px 0px 0px;
+  /*padding-top: 5px;*/ /* weird, but otherwise not well aligned with flex*/
+  border-radius: 2px;
+  /*border-radius: 5px;*/
 }
 </style>

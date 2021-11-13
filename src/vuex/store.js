@@ -41,6 +41,7 @@ const store = new Vuex.Store({
       level: 0,
       authToken: '',
       welcomed: 0,
+      providers: [],
     },
     skipTags: [],
     hasApp: false,

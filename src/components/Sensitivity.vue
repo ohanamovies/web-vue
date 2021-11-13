@@ -27,9 +27,11 @@
         </div>
       </div>
     </div>
-    <span class="modern-link" @click="reset2default()" style="margin-bottom: 30px">{{
-      $t('restore_deafult_values')
-    }}</span>
+    <div style="text-align: right">
+      <span class="modern-link" @click="reset2default()" style="margin-bottom: 30px">{{
+        $t('restore_deafult_values')
+      }}</span>
+    </div>
   </div>
 </template>
 

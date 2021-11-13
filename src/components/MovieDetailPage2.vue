@@ -1,127 +1,229 @@
 <template>
   <div>
     <!-- A: if we have valid data  -->
-    <v-card v-if="item.title" @keydown.esc="closeMe()">
+    <v-card v-if="item.title" @keydown.esc="closeMe()" style="position: relative">
+      <!-- {{ close me }} -->
+      <span style="margin: 0 5px auto auto; position: absolute; top: 5px; right: 5px">
+        <v-icon @click="closeMe">mdi-close</v-icon>
+      </span>
+
       <!-- TITLE -->
-
-      <v-card-title
-        primary-title
-        style="white-space: pre-wrap; word-break: keep-all; line-height: normal; margin-bottom: 5px"
-      >
-        <span style="max-width: calc(100% - 30px)">{{ title }}</span>
-        <!-- {{ item }} -->
-        <span style="margin: 0 5px auto auto">
-          <v-icon @click="closeMe">mdi-close</v-icon>
-        </span>
-      </v-card-title>
-
-      <!-- SUBTITLE -->
-      <v-card-subtitle>
-        <fc-tooltip :text="'IMDb rating is ' + item.imdbRating + '/10'">
-          {{ item.imdbRating }}
-          <v-icon class="star">mdi-star</v-icon>
-        </fc-tooltip>
-        - {{ item.runtime + ' mins' }} - {{ item.released }} -
-
-        <span>
-          <fc-tooltip
-            v-for="(g, index) in item.brief_status"
-            :key="index"
-            :text="getText(g, index)"
-          >
-            <v-chip
-              :color="getColor(index, g)"
-              small
-              class="mr-1"
-              :style="{
-                color: ['red', 'green', 'orange'].includes(getColor(index, g))
-                  ? 'white'
-                  : 'default',
-              }"
-              >{{ index }}</v-chip
-            >
-          </fc-tooltip>
-        </span>
-
-        <span>
-          <fc-tooltip v-for="(g, index) in item.movieValues" :key="index" :text="getText(index, g)">
-            <v-chip :color="getValueColor(index, g)" small class="mr-1">{{ index }}</v-chip>
-          </fc-tooltip>
-        </span>
-      </v-card-subtitle>
-
-      <!-- CONTENT -->
-      <v-card-text>
+      <v-card-text class="pb-3">
         <v-row>
-          <!-- Image only if not isMobile -->
-          <v-col cols="4" v-if="!isMobile">
+          <v-col cols="4" v-if="!isMobile" class="pa-0">
             <img
               :src="poster"
               :alt="item.title"
-              style="object-fit: contain; width: 100%"
-              :class="[item.join_status.status == 'missing' ? 'blur_image' : '']"
+              style="object-fit: contain; width: 100%; padding: 20px 10px 0px"
+              :class="[item.join_status.status == 'missing' && blur_if_missing ? 'blur_image' : '']"
             />
+            <div
+              class="modern-link"
+              style="text-align: center; font-size: 80%"
+              v-if="item.join_status.status == 'missing'"
+              @click="blur_if_missing = !blur_if_missing"
+            >
+              {{ blur_if_missing ? 'See poster' : 'Blur poster' }}
+            </div>
           </v-col>
+          <v-col class="pa-0">
+            <v-card-title
+              primary-title
+              style="
+                white-space: pre-wrap;
+                word-break: keep-all;
+                line-height: normal;
+                margin-bottom: 5px;
+              "
+            >
+              <span style="max-width: calc(100% - 30px)">{{ title }}</span>
+              <span style="font-size: 60%; font-color: rgba(0, 0, 0, 0.6); margin-top: 3px">
+                ({{ item.released }})</span
+              >
+            </v-card-title>
 
-          <!-- Rest of info -->
-          <v-col>
-            <div style="height: 350px; overflow-y: auto">
-              <!-- Genres -->
-              <div style="display: flex; justify-content: space-between">
-                <b>Overview: </b>
-                <i style="font-size: 85%">{{ item.genres.join(' - ') }}</i>
+            <!-- SUBTITLE -->
+            <v-card-subtitle style="display: flex">
+              <div style="font-size: 110%">
+                <fc-tooltip text="IMDb rating">
+                  <v-icon class="star">mdi-star</v-icon><span>{{ item.imdbRating }}</span
+                  ><span style="font-size: 70%">/10</span>
+                </fc-tooltip>
+                - {{ item.runtime + ' mins' }}
               </div>
 
-              <!-- Overview -->
-              <div class="overview" v-if="plot.length < 400 || viewMore">
-                {{ plot }}
-                <a v-if="plot.length >= 400" @click="viewMore = false"> view less</a>
-              </div>
-              <div v-else>
-                {{ plot.slice(0, 250) }}...
-                <a @click="viewMore = true">view more</a>
-              </div>
-
-              <div style="text-align: center; margin: 15px 0px; font-weight: 500">
-                <v-icon
-                  v-if="item.join_status.icon != 'none'"
-                  :color="item.join_status.color"
-                  style="margin-right: 5px"
-                >
-                  {{ item.join_status.icon }}
-                </v-icon>
-                <span :style="'color: ' + item.join_status.color">
-                  {{ ohanaSummary }}
-                </span>
-              </div>
-
-              <!-- Watch on -->
-              <div style="margin: 10px 0">
-                <movie-watch-options :selection="item"></movie-watch-options>
-              </div>
-
-              <!-- Link to IMDb -->
-              <div style="margin: 20px 0">
-                <b>More on: </b>
-                <div>
+              <div style="margin-left: 10px">
+                <fc-tooltip text="Check on IMDb">
                   <a
-                    class="provider-link"
+                    class="provider-link-rectangle"
                     target="_blank"
                     :href="'https://www.imdb.com/title/' + item.imdb"
                   >
-                    <img src="images/imdb.png" />
+                    <img src="images/providers/imdb-rectangle.png" />
                   </a>
+                </fc-tooltip>
 
+                <fc-tooltip text="Check on The Movie Database (TMBDb)">
                   <a
-                    class="provider-link"
+                    class="provider-link-rectangle"
                     target="_blank"
                     :href="'https://www.themoviedb.org/' + item.tmdb"
                   >
-                    <img src="images/tmdb.png" />
+                    <img src="images/providers/tmdb-rectangle.png" />
                   </a>
-                </div>
+                </fc-tooltip>
               </div>
 
+              <div v-if="false">
+                <!-- movie scenes -->
+                <span>
+                  <fc-tooltip
+                    v-for="(g, index) in item.brief_status"
+                    :key="index"
+                    :text="getText(g, index)"
+                  >
+                    <v-chip
+                      :color="getColor(index, g)"
+                      :x-small="isMobile"
+                      :small="!isMobile"
+                      class="mr-1"
+                      :style="{
+                        color: ['red', 'green', 'orange'].includes(getColor(index, g))
+                          ? 'white'
+                          : 'default',
+                      }"
+                      >{{ index }}</v-chip
+                    >
+                  </fc-tooltip>
+                </span>
+
+                <!-- movie values -->
+                <span>
+                  <fc-tooltip
+                    v-for="(g, index) in item.movieValues"
+                    :key="index"
+                    :text="getText(index, g)"
+                  >
+                    <v-chip
+                      :color="getValueColor(index, g)"
+                      :x-small="isMobile"
+                      :small="!isMobile"
+                      class="mr-1"
+                      >{{ index }}</v-chip
+                    >
+                  </fc-tooltip>
+                </span>
+              </div>
+            </v-card-subtitle>
+
+            <!-- CONTENT -->
+            <v-card-text>
+              <!-- Rest of info -->
+
+              <div :style="{ height: textHeight, overflowY: 'auto' }">
+                <!-- Genres -->
+                <div style="display: flex; justify-content: space-between">
+                  <b>Overview </b>
+                  <i style="font-size: 85%">{{ item.genres.join(' - ') }}</i>
+                </div>
+
+                <!-- Overview -->
+                <div>
+                  <div class="overview" v-if="plot.length < 200 || viewMore">
+                    {{ plot }}
+                    <a v-if="plot.length >= 200" @click="viewMore = false" class="modern-link">
+                      Read less</a
+                    >
+                  </div>
+                  <div v-else>
+                    {{ plot.slice(0, 200 - 40) }}...
+                    <a @click="viewMore = true" class="modern-link" style="font-size: 80%"
+                      >Read more</a
+                    >
+                  </div>
+                </div>
+
+                <div style="text-align: center; margin: 15px 0px 5px; font-weight: 500">
+                  <v-icon
+                    v-if="item.join_status.icon != 'none' && false"
+                    :color="item.join_status.color"
+                    style="margin-right: 5px"
+                  >
+                    {{ item.join_status.icon }}
+                  </v-icon>
+                  <span :style="'color: ' + item.join_status.color">
+                    {{ ohanaSummary }}
+                  </span>
+                </div>
+
+                <div style="display: flex; justify-content: center">
+                  <!-- chips - scenes -->
+                  <span>
+                    <fc-tooltip
+                      v-for="(g, index) in item.brief_status"
+                      :key="index"
+                      :text="getText(g, index)"
+                    >
+                      <v-chip
+                        :color="getColor(index, g)"
+                        :x-small="isMobile"
+                        :small="!isMobile"
+                        class="mr-1"
+                        :style="{
+                          color: ['red', 'green', 'orange'].includes(getColor(index, g))
+                            ? 'white'
+                            : 'default',
+                        }"
+                        >{{ index }}</v-chip
+                      >
+                    </fc-tooltip>
+                  </span>
+
+                  <!-- chips - movie values -->
+                  <span>
+                    <fc-tooltip
+                      v-for="(g, index) in item.movieValues"
+                      :key="index"
+                      :text="getText(index, g)"
+                    >
+                      <v-chip
+                        :color="getValueColor(index, g)"
+                        :x-small="isMobile"
+                        :small="!isMobile"
+                        class="mr-1"
+                        >{{ index }}</v-chip
+                      >
+                    </fc-tooltip>
+                  </span>
+                </div>
+
+                <!-- Watch on -->
+                <div style="margin-top: 20px">
+                  <movie-watch-options :selection="item"></movie-watch-options>
+                </div>
+
+                <!--TODO: Moved to top, if ok delete this div -- Link to IMDb -->
+                <div style="margin: 20px 0" hidden>
+                  <b>More on </b>
+                  <div>
+                    <a
+                      class="provider-link-rectangle"
+                      target="_blank"
+                      :href="'https://www.imdb.com/title/' + item.imdb"
+                    >
+                      <img src="images/providers/imdb-rectangle.png" />
+                    </a>
+
+                    <a
+                      class="provider-link-rectangle"
+                      target="_blank"
+                      :href="'https://www.themoviedb.org/' + item.tmdb"
+                    >
+                      <img src="images/providers/tmdb-rectangle.png" />
+                    </a>
+                  </div>
+                </div>
+              </div>
               <!-- Feedbak button -->
               <div style="text-align: right; padding-right: 10px">
                 <a
@@ -135,7 +237,7 @@
                   $t('feedbackPopUp')
                 }}</a>
               </div>
-            </div>
+            </v-card-text>
           </v-col>
         </v-row>
       </v-card-text>
@@ -143,7 +245,7 @@
 
     <!-- B: if no data, show "error" -->
     <v-card v-else>
-      <v-card-text style="height: 350px">
+      <v-card-text style="height: 310px">
         <div>
           <span> Error!</span>
           <br />
@@ -180,6 +282,8 @@ export default {
       categories: [],
       severities: [],
       viewMore: false,
+
+      blur_if_missing: true,
     }
   },
 
@@ -197,6 +301,9 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile']),
     skipTags() {
       return this.$store.state.settings.skip_tags || []
+    },
+    textHeight() {
+      return this.isMobile ? '350px' : '300px'
     },
 
     feedback_link() {
@@ -244,17 +351,17 @@ export default {
       let type = this.item.type
       let text = ''
       if (status == 'unset') {
-        text = `To know if this ${type} is healthy for you, let us know your preferences.`
+        text = `🧐 To know if this ${type} is healthy for you, let us know your preferences.`
       } else if (status == 'clean') {
-        text = `This ${type} is healthy for your settings.`
+        text = `💃 This ${type} is healthy for your settings. Nothing to filter here.`
       } else if (status == 'done') {
-        text = `We've created filters for this ${type} to make it healthy.`
+        text = `🙅‍♀️ We've created filters for this ${type} to make it healthy.`
       } else if (status == 'missing') {
-        text = `Watchout! This ${type} is not ready to be watched healthily.`
+        text = `😱 This ${type} contains unhealthy scenes but we don't have filters yet.`
       } else if (status == 'mixed') {
-        text = `Watchout! This ${type} might contain unhealthy content.`
+        text = `This ${type} might contain unhealthy content. We are not sure. 🤷‍♂️`
       } else {
-        text = `Ouch! We don't know if this content if healthy!`
+        text = `🤦 Ouch! We don't know if this content if healthy!`
       }
 
       return text
@@ -262,6 +369,10 @@ export default {
   },
 
   methods: {
+    resetPopup() {
+      this.viewMore = false
+      this.blur_if_missing = true
+    },
     getColor(key, value) {
       console.log(value)
       if (this.skipTags.includes(key)) {
@@ -315,6 +426,7 @@ export default {
     },
   },
   mounted() {
+    this.resetPopup()
     this.categories = rawTags.categories
     this.severities = rawTags.severitiesR
     this.getData()
@@ -343,6 +455,7 @@ export default {
   vertical-align: text-top !important;
   color: orange !important;
   margin-left: -3px !important;
+  margin-top: 1px !important;
   /*margin: -3px 3px 3px 0px !important*/
 }
 

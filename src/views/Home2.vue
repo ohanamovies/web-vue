@@ -245,6 +245,11 @@ export default {
           query: {},
         },
         {
+          title: 'TV Shows healthy ',
+          data: [],
+          query: { type: 'series', clean: JSON.stringify(this.skipTags) },
+        },
+        {
           title: 'Watch with kids',
           data: [],
           query: { genres: JSON.stringify(['Animation']) },
