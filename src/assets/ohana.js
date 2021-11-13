@@ -75,6 +75,49 @@ const movies = {
     return { status: status, health: health, cuts: cuts, trust: trust, icon: icon, color: color }
   },
 
+  joinStatus3(movieContent, providers, skipTags) {
+    if (!movieContent) return { status: 'unknown', cuts: 0, trust: 0 }
+    if (!skipTags || !skipTags.length) return { status: 'unset', cuts: 0, trust: 0 }
+    let health = 100
+    let cuts = 0
+    let trust = Infinity
+    let status = 'unset'
+    let color = 'red'
+    let icon = ''
+
+    for (var tag of skipTags) {
+      // Set default
+      let ms = movieContent[tag] || {}
+      //todo: check providers
+
+      // Set num cuts/scenes & min user level
+      if (ms.cuts) cuts += ms.cuts
+      trust = Math.min(trust, ms.trust || 0)
+      health = Math.min(health, ms.health || 0)
+    }
+
+    if (health > 0.5) {
+      status = cuts ? 'done' : 'clean'
+      color = 'green'
+      icon = 'none'
+    } else if (health < -0.5) {
+      status = 'missing'
+      color = 'red'
+      icon = 'mdi-heart-broken'
+    } else {
+      status = 'mixed'
+      color = 'orange'
+      icon = 'mdi-heart-broken'
+    }
+    if (trust <= 1 || trust == Infinity) {
+      status = 'unknown'
+      color = 'lightgray'
+      icon = 'mdi-progress-question'
+    }
+
+    return { status: status, health: health, cuts: cuts, trust: trust, icon: icon, color: color }
+  },
+
   addInfo(movie, skipTags) {
     movie.join_status = movies.joinStatus2(movie.movieContent, skipTags)
     movie.brief_status = movies.getSummary(movie)
