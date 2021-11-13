@@ -2,7 +2,32 @@
   <div class="home">
     <!-- Header -->
 
-    <div class="sticky2">
+    <v-dialog
+      v-model="show_settings"
+      max-width="600"
+      min-width="0"
+      style="z-index: 999999"
+      :fullscreen="isMobile"
+    >
+      <div style="background-color: white; padding: 5px">
+        <div style="position: relative">
+          <span
+            class="modern-link"
+            :style="{
+              fontSize: '20pt',
+              position: isMobile ? 'fixed' : 'absolute',
+              top: '2px',
+              right: '8px',
+            }"
+            @click="show_settings = false"
+            >X</span
+          >
+        </div>
+        <settings2 style="margin-top: 10px" />
+      </div>
+    </v-dialog>
+
+    <div class="sticky2" style="z-index: 99999">
       <div v-if="!isMobile" style="margin: auto auto auto 48%; font-size: 24px">Ohana</div>
       <div v-else style="margin: auto auto auto 5px">Ohana</div>
       <div>
@@ -25,19 +50,26 @@
       <div>
         <router-link to="/about2" style="color: white; text-decoration: none">
           <v-icon style="color: white" v-if="isMobile">mdi-information-outline</v-icon>
-          <span v-else>About</span>
+          <span v-else>About </span>
         </router-link>
       </div>
       <div>
-        <router-link to="/settings" style="color: white; text-decoration: none">
+        <div
+          @click="show_settings = !show_settings"
+          style="color: white; text-decoration: none; cursor: pointer"
+        >
           <v-icon style="color: white" v-if="isMobile">mdi-cog-outline</v-icon>
           <span v-else>Settings</span>
-        </router-link>
+        </div>
       </div>
     </div>
 
     <!-- Banner -->
-    <section v-show="!title" class="banner home-background" style="min-height: 20vh !important">
+    <section
+      v-show="!title"
+      class="banner home-background"
+      style="min-height: 20vh !important; z-index: 99998"
+    >
       <div class="inner" style="border: none; padding: 0px !important">
         <h1 class="fadeInUp" style="margin-bottom: 5px">
           {{ $t('homeHeroText1') }}
@@ -63,6 +95,18 @@
         </div>
       </div>
     </section>
+
+    <div
+      class="stickybar"
+      style="
+        padding: 25px;
+        background-color: #141414;
+        top: 0;
+        position: fixed;
+        width: 100%;
+        z-index: 99997;
+      "
+    ></div>
 
     <section id="posters">
       <div class="inner">
@@ -145,9 +189,13 @@ import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
 import MovieDetailPage from '../components/MovieDetailPage2'
 
+import { mutations } from '@/vuex/types'
+import Settings2 from '@/components/Settings2.vue'
+
 export default {
   components: {
     MovieDetailPage,
+    Settings2,
   },
 
   head: function () {
@@ -160,6 +208,7 @@ export default {
 
   data() {
     return {
+      show_settings: false,
       showMenu: false,
       mini: true,
       selectedItemInfo: {},
@@ -289,6 +338,9 @@ export default {
     },
   },
   methods: {
+    toggleSettings() {
+      this.$store.commit(mutations.SHOW_SETTINGS, !this.$store.showSettings)
+    },
     getPoster(item) {
       if (!item || !item.poster) return
       return 'https://image.tmdb.org/t/p/w200' + item.poster[this.language] || item.poster['en'] //TODO: use size w154?
@@ -593,14 +645,6 @@ hr {
   margin: 1em 0;
 }
 
-.modern-link {
-  cursor: pointer;
-  color: #0070d7;
-  font-weight: bold;
-  font-size: 10pt;
-  text-decoration: none;
-}
-
 .text1 {
   color: white;
 }
@@ -671,6 +715,12 @@ hr {
   width: 100%;
   background-color: transparent;
   z-index: 9999;
+}
+
+@media only screen and (max-width: 700px) {
+  .sticky2 {
+    backdrop-filter: blur(10px);
+  }
 }
 
 .sticky2 > div {

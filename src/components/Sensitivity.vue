@@ -1,9 +1,11 @@
 <template>
   <!-- Sensitivity -->
   <div>
-    <div class="filterr">
-      <h4 style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</h4>
-      <p>Mark below the kind of content you want to avoid while watching movies.</p>
+    <div class="filterr" style="width: 100%">
+      <div v-if="!short_version">
+        <h4 style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</h4>
+        <p>{{ $t('whatDoYouSkip_tip') }}</p>
+      </div>
 
       <div v-for="(cat, i) in categories" :key="i">
         <b>{{ cat == 'Profanity' ? 'Language' : cat }}</b>
@@ -41,6 +43,12 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {}
+  },
+  props: {
+    short_version: {
+      type: Boolean,
+      default: false,
+    },
   },
   watch: {},
   computed: {

@@ -1,0 +1,68 @@
+.modern-link {
+  cursor: pointer;
+  color: #0070d7;
+  font-weight: bold;
+  font-size: 10pt;
+  text-decoration: none;
+}
+.modern-link:hover {
+  text-decoration: underline;
+}
+
+/** VUETIFY **/
+
+.mdi {
+  all: initial;
+}
+
+#vbtn1 {
+  border: none;
+  box-shadow: none;
+  color: white !important;
+
+  border-radius: 0px;
+  cursor: pointer;
+}
+
+#vexpansionpannel > * > button {
+  border: none;
+  box-shadow: none;
+  border-radius: 0px;
+}
+
+.v-expansion-panel-header {
+  border: none !important;
+  box-shadow: none;
+  border-radius: 0px;
+}
+
+#vselect {
+  /*background: none;
+  border: none;*/
+  all: initial;
+  visibility: hidden;
+}
+
+#vselect:focus {
+  /*background: none;
+  border: none;
+  box-shadow: none;*/
+  all: initial;
+}
+
+/** autocomplete */
+.v-menu__content {
+  z-index: 999 !important;
+}
+
+.v-select__selections {
+  display: flex !important;
+}
+
+.v-select__selections > input {
+  all: initial !important;
+}
+
+.v-label {
+  font-weight: normal !important;
+}

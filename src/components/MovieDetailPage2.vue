@@ -339,14 +339,6 @@ export default {
   touch-action: none !important;
 }
 
-.modern-link {
-  cursor: pointer;
-  color: #0070d7;
-  font-weight: bold;
-  font-size: 10pt;
-  text-decoration: none;
-}
-
 .v-chip {
   padding: 0 10px;
   margin-bottom: 2px;

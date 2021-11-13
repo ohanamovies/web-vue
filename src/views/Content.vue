@@ -1058,12 +1058,4 @@ div.sticky {
 hr {
   margin: 1em 0;
 }
-
-.modern-link {
-  cursor: pointer;
-  color: #0070d7;
-  font-weight: bold;
-  font-size: 10pt;
-  text-decoration: none;
-}
 </style>

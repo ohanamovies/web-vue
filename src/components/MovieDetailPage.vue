@@ -463,12 +463,4 @@ export default {
   /** tbc: this should prevent background scroll in iOS */
   touch-action: none !important;
 }
-
-.modern-link {
-  cursor: pointer;
-  color: #0070d7;
-  font-weight: bold;
-  font-size: 10pt;
-  text-decoration: none;
-}
 </style>

@@ -151,10 +151,4 @@ export default {
 h2 {
   margin-bottom: 5px;
 }
-
-.skip {
-  background-color: #9e9e9e !important;
-  border-color: #9e9e9e !important;
-}
-/** */
 </style>
