@@ -1,25 +1,14 @@
 <template>
   <div>
-    <div v-if="settings.username && settings.username != 'guest'">
-      <p>
-        Well done! You are logged in as {{ settings.username }}.
-        <span class="modern-link" @click="logout()">logout</span>
-      </p>
-    </div>
-
-    <div v-else>
+    <div>
       <p v-if="!page">
         You are using Ohana TV as a guest. To get the most out of Ohana TV, please
         <span class="modern-link" @click="page = 'signup'" style="font-size: 100%">sign up</span> or
         <span class="modern-link" @click="page = 'login'" style="font-size: 100%">log in</span>.
       </p>
-      <p v-else>
-        Not feeling like identifying now?
-        <span class="modern-link" @click="bemyguest()">Continue as guest</span>
-      </p>
     </div>
 
-    <div style="margin-left: 10px">
+    <div style="margin-left: 12px">
       <span v-if="page == 'signup'" style="font-size: 10pt"
         >Already registered? <span class="modern-link" @click="page = 'login'">Log in</span></span
       >
@@ -81,15 +70,20 @@
           hide-details
         ></v-text-field>
 
-        <span v-if="message.text" :style="{ color: message.color, paddingBottom: '5px' }">{{
-          message.text
-        }}</span>
-
         <v-btn block depressed id="vbtn1" color="primary" @click="submitForm()">{{
           page == 'signup' ? 'Sing up' : 'login'
         }}</v-btn>
+
+        <span v-if="message.text" :style="{ color: message.color, marginTop: '10px' }"
+          ><br />{{ message.text }}</span
+        >
       </v-form>
     </div>
+
+    <p v-if="false" style="margin-left: 12px">
+      Not feeling like identifying now?
+      <span class="modern-link" @click="bemyguest()">Continue as guest</span>
+    </p>
   </div>
 </template>
 
@@ -100,7 +94,7 @@ export default {
   data() {
     return {
       show_password: false,
-      page: false,
+      page: 'signup',
 
       username: '',
       password: '',
@@ -120,7 +114,7 @@ export default {
         email: (value) => {
           var reg =
             /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/
-          return reg.test(value) || 'Invalid e-mail.'
+          return reg.test(value) || value == null || value == '' ? true : 'Invalid e-mail.'
         },
       },
     }
@@ -227,14 +221,6 @@ export default {
           }
           console.log('login result: ', data)
         })
-    },
-    logout() {
-      this.resetMessage()
-      let settings = this.$store.state.settings
-      settings.username = ''
-      settings.authToken = ''
-      //this.$store.commit(mutations.SET_SETTINGS, settings)
-      this.$store.dispatch('updateSettings', settings)
     },
   },
 }

@@ -9,21 +9,23 @@
       style="z-index: 999999"
       :fullscreen="isMobile"
     >
-      <div style="background-color: white; padding: 5px">
+      <div
+        :style="{ backgroundColor: 'white', padding: '5px', minHeight: isMobile ? '100vh' : '' }"
+      >
         <div style="position: relative">
-          <span
-            class="modern-link"
-            :style="{
-              fontSize: '20pt',
-              position: isMobile ? 'fixed' : 'absolute',
-              top: '2px',
-              right: '10px',
-            }"
+          <v-btn
+            icon
             @click="show_settings = false"
-            >X</span
+            :style="{
+              position: isMobile ? 'fixed' : 'absolute',
+              top: '4px',
+              right: '4px',
+              zIndex: '999999',
+            }"
+            ><v-icon>mdi-close</v-icon></v-btn
           >
         </div>
-        <settings2 style="margin-top: 10px" />
+        <settings2 style="margin-top: 20px" />
       </div>
     </v-dialog>
 
@@ -58,7 +60,7 @@
           @click="show_settings = !show_settings"
           style="color: white; text-decoration: none; cursor: pointer"
         >
-          <v-icon style="color: white" v-if="isMobile">mdi-cog-outline</v-icon>
+          <v-icon style="color: white" v-if="isMobile">mdi-account-cog-outline</v-icon>
           <span v-else>Settings</span>
         </div>
       </div>
