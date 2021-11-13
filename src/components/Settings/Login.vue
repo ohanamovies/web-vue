@@ -1,89 +1,100 @@
 <template>
   <div>
-    <div>
-      <p v-if="!page">
-        You are using Ohana TV as a guest. To get the most out of Ohana TV, please
-        <span class="modern-link" @click="page = 'signup'" style="font-size: 100%">sign up</span> or
-        <span class="modern-link" @click="page = 'login'" style="font-size: 100%">log in</span>.
+    <b></b>
+    <div v-if="loggedIn">
+      <p>
+        Welcome {{ settings.username }} <span class="modern-link" @click="logout()">logout</span>
       </p>
     </div>
 
-    <div style="margin-left: 12px">
-      <span v-if="page == 'signup'" style="font-size: 10pt"
-        >Already registered? <span class="modern-link" @click="page = 'login'">Log in</span></span
-      >
-      <span v-else-if="page == 'login'" style="font-size: 10pt"
-        >Don't have an account?
-        <span class="modern-link" @click="page = 'signup'">Sign up</span></span
-      >
-    </div>
+    <div v-else>
+      <p>
+        <b>To get the most out of Ohana TV, please sign up or log in.</b>
+      </p>
+      <p>
+        With an Ohana TV account, you will be able to contribute to the community, contributing for
+        a better world. Also, your preferences will follow you along if you switch devices.
+      </p>
 
-    <div style="padding: 0px 10px" v-if="page">
-      <v-form>
-        <v-text-field
-          v-if="page == 'login'"
-          v-model="username_or_email"
-          append-icon="mdi-account"
-          outlined
-          placeholder="email or username"
-          clearable
-          id="usernameOrEmailBox"
-          class="vuetify"
+      <!-- Change form -->
+      <div style="margin-left: 12px">
+        <span v-if="page == 'signup'" style="font-size: 10pt"
+          >Already registered? <span class="modern-link" @click="page = 'login'">Log in</span></span
         >
-        </v-text-field>
-
-        <v-text-field
-          v-if="page == 'signup'"
-          type="email"
-          v-model="email"
-          append-icon="mdi-email"
-          outlined
-          placeholder="email"
-          clearable
-          id="usernameBox"
-          class="vuetify"
-          :rules="[form_rules.email]"
-        ></v-text-field>
-        <v-text-field
-          v-if="page == 'signup'"
-          v-model="username"
-          append-icon="mdi-account"
-          outlined
-          placeholder="username"
-          clearable
-          id="usernameBox"
-          class="vuetify"
-          :hint="page == 'signup' ? 'Note: your username might be visible to other users' : ''"
-          :rules="[form_rules.username]"
-        ></v-text-field>
-        <v-text-field
-          v-if="page == 'login' || page == 'signup'"
-          v-model="password"
-          :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
-          :type="show_password ? 'text' : 'password'"
-          @click:append="show_password = !show_password"
-          outlined
-          placeholder="password"
-          clearable
-          id="passwordBox"
-          class="mb-3"
-          hide-details
-        ></v-text-field>
-
-        <v-btn block depressed id="vbtn1" color="primary" @click="submitForm()">{{
-          page == 'signup' ? 'Sing up' : 'login'
-        }}</v-btn>
-
-        <span v-if="message.text" :style="{ color: message.color, marginTop: '10px' }"
-          ><br />{{ message.text }}</span
+        <span v-else-if="page == 'login'" style="font-size: 10pt"
+          >Don't have an account?
+          <span class="modern-link" @click="page = 'signup'">Sign up</span></span
         >
-      </v-form>
-    </div>
+      </div>
 
-    <p v-if="false" style="margin-left: 12px">
-      Not feeling like identifying now?
-      <span class="modern-link" @click="bemyguest()">Continue as guest</span>
-    </p>
+      <!-- Form -->
+      <div style="padding: 0px 10px">
+        <v-form>
+          <v-text-field
+            v-if="page == 'login'"
+            v-model="username_or_email"
+            append-icon="mdi-account"
+            outlined
+            placeholder="email or username"
+            clearable
+            id="usernameOrEmailBox"
+            class="vuetify"
+          >
+          </v-text-field>
+
+          <v-text-field
+            v-if="page == 'signup'"
+            type="email"
+            v-model="email"
+            append-icon="mdi-email"
+            outlined
+            placeholder="email"
+            clearable
+            id="usernameBox"
+            class="vuetify"
+            :rules="[form_rules.email]"
+          ></v-text-field>
+          <v-text-field
+            v-if="page == 'signup'"
+            v-model="username"
+            append-icon="mdi-account"
+            outlined
+            placeholder="username"
+            clearable
+            id="usernameBox"
+            class="vuetify"
+            :hint="page == 'signup' ? 'Note: your username might be visible to other users' : ''"
+            :rules="[form_rules.username]"
+          ></v-text-field>
+          <v-text-field
+            v-if="page == 'login' || page == 'signup'"
+            v-model="password"
+            :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="show_password ? 'text' : 'password'"
+            @click:append="show_password = !show_password"
+            outlined
+            placeholder="password"
+            clearable
+            id="passwordBox"
+            class="mb-3"
+            hide-details
+          ></v-text-field>
+
+          <v-btn block depressed id="vbtn1" color="primary" @click="submitForm()">{{
+            page == 'signup' ? 'Sing up' : 'login'
+          }}</v-btn>
+
+          <span v-if="message.text" :style="{ color: message.color, marginTop: '10px' }"
+            ><br />{{ message.text }}</span
+          >
+        </v-form>
+      </div>
+
+      <p v-if="false" style="margin-left: 12px">
+        Not feeling like identifying now?
+        <span class="modern-link" @click="bemyguest()">Continue as guest</span>
+      </p>
+    </div>
   </div>
 </template>
 
@@ -121,11 +132,19 @@ export default {
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'extension_version']),
-    another() {
-      return this.data
+    loggedIn() {
+      return this.settings.username && this.settings.authToken
     },
   },
   methods: {
+    logout() {
+      let settings = this.$store.state.settings
+      settings.username = ''
+      settings.authToken = ''
+      //this.$store.commit(mutations.SET_SETTINGS, settings)
+      this.$store.dispatch('updateSettings', settings)
+      this.tab = 1
+    },
     bemyguest() {
       let settings = this.$store.state.settings
       settings.username = 'guest'

@@ -52,7 +52,7 @@
 import Sensitivity from '@/components/Settings/Sensitivity.vue'
 import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
-import Login from './Login.vue'
+import Login from '@/components/Settings/Login.vue'
 import { mapState } from 'vuex'
 
 export default {

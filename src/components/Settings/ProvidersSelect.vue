@@ -21,7 +21,11 @@
               {{ provider.text }}
             </v-list-item-content>
             <v-list-item-action>
-              <v-checkbox :input-value="settings.providers.includes(provider.value)"></v-checkbox>
+              <v-checkbox
+                :input-value="
+                  settings.providers ? settings.providers.includes(provider.value) : false
+                "
+              ></v-checkbox>
             </v-list-item-action>
           </v-list-item>
           <v-divider class="ma-0" v-if="index + 1 < providersList.length"></v-divider>
