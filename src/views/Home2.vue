@@ -98,6 +98,7 @@
       </div>
     </section>
 
+    <!-- black header bar -->
     <div
       class="stickybar"
       style="
@@ -110,8 +111,10 @@
       "
     ></div>
 
+    <!-- Posters -->
     <section id="posters">
       <div class="inner">
+        <!-- results based on -->
         <div v-if="!title" class="resultsBasedOn">
           <p style="margin: auto">
             {{ $t('resultsBasedOn')[0] }}
@@ -244,11 +247,7 @@ export default {
           data: [],
           query: {},
         },
-        {
-          title: 'TV Shows healthy ',
-          data: [],
-          query: { type: 'series', clean: JSON.stringify(this.skipTags) },
-        },
+
         {
           title: 'Watch with kids',
           data: [],
@@ -268,6 +267,11 @@ export default {
           title: 'Best rated',
           data: [],
           query: { imdbRating: 8 }, // sort is done by number of votes
+        },
+        {
+          title: 'Healthy TV Shows ',
+          data: [],
+          query: { type: 'series', clean: JSON.stringify(this.skipTags) },
         },
         {
           title: 'Documentaries',

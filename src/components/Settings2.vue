@@ -49,9 +49,9 @@
 </template>
 
 <script>
-import Sensitivity from '@/components/Sensitivity.vue'
-import ProvidersSelect from '@/components/ProvidersSelect.vue'
-import CheckExtension from '@/components/CheckExtension.vue'
+import Sensitivity from '@/components/Settings/Sensitivity.vue'
+import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
+import CheckExtension from '@/components/Settings/CheckExtension.vue'
 import Login from './Login.vue'
 import { mapState } from 'vuex'
 

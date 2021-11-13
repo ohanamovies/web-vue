@@ -36,7 +36,7 @@
 </template>
 
 <script>
-const rawTags = require('../assets/raw_tags')
+const rawTags = require('../../assets/raw_tags')
 
 //import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'

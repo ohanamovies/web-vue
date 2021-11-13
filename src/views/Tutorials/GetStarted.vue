@@ -505,7 +505,7 @@
 <script>
 import sharedjs from '@/sharedjs'
 import { mapState } from 'vuex'
-import Sensitivity from '@/components/Sensitivity.vue'
+import Sensitivity from '@/components/Settings/Sensitivity.vue'
 const rawTags = require('../../assets/raw_tags')
 
 export default {

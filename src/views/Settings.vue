@@ -68,7 +68,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import Sensitivity from '../components/Sensitivity.vue'
+import Sensitivity from '../components/Settings/Sensitivity.vue'
 
 //import sharedjs from '@/sharedjs'
 export default {
