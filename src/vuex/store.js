@@ -30,7 +30,7 @@ const store = new Vuex.Store({
     settings: {},
     default_settings: {
       username: '',
-      skip_tags: ['Very erotic', 'Moderately erotic', 'Very profane'],
+      skip_tags: [], //['Very erotic', 'Moderately erotic', 'Very profane'],
       ignore_default_settings: true,
       pause_after_adding_scene: false,
       playbackRate_on_mark: 1.5,

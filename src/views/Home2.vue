@@ -17,7 +17,7 @@
               fontSize: '20pt',
               position: isMobile ? 'fixed' : 'absolute',
               top: '2px',
-              right: '8px',
+              right: '10px',
             }"
             @click="show_settings = false"
             >X</span
@@ -113,8 +113,8 @@
         <div v-if="!title" class="resultsBasedOn">
           <p style="margin: auto">
             {{ $t('resultsBasedOn')[0] }}
-            <router-link to="/settings" class="modern-link" style="font-size: 100%">
-              {{ $t('resultsBasedOn')[1] }}</router-link
+            <span class="modern-link" style="font-size: 100%" @click="show_settings = true">
+              {{ $t('resultsBasedOn')[1] }}</span
             >
           </p>
         </div>
@@ -189,7 +189,6 @@ import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
 import MovieDetailPage from '../components/MovieDetailPage2'
 
-import { mutations } from '@/vuex/types'
 import Settings2 from '@/components/Settings2.vue'
 
 export default {
@@ -308,6 +307,9 @@ export default {
     }
   },
   watch: {
+    showMovieDialog(newValue) {
+      if (!newValue) this.selectedItemInfo = {} //to avoid previus data still rendered while opening different movie
+    },
     providers() {
       console.log('updated providers')
       this.getAllData()
@@ -329,7 +331,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['isChrome', 'hasApp', 'isMobile']),
+    ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
     language() {
       return this.$i18n.locale.toLowerCase().split('-')[0]
     },
@@ -338,9 +340,6 @@ export default {
     },
   },
   methods: {
-    toggleSettings() {
-      this.$store.commit(mutations.SHOW_SETTINGS, !this.$store.showSettings)
-    },
     getPoster(item) {
       if (!item || !item.poster) return
       return 'https://image.tmdb.org/t/p/w200' + item.poster[this.language] || item.poster['en'] //TODO: use size w154?
@@ -431,6 +430,12 @@ export default {
           this.getData(id)
         }
       }
+    }
+
+    //Ask for settings if no settings.
+    if (this.skipTags && this.skipTags.length == 0 && this.settings.username == '') {
+      console.log('THIs kaka')
+      this.show_settings = true
     }
   },
 }

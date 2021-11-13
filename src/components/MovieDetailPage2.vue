@@ -17,8 +17,10 @@
 
       <!-- SUBTITLE -->
       <v-card-subtitle>
-        {{ item.imdbRating }}
-        <v-icon class="star">mdi-star</v-icon>
+        <fc-tooltip :text="'IMDb rating is ' + item.imdbRating + '/10'">
+          {{ item.imdbRating }}
+          <v-icon class="star">mdi-star</v-icon>
+        </fc-tooltip>
         - {{ item.runtime + ' mins' }} - {{ item.released }} -
 
         <span>
@@ -27,7 +29,17 @@
             :key="index"
             :text="getText(g, index)"
           >
-            <v-chip :color="getColor(index, g)" small class="mr-1">{{ index }}</v-chip>
+            <v-chip
+              :color="getColor(index, g)"
+              small
+              class="mr-1"
+              :style="{
+                color: ['red', 'green', 'orange'].includes(getColor(index, g))
+                  ? 'white'
+                  : 'default',
+              }"
+              >{{ index }}</v-chip
+            >
           </fc-tooltip>
         </span>
 
@@ -66,11 +78,11 @@
                 <a v-if="plot.length >= 400" @click="viewMore = false"> view less</a>
               </div>
               <div v-else>
-                {{ plot.slice(0, 300) }}...
+                {{ plot.slice(0, 250) }}...
                 <a @click="viewMore = true">view more</a>
               </div>
 
-              <div style="text-align: center; margin: 10px 0px">
+              <div style="text-align: center; margin: 15px 0px; font-weight: 500">
                 <v-icon
                   v-if="item.join_status.icon != 'none'"
                   :color="item.join_status.color"

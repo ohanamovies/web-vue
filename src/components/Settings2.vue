@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 10px">
-    <p v-if="!settings.username">It seems you are new around here. Let's get you all set!</p>
+    <p v-if="!settings.username">Hey! It seems you are new around here. Let's get you all set!</p>
     <p v-else-if="settings.username != 'guest'">Hello {{ settings.username }}</p>
 
     <!-- Sensitivity -->
@@ -16,8 +16,17 @@
     <div>
       <h2>2. Install Ohana TV</h2>
       <p>
-        Our Ohana Chrome Extension works as a TV remote: it'll automagically skip the unhealthy
-        content, based on your above preferences.
+        Our
+        <a
+          href="https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf"
+          class="modern-link"
+          target="_blank"
+          style="font-size: 100%"
+        >
+          Ohana Chrome Extension</a
+        >
+        works as a TV remote: it automagically skips the unhealthy content, based on your above
+        preferences.
       </p>
       <v-alert v-if="hasApp" type="success" outlined
         >Well done! You have our
@@ -49,7 +58,8 @@
 
       <div v-else>
         <v-alert type="error" outlined
-          >It seems this browser is not compatible. Please make sure you are using
+          >It seems this browser is not compatible with our Chrome Extension. Please make sure you
+          are using
           <a
             href="https://www.google.com/chrome/"
             target="_blank"
@@ -79,7 +89,7 @@
 
     <div style="margin-top: 40px; font-size: 80%">
       You can open this section anytime by clicking "Settings" or the
-      <v-icon>mdi-cog</v-icon> button
+      <v-icon>mdi-cog</v-icon> button.
     </div>
   </div>
 </template>

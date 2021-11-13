@@ -11,7 +11,7 @@
       <p v-if="!page">
         You are using Ohana TV as a guest. To get the most out of Ohana TV, please
         <span class="modern-link" @click="page = 'signup'" style="font-size: 100%">sign up</span> or
-        <span class="modern-link" @click="page = 'login'" style="font-size: 100%">log in</span>
+        <span class="modern-link" @click="page = 'login'" style="font-size: 100%">log in</span>.
       </p>
       <p v-else>
         Not feeling like identifying now?
@@ -178,6 +178,7 @@ export default {
             let settings = this.$store.state.settings
             settings.username = this.username_or_email
             settings.authToken = data.token
+            settings.level = data.level
             this.$store.dispatch('updateSettings', settings)
 
             this.message.text = data.msg
@@ -218,6 +219,7 @@ export default {
             let settings = this.$store.state.settings
             settings.username = this.username
             settings.authToken = data.token
+            settings.level = data.level
             this.$store.dispatch('updateSettings', settings)
             this.message.text = data.msg
             this.message.color = 'green'

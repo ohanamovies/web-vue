@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Section title -->
-    <div>
+    <div v-if="bypass">
       <b>Watch options: </b>
       <i v-if="is_missing">(beware unhealthy content)</i>
       <i v-else-if="is_unknown">(beware unknown content)</i>
@@ -23,13 +23,13 @@
       </a>
 
       <span v-if="!selection.providers.length">
-        <span>Sorry, no known providers available</span>
+        <span>Sorry, no known providers available. </span>
         <a
           class="modern-link"
           v-if="selection.tmdb"
           target="_blank"
           :href="'https://www.themoviedb.org/' + selection.tmdb + '/watch'"
-          >try tmdb.
+          >Try tmdb.
         </a>
       </span>
     </div>
@@ -61,7 +61,7 @@
     <!-- movie is pending -->
     <div v-if="is_missing || is_unknown || (is_done && !hasApp) || is_mixed">
       <span v-if="!bypass">
-        <span class="modern-link" @click="bypass = true">Show watch options anyway</span>
+        <span class="modern-link" @click="bypass = true">See watch options anyway</span>
       </span>
       <!--<span v-else class="modern-link" @click="bypass = false">Hide watch options</span>-->
     </div>

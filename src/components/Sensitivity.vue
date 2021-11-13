@@ -104,7 +104,7 @@ export default {
 
     reset2default() {
       let settings = this.$store.state.settings
-      settings.skip_tags = [...this.$store.state.default_settings.skip_tags]
+      settings.skip_tags = ['Very erotic', 'Moderately erotic'] //[...this.$store.state.default_settings.skip_tags]
 
       this.$store.dispatch('updateSettings', settings)
     },
