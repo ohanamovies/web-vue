@@ -67,12 +67,16 @@
     </v-dialog>
 
     <!-- Sensitivity dialog -->
-    <v-dialog v-model="sensitivity_dialog" max-width="500" style="z-index: 999999">
+    <v-dialog v-model="dialog_sensitivity" max-width="500" style="z-index: 999999">
       <v-card>
         <v-card-title></v-card-title>
         <v-card-text>
           <Sensitivity />
         </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn depressed @click="dialog_sensitivity = false">Done</v-btn>
+        </v-card-actions>
       </v-card>
     </v-dialog>
 
@@ -165,7 +169,7 @@
         <div v-if="!title" class="resultsBasedOn">
           <p style="margin: auto">
             {{ $t('resultsBasedOn')[0] }}
-            <span class="modern-link" style="font-size: 100%" @click="sensitivity_dialog = true">
+            <span class="modern-link" style="font-size: 100%" @click="dialog_sensitivity = true">
               {{ $t('resultsBasedOn')[1] }}</span
             >
           </p>
@@ -266,7 +270,7 @@ export default {
       show_settings: false,
       show_welcomeTour: false,
       settingsPage: 0,
-      sensitivity_dialog: false,
+      dialog_sensitivity: false,
 
       showMenu: false,
       mini: true,
