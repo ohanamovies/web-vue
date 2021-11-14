@@ -4,7 +4,6 @@
     <v-card v-if="item.title" @keydown.esc="closeMe()" style="position: relative">
       <!-- {{ close me }} -->
 
-      {{ item.imdb }} | {{ item.join_status }} <br />{{ item.brief_status }}
       <span style="margin: 0 5px auto auto; position: absolute; top: 5px; right: 5px">
         <v-icon @click="closeMe">mdi-close</v-icon>
       </span>
