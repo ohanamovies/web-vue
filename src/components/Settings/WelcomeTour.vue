@@ -1,78 +1,92 @@
 <template>
-  <div>
-    <div style="position: relative">
-      <v-carousel
-        :continuous="false"
-        v-model="slide"
-        hide-delimiters
-        :show-arrows="false"
-        class="carrousel"
-        hide-delimiter-background
-      >
-        <v-carousel-item style="width: 100%; cursor: pointer" @click="slide = 1">
-          <v-sheet
-            color="white"
-            height="100%"
-            tile
-            class="sheet"
-            style="padding: 0px; overflow: hidden"
-          >
-            <v-row class="fill-height" align="center">
-              <WelcomeSheet />
-            </v-row>
-          </v-sheet>
-        </v-carousel-item>
-        <v-carousel-item>
-          <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
-            <v-row class="fill-height roww" align="center">
-              <Login />
-            </v-row>
-          </v-sheet>
-        </v-carousel-item>
-        <v-carousel-item>
-          <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
-            <v-row class="fill-height roww" align="center">
-              <ProvidersSelect />
-            </v-row>
-          </v-sheet>
-        </v-carousel-item>
+  <div style="position: relative">
+    <v-card>
+      <v-card-text class="pa-0">
+        <v-carousel
+          :continuous="false"
+          v-model="slide"
+          hide-delimiters
+          :show-arrows="false"
+          class="carrousel"
+          hide-delimiter-background
+        >
+          <!-- Welcome -->
+          <v-carousel-item style="width: 100%; cursor: pointer" @click="slide = 1">
+            <v-sheet
+              color="white"
+              height="100%"
+              tile
+              class="sheet"
+              style="padding: 0px; overflow: hidden"
+            >
+              <v-row class="fill-height" align="center">
+                <WelcomeSheet />
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
 
-        <v-carousel-item>
-          <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
-            <v-row class="fill-height roww" align="center">
-              <div>
-                <b style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</b>
-                <p>{{ $t('whatDoYouSkip_tip') }}</p>
-                <Sensitivity :short_version="true" />
-              </div>
-            </v-row>
-          </v-sheet>
-        </v-carousel-item>
-        <v-carousel-item>
-          <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
-            <v-row class="fill-height roww" align="center">
-              <CheckExtension />
-            </v-row>
-          </v-sheet>
-        </v-carousel-item>
+          <!-- Sensitivity -->
+          <v-carousel-item>
+            <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
+              <v-row class="fill-height roww" align="center">
+                <div>
+                  <b style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</b>
+                  <p>{{ $t('whatDoYouSkip_tip') }}</p>
+                  <Sensitivity :short_version="true" />
+                </div>
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
 
-        <!-- Exit page -->
-        <v-carousel-item>
-          <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
-            <v-row class="fill-height roww" align="center" style="padding: 50px">
-              <p>That's it. Let's go find some great content!</p>
-              <div style="margin-top: 50px; font-size: 80%">
-                <b>Note:</b> You can do this tour again anytime, by clicking "Settings" or the
-                <v-icon class="mb-1">mdi-account-cog</v-icon> button.
-              </div>
-            </v-row>
-          </v-sheet>
-        </v-carousel-item>
-      </v-carousel>
-      <div v-if="slide != 0">
-        <div class="nextSlide" @click="slide++">{{ nextStepText }}</div>
-      </div>
-    </div>
+          <!-- Providers -->
+          <v-carousel-item>
+            <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
+              <v-row class="fill-height roww" align="center">
+                <ProvidersSelect />
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+
+          <!--Login-->
+          <v-carousel-item>
+            <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
+              <v-row class="fill-height roww" align="center">
+                <Login />
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+
+          <!-- Install -->
+          <v-carousel-item>
+            <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
+              <v-row class="fill-height roww" align="center">
+                <CheckExtension />
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+
+          <!-- Exit page -->
+          <v-carousel-item>
+            <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
+              <v-row class="fill-height roww" align="center" style="padding: 50px">
+                <p>That's it. Let's go find some great content!</p>
+                <div style="margin-top: 50px; font-size: 80%">
+                  <b>Note:</b> You can do this tour again anytime, by clicking "Settings" or the
+                  <v-icon class="mb-1">mdi-account-cog</v-icon> button.
+                </div>
+              </v-row>
+            </v-sheet>
+          </v-carousel-item>
+        </v-carousel>
+      </v-card-text>
+      <v-card-actions v-if="slide != 0">
+        <v-btn text class="mb-1" @click="slide--" max-width="35%">Back</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn text class="mb-1" @click="slide++" max-width="60%">
+          {{ nextStepText }}
+        </v-btn>
+      </v-card-actions>
+    </v-card>
   </div>
 </template>
 
@@ -97,9 +111,10 @@ export default {
     nextStepText() {
       let x = [
         'Start',
+
+        'Next',
+        'Next',
         this.loggedIn ? 'Continue' : 'Continue as guest',
-        'Next',
-        'Next',
         'Next',
         'Discover movies and shows',
       ]

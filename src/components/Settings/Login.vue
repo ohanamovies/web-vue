@@ -8,9 +8,7 @@
     </div>
 
     <div v-else>
-      <p>
-        <b>To get the most out of Ohana TV, please sign up or log in.</b>
-      </p>
+      <h4>Login or sign up</h4>
       <p>
         With an Ohana TV account, you will be able to contribute to the community. Also, your
         preferences will follow you along if you switch devices.

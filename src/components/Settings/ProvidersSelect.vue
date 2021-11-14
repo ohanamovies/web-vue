@@ -1,42 +1,42 @@
 <template>
-  <div>
+  <div style="max-width: 400px; margin: auto; overflow: auto">
     <!-- Providers -->
-    <div style="margin: 20px 0px; overflow: auto">
-      <b>Select the providers you use</b>
-      <p>
-        Ohana TV redirects you to the providers that offer the content. We don't offer content
-        ourselves.
-      </p>
-      <v-list>
-        <div v-for="(provider, index) in providersList" :key="index">
-          <v-list-item @click="toggle(provider.value)">
-            <v-list-item-icon>
-              <img
-                height="25"
-                :src="'images/providers/' + provider.value + '.png'"
-                :alt="provider.text"
-              />
-            </v-list-item-icon>
-            <v-list-item-content>
-              {{ provider.text }}
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-checkbox
-                :input-value="
-                  settings.providers ? settings.providers.includes(provider.value) : false
-                "
-              ></v-checkbox>
-            </v-list-item-action>
-          </v-list-item>
-          <v-divider class="ma-0" v-if="index + 1 < providersList.length"></v-divider>
-        </div>
-      </v-list>
-      <div style="text-align: right; margin-right: 10px">
-        <span class="modern-link" @click="selectOrUnselectAll()">Clear</span>
+
+    <h4>What providers do you use?</h4>
+
+    <p>
+      Ohana TV redirects you to the providers that offer the content. We don't offer content
+      ourselves.
+    </p>
+    <v-list>
+      <div v-for="(provider, index) in providersList" :key="index">
+        <v-list-item @click="toggle(provider.value)">
+          <v-list-item-icon>
+            <img
+              height="25"
+              :src="'images/providers/' + provider.value + '.png'"
+              :alt="provider.text"
+            />
+          </v-list-item-icon>
+          <v-list-item-content>
+            {{ provider.text }}
+          </v-list-item-content>
+          <v-list-item-action>
+            <v-checkbox
+              :input-value="
+                settings.providers ? settings.providers.includes(provider.value) : false
+              "
+            ></v-checkbox>
+          </v-list-item-action>
+        </v-list-item>
+        <v-divider class="ma-0" v-if="index + 1 < providersList.length"></v-divider>
       </div>
-      <br />
-      <br />
+    </v-list>
+    <div style="text-align: right; margin-right: 10px">
+      <span class="modern-link" @click="selectOrUnselectAll()">Clear</span>
     </div>
+    <br />
+    <br />
   </div>
 </template>
 

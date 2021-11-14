@@ -5,46 +5,54 @@
       Hello {{ settings.username }} <span class="modern-link" @click="logout()">logout</span>
     </p>
 
-    <!-- Sensitivity -->
-    <v-tabs v-model="tab" style="margin-bottom: 20px" :fixed-tabs="isMobile" center-active>
-      <v-tab><v-icon class="mr-2" small>mdi-cog</v-icon>Settings</v-tab>
-      <v-tab><v-icon class="mr-2" small>mdi-account</v-icon>Account</v-tab>
-      <v-tab><v-icon class="mr-2" small>mdi-download</v-icon>Install</v-tab>
-    </v-tabs>
+    <div>
+      <v-tabs v-model="tab" style="margin-bottom: 20px" :fixed-tabs="isMobile" center-active>
+        <v-tab><v-icon class="mr-2" small>mdi-cog</v-icon>Settings</v-tab>
+        <v-tab><v-icon class="mr-2" small>mdi-television</v-icon>Platforms</v-tab>
+        <v-tab><v-icon class="mr-2" small>mdi-account</v-icon>Account</v-tab>
+        <v-tab><v-icon class="mr-2" small>mdi-download</v-icon>Install</v-tab>
+      </v-tabs>
 
-    <div style="min-height: 400px">
-      <div v-if="tab == 0">
-        <!-- <h2>1. Define unhealthy</h2> -->
+      <div>
+        <div style="min-height: 400px">
+          <!--sensitivity-->
+          <div v-if="tab == 0">
+            <p>{{ $t('whatDoYouSkip_tip') }}</p>
+            <sensitivity short_version />
+          </div>
 
-        <p>{{ $t('whatDoYouSkip_tip') }}</p>
-        <sensitivity short_version />
+          <!-- Extension check-->
+          <div v-if="tab == 1">
+            <providers-select></providers-select>
+          </div>
 
-        <providers-select></providers-select>
-      </div>
+          <!-- Log-in / out -->
+          <div v-if="tab == 2">
+            <!-- <h2>3. Login</h2>-->
+            <!-- Already signed in -->
+            <div v-if="loggedIn">
+              <p>
+                Well done! You are logged in as <b>{{ settings.username }}</b
+                >. <span class="modern-link" @click="logout()" style="font-size: 70%">logout</span>
+              </p>
+            </div>
+            <div v-else>
+              <Login />
+            </div>
+          </div>
 
-      <!-- Log-in / out -->
-
-      <div v-if="tab == 1">
-        <!-- <h2>3. Login</h2>-->
-        <!-- Already signed in -->
-        <div v-if="settings.username && settings.username != 'guest'">
-          <p>Well done! You are logged in as {{ settings.username }}.</p>
+          <!-- Extension check-->
+          <div v-if="tab == 3">
+            <check-extension></check-extension>
+          </div>
         </div>
-        <div v-else>
-          <login />
-        </div>
       </div>
-
-      <!-- Extension check-->
-      <div v-if="tab == 2">
-        <check-extension></check-extension>
+      <div style="margin-top: 30px">
+        You can open this section anytime by clicking "Settings" or the
+        <v-icon>mdi-cog</v-icon> button.
       </div>
     </div>
-
-    <div style="margin-top: 40px; font-size: 80%">
-      You can open this section anytime by clicking "Settings" or the
-      <v-icon>mdi-cog</v-icon> button.
-    </div>
+    <!-- <div style="margin-top: 40px; font-size: 80%">-->
   </div>
 </template>
 
@@ -67,6 +75,13 @@ export default {
 
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'extension_version']),
+    loggedIn() {
+      if (this.settings) {
+        return this.settings.username != '' && this.settings.authToken != ''
+      } else {
+        return false
+      }
+    },
   },
   methods: {
     logout() {
@@ -75,7 +90,6 @@ export default {
       settings.authToken = ''
       //this.$store.commit(mutations.SET_SETTINGS, settings)
       this.$store.dispatch('updateSettings', settings)
-      this.tab = 1
     },
   },
 }

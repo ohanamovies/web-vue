@@ -100,12 +100,10 @@
     <div v-else-if="is_done && !hasApp">
       <div v-if="isChrome">
         <i>Installing Ohana is required to remove unhealthy scenes: </i>
-        <a
-          href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
-          class="modern-link"
-          target="_blank"
-          >{{ $t('install') + ' Ohana' }}</a
-        >
+        <br />
+        <a class="button special" @click="dialog_install = !dialog_install"
+          >{{ $t('install') + ' Ohana' }}
+        </a>
       </div>
       <div v-else>
         This browser is not compatible with Ohana. <br />

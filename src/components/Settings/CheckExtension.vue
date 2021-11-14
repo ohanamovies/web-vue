@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b>Install Ohana TV</b>
+    <h4>Install Ohana TV</h4>
     <p>
       Our
       <a
@@ -28,7 +28,9 @@
     </v-alert>
 
     <div v-else-if="isChrome">
-      <v-alert type="warning" outlined>Ohana extension is not installed in this browser. </v-alert>
+      <v-alert type="warning" outlined
+        >Ohana extension is not yet installed in this browser.
+      </v-alert>
       To install Ohana TV, go to
       <a
         href="https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf"

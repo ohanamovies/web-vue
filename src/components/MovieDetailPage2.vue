@@ -373,9 +373,9 @@ export default {
       let type = this.item.type
       let text = ''
       if (status == 'unset') {
-        text = `🧐 To know if this ${type} is healthy for you, let us know your preferences.`
+        text = `To know if this ${type} is healthy for you, let us know your preferences.`
       } else if (status == 'clean') {
-        text = `💃 This ${type} is healthy for your settings. Nothing to filter here.`
+        text = `This ${type} is healthy for your settings. Nothing to filter here.`
       } else if (status == 'done') {
         text = `We've created filters for this ${type} to make it healthy.`
       } else if (status == 'missing') {
@@ -383,7 +383,7 @@ export default {
       } else if (status == 'mixed') {
         text = `This ${type} might contain unhealthy content. We are not sure. 🤷‍♂️`
       } else {
-        text = `🤦 Ouch! We don't know if this content if healthy!`
+        text = `Ouch! We don't know if this content if healthy! `
       }
 
       return text
