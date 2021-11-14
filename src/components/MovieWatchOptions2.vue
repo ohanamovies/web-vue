@@ -1,5 +1,45 @@
 <template>
   <div>
+    <!-- Sensitivity dialog -->
+    <v-dialog
+      v-model="dialog_sensitivity"
+      max-width="500"
+      style="z-index: 999999"
+      overlay-opacity="50"
+      overlay-color="#141414"
+    >
+      <v-card>
+        <v-card-title></v-card-title>
+        <v-card-text>
+          <Sensitivity />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn depressed @click="dialog_sensitivity = false">Done</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Install Ohana dialog -->
+    <v-dialog
+      v-model="dialog_install"
+      max-width="500"
+      style="z-index: 999999"
+      overlay-opacity="50"
+      overlay-color="#141414"
+    >
+      <v-card>
+        <v-card-title></v-card-title>
+        <v-card-text>
+          <CheckExtension />
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn depressed @click="dialog_install = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- Section title -->
     <div v-if="bypass">
       <b>Watch options </b>
@@ -51,8 +91,8 @@
 
     <!-- no settings -->
     <div v-else-if="no_settings">
-      <router-link class="button special" to="/settings"
-        >{{ $t('manage_preferences') }}<v-icon>mdi-account-cog-outline</v-icon></router-link
+      <a class="button special" @click="dialog_sensitivity = true"
+        >{{ $t('manage_preferences') }}<v-icon v-if="false">mdi-account-cog-outline</v-icon></a
       >
     </div>
 
@@ -68,8 +108,8 @@
         >
       </div>
       <div v-else>
-        This browser is not compatible with Ohana.
-        <router-link to="/get-started">Learn more</router-link>
+        This browser is not compatible with Ohana. <br />
+        <a class="button special" @click="dialog_install = true">Learn more</a>
       </div>
     </div>
 
@@ -84,9 +124,15 @@
 </template>
 
 <script>
+import CheckExtension from './Settings/CheckExtension.vue'
+import Sensitivity from './Settings/Sensitivity.vue'
 import { mapState } from 'vuex'
 
 export default {
+  components: {
+    CheckExtension,
+    Sensitivity,
+  },
   props: {
     selection: {
       type: Object,
@@ -98,6 +144,9 @@ export default {
   data() {
     return {
       bypass: false,
+
+      dialog_install: false,
+      dialog_sensitivity: false,
     }
   },
   watch: {

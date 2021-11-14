@@ -1,5 +1,15 @@
 <template>
   <div>
+    <!-- Login dialog -->
+    <v-dialog v-model="dialog_login" max-width="500" style="z-index: 999999">
+      <v-card>
+        <v-card-title></v-card-title>
+        <v-card-text>
+          <Login />
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <!-- A: if we have valid data  -->
     <v-card v-if="item.title" @keydown.esc="closeMe()" style="position: relative">
       <!-- {{ close me }} -->
@@ -270,9 +280,13 @@ import ohana from '@/assets/ohana'
 import MovieWatchOptions from './MovieWatchOptions2.vue'
 import { mapState } from 'vuex'
 
+import Login from './Settings/Login.vue'
+
 export default {
   components: {
     MovieWatchOptions,
+
+    Login,
   },
   props: {
     selection: {
@@ -288,6 +302,8 @@ export default {
       categories: [],
       severities: [],
       viewMore: false,
+
+      dialog_login: false,
 
       blur_if_missing: true,
     }

@@ -3,9 +3,9 @@
     <!-- no settings -->
 
     <div v-if="no_settings">
-      <router-link class="button special" to="/settings"
+      <span class="button special" @click="dialog_sensitivity"
         >{{ $t('manage_preferences') }}
-      </router-link>
+      </span>
     </div>
 
     <!-- Movie is clean -->
@@ -20,12 +20,7 @@
       <div v-else-if="isChrome">
         <b>Watch the edited version with Ohana</b>
         <br />
-        <a
-          href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
-          class="button special"
-          target="_blank"
-          >{{ $t('install') + ' Ohana' }}</a
-        >
+        <span class="button special" @click="dialog_install">{{ $t('install') + ' Ohana' }}</span>
         <br /><br />
         <span
           class="modern-link"
