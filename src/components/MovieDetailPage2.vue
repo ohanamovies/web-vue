@@ -3,6 +3,8 @@
     <!-- A: if we have valid data  -->
     <v-card v-if="item.title" @keydown.esc="closeMe()" style="position: relative">
       <!-- {{ close me }} -->
+
+      {{ item.imdb }} | {{ item.join_status }} <br />{{ item.brief_status }}
       <span style="margin: 0 5px auto auto; position: absolute; top: 5px; right: 5px">
         <v-icon @click="closeMe">mdi-close</v-icon>
       </span>
@@ -14,9 +16,14 @@
             <img
               :src="poster"
               :alt="item.title"
-              style="object-fit: contain; width: 100%; padding: 20px 10px 0px"
+              :style="{
+                objectFit: 'contain',
+                width: '100%',
+                padding: '20px 10px 0px',
+              }"
               :class="[item.join_status.status == 'missing' && blur_if_missing ? 'blur_image' : '']"
             />
+
             <div
               class="modern-link"
               style="text-align: center; font-size: 80%"
@@ -145,7 +152,7 @@
 
                 <div style="text-align: center; margin: 15px 0px 5px; font-weight: 500">
                   <v-icon
-                    v-if="item.join_status.icon != 'none' && false"
+                    v-if="item.join_status.icon != 'none'"
                     :color="item.join_status.color"
                     style="margin-right: 5px"
                   >
@@ -355,9 +362,9 @@ export default {
       } else if (status == 'clean') {
         text = `💃 This ${type} is healthy for your settings. Nothing to filter here.`
       } else if (status == 'done') {
-        text = `🙅‍♀️ We've created filters for this ${type} to make it healthy.`
+        text = `We've created filters for this ${type} to make it healthy.`
       } else if (status == 'missing') {
-        text = `😱 This ${type} contains unhealthy scenes but we don't have filters yet.`
+        text = `This ${type} contains unhealthy scenes but we don't have filters yet.`
       } else if (status == 'mixed') {
         text = `This ${type} might contain unhealthy content. We are not sure. 🤷‍♂️`
       } else {

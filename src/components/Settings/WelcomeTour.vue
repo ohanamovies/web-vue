@@ -110,6 +110,9 @@ export default {
     },
   },
   watch: {
+    page(newValue) {
+      this.slide = newValue
+    },
     slide(newValue) {
       if (newValue == 6) {
         let s = this.settings

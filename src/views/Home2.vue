@@ -7,11 +7,17 @@
       v-model="show_settings"
       max-width="600"
       min-width="0"
-      style="z-index: 999999"
+      scrollable
+      style="z-index: 999999; background-color: white"
       :fullscreen="isMobile"
     >
       <div
-        :style="{ backgroundColor: 'white', padding: '5px', minHeight: isMobile ? '100vh' : '' }"
+        :style="{
+          backgroundColor: 'white',
+          padding: '5px',
+          minHeight: isMobile ? '100vh' : '',
+          maxHeight: isMobile ? '' : '700px',
+        }"
       >
         <div style="position: relative">
           <v-btn
@@ -26,7 +32,7 @@
             ><v-icon>mdi-close</v-icon></v-btn
           >
         </div>
-        <settings2 style="margin-top: 20px" />
+        <settings2 style="margin-top: 20px; background-color: white" />
       </div>
     </v-dialog>
 
@@ -38,7 +44,7 @@
       max-width="700"
       min-width="0"
       style="z-index: 999999"
-      :overlay-color="red"
+      overlay-color="#141414"
       overlay-opacity="10"
       :fullscreen="isMobile"
     >
@@ -61,8 +67,13 @@
     </v-dialog>
 
     <!-- Sensitivity dialog -->
-    <v-dialog>
-      <Sensitivity />
+    <v-dialog v-model="sensitivity_dialog" max-width="500" style="z-index: 999999">
+      <v-card>
+        <v-card-title></v-card-title>
+        <v-card-text>
+          <Sensitivity />
+        </v-card-text>
+      </v-card>
     </v-dialog>
 
     <div class="sticky2" style="z-index: 99999">
@@ -93,7 +104,7 @@
       </div>
       <div>
         <div
-          @click="show_welcomeTour = !show_welcomeTour"
+          @click="show_settings = !show_settings"
           style="color: white; text-decoration: none; cursor: pointer"
         >
           <v-icon style="color: white" v-if="isMobile">mdi-account-cog-outline</v-icon>
@@ -154,7 +165,7 @@
         <div v-if="!title" class="resultsBasedOn">
           <p style="margin: auto">
             {{ $t('resultsBasedOn')[0] }}
-            <span class="modern-link" style="font-size: 100%" @click="show_settings = true">
+            <span class="modern-link" style="font-size: 100%" @click="sensitivity_dialog = true">
               {{ $t('resultsBasedOn')[1] }}</span
             >
           </p>
@@ -254,6 +265,9 @@ export default {
     return {
       show_settings: false,
       show_welcomeTour: false,
+      settingsPage: 0,
+      sensitivity_dialog: false,
+
       showMenu: false,
       mini: true,
       selectedItemInfo: {},
@@ -463,6 +477,10 @@ export default {
           console.log(section.data)
           this.$forceUpdate()
           section.loading = false
+        })
+        .catch((e) => {
+          console.log('[alex] fetch error with ' + url, e)
+          //TODO: retry?
         })
     },
   },

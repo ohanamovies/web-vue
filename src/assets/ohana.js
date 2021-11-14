@@ -76,50 +76,45 @@ const movies = {
   },
 
   joinStatus3(movieContent, providers, skipTags) {
-    if (!movieContent) return { status: 'unknown', cuts: 0, trust: 0 }
-    if (!skipTags || !skipTags.length) return { status: 'unset', cuts: 0, trust: 0 }
-    let health = 100
-    let cuts = 0
-    let trust = Infinity
-    let status = 'unset'
-    let color = 'red'
-    let icon = ''
+    //This ones combines the movie.join_status with the top provider.join_status (trust wise)
+    let ms = this.joinStatus2(movieContent, skipTags)
 
-    for (var tag of skipTags) {
-      // Set default
-      let ms = movieContent[tag] || {}
-      //todo: check providers
-
-      // Set num cuts/scenes & min user level
-      if (ms.cuts) cuts += ms.cuts
-      trust = Math.min(trust, ms.trust || 0)
-      health = Math.min(health, ms.health || 0)
+    let ps = []
+    for (let p = 0; p < providers.length; p++) {
+      const provider = providers[p]
+      let x = this.joinStatus2(provider.filterStatus, skipTags)
+      if (provider.sceneFilters) {
+        x.cuts = Object.keys(provider.sceneFilters).length
+      }
+      ps.push(x)
     }
 
-    if (health > 0.5) {
-      status = cuts ? 'done' : 'clean'
-      color = 'green'
-      icon = 'none'
-    } else if (health < -0.5) {
-      status = 'missing'
-      color = 'red'
-      icon = 'mdi-heart-broken'
-    } else {
-      status = 'mixed'
-      color = 'orange'
-      icon = 'mdi-heart-broken'
-    }
-    if (trust <= 1 || trust == Infinity) {
-      status = 'unknown'
-      color = 'lightgray'
-      icon = 'mdi-progress-question'
+    //to have a quick fix, let's take the provider join-status with highest trust
+    //TODO: improve
+    let final_ps = { trust: 0 }
+    for (let i = 0; i < ps.length; i++) {
+      if (ps[i].trust >= final_ps.trust) final_ps = ps[i]
     }
 
-    return { status: status, health: health, cuts: cuts, trust: trust, icon: icon, color: color }
+    if (
+      (ms.status == 'missing' || ms.status == 'mixed') &&
+      (final_ps.status == 'done' || final_ps.status == 'clean') &&
+      final_ps.cuts > 0
+    ) {
+      ms = final_ps
+      ms.status = 'done'
+      ms.icon = 'mdi-content-cut'
+    }
+
+    return ms
   },
 
   addInfo(movie, skipTags) {
-    movie.join_status = movies.joinStatus2(movie.movieContent, skipTags)
+    console.log('titleeee', movie.title)
+    if (movie.imdb == 'tt0088247') {
+      console.log('now!')
+    }
+    movie.join_status = movies.joinStatus3(movie.movieContent, movie.providers, skipTags)
     movie.brief_status = movies.getSummary(movie)
     if (typeof movie.movieValues == 'string')
       movie.movieValues = movies.parse(movie.movieValues, {})
