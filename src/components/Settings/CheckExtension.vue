@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <h2>2. Install Ohana TV</h2> -->
+    <b>Install Ohana TV</b>
     <p>
       Our
       <a

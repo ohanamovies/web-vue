@@ -2,6 +2,7 @@
   <div class="home">
     <!-- Header -->
 
+    <!--Settings dialog -->
     <v-dialog
       v-model="show_settings"
       max-width="600"
@@ -27,6 +28,41 @@
         </div>
         <settings2 style="margin-top: 20px" />
       </div>
+    </v-dialog>
+
+    <!-- Welcome Tour dialog -->
+    <v-dialog
+      eager
+      transition="dialog-bottom-transition"
+      v-model="show_welcomeTour"
+      max-width="700"
+      min-width="0"
+      style="z-index: 999999"
+      :overlay-color="red"
+      overlay-opacity="10"
+      :fullscreen="isMobile"
+    >
+      <div
+        :style="{
+          backgroundColor: isMobile ? '#141414' : 'white',
+          padding: '5px',
+          minHeight: isMobile ? '100vh' : '',
+          margin: 'auto',
+        }"
+      >
+        <WelcomeTour
+          @exit="
+            show_welcomeTour = false
+            settingsPage = 0
+          "
+          :page="settingsPage"
+        />
+      </div>
+    </v-dialog>
+
+    <!-- Sensitivity dialog -->
+    <v-dialog>
+      <Sensitivity />
     </v-dialog>
 
     <div class="sticky2" style="z-index: 99999">
@@ -57,7 +93,7 @@
       </div>
       <div>
         <div
-          @click="show_settings = !show_settings"
+          @click="show_welcomeTour = !show_welcomeTour"
           style="color: white; text-decoration: none; cursor: pointer"
         >
           <v-icon style="color: white" v-if="isMobile">mdi-account-cog-outline</v-icon>
@@ -194,12 +230,16 @@ import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
 import MovieDetailPage from '../components/MovieDetailPage2'
 
+import WelcomeTour from '@/components/Settings/WelcomeTour.vue'
 import Settings2 from '@/components/Settings2.vue'
+import Sensitivity from '@/components/Settings/Sensitivity.vue'
 
 export default {
   components: {
+    WelcomeTour,
     MovieDetailPage,
     Settings2,
+    Sensitivity,
   },
 
   head: function () {
@@ -213,6 +253,7 @@ export default {
   data() {
     return {
       show_settings: false,
+      show_welcomeTour: false,
       showMenu: false,
       mini: true,
       selectedItemInfo: {},
@@ -425,6 +466,18 @@ export default {
         })
     },
   },
+  created() {
+    setTimeout(() => {
+      //Ask for settings if no settings.
+      console.log('[alex] home2 created')
+      if (this.skipTags && this.skipTags.length == 0 && this.settings.username == '') {
+        console.log('[alex] THIs kaka')
+        this.show_welcomeTour = true
+      } else {
+        console.log('[alex] grr', this.skipTags, this.settings.username)
+      }
+    }, 1000)
+  },
 
   mounted() {
     //load some data
@@ -441,12 +494,6 @@ export default {
           this.getData(id)
         }
       }
-    }
-
-    //Ask for settings if no settings.
-    if (this.skipTags && this.skipTags.length == 0 && this.settings.username == '') {
-      console.log('THIs kaka')
-      this.show_settings = true
     }
   },
 }

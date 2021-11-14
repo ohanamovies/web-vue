@@ -1,11 +1,17 @@
 <template>
-  <div class="banner home-background">
-    <div class="inner" style="border: none; padding: 0px !important">
-      <h1 class="fadeInUp" style="margin-bottom: 5px">Welcome to Ohana TV</h1>
-      <p style="color: white" class="fadeIn">
-        {{ $t('homeHeroText2') }}
-      </p>
-    </div>
+  <div class="banner home-background" style="height: 100% !important; width: 100% !important">
+    <v-row class="fill-height" align="center" style="padding: 20px">
+      <div class="inner" style="border: none; padding: 0px !important; margin: auto">
+        <h1 class="fadeInUp" style="margin-bottom: 5px">
+          {{ $t('welcome') }}
+        </h1>
+        <p style="color: white" class="fadeIn">
+          {{ $t('homeHeroText2') }}
+        </p>
+
+        <p style="color: white; margin-top: 50px; cursor: pointer" class="fadeIn">Start</p>
+      </div>
+    </v-row>
   </div>
 </template>
 

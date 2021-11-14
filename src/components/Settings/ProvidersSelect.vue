@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Providers -->
-    <div style="margin-top: 20px">
+    <div style="margin: 20px 0px; overflow: auto">
       <b>Select the providers you use</b>
       <p>
         Ohana TV redirects you to the providers that offer the content. We don't offer content
@@ -34,6 +34,8 @@
       <div style="text-align: right; margin-right: 10px">
         <span class="modern-link" @click="selectOrUnselectAll()">Clear</span>
       </div>
+      <br />
+      <br />
     </div>
   </div>
 </template>

@@ -14,16 +14,10 @@ import FAQs from '../views/Tutorials/FAQs.vue'
 import NotFoundComponent from '../views/Tutorials/NotFoundComponent.vue'
 import Settings from '../views/Settings.vue'
 import Bye from '../views/Bye.vue'
-import WelcomeTour from '@/components/Settings/WelcomeTour.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/welcometour',
-    name: 'WelcomeTour',
-    component: WelcomeTour,
-  },
   {
     path: '/',
     name: 'Home',

@@ -2,9 +2,9 @@
   <div>
     <b></b>
     <div v-if="loggedIn">
-      <p>
-        Welcome {{ settings.username }} <span class="modern-link" @click="logout()">logout</span>
-      </p>
+      <span style="font-size: 2rem">Hello {{ settings.username }}!</span>
+      <br />
+      <span class="modern-link" @click="logout()">logout</span>
     </div>
 
     <div v-else>
@@ -12,14 +12,14 @@
         <b>To get the most out of Ohana TV, please sign up or log in.</b>
       </p>
       <p>
-        With an Ohana TV account, you will be able to contribute to the community, contributing for
-        a better world. Also, your preferences will follow you along if you switch devices.
+        With an Ohana TV account, you will be able to contribute to the community. Also, your
+        preferences will follow you along if you switch devices.
       </p>
 
       <!-- Change form -->
       <div style="margin-left: 12px">
         <span v-if="page == 'signup'" style="font-size: 10pt"
-          >Already registered? <span class="modern-link" @click="page = 'login'">Log in</span></span
+          >Already a user? <span class="modern-link" @click="page = 'login'">Log in</span></span
         >
         <span v-else-if="page == 'login'" style="font-size: 10pt"
           >Don't have an account?
@@ -89,6 +89,9 @@
           >
         </v-form>
       </div>
+      <br />
+      <br />
+      <br />
 
       <p v-if="false" style="margin-left: 12px">
         Not feeling like identifying now?
