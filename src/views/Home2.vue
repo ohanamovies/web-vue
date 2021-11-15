@@ -11,7 +11,28 @@
       style="z-index: 999999; background-color: white"
       :fullscreen="isMobile"
     >
+      <v-card max-height="700px">
+        <div style="position: relative">
+          <v-btn
+            icon
+            @click="show_settings = false"
+            :style="{
+              position: isMobile ? 'fixed' : 'absolute',
+              top: '8px',
+              backgroundColor: 'white',
+
+              right: '18px',
+              zIndex: '999999',
+            }"
+            ><v-icon>mdi-close</v-icon></v-btn
+          >
+        </div>
+        <v-card-text class="pa-1">
+          <settings2 style="margin-top: 20px; background-color: white" />
+        </v-card-text>
+      </v-card>
       <div
+        v-if="false"
         :style="{
           backgroundColor: 'white',
           padding: '5px',
@@ -82,7 +103,7 @@
 
     <div class="sticky2" style="z-index: 99999">
       <div v-if="!isMobile" style="margin: auto auto auto 48%; font-size: 24px">Ohana</div>
-      <div v-else style="margin: auto auto auto 5px">Ohana</div>
+      <div v-else style="margin: auto auto auto 5px">Ohana TV</div>
       <div>
         <v-text-field
           outlined
@@ -246,7 +267,7 @@ import { mapState } from 'vuex'
 import MovieDetailPage from '../components/MovieDetailPage2'
 
 import WelcomeTour from '@/components/Settings/WelcomeTour.vue'
-import Settings2 from '@/components/Settings2.vue'
+import Settings2 from '@/components/Settings/Settings2.vue'
 import Sensitivity from '@/components/Settings/Sensitivity.vue'
 
 export default {

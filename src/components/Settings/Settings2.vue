@@ -11,6 +11,7 @@
         <v-tab><v-icon class="mr-2" small>mdi-television</v-icon>Platforms</v-tab>
         <v-tab><v-icon class="mr-2" small>mdi-account</v-icon>Account</v-tab>
         <v-tab><v-icon class="mr-2" small>mdi-download</v-icon>Install</v-tab>
+        <v-tab><v-icon class="mr-2" small>mdi-cog</v-icon>Settings3</v-tab>
       </v-tabs>
 
       <div>
@@ -45,6 +46,10 @@
           <div v-if="tab == 3">
             <check-extension></check-extension>
           </div>
+
+          <div v-if="tab == 4">
+            <Tags2 />
+          </div>
         </div>
       </div>
       <div style="margin-top: 30px">
@@ -60,11 +65,12 @@
 import Sensitivity from '@/components/Settings/Sensitivity.vue'
 import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
+import Tags2 from '@/components/Settings/Tags2.vue'
 import Login from '@/components/Settings/Login.vue'
 import { mapState } from 'vuex'
 
 export default {
-  components: { Sensitivity, Login, ProvidersSelect, CheckExtension },
+  components: { Sensitivity, Login, ProvidersSelect, CheckExtension, Tags2 },
 
   data() {
     return {

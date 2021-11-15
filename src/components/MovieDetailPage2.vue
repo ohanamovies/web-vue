@@ -377,13 +377,13 @@ export default {
       } else if (status == 'clean') {
         text = `This ${type} is healthy for your settings. Nothing to filter here.`
       } else if (status == 'done') {
-        text = `We've created filters for this ${type} to make it healthy.`
+        text = `We've created filters for this ${type} to make it healthy as per your settings.`
       } else if (status == 'missing') {
-        text = `This ${type} contains unhealthy scenes but we don't have filters yet.`
+        text = `This ${type} contains scenes you consider unhealthy. But we don't have filters yet to help you skip them.`
       } else if (status == 'mixed') {
-        text = `This ${type} might contain unhealthy content. We are not sure. 🤷‍♂️`
+        text = `This ${type} might contain content you consider unhealthy. We are not sure. 🤷‍♂️`
       } else {
-        text = `Ouch! We don't know if this content if healthy! `
+        text = `Ouch! We don't know if this content if healthy for your settings! `
       }
 
       return text
