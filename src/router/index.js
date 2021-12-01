@@ -14,6 +14,10 @@ import FAQs from '../views/Tutorials/FAQs.vue'
 import NotFoundComponent from '../views/Tutorials/NotFoundComponent.vue'
 import Settings from '../views/Settings.vue'
 import Bye from '../views/Bye.vue'
+import MoviePage from '../views/MoviePage.vue'
+import Privacy from '../views/Legal/Privacy.vue'
+import TermsOfUse from '@/views/Legal/TermsOfUse.vue'
+import ContactUs from '@/views/Legal/ContactUs.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +32,13 @@ const routes = [
     name: 'Home2',
     component: Home2,
   },
+  {
+    path: '/item/:imdb',
+    name: 'MoviePage',
+    component: MoviePage,
+    props: true,
+  },
+
   {
     path: '/about2',
     name: 'About2',
@@ -82,6 +93,21 @@ const routes = [
     path: '/elements',
     name: 'Elements',
     component: Elements,
+  },
+  {
+    path: '/privacy-policy',
+    name: 'Privacy',
+    component: Privacy,
+  },
+  {
+    path: '/terms-of-use',
+    name: 'TermsOfUse',
+    component: TermsOfUse,
+  },
+  {
+    path: '/contact-us',
+    name: 'ContactUs',
+    component: ContactUs,
   },
   {
     path: '/:catchAll(.*)',

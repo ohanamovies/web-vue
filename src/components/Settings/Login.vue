@@ -79,7 +79,7 @@
           ></v-text-field>
 
           <div v-if="page == 'signup'">
-            <v-checkbox hide-details>
+            <v-checkbox hide-details v-model="agree">
               <template v-slot:label>
                 <div style="font-size: 90%; padding-top: 15px">
                   I agree with the
@@ -91,9 +91,15 @@
             </v-checkbox>
           </div>
 
-          <v-btn block depressed id="vbtn1" color="primary" @click="submitForm()">{{
-            page == 'signup' ? 'Sign up' : 'login'
-          }}</v-btn>
+          <v-btn
+            :disabled="disableSubmit"
+            block
+            depressed
+            id="vbtn1"
+            color="primary"
+            @click="submitForm()"
+            >{{ page == 'signup' ? 'Sign up' : 'login' }}</v-btn
+          >
 
           <span v-if="message.text" :style="{ color: message.color, marginTop: '10px' }"
             ><br />{{ message.text }}</span
@@ -118,6 +124,8 @@ import ohana from '@/assets/ohana'
 export default {
   data() {
     return {
+      agree: false,
+
       show_password: false,
       page: 'signup',
 
@@ -148,6 +156,9 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'extension_version']),
     loggedIn() {
       return this.settings.username && this.settings.authToken
+    },
+    disableSubmit() {
+      return !this.agree
     },
   },
   methods: {
