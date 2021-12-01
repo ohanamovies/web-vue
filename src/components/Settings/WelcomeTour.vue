@@ -32,20 +32,26 @@
           <div style="text-align: center">
             <h2>You are all set!</h2>
             <p>We hope you will love Ohana TV</p>
-            <p class="modern-link">Discover Ohana TV</p>
+            <p class="modern-link" @click="slide++">Discover Ohana TV</p>
           </div>
         </v-tab-item>
       </v-tabs-items>
     </v-card-text>
 
-    <v-card-actions style="border-top: 1px solid black; color: white" v-if="slide != 0">
-      <div v-if="isMobile">slide: {{ slide }}</div>
-      <div v-else>
-        <v-btn text class="mb-1" @click="slide--" max-width="35%" style="margin-right: 20px"
-          >Back</v-btn
-        >
-
-        <v-btn text class="mb-1" @click="slide++" max-width="50%">
+    <v-card-actions style="display: flex; justify-content: space-between">
+      <div>
+        <v-btn v-if="slide > 0" text style="box-shadow: none" @click="slide--">Back</v-btn>
+      </div>
+      <div style="display: flex">
+        <span
+          v-for="i in nSlides"
+          :key="i"
+          :class="{ 'slide-delimiter': true, 'slide-delimiter-selected': slide == i - 1 }"
+          @click="slide = i - 1"
+        ></span>
+      </div>
+      <div>
+        <v-btn text style="box-shadow: none" @click="slide++">
           {{ nextStepText }}
         </v-btn>
       </div>
@@ -73,15 +79,7 @@ export default {
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'extension_version']),
     nextStepText() {
-      let x = [
-        'Start',
-
-        'Next',
-        'Next',
-        this.loggedIn ? 'Continue' : 'Continue as guest',
-        'Next',
-        'Discover movies and shows',
-      ]
+      let x = ['Start', 'Next', 'Next', this.loggedIn ? 'Next' : 'Skip', 'Next', 'Done']
       return x[this.slide]
     },
     loggedIn() {
@@ -104,6 +102,7 @@ export default {
   data() {
     return {
       slide: 0,
+      nSlides: 6,
     }
   },
 
@@ -121,6 +120,20 @@ export default {
 </script>
 
 <style scoped>
+.slide-delimiter {
+  border: 1px solid black;
+  border-radius: 50%;
+  margin: 5px;
+  background-color: white;
+  height: 10px;
+  width: 10px;
+  cursor: pointer;
+}
+
+.slide-delimiter-selected {
+  background-color: green;
+}
+
 .nextSlide {
   background-color: darkgreen;
   text-align: center;

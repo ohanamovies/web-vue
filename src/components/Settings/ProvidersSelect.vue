@@ -8,6 +8,7 @@
       Ohana TV redirects you to the providers that offer the content. We don't offer content
       ourselves.
     </p>
+    <p>We will prioritize content available in your providers.</p>
     <v-list>
       <div v-for="(provider, index) in providersList" :key="index">
         <v-list-item @click="toggle(provider.value)">

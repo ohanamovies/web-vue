@@ -10,7 +10,7 @@
       <table style="margin-bottom: 0; padding: 0px">
         <!-- RED -->
         <tr style="cursor: pointer">
-          <td style="width: 10px; padding: 0px">
+          <td style="width: 10px; padding: 0px; vertical-align: middle">
             <v-icon color="red">mdi-checkbox-blank-circle</v-icon>
           </td>
           <td style="text-align: left">
@@ -20,7 +20,7 @@
         </tr>
         <!-- GREEN -->
         <tr style="cursor: pointer">
-          <td style="width: 10px; padding: 0px">
+          <td style="width: 10px; padding: 0px; vertical-align: middle">
             <v-icon color="green">mdi-checkbox-blank-circle</v-icon>
           </td>
           <td style="text-align: left">
@@ -29,7 +29,7 @@
           </td>
         </tr>
         <!-- ORANGE -->
-        <tr style="cursor: pointer">
+        <tr v-if="false" style="cursor: pointer">
           <td style="width: 10px; padding: 0px">
             <v-icon color="orange">mdi-checkbox-blank-circle</v-icon>
           </td>
@@ -39,6 +39,11 @@
           </td>
         </tr>
       </table>
+    </div>
+
+    <!--default -->
+    <div style="margin-top: 10px">
+      Not sure? <span class="modern-link" @click="setDefaultSettings()">use default settings</span>
     </div>
 
     <!-- OPTIONS -->
@@ -105,6 +110,12 @@
         </div>
       </div>
     </div>
+
+    <div style="margin-top: 15px" v-if="skipTags.length">
+      <b>Recap:</b> we will help you avoiding any content matching: {{ skipTags.join(', ') }}.
+
+      <span class="modern-link" @click="resetTags()">Reset</span>
+    </div>
   </div>
 </template>
 
@@ -127,6 +138,18 @@ export default {
     },
   },
   methods: {
+    resetTags() {
+      let settings = this.settings
+      settings.skip_tags = [] //[...this.$store.state.default_settings.skip_tags]
+
+      this.$store.dispatch('updateSettings', settings)
+    },
+    setDefaultSettings() {
+      let settings = this.settings
+      settings.skip_tags = ['Very erotic', 'Moderately erotic'] //[...this.$store.state.default_settings.skip_tags]
+
+      this.$store.dispatch('updateSettings', settings)
+    },
     getIcon(tag) {
       console.log(tag)
       //return this.skipTags.includes(tag) ? 'mdi-leaf-off' : 'mdi-leaf'
