@@ -5,34 +5,85 @@
     </v-card-title>
     <v-card-text class="pa-0" style="overflow-y: auto">
       <v-tabs-items v-model="slide" style="height: 100%; margin: auto; overflow-y: auto">
-        <v-tab-item class="pa-0 ma-0" style="margin: auto" @click="slide = slide + 1">
+        <v-tab-item
+          class="pa-0 ma-0 outerr"
+          style="margin: auto; cursor: pointer"
+          @click="slide = slide + 1"
+        >
           <WelcomeSheet />
         </v-tab-item>
-        <v-tab-item class="pa-2 ma-2">
+
+        <v-tab-item
+          class="outerr"
+          style="text-align: center; cursor: pointer"
+          @click="slide = slide + 1"
+        >
+          <div class="middlee">
+            <div class="innerr">
+              <p><b>What we watch affects us</b></p>
+              <p>
+                Movies and shows may have content that you consider unhealthy (you believe it harms
+                you).
+              </p>
+            </div>
+          </div>
+        </v-tab-item>
+
+        <v-tab-item
+          class="outerr"
+          style="text-align: center; cursor: pointer"
+          @click="slide = slide + 1"
+        >
+          <div class="middlee">
+            <div class="innerr">
+              <p><b>Ohana TV helps you avoding the unhealthy</b></p>
+              <p>
+                In two ways: (1) we inform you, and (2) our software allows you to watch movies with
+                unhealthy content skipping the unhealthy content.
+              </p>
+            </div>
+          </div>
+        </v-tab-item>
+
+        <v-tab-item
+          class="outerr"
+          style="text-align: center; cursor: pointer"
+          @click="slide = slide + 1"
+        >
+          <div class="middlee">
+            <div class="innerr">
+              <p><b>Ohana TV adapts to your preferenes</b></p>
+              <p>You define what's healthy and what's not. Let's do that now</p>
+            </div>
+          </div>
+        </v-tab-item>
+        <v-tab-item class="outerr">
           <div style="max-width: 400px; margin: auto">
             <h4>What do you want to skip?</h4>
 
             <Tags2 />
           </div>
         </v-tab-item>
-        <v-tab-item class="pa-2 ma-2">
+        <v-tab-item class="outerr">
           <ProvidersSelect />
         </v-tab-item>
-        <v-tab-item class="pa-2 ma-2">
+        <v-tab-item class="outerr">
           <div style="max-width: 400px; margin: auto">
             <Login />
           </div>
         </v-tab-item>
-        <v-tab-item class="pa-2 ma-2">
+        <v-tab-item class="outerr">
           <div style="max-width: 400px; margin: auto">
             <CheckExtension />
           </div>
         </v-tab-item>
-        <v-tab-item>
-          <div style="text-align: center">
-            <h2>You are all set!</h2>
-            <p>We hope you will love Ohana TV</p>
-            <p class="modern-link" @click="slide++">Discover Ohana TV</p>
+        <v-tab-item class="outerr">
+          <div class="middlee">
+            <div class="innerr" style="text-align: center">
+              <h2>You are all set</h2>
+              <p>We think you are going to love Ohana TV!</p>
+              <p class="modern-link" @click="slide++">Let's go</p>
+            </div>
           </div>
         </v-tab-item>
       </v-tabs-items>
@@ -81,9 +132,25 @@ export default {
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'extension_version']),
+
+    nextSteps() {
+      return [
+        'Start',
+        'Next',
+        'Next',
+        'Next',
+        'Next',
+        'Next',
+        this.loggedIn ? 'Next' : 'Skip',
+        'Next',
+        'Done',
+      ]
+    },
     nextStepText() {
-      let x = ['Start', 'Next', 'Next', this.loggedIn ? 'Next' : 'Skip', 'Next', 'Done']
-      return x[this.slide]
+      return this.nextSteps[this.slide]
+    },
+    nSlides() {
+      return this.nextSteps.length
     },
     loggedIn() {
       return this.settings.username && this.settings.authToken
@@ -105,7 +172,6 @@ export default {
   data() {
     return {
       slide: 0,
-      nSlides: 6,
     }
   },
 
@@ -174,5 +240,28 @@ export default {
 .roww {
   text-align: left;
   padding: 20px;
+}
+
+/****** */
+.outerr {
+  display: table;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.middlee {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.innerr {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  /* Whatever width you want */
 }
 </style>

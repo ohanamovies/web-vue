@@ -78,8 +78,21 @@
             hide-details
           ></v-text-field>
 
+          <div v-if="page == 'signup'">
+            <v-checkbox hide-details>
+              <template v-slot:label>
+                <div style="font-size: 90%; padding-top: 15px">
+                  I agree with the
+                  <a @click.stop href="/terms-of-use" target="_blank">Terms of use</a>
+                  and the
+                  <a @click.stop href="/privacy-policy" target="_blank">Privacy Policy</a>
+                </div>
+              </template>
+            </v-checkbox>
+          </div>
+
           <v-btn block depressed id="vbtn1" color="primary" @click="submitForm()">{{
-            page == 'signup' ? 'Sing up' : 'login'
+            page == 'signup' ? 'Sign up' : 'login'
           }}</v-btn>
 
           <span v-if="message.text" :style="{ color: message.color, marginTop: '10px' }"

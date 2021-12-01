@@ -39,6 +39,18 @@
         </div>
       </div>
     </section>
+
+    <!-- legal mentions -->
+    <div style="background-color: #6cc091; color: white; padding: 10px; font-size: 80%">
+      <b style="color: white">Dependencies and claims:</b>
+      <br />
+      <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+      <p>We also use IMDb data</p>
+      <p>
+        Data about scnes is provided by our users, as per our
+        <router-link to="terms-of-use">terms of use</router-link>.
+      </p>
+    </div>
   </div>
 </template>
 

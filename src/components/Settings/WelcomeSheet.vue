@@ -8,10 +8,6 @@
         <p style="color: white" class="fadeIn">
           {{ $t('homeHeroText2') }}
         </p>
-
-        <p style="color: white; margin-top: 50px; cursor: pointer; font-size: 130%" class="fadeIn">
-          Start
-        </p>
       </div>
     </v-row>
   </div>

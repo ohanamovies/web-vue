@@ -9,33 +9,33 @@
     <div>
       <table style="margin-bottom: 0; padding: 0px">
         <!-- RED -->
-        <tr style="cursor: pointer">
-          <td style="width: 10px; padding: 0px; vertical-align: middle">
+        <tr>
+          <td style="width: 10px; padding: 0px; vertical-align: top">
             <v-icon color="red">mdi-checkbox-blank-circle</v-icon>
           </td>
-          <td style="text-align: left">
+          <td style="text-align: left; padding: 0px 9px">
             This content is <span style="color: red; font-weight: bold">unhealthy</span> to me:
             please remove it.
           </td>
         </tr>
         <!-- GREEN -->
-        <tr style="cursor: pointer">
-          <td style="width: 10px; padding: 0px; vertical-align: middle">
+        <tr>
+          <td style="width: 10px; padding: 0px; vertical-align: top">
             <v-icon color="green">mdi-checkbox-blank-circle</v-icon>
           </td>
-          <td style="text-align: left">
+          <td style="text-align: left; padding: 0px 9px">
             This is content is <span style="color: green; font-weight: bold">healthy</span> to me:
             do nothing.
           </td>
         </tr>
         <!-- ORANGE -->
-        <tr v-if="false" style="cursor: pointer">
-          <td style="width: 10px; padding: 0px">
+        <tr>
+          <td style="width: 10px; padding: 0px; vertical-align: top">
             <v-icon color="orange">mdi-checkbox-blank-circle</v-icon>
           </td>
-          <td style="text-align: left">
-            <span style="color: orange; font-weight: bold">Edge case:</span> Warn me, so I can
-            decide later.
+          <td style="text-align: left; padding: 0px 9px">
+            <span style="color: orange; font-weight: bold">Edge case:</span> You will see this color
+            when content is not clear enough for us to make a call.
           </td>
         </tr>
       </table>
