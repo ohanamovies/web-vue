@@ -41,6 +41,9 @@
     <v-card-actions style="display: flex; justify-content: space-between">
       <div>
         <v-btn v-if="slide > 0" text style="box-shadow: none" @click="slide--">Back</v-btn>
+        <v-btn v-if="slide == 0" text style="box-shadow: none" @click="slide = nSlides + 1"
+          >Skip</v-btn
+        >
       </div>
       <div style="display: flex">
         <span
@@ -91,7 +94,7 @@ export default {
       this.slide = newValue
     },
     slide(newValue) {
-      if (newValue == 6) {
+      if (newValue >= this.nSlides) {
         let s = this.settings
         s.web_tour = new Date()
         this.$store.dispatch('updateSettings', s)
