@@ -1,105 +1,69 @@
 <template>
-  <div style="position: relative">
-    <v-card>
-      <v-card-text class="pa-0">
-        <v-carousel
-          :continuous="false"
-          v-model="slide"
-          hide-delimiters
-          :show-arrows="false"
-          class="carrousel"
-          hide-delimiter-background
+  <v-card class="pa-0" max-height="600px" height="600px">
+    <v-card-title v-if="false" style="background-color: #141414; color: white">
+      Welcome to Ohana TV
+    </v-card-title>
+    <v-card-text class="pa-0" style="overflow-y: auto">
+      <v-tabs-items v-model="slide" style="height: 100%; margin: auto; overflow-y: auto">
+        <v-tab-item class="pa-0 ma-0" style="margin: auto" @click="slide = slide + 1">
+          <WelcomeSheet />
+        </v-tab-item>
+        <v-tab-item class="pa-2 ma-2">
+          <div style="max-width: 400px; margin: auto">
+            <h4>What do you want to skip?</h4>
+
+            <Tags2 />
+          </div>
+        </v-tab-item>
+        <v-tab-item class="pa-2 ma-2">
+          <ProvidersSelect />
+        </v-tab-item>
+        <v-tab-item class="pa-2 ma-2">
+          <div style="max-width: 400px; margin: auto">
+            <Login />
+          </div>
+        </v-tab-item>
+        <v-tab-item class="pa-2 ma-2">
+          <div style="max-width: 400px; margin: auto">
+            <CheckExtension />
+          </div>
+        </v-tab-item>
+        <v-tab-item>
+          <div style="text-align: center">
+            <h2>You are all set!</h2>
+            <p>We hope you will love Ohana TV</p>
+            <p class="modern-link">Discover Ohana TV</p>
+          </div>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-card-text>
+
+    <v-card-actions style="border-top: 1px solid black; color: white" v-if="slide != 0">
+      <div v-if="isMobile">slide: {{ slide }}</div>
+      <div v-else>
+        <v-btn text class="mb-1" @click="slide--" max-width="35%" style="margin-right: 20px"
+          >Back</v-btn
         >
-          <!-- Welcome -->
-          <v-carousel-item style="width: 100%; cursor: pointer" @click="slide = 1">
-            <v-sheet
-              color="white"
-              height="100%"
-              tile
-              class="sheet"
-              style="padding: 0px; overflow: hidden"
-            >
-              <v-row class="fill-height" align="center">
-                <WelcomeSheet />
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
 
-          <!-- Sensitivity -->
-          <v-carousel-item>
-            <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
-              <v-row class="fill-height roww" align="center">
-                <div>
-                  <b style="padding: 0px; margin: 0px">{{ $t('whatDoYouSkip') }}</b>
-                  <p>{{ $t('whatDoYouSkip_tip') }}</p>
-                  <Sensitivity :short_version="true" />
-                </div>
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-
-          <!-- Providers -->
-          <v-carousel-item>
-            <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
-              <v-row class="fill-height roww" align="center">
-                <ProvidersSelect />
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-
-          <!--Login-->
-          <v-carousel-item>
-            <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
-              <v-row class="fill-height roww" align="center">
-                <Login />
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-
-          <!-- Install -->
-          <v-carousel-item>
-            <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
-              <v-row class="fill-height roww" align="center">
-                <CheckExtension />
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-
-          <!-- Exit page -->
-          <v-carousel-item>
-            <v-sheet color="white" height="100%" tile class="sheet" style="max-width: 500px">
-              <v-row class="fill-height roww" align="center" style="padding: 50px">
-                <p>That's it. Let's go find some great content!</p>
-                <div style="margin-top: 50px; font-size: 80%">
-                  <b>Note:</b> You can do this tour again anytime, by clicking "Settings" or the
-                  <v-icon class="mb-1">mdi-account-cog</v-icon> button.
-                </div>
-              </v-row>
-            </v-sheet>
-          </v-carousel-item>
-        </v-carousel>
-      </v-card-text>
-      <v-card-actions v-if="slide != 0">
-        <v-btn text class="mb-1" @click="slide--" max-width="35%">Back</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn text class="mb-1" @click="slide++" max-width="60%">
+        <v-btn text class="mb-1" @click="slide++" max-width="50%">
           {{ nextStepText }}
         </v-btn>
-      </v-card-actions>
-    </v-card>
-  </div>
+      </div>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
-import Sensitivity from '@/components/Settings/Sensitivity.vue'
+//import Sensitivity from '@/components/Settings/Sensitivity.vue'
 import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
 import WelcomeSheet from '@/components/Settings/WelcomeSheet.vue'
 import Login from '@/components/Settings/Login.vue'
+import Tags2 from './Tags2.vue'
 import { mapState } from 'vuex'
 
 export default {
-  components: { Sensitivity, Login, ProvidersSelect, CheckExtension, WelcomeSheet },
+  components: { Login, ProvidersSelect, CheckExtension, WelcomeSheet, Tags2 },
   props: {
     page: {
       type: Number,

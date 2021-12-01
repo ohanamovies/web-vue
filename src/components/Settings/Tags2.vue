@@ -1,87 +1,108 @@
 <template>
   <div style="font-size: 90%">
-    <p>Click on the below options to define what Ohana TV should do with each kind of content</p>
+    <p>
+      Click on the below options to define what content you consider Unhealthy. Ohana TV will help
+      you avoiding it. Don't worry: we love movies as much as you do, we won't destroy them.
+    </p>
 
+    <!-- table explaining each color -->
     <div>
       <table style="margin-bottom: 0; padding: 0px">
+        <!-- RED -->
         <tr style="cursor: pointer">
           <td style="width: 10px; padding: 0px">
             <v-icon color="red">mdi-checkbox-blank-circle</v-icon>
           </td>
           <td style="text-align: left">
-            I consider this content unhealthy to me: please remove it
+            This content is <span style="color: red; font-weight: bold">unhealthy</span> to me:
+            please remove it.
           </td>
         </tr>
+        <!-- GREEN -->
         <tr style="cursor: pointer">
           <td style="width: 10px; padding: 0px">
             <v-icon color="green">mdi-checkbox-blank-circle</v-icon>
           </td>
-          <td style="text-align: left">This is healthy content to me: do nothing!</td>
+          <td style="text-align: left">
+            This is content is <span style="color: green; font-weight: bold">healthy</span> to me:
+            do nothing.
+          </td>
         </tr>
+        <!-- ORANGE -->
         <tr style="cursor: pointer">
           <td style="width: 10px; padding: 0px">
             <v-icon color="orange">mdi-checkbox-blank-circle</v-icon>
           </td>
-          <td style="text-align: left">Warn me, so I can decide later</td>
+          <td style="text-align: left">
+            <span style="color: orange; font-weight: bold">Edge case:</span> Warn me, so I can
+            decide later.
+          </td>
         </tr>
       </table>
     </div>
 
+    <!-- OPTIONS -->
     <div v-for="(category, c) in raw_tags.content" :key="c">
       <!-- <p style="margin-top: 30px; font-size: 1.1rem">{{ category.title }}</p>-->
-      <h2>{{ category.title }}</h2>
+      <div v-if="category.value != 'Other'">
+        <h2>{{ category.title }}</h2>
 
-      <div v-for="(sev, s) in raw_tags.content[c].severity" :key="s">
-        <table style="margin-bottom: 0; cursor: pointer">
-          <tr
-            :style="{
-              cursor: 'pointer',
-              backgroundColor: skipTags.includes(sev.value) ? 'rgba(300,100,100,0.1)' : '',
-            }"
-            @click="toggleTag(sev.value)"
-          >
-            <td style="width: 50px; padding: 0px; text-align: center">
-              <fc-tooltip
-                :text="
-                  skipTags.includes(sev.value)
-                    ? 'We will skip ' + sev.title
-                    : `We won't skip ` + sev.title
-                "
-              >
-                <v-icon style="cursor: pointer" :color="getColor(sev.value)"
-                  >{{ getIcon(sev.value) }} <br />
-                </v-icon>
-                <br /><span style="font-size: 70%; font-weight: 800">
-                  {{ skipTags.includes(sev.value) ? 'Skip' : 'No Skip' }}</span
+        <div v-for="(sev, s) in raw_tags.content[c].severity" :key="s">
+          <table style="margin-bottom: 0; cursor: pointer">
+            <tr
+              :class="skipTags.includes(sev.value) ? 'unhealthy-row' : 'healthy-row'"
+              @click="toggleTag(sev.value)"
+            >
+              <td v-if="false" style="width: 50px; padding: 0px; text-align: center">
+                <v-switch
+                  class="ma-0 pa-0 pl-2 mt-2"
+                  :color="skipTags.includes(sev.value) ? 'red' : 'lightgreen'"
+                  readonly
+                  inset
+                  dense
+                  :input-value="skipTags.includes(sev.value)"
+                  hide-details
+                ></v-switch>
+              </td>
+
+              <td style="text-align: left">
+                <span :style="{ textAlign: 'left' }">
+                  <b>{{ sev.title }}</b
+                  >:
+                  {{ sev.description }}
+                </span>
+                <div style="margin-top: 5px" v-if="false">
+                  <b style="font-size: 80%">When:</b>
+                  <v-chip x-small class="mx-1">Always</v-chip>
+                  <v-chip
+                    x-small
+                    :class="['mx-1', Math.random() * 10 > 4 ? 'chipdown' : '']"
+                    v-for="(context, t) in raw_tags.content[c].context"
+                    :key="t"
+                    >{{ context.title }}</v-chip
+                  >
+                </div>
+              </td>
+              <td style="width: 50px; padding: 0px; text-align: center">
+                <fc-tooltip
+                  :text="
+                    skipTags.includes(sev.value)
+                      ? 'We will skip ' + sev.title
+                      : `We won't skip ` + sev.title
+                  "
                 >
-              </fc-tooltip>
-            </td>
-            <td style="text-align: left">
-              <span
-                :style="{
-                  textAlign: 'left',
-                  textDecoration: skipTags.includes(sev.value) ? 'line-through' : 'none',
-                }"
-              >
-                <b>{{ sev.title }}</b
-                >:
-                {{ sev.description }}
-              </span>
-              <div style="margin-top: 5px" v-if="false">
-                <b style="font-size: 80%">When:</b>
-                <v-chip x-small class="mx-1">Always</v-chip>
-                <v-chip
-                  x-small
-                  :class="['mx-1', Math.random() * 10 > 4 ? 'chipdown' : '']"
-                  v-for="(context, t) in raw_tags.content[c].context"
-                  :key="t"
-                  >{{ context.title }}</v-chip
-                >
-              </div>
-            </td>
-          </tr>
-        </table>
-        <hr class="ma-0" v-if="s + 1 < raw_tags.content[c].severity.length" />
+                  <v-icon style="cursor: pointer" :color="getColor(sev.value)"
+                    >{{ getIcon(sev.value) }} <br />
+                  </v-icon>
+                  <br /><span style="font-size: 70%; font-weight: 800">
+                    {{ skipTags.includes(sev.value) ? 'Skip' : 'No Skip' }}</span
+                  >
+                </fc-tooltip>
+              </td>
+            </tr>
+          </table>
+          <hr class="ma-0" v-if="s + 1 < raw_tags.content[c].severity.length" />
+        </div>
       </div>
     </div>
   </div>
@@ -109,6 +130,7 @@ export default {
     getIcon(tag) {
       console.log(tag)
       //return this.skipTags.includes(tag) ? 'mdi-leaf-off' : 'mdi-leaf'
+      //return this.skipTags.includes(tag) ? 'mdi-close' : 'mdi-check'
       return 'mdi-checkbox-blank-circle'
     },
 
@@ -116,6 +138,8 @@ export default {
       return this.skipTags.includes(tag) ? 'red' : 'green'
     },
     toggleTag(tag) {
+      //TODO: select/unselect the implied tags with this one.
+
       /*console.log('alex', tag)
       let tags = []
       for (let cat of this.raw_tags.content) {
@@ -125,6 +149,7 @@ export default {
           }
         }
       }*/
+
       let s = { ...this.settings }
       if (this.skipTags.includes(tag)) {
         //remove this tag
@@ -168,4 +193,24 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.healthy-row {
+  cursor: 'pointer';
+  background-color: rgba(100, 300, 100, 0.1);
+}
+
+.healthy-row:hover {
+  cursor: 'pointer';
+  background-color: rgba(100, 300, 100, 0.2);
+}
+
+.unhealthy-row {
+  cursor: 'pointer';
+
+  background-color: rgba(300, 100, 100, 0.1);
+}
+
+.unhealthy-row:hover {
+  background-color: rgba(300, 100, 100, 0.15);
+}
+</style>

@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <base href="/" />
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PTGG1VDT3V"></script>
   <script>
@@ -27,13 +28,13 @@
     ],
   -->
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <meta id="meta-description" name="description" content="Welcome to Ohana Movies!">
+  <meta id="meta-description" name="description" content="Welcome to Ohana TV!">
   <script type="application/ld+json">
     {
       "@context" : "https://schema.org",
       "@type": "Organization",
       "url": "https://ohanamovies.org/",
-      "name": "Ohana Movies",
+      "name": "Ohana TV",
       "description": "Watch movies your way. We cut the crap.",
       "@id": "https://ohanamovies.org/#organization",    
       "logo": "https://ohanamovies.org/icons/apple-touch-icon-180x180.png"    
@@ -45,7 +46,7 @@
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "Ohana Movies",
+      "name": "Ohana TV",
       "operatingSystem": "Chrome OS (Computers only)",
       "applicationCategory": "MultimediaApplication",
       "downloadUrl": "https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf",
@@ -71,9 +72,9 @@
   <link rel="apple-touch-icon" sizes="180x180" href="<%= BASE_URL %>/icons/apple-touch-icon-180x180.png" />
 
   <!-- -->
-  <link rel="stylesheet" href="/css/main.css" />
-  <link rel="stylesheet" href="/css/animations.css" />
-  <link rel="stylesheet" href="/css/ohana.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>/css/main.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>/css/animations.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>/css/ohana.css" />
   <style type="text/css">
     @media screen and (min-width: 980px) {
       html {

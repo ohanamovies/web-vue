@@ -73,7 +73,7 @@ export default {
   },
   computed: {
     no_magic() {
-      return !window.location.href.includes('magic')
+      return !(window.location.href.includes('magic') || window.location.href.includes('item/'))
     },
   },
   methods: {

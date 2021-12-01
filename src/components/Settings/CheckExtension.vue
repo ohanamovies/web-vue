@@ -27,7 +27,7 @@
       installed in this browser (version {{ extension_version }}).
     </v-alert>
 
-    <div v-else-if="isChrome">
+    <div v-else-if="isChrome && !isMobile">
       <v-alert type="warning" outlined
         >Ohana extension is not yet installed in this browser.
       </v-alert>
@@ -45,8 +45,11 @@
 
     <div v-else>
       <v-alert type="error" outlined
-        >It seems this browser is not compatible with our Chrome Extension. Please make sure you are
-        using
+        >It seems this browser is not compatible with our Chrome Extension.
+      </v-alert>
+
+      <p>
+        Please make sure you are using
         <a
           href="https://www.google.com/chrome/"
           target="_blank"
@@ -54,10 +57,12 @@
           style="font-size: 100%"
           >Google Chrome</a
         >
-        on a desktop computer (Windows, Mac, or Linux...)</v-alert
-      >
-
+        on a desktop computer (Windows, Mac, or Linux...).
+      </p>
+    </div>
+    <div v-if="!hasApp">
       <p>
+        <br />
         Without the Chrome Extension, you can't watch edited content. You can still check this
         website for information about movies.
       </p>

@@ -11,15 +11,14 @@
         <v-tab><v-icon class="mr-2" small>mdi-television</v-icon>Platforms</v-tab>
         <v-tab><v-icon class="mr-2" small>mdi-account</v-icon>Account</v-tab>
         <v-tab><v-icon class="mr-2" small>mdi-download</v-icon>Install</v-tab>
-        <v-tab><v-icon class="mr-2" small>mdi-cog</v-icon>Settings3</v-tab>
+        <v-tab v-if="false"><v-icon class="mr-2" small>mdi-cog</v-icon>Settings old</v-tab>
       </v-tabs>
 
       <div>
         <div style="min-height: 400px">
           <!--sensitivity-->
           <div v-if="tab == 0">
-            <p>{{ $t('whatDoYouSkip_tip') }}</p>
-            <sensitivity short_version />
+            <Tags2 />
           </div>
 
           <!-- Extension check-->
@@ -48,7 +47,7 @@
           </div>
 
           <div v-if="tab == 4">
-            <Tags2 />
+            <sensitivity short_version />
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@
       style="z-index: 999999; background-color: white"
       :fullscreen="isMobile"
     >
-      <v-card max-height="700px">
+      <v-card max-height="700px" height="700px">
         <div style="position: relative">
           <v-btn
             icon
@@ -62,29 +62,22 @@
       eager
       transition="dialog-bottom-transition"
       v-model="show_welcomeTour"
-      max-width="700"
+      max-width="600"
       min-width="0"
       style="z-index: 999999"
       overlay-color="#141414"
       overlay-opacity="10"
       :fullscreen="isMobile"
+      scrollable
+      persistent
     >
-      <div
-        :style="{
-          backgroundColor: isMobile ? '#141414' : 'white',
-          padding: '5px',
-          minHeight: isMobile ? '100vh' : '',
-          margin: 'auto',
-        }"
-      >
-        <WelcomeTour
-          @exit="
-            show_welcomeTour = false
-            settingsPage = 0
-          "
-          :page="settingsPage"
-        />
-      </div>
+      <WelcomeTour
+        @exit="
+          show_welcomeTour = false
+          settingsPage = 0
+        "
+        :page="settingsPage"
+      />
     </v-dialog>
 
     <!-- Sensitivity dialog -->
@@ -102,7 +95,7 @@
     </v-dialog>
 
     <div class="sticky2" style="z-index: 99999">
-      <div v-if="!isMobile" style="margin: auto auto auto 48%; font-size: 24px">Ohana</div>
+      <div v-if="!isMobile" style="margin: auto auto auto 48%; font-size: 24px">Ohana TV</div>
       <div v-else style="margin: auto auto auto 5px">Ohana TV</div>
       <div>
         <v-text-field
@@ -245,16 +238,15 @@
       </div>
     </section>
 
+    <MyFooter2 />
+
     <v-dialog
       v-model="showMovieDialog"
       scrollable
       width="750"
       :style="{ marginTop: isMobile ? '40px' : '0px', zIndex: 99999999999998 }"
     >
-      <movie-detail-page
-        :selection="selectedItemInfo"
-        @close="showMovieDialog = false"
-      ></movie-detail-page>
+      <MovieDetailPage :selection="selectedItemInfo" @close="showMovieDialog = false" />
     </v-dialog>
   </div>
 </template>
@@ -265,6 +257,7 @@ import sharedjs from '@/sharedjs'
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
 import MovieDetailPage from '../components/MovieDetailPage2'
+import MyFooter2 from '../components/MyFooter2'
 
 import WelcomeTour from '@/components/Settings/WelcomeTour.vue'
 import Settings2 from '@/components/Settings/Settings2.vue'
@@ -276,6 +269,7 @@ export default {
     MovieDetailPage,
     Settings2,
     Sensitivity,
+    MyFooter2,
   },
 
   head: function () {
@@ -514,7 +508,7 @@ export default {
       //Ask for settings if no settings.
       console.log('[alex] home2 created')
       if (this.skipTags && this.skipTags.length == 0 && this.settings.username == '') {
-        console.log('[alex] THIs kaka')
+        console.log('[alex] Showing welcome tour')
         this.show_welcomeTour = true
       } else {
         console.log('[alex] grr', this.skipTags, this.settings.username)
