@@ -15,20 +15,28 @@
             Welcome to our website located at http://www.ohana.tv (this "Site")! This Site is
             operated by ASOCIACIÓN OHANA MOVIES ("we," "us" and "our") and allows you to: (a)
             participate in interactive features that we may make available from time to time through
-            the Site or our Software; or (b) simply view this Site or user our Software
-            (collectively, the "Services"). We prepared this Terms of Use Agreement (this
-            "Agreement") to help explain the terms that apply to your use of this Site and Services.
-            Provisions in these terms that apply to the Site shall also apply to the Services, and
-            provisions in these terms that apply to the Services shall also apply to this Site. In
-            order to use the interactive features on this Site, you must first register with us
-            through our on-line registration process on this Site. Regardless of how you decide to
-            use this Site, your conduct on this Site and use of the Services is governed by this
-            Agreement.
+            the Site, or our Chrome Extension, or our APIs; or (b) simply view this Site, or our
+            Chrome Extension, or our APIs (collectively, the "Services"). We prepared this Terms of
+            Use Agreement (this "Agreement") to help explain the terms that apply to your use of
+            this Site and Services. Provisions in these terms that apply to the Site shall also
+            apply to the Services, and provisions in these terms that apply to the Services shall
+            also apply to this Site. In order to use the interactive features on this Site, you must
+            first register with us through our on-line registration process on this Site. Regardless
+            of how you decide to use this Site, your conduct on this Site and use of the Services is
+            governed by this Agreement.
           </p>
 
           <p>
             YOU ACCEPT THIS AGREEMENT BY USING THIS SITE AND/OR THE SERVICES IN ANY MANNER. IF YOU
             DO NOT AGREE TO ALL THESE TERMS THEN DO NOT USE THIS WEBSITE.
+          </p>
+
+          <p>
+            <span style="font-size: 80%"><b>In Spanish (en español):</b><br /></span>
+            CUALQUIER USO DE ESTE SITIO WEB Y/O NUESTROS SERVICIOS IMPLICA QUE ACEPTAS LAS
+            CONDICIONES DE USO DESCRITAS EN ESTA PÁGINA. ACTUALMENTE, ESTAS CONDICIONES ESTÁN
+            REDACTADAS ÚNICAMENTE INGLÉS. SI NO ESTÁS DE ACUERDO CON LAS CONDICIONES DE USO, O NO
+            LAS ENTIENDES POR NO ESTAR EN TU IDIOMA, NO USES ESTA WEB NI NUESTROS SERVICIOS.
           </p>
 
           <h2>1. Membership</h2>

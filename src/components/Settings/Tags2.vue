@@ -1,8 +1,9 @@
 <template>
   <div style="font-size: 90%">
     <p>
-      Click on the below options to define what content you consider Unhealthy. Ohana TV will help
-      you avoiding it. Don't worry: we love movies as much as you do, we won't destroy them.
+      Click on the below options to define what content you consider
+      <span style="color: red">unhealthy</span>. Ohana TV will help you avoiding it. Don't worry: we
+      love movies as much as you do, we won't destroy them.
     </p>
 
     <!-- table explaining each color -->
@@ -43,14 +44,18 @@
 
     <!--default -->
     <div style="margin-top: 10px">
-      Not sure? <span class="modern-link" @click="setDefaultSettings()">use default settings</span>
+      Not sure?
+      <span class="modern-link" @click="setDefaultSettings()">use the most used settings</span>.
     </div>
 
     <!-- OPTIONS -->
     <div v-for="(category, c) in raw_tags.content" :key="c">
       <!-- <p style="margin-top: 30px; font-size: 1.1rem">{{ category.title }}</p>-->
       <div v-if="category.value != 'Other'">
-        <h2>{{ category.title }}</h2>
+        <h2>{{ localize(category.title) }}</h2>
+        <p v-if="category.description">
+          {{ localize(category.description) }}
+        </p>
 
         <div v-for="(sev, s) in raw_tags.content[c].severity" :key="s">
           <table style="margin-bottom: 0; cursor: pointer">
@@ -72,9 +77,9 @@
 
               <td style="text-align: left">
                 <span :style="{ textAlign: 'left' }">
-                  <b>{{ sev.title }}</b
+                  <b>{{ localize(sev.title) }}</b
                   >:
-                  {{ sev.description }}
+                  {{ localize(sev.description) }}
                 </span>
                 <div style="margin-top: 5px" v-if="false">
                   <b style="font-size: 80%">When:</b>
@@ -84,7 +89,7 @@
                     :class="['mx-1', Math.random() * 10 > 4 ? 'chipdown' : '']"
                     v-for="(context, t) in raw_tags.content[c].context"
                     :key="t"
-                    >{{ context.title }}</v-chip
+                    >{{ localize(context.title) }}</v-chip
                   >
                 </div>
               </td>
@@ -92,8 +97,8 @@
                 <fc-tooltip
                   :text="
                     skipTags.includes(sev.value)
-                      ? 'We will skip ' + sev.title
-                      : `We won't skip ` + sev.title
+                      ? 'We will skip ' + localize(sev.title)
+                      : `We won't skip ` + localize(sev.title)
                   "
                 >
                   <v-icon style="cursor: pointer" :color="getColor(sev.value)"
@@ -134,10 +139,18 @@ export default {
       return rawTags
     },
     skipTags() {
-      return this.settings.skip_tags
+      return this.settings.skip_tags || []
     },
   },
   methods: {
+    localize(textObject) {
+      let lan = this.$i18n.locale
+      if (lan in textObject) {
+        return textObject[lan]
+      } else {
+        return textObject['en']
+      }
+    },
     resetTags() {
       let settings = this.settings
       settings.skip_tags = [] //[...this.$store.state.default_settings.skip_tags]

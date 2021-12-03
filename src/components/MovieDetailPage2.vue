@@ -88,6 +88,8 @@
                     <img src="images/providers/tmdb-rectangle.png" />
                   </a>
                 </fc-tooltip>
+
+                <router-link :to="'/item/' + item.imdb">Ohana</router-link>
               </div>
 
               <div v-if="false">
@@ -217,28 +219,6 @@
                 <div style="margin-top: 20px">
                   <movie-watch-options :selection="item"></movie-watch-options>
                 </div>
-
-                <!--TODO: Moved to top, if ok delete this div -- Link to IMDb -->
-                <div style="margin: 20px 0" hidden>
-                  <b>More on </b>
-                  <div>
-                    <a
-                      class="provider-link-rectangle"
-                      target="_blank"
-                      :href="'https://www.imdb.com/title/' + item.imdb"
-                    >
-                      <img src="images/providers/imdb-rectangle.png" />
-                    </a>
-
-                    <a
-                      class="provider-link-rectangle"
-                      target="_blank"
-                      :href="'https://www.themoviedb.org/' + item.tmdb"
-                    >
-                      <img src="images/providers/tmdb-rectangle.png" />
-                    </a>
-                  </div>
-                </div>
               </div>
               <!-- Feedbak button -->
               <div style="text-align: right; padding-right: 10px">
@@ -347,6 +327,7 @@ export default {
     language() {
       //TODO: use vuex?
       return this.$i18n.locale.toLowerCase().split('-')[0]
+      //return ohana.user.language()
       //return ohana.user.language
     },
 
@@ -428,23 +409,14 @@ export default {
       return x
     },
 
-    getData() {
+    async getData() {
       this.item = this.selection
-      let url = ohana.utils.buildURL({
-        action: 'getMovie',
-        imdb: this.item.imdb,
-        newAPI: true,
-      })
-      console.log('[alex] getting movie data', url)
-      fetch(url)
-        .then((r) => r.text())
-        .then((data) => {
-          data = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly".
-          let d = JSON.parse(data)
-          if (!d.title) return console.log('wrong data...')
-          console.log('getData ', d)
-          this.item = ohana.movies.addInfo(d, this.skipTags)
-        })
+      if (this.item.imdb) {
+        this.item = await ohana.api.getMovie(this.item.imdb)
+        this.item = ohana.movies.addInfo(this.item, this.skipTags)
+      } else {
+        console.warn('[alex] need imdb id to get data...')
+      }
     },
   },
   mounted() {

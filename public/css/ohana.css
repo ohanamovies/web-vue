@@ -9,6 +9,16 @@
   text-decoration: underline;
 }
 
+a {
+  color: #0070d7;
+  text-decoration: underline;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 /** VUETIFY **/
 
 .mdi {

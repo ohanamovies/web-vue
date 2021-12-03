@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="subpage">
+      <!-- DRAFT: FOR NOW USE THE OTHER TERMS-OF-USE -->
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
         <div class="inner">
           <p style="font-size: 70%">

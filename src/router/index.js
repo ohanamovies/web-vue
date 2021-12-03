@@ -12,7 +12,7 @@ import Stats from '../views/Stats.vue'
 import GetStarted from '../views/Tutorials/GetStarted.vue'
 import FAQs from '../views/Tutorials/FAQs.vue'
 import NotFoundComponent from '../views/Tutorials/NotFoundComponent.vue'
-import Settings from '../views/Settings.vue'
+import SettingsPage2 from '../views/SettingsPage2.vue'
 import Bye from '../views/Bye.vue'
 import MoviePage from '../views/MoviePage.vue'
 import Privacy from '../views/Legal/Privacy.vue'
@@ -86,8 +86,8 @@ const routes = [
   },
   {
     path: '/settings',
-    name: 'Settings',
-    component: Settings,
+    name: 'SettingsPage2',
+    component: SettingsPage2,
   },
   {
     path: '/elements',

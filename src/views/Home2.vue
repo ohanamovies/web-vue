@@ -11,7 +11,7 @@
       style="z-index: 999999; background-color: white"
       :fullscreen="isMobile"
     >
-      <v-card max-height="700px" height="700px">
+      <v-card max-height="700px">
         <div style="position: relative">
           <v-btn
             icon
@@ -24,11 +24,11 @@
               right: '18px',
               zIndex: '999999',
             }"
-            ><v-icon>mdi-close</v-icon></v-btn
+            ><v-icon style="cursor: pointer">mdi-close</v-icon></v-btn
           >
         </div>
         <v-card-text class="pa-1">
-          <settings2 style="margin-top: 20px; background-color: white" />
+          <settings2 style="margin-top: 0px; background-color: white" />
         </v-card-text>
       </v-card>
       <div
@@ -81,11 +81,17 @@
     </v-dialog>
 
     <!-- Sensitivity dialog -->
-    <v-dialog v-model="dialog_sensitivity" max-width="500" style="z-index: 999999">
+    <v-dialog
+      v-model="dialog_sensitivity"
+      :fullscreen="isMobile"
+      scrollable
+      max-width="500"
+      style="z-index: 999999"
+    >
       <v-card>
         <v-card-title></v-card-title>
         <v-card-text>
-          <Sensitivity />
+          <Tags2 />
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -195,35 +201,46 @@
             <h4 style="color: white; margin: 0; padding-top: 20px">{{ section.title }}</h4>
 
             <!-- POSTERS -->
-            <div class="posters_wrapper2">
-              <div
-                class="poster"
-                v-for="(item, index2) in section.data"
-                :key="index2"
-                @click="openMovieDialog(item)"
-                :style="{ borderBottom: '4px solid ' + item.join_status.color }"
-              >
-                <!-- image-->
-                <div class="image" style="width: 100%; cursor: pointer">
-                  <img
-                    :src="getPoster(item)"
-                    :alt="getTitle(item)"
-                    :class="[item.join_status.status == 'missing' ? 'blur_image' : '']"
-                  />
-                  <div class="shield" v-if="item.join_status.icon != 'none'">
-                    <v-icon :color="item.join_status.color" size="18">
-                      {{ item.join_status.icon }}
-                    </v-icon>
+            <div style="position: relative">
+              <!-- arrow left -->
+              <div @click="scrollLeft($event)" class="arrow-box left">
+                <div @click="scrollLeft($event)" class="arrow-left"></div>
+              </div>
+              <!-- posters -->
+              <div class="posters_wrapper2">
+                <div
+                  class="poster"
+                  v-for="(item, index2) in section.data"
+                  :key="index2"
+                  @click="openMovieDialog(item)"
+                  :style="{ borderBottom: '4px solid ' + item.join_status.color }"
+                >
+                  <!-- image-->
+                  <div class="image" style="width: 100%; cursor: pointer">
+                    <img
+                      :src="getPoster(item)"
+                      :alt="getTitle(item)"
+                      :class="[item.join_status.status == 'missing' ? 'blur_image' : '']"
+                    />
+                    <div class="shield" v-if="item.join_status.icon != 'none'">
+                      <v-icon :color="item.join_status.color" size="18">
+                        {{ item.join_status.icon }}
+                      </v-icon>
+                    </div>
+                  </div>
+                  <!-- text -->
+                  <div class="placeholder-title" v-if="item.join_status.status == 'missing'">
+                    <span>{{ getTitle(item) }}</span>
                   </div>
                 </div>
-                <!-- text -->
-                <div class="placeholder-title" v-if="item.join_status.status == 'missing'">
-                  <span>{{ getTitle(item) }}</span>
-                </div>
+              </div>
+              <!-- arrow right -->
+              <div @click="scrollRight($event)" class="arrow-box right">
+                <div @click="scrollRight($event)" class="arrow-right"></div>
               </div>
             </div>
             <!-- POSTERS (loading placeholder) -->
-            <div v-show="section.loading" class="posters_wrapper2">
+            <div v-show="section.loading == false ? false : true" class="posters_wrapper2">
               <div class="poster" v-for="n in 10" :key="n">
                 <div class="image" style="width: 100%">
                   <img src="/images/empty-poster.png" class="waiting" alt="loading" />
@@ -261,15 +278,17 @@ import MyFooter2 from '../components/MyFooter2'
 
 import WelcomeTour from '@/components/Settings/WelcomeTour.vue'
 import Settings2 from '@/components/Settings/Settings2.vue'
-import Sensitivity from '@/components/Settings/Sensitivity.vue'
+//import Sensitivity from '@/components/Settings/Sensitivity.vue'
+import Tags2 from '@/components/Settings/Tags2.vue'
 
 export default {
   components: {
     WelcomeTour,
     MovieDetailPage,
     Settings2,
-    Sensitivity,
+    //Sensitivity,
     MyFooter2,
+    Tags2,
   },
 
   head: function () {
@@ -399,20 +418,28 @@ export default {
       console.log('updated providers')
       this.getAllData()
     },
+    show_settings(newValue) {
+      if (!newValue) {
+        console.log('closed settings')
+        this.getAllData(true)
+      }
+    },
     skipTags() {
-      console.log('updated skipTags')
-      this.getAllData()
+      //TODO: right changed to refresh when closing settings instead.
+      //console.log('updated skipTags')
+      //this.getAllData()
     },
     title() {
       this.sections[0].loading = true // Show loading placeholders
       this.sections[0].data = [] // Clean results
+      this.sections[0].tries = 0
       clearTimeout(this.titleTimeout)
       this.titleTimeout = setTimeout(() => {
         // Override loading and finishLoading (to force loading even if already loading)
         this.sections[0].finishLoading = false
         this.sections[0].loading = false
         this.getData(0)
-      }, 400)
+      }, 800)
     },
   },
   computed: {
@@ -425,6 +452,12 @@ export default {
     },
   },
   methods: {
+    scrollLeft(e) {
+      e.target.nextSibling.scrollLeft -= e.target.nextSibling.offsetWidth - 30
+    },
+    scrollRight(e) {
+      e.target.previousSibling.scrollLeft += e.target.previousSibling.offsetWidth - 30
+    },
     getPoster(item) {
       if (!item || !item.poster) return
       return 'https://image.tmdb.org/t/p/w200' + item.poster[this.language] || item.poster['en'] //TODO: use size w154?
@@ -443,26 +476,47 @@ export default {
       this.showMovieDialog = true
       this.selectedItemInfo = item
     },
-    getAllData() {
+    getAllData(resetSections = false) {
+      console.log('[getAllData] ')
       for (var i = 1; i < this.sections.length; i++) {
-        this.getData(i)
+        this.getData(i, resetSections)
       }
     },
+    sleep(time) {
+      console.log('sleeping here for ' + time + ' ms')
+      return new Promise((resolve) => setTimeout(resolve, time))
+    },
 
-    getData(index) {
+    async getData(index, resetSection = false) {
       console.log('getData', index)
       let section = this.sections[index]
       if (!section) return console.log('no section ', index)
 
+      if (resetSection) {
+        section.data = []
+        section.finishLoading = false
+        section.tries = 0
+      }
+
+      if (!section.tries) section.tries = 0
+      if (section.tries > 3) return console.log('tried too many times to reload section ' + index)
+
+      await this.sleep(section.tries * 1000)
+      section.tries++
+
       // Handle loading status (avoid loading multiple times)
-      if (section.loading) return console.log('already loading')
-      if (section.finishLoading) return console.log('already finished loading')
+      if (section.loading && !resetSection) return console.log('already loading index ' + index)
+      if (section.finishLoading && !resetSection)
+        return console.log(
+          'already finished loading section ' + index + ' (no more pages for this section)'
+        )
       section.loading = true
 
       // Build queries
       let query = section.query
       query.action = 'findMovies'
-      //query.providers = JSON.stringify(this.providers)
+      //providers only when not searching for now //TODO: review
+      if (index != 0) query.providers = JSON.stringify(this.settings.providers)
       query.page = Math.round(section.data.length / this.pageSize) + 1
       query.pageSize = this.pageSize
       query.newAPI = true
@@ -478,8 +532,21 @@ export default {
       // Fetch data
       var url = ohana.utils.buildURL(query)
       fetch(url)
-        .then((r) => r.json())
+        .then((r) => {
+          if (r.ok) {
+            return r.json()
+          } else {
+            console.log('[alex] error loading section ' + index)
+            return 'retry'
+          }
+        })
         .then((data) => {
+          if (data == 'retry') {
+            section.loading = false
+            console.log('retrying index ' + index)
+            this.getData(index)
+            return
+          }
           // Ignore results from deprecated search queries
           if (index == 0 && query.title != this.title)
             return console.log('ignoring results', query.title, this.title)
@@ -496,6 +563,7 @@ export default {
           console.log(section.data)
           this.$forceUpdate()
           section.loading = false
+          section.tries = 0
         })
         .catch((e) => {
           console.log('[alex] fetch error with ' + url, e)
@@ -512,6 +580,7 @@ export default {
         this.show_welcomeTour = true
       } else {
         console.log('[alex] grr', this.skipTags, this.settings.username)
+        this.getAllData()
       }
     }, 1000)
   },
@@ -526,7 +595,7 @@ export default {
         let target = event.target
         let remaining = target.scrollWidth - (target.scrollLeft + target.offsetWidth)
         if (remaining < 1000) {
-          let id = target.parentElement.dataset.id
+          let id = target.parentElement.parentElement.dataset.id
           console.log('Scroll left:', remaining, '. Get data from: ', id)
           this.getData(id)
         }
@@ -607,6 +676,7 @@ div.posters_wrapper2 {
   -ms-overflow-style: none; /* Hide scrollbar IE and Edge */
   scrollbar-width: none; /* Hide scrollbar Firefox */
   padding-top: 10px; /* we need some space to elevate the poster on hover */
+  scroll-behavior: smooth;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -814,7 +884,7 @@ hr {
   padding: 0 5px;
   width: 100%;
   background-color: transparent;
-  z-index: 9999;
+  z-index: 99999;
 }
 
 @media only screen and (max-width: 700px) {
@@ -866,5 +936,49 @@ hr {
   transform: translateY(-100%);
   background: linear-gradient(transparent, #141414);
   pointer-events: none;
+}
+
+.arrow-box {
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+
+  top: 15px;
+  cursor: pointer;
+  height: calc(100% - 20px);
+  padding: 0px;
+  margin: auto;
+  /*border: 1px solid white;*/
+  width: 30px;
+  z-index: 9999;
+}
+.arrow-box:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.arrow-box .arrow.left {
+  left: 0;
+}
+
+.arrow-box.right {
+  right: 0;
+}
+
+.arrow-right,
+.arrow-left {
+  display: block;
+  position: relative;
+  top: calc(50% - 15px);
+  /*margin: 30px auto;*/
+  margin: auto;
+  width: 15px;
+  height: 15px;
+  border-top: 4px solid white;
+  border-left: 4px solid white;
+}
+.arrow-right {
+  transform: rotate(135deg);
+}
+
+.arrow-left {
+  transform: rotate(-45deg);
 }
 </style>

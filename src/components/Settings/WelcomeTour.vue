@@ -52,8 +52,8 @@
         >
           <div class="middlee">
             <div class="innerr">
-              <p><b>Ohana TV adapts to your preferenes</b></p>
-              <p>You define what's healthy and what's not. Let's do that now</p>
+              <p><b>Ohana TV adapts to you</b></p>
+              <p>You define what's healthy and what's not. Let's do that now.</p>
             </div>
           </div>
         </v-tab-item>

@@ -1,9 +1,11 @@
 <template>
-  <div style="padding: 10px">
-    <p v-if="!settings.username">Hey! It seems you are new around here. Let's get you all set!</p>
-    <p v-else-if="settings.username != 'guest'">
-      Hello {{ settings.username }} <span class="modern-link" @click="logout()">logout</span>
-    </p>
+  <div>
+    <div v-if="false">
+      <p v-if="!settings.username">Hey! It seems you are new around here. Let's get you all set!</p>
+      <p v-else-if="settings.username != 'guest'">
+        Hellow {{ settings.username }} <span class="modern-link" @click="logout()">logout</span>
+      </p>
+    </div>
 
     <div>
       <v-tabs v-model="tab" style="margin-bottom: 20px" :fixed-tabs="isMobile" center-active>
@@ -14,7 +16,7 @@
         <v-tab v-if="false"><v-icon class="mr-2" small>mdi-cog</v-icon>Settings old</v-tab>
       </v-tabs>
 
-      <div>
+      <div style="max-height: 400px; overflow-y: auto; padding: 10px 20px">
         <div style="min-height: 400px">
           <!--sensitivity-->
           <div v-if="tab == 0">
@@ -32,8 +34,14 @@
             <!-- Already signed in -->
             <div v-if="loggedIn">
               <p>
-                Well done! You are logged in as <b>{{ settings.username }}</b
-                >. <span class="modern-link" @click="logout()" style="font-size: 70%">logout</span>
+                Well done! You are logged in as <b>{{ settings.username }}</b> (level
+                {{ settings.level }}). <br /><span
+                  class="modern-link"
+                  @click="logout()"
+                  style="font-size: 70%"
+                  >logout</span
+                >
+                <UserPage />
               </p>
             </div>
             <div v-else>
@@ -51,10 +59,6 @@
           </div>
         </div>
       </div>
-      <div style="margin-top: 30px">
-        You can open this section anytime by clicking "Settings" or the
-        <v-icon>mdi-cog</v-icon> button.
-      </div>
     </div>
     <!-- <div style="margin-top: 40px; font-size: 80%">-->
   </div>
@@ -66,10 +70,11 @@ import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
 import Tags2 from '@/components/Settings/Tags2.vue'
 import Login from '@/components/Settings/Login.vue'
+import UserPage from '@/components/Settings/UserPage.vue'
 import { mapState } from 'vuex'
 
 export default {
-  components: { Sensitivity, Login, ProvidersSelect, CheckExtension, Tags2 },
+  components: { Sensitivity, Login, ProvidersSelect, CheckExtension, Tags2, UserPage },
 
   data() {
     return {

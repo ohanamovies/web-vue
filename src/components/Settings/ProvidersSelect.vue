@@ -34,7 +34,9 @@
       </div>
     </v-list>
     <div style="text-align: right; margin-right: 10px">
-      <span class="modern-link" @click="selectOrUnselectAll()">Clear</span>
+      <span class="modern-link" @click="selectOrUnselectAll()">{{
+        settings.providers.length == 0 ? 'Select all' : 'Clear selection'
+      }}</span>
     </div>
     <br />
     <br />
@@ -64,7 +66,7 @@ export default {
   methods: {
     toggle(provider) {
       console.log('[alex] toggle ' + provider)
-      let settings = this.settings
+      let settings = { ...this.settings }
       if (settings.providers.includes(provider)) {
         let i = settings.providers.indexOf(provider)
         if (i != -1) settings.providers.splice(i, 1)
@@ -74,10 +76,20 @@ export default {
       this.$store.dispatch('updateSettings', settings)
     },
     selectOrUnselectAll() {
-      for (let index = 0; index < this.providersList.length; index++) {
-        const p = this.providersList[index].value
-        if (this.settings.providers.includes(p)) this.toggle(p)
+      let s = { ...this.settings } //make sure we use a copy of the object
+      s.providers = [] //reset
+
+      if (this.settings.providers.length == 0) {
+        //add all
+        for (let index = 0; index < this.providersList.length; index++) {
+          const p = this.providersList[index].value
+          s.providers.push(p)
+        }
+      } else {
+        //clear all
+        s.providers = []
       }
+      this.$store.dispatch('updateSettings', s)
     },
   },
 }

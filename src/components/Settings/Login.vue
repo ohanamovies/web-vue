@@ -35,7 +35,10 @@
             outlined
             placeholder="email or username"
             clearable
+            ref="usernameOrEmailBox"
             id="usernameOrEmailBox"
+            @keydown.enter="$refs.passwordBox.focus()"
+            @keydown.tab.prevent="$refs.passwordBox.focus()"
             class="vuetify"
           >
           </v-text-field>
@@ -48,7 +51,10 @@
             outlined
             placeholder="email"
             clearable
-            id="usernameBox"
+            @keydown.enter="$refs.usernameBox.focus()"
+            @keydown.tab.prevent="$refs.usernameBox.focus()"
+            ref="emailBox"
+            id="emailBox"
             class="vuetify"
             :rules="[form_rules.email]"
           ></v-text-field>
@@ -59,6 +65,9 @@
             outlined
             placeholder="username"
             clearable
+            @keydown.enter="$refs.passwordBox.focus()"
+            @keydown.tab.prevent="$refs.passwordBox.focus()"
+            ref="usernameBox"
             id="usernameBox"
             class="vuetify"
             :hint="page == 'signup' ? 'Note: your username might be visible to other users' : ''"
@@ -73,13 +82,18 @@
             outlined
             placeholder="password"
             clearable
+            @keydown.enter="page == 'login' ? submitForm() : ''"
+            @keydown.tab.prevent="
+              page == 'signup' ? $refs.termsCheckbox.focus() : $refs.submitButton.focus()
+            "
+            ref="passwordBox"
             id="passwordBox"
             class="mb-3"
             hide-details
           ></v-text-field>
 
           <div v-if="page == 'signup'">
-            <v-checkbox hide-details v-model="agree">
+            <v-checkbox hide-details v-model="agree" ref="termsCheckbox">
               <template v-slot:label>
                 <div style="font-size: 90%; padding-top: 15px">
                   I agree with the
@@ -97,6 +111,7 @@
             depressed
             id="vbtn1"
             color="primary"
+            ref="submitButton"
             @click="submitForm()"
             >{{ page == 'signup' ? 'Sign up' : 'login' }}</v-btn
           >
@@ -158,7 +173,7 @@ export default {
       return this.settings.username && this.settings.authToken
     },
     disableSubmit() {
-      return !this.agree
+      return !this.agree && this.page == 'signup'
     },
   },
   methods: {
@@ -208,6 +223,7 @@ export default {
             this.password = null
             this.message.text = 'Invalid username or password'
             this.message.color = 'red'
+            this.$refs.usernameOrEmailBox.focus()
           }
         })
         .then((data) => {
@@ -249,6 +265,7 @@ export default {
               this.password = null
               this.message.text = text
               this.message.color = 'red'
+              this.$refs.emailBox.focus()
             })
           }
         })
@@ -273,6 +290,7 @@ export default {
 <style>
 #usernameBox,
 #passwordBox,
+#emailBox,
 #usernameOrEmailBox {
   box-shadow: none;
   width: 100%;

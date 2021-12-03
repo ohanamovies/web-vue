@@ -34,9 +34,7 @@
       To install Ohana TV, go to
       <a
         href="https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf"
-        class="modern-link"
         target="_blank"
-        style="font-size: 13pt"
       >
         our Chrome Store page</a
       >
