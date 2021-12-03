@@ -18,18 +18,22 @@
             @click="show_settings = false"
             :style="{
               position: isMobile ? 'fixed' : 'absolute',
-              top: '8px',
+              top: '5px',
               backgroundColor: 'white',
 
-              right: '18px',
+              right: '10px',
               zIndex: '999999',
+              boxShadow: 'none',
             }"
             ><v-icon style="cursor: pointer">mdi-close</v-icon></v-btn
           >
         </div>
-        <v-card-text class="pa-1">
+        <v-card-text class="pa-1 pt-0">
           <settings2 style="margin-top: 0px; background-color: white" />
         </v-card-text>
+        <v-card-actions style="background-color: #141414; color: white">
+          Ohana TV experience will adjust to your settings
+        </v-card-actions>
       </v-card>
       <div
         v-if="false"
@@ -189,7 +193,7 @@
         <div v-if="!title" class="resultsBasedOn">
           <p style="margin: auto">
             {{ $t('resultsBasedOn')[0] }}
-            <span class="modern-link" style="font-size: 100%" @click="dialog_sensitivity = true">
+            <span class="modern-link" style="font-size: 100%" @click="show_settings = true">
               {{ $t('resultsBasedOn')[1] }}</span
             >
           </p>
@@ -201,13 +205,20 @@
             <h4 style="color: white; margin: 0; padding-top: 20px">{{ section.title }}</h4>
 
             <!-- POSTERS -->
-            <div style="position: relative">
+            <div style="position: relative" v-show="!section.finishLoading || section.data.length">
               <!-- arrow left -->
-              <div @click="scrollLeft($event)" class="arrow-box left">
-                <div @click="scrollLeft($event)" class="arrow-left"></div>
+              <div
+                v-show="section.data.length > 1"
+                class="arrow-box left"
+                @click="scrollLeft($event.target.nextSibling)"
+              >
+                <div
+                  class="arrow-left"
+                  @click.stop="scrollLeft($event.target.parentNode.nextSibling)"
+                ></div>
               </div>
               <!-- posters -->
-              <div class="posters_wrapper2">
+              <div v-show="section.data.length > 0" class="posters_wrapper2">
                 <div
                   class="poster"
                   v-for="(item, index2) in section.data"
@@ -234,19 +245,46 @@
                   </div>
                 </div>
               </div>
+              <!-- posters placeholder -->
+              <div v-show="section.loading" class="posters_wrapper2">
+                <div class="poster" v-for="n in 10" :key="n">
+                  <div class="image" style="width: 100%">
+                    <img src="/images/empty-poster.png" class="waiting" alt="loading" />
+                  </div>
+                </div>
+              </div>
               <!-- arrow right -->
-              <div @click="scrollRight($event)" class="arrow-box right">
-                <div @click="scrollRight($event)" class="arrow-right"></div>
+              <div
+                v-show="section.data.length > 1"
+                class="arrow-box right"
+                @click="scrollRight($event.target.previousSibling.previousSibling)"
+              >
+                <div
+                  class="arrow-right"
+                  @click.stop="
+                    scrollRight($event.target.parentNode.previousSibling.previousSibling)
+                  "
+                ></div>
               </div>
             </div>
-            <!-- POSTERS (loading placeholder) -->
-            <div v-show="section.loading == false ? false : true" class="posters_wrapper2">
-              <div class="poster" v-for="n in 10" :key="n">
-                <div class="image" style="width: 100%">
-                  <img src="/images/empty-poster.png" class="waiting" alt="loading" />
+
+            <div style="color: white">
+              <div v-if="index == 1 && skipTags.length == 0">
+                Define your
+
+                <span class="modern-link" style="font-size: 100%" @click="show_settings = true">
+                  settings</span
+                >
+                to see this section.
+              </div>
+              <div v-else-if="section.finishLoading && section.data.length == 0">
+                <div style="color: white; margin: auto">
+                  No titles found matching your settings.
                 </div>
               </div>
             </div>
+            <!-- POSTERS (loading placeholder) -->
+
             <div v-show="index == 0 && !section.loading && !section.data.length">
               <div style="color: white; margin: auto">No titles found matching your search.</div>
             </div>
@@ -411,12 +449,18 @@ export default {
     }
   },
   watch: {
+    show_welcomeTour(newValue) {
+      if (!newValue) {
+        //tour closed
+        this.getAllData(true)
+      }
+    },
     showMovieDialog(newValue) {
       if (!newValue) this.selectedItemInfo = {} //to avoid previus data still rendered while opening different movie
     },
     providers() {
       console.log('updated providers')
-      this.getAllData()
+      this.getAllData(true)
     },
     show_settings(newValue) {
       if (!newValue) {
@@ -453,10 +497,10 @@ export default {
   },
   methods: {
     scrollLeft(e) {
-      e.target.nextSibling.scrollLeft -= e.target.nextSibling.offsetWidth - 30
+      e.scrollLeft -= e.offsetWidth - 30
     },
     scrollRight(e) {
-      e.target.previousSibling.scrollLeft += e.target.previousSibling.offsetWidth - 30
+      e.scrollLeft += e.offsetWidth - 30
     },
     getPoster(item) {
       if (!item || !item.poster) return
@@ -488,6 +532,12 @@ export default {
     },
 
     async getData(index, resetSection = false) {
+      if (index == 1 && this.skipTags.length == 0) {
+        this.loading = false
+        this.finishLoading = true
+        return console.log('No settings to offer filtered content')
+      }
+
       console.log('getData', index)
       let section = this.sections[index]
       if (!section) return console.log('no section ', index)

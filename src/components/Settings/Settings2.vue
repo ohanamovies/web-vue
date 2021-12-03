@@ -1,14 +1,12 @@
 <template>
   <div>
-    <div v-if="false">
-      <p v-if="!settings.username">Hey! It seems you are new around here. Let's get you all set!</p>
-      <p v-else-if="settings.username != 'guest'">
-        Hellow {{ settings.username }} <span class="modern-link" @click="logout()">logout</span>
-      </p>
-    </div>
-
-    <div>
-      <v-tabs v-model="tab" style="margin-bottom: 20px" :fixed-tabs="isMobile" center-active>
+    <div style="position: relative">
+      <v-tabs
+        v-model="tab"
+        style="margin-top: 0px; position: sticky; top: 0px"
+        :fixed-tabs="isMobile"
+        center-active
+      >
         <v-tab><v-icon class="mr-2" small>mdi-cog</v-icon>Settings</v-tab>
         <v-tab><v-icon class="mr-2" small>mdi-television</v-icon>Platforms</v-tab>
         <v-tab><v-icon class="mr-2" small>mdi-account</v-icon>Account</v-tab>
@@ -16,7 +14,14 @@
         <v-tab v-if="false"><v-icon class="mr-2" small>mdi-cog</v-icon>Settings old</v-tab>
       </v-tabs>
 
-      <div style="max-height: 400px; overflow-y: auto; padding: 10px 20px">
+      <div
+        :style="{
+          maxHeight: isMobile ? '' : '550px',
+          height: isMobile ? '' : '550px',
+          overflowY: 'auto',
+          padding: '10px 20px',
+        }"
+      >
         <div style="min-height: 400px">
           <!--sensitivity-->
           <div v-if="tab == 0">
@@ -33,16 +38,7 @@
             <!-- <h2>3. Login</h2>-->
             <!-- Already signed in -->
             <div v-if="loggedIn">
-              <p>
-                Well done! You are logged in as <b>{{ settings.username }}</b> (level
-                {{ settings.level }}). <br /><span
-                  class="modern-link"
-                  @click="logout()"
-                  style="font-size: 70%"
-                  >logout</span
-                >
-                <UserPage />
-              </p>
+              <UserPage />
             </div>
             <div v-else>
               <Login />
@@ -93,15 +89,7 @@ export default {
       }
     },
   },
-  methods: {
-    logout() {
-      let settings = this.$store.state.settings
-      settings.username = ''
-      settings.authToken = ''
-      //this.$store.commit(mutations.SET_SETTINGS, settings)
-      this.$store.dispatch('updateSettings', settings)
-    },
-  },
+  methods: {},
 }
 </script>
 

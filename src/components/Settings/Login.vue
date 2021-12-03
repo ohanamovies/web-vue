@@ -84,7 +84,11 @@
             clearable
             @keydown.enter="page == 'login' ? submitForm() : ''"
             @keydown.tab.prevent="
-              page == 'signup' ? $refs.termsCheckbox.focus() : $refs.submitButton.focus()
+              page == 'signup'
+                ? $refs.termsCheckbox.focus()
+                : $refs.submitButton
+                ? $refs.submitButton.focus()
+                : ''
             "
             ref="passwordBox"
             id="passwordBox"
