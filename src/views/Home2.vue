@@ -105,8 +105,14 @@
     </v-dialog>
 
     <div class="sticky2" style="z-index: 99999">
-      <div v-if="!isMobile" style="margin: auto auto auto 48%; font-size: 24px">Ohana TV</div>
-      <div v-else style="margin: auto auto auto 5px">Ohana TV</div>
+      <div
+        v-if="!isMobile"
+        style="margin: auto auto auto 48%; font-size: 24px; white-space: nowrap"
+      >
+        ohana.tv
+      </div>
+
+      <div v-else style="margin: auto auto auto 5px; white-space: nowrap">ohana.tv</div>
       <div>
         <v-text-field
           outlined
@@ -205,7 +211,10 @@
             <h4 style="color: white; margin: 0; padding-top: 20px">{{ section.title }}</h4>
 
             <!-- POSTERS -->
-            <div style="position: relative" v-show="!section.finishLoading || section.data.length">
+            <div
+              style="position: relative"
+              v-show="!section.finishLoading || section.data.length > 0"
+            >
               <!-- arrow left -->
               <div
                 v-show="section.data.length > 1"
@@ -233,7 +242,10 @@
                       :alt="getTitle(item)"
                       :class="[item.join_status.status == 'missing' ? 'blur_image' : '']"
                     />
-                    <div class="shield" v-if="item.join_status.icon != 'none'">
+                    <div
+                      class="shield"
+                      v-if="item.join_status.icon && item.join_status.icon != 'none'"
+                    >
                       <v-icon :color="item.join_status.color" size="18">
                         {{ item.join_status.icon }}
                       </v-icon>
@@ -301,7 +313,7 @@
       width="750"
       :style="{ marginTop: isMobile ? '40px' : '0px', zIndex: 99999999999998 }"
     >
-      <MovieDetailPage :selection="selectedItemInfo" @close="showMovieDialog = false" />
+      <MoviePopup :selection="selectedItemInfo" @close="showMovieDialog = false" />
     </v-dialog>
   </div>
 </template>
@@ -311,7 +323,7 @@
 import sharedjs from '@/sharedjs'
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
-import MovieDetailPage from '../components/MovieDetailPage2'
+import MoviePopup from '../components/MoviePopup.vue'
 import MyFooter2 from '../components/MyFooter2'
 
 import WelcomeTour from '@/components/Settings/WelcomeTour.vue'
@@ -322,7 +334,7 @@ import Tags2 from '@/components/Settings/Tags2.vue'
 export default {
   components: {
     WelcomeTour,
-    MovieDetailPage,
+    MoviePopup,
     Settings2,
     //Sensitivity,
     MyFooter2,
@@ -496,11 +508,15 @@ export default {
     },
   },
   methods: {
+    joinStatus(item) {
+      let super_item = ohana.movies.addInfo(item)
+      return super_item.join_status
+    },
     scrollLeft(e) {
-      e.scrollLeft -= e.offsetWidth - 30
+      e.scrollLeft -= e.offsetWidth - 140
     },
     scrollRight(e) {
-      e.scrollLeft += e.offsetWidth - 30
+      e.scrollLeft += e.offsetWidth - 140
     },
     getPoster(item) {
       if (!item || !item.poster) return
@@ -594,7 +610,7 @@ export default {
           if (data == 'retry') {
             section.loading = false
             console.log('retrying index ' + index)
-            this.getData(index)
+            this.getData(index) //retry, no forcing
             return
           }
           // Ignore results from deprecated search queries

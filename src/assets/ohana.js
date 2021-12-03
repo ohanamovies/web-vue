@@ -1,6 +1,33 @@
+//const provider = require('@/assets/provider')
+
+const i18n = require('@/plugins/i18n').default
+
 const user = {
   language() {
-    return this.$i18n.locale.toLowerCase().split('-')[0]
+    return i18n.locale.toLowerCase().split('-')[0]
+  },
+}
+
+const api = {
+  async getMovie(imdb) {
+    return new Promise((resolve, reject) => {
+      let url = utils.buildURL({
+        action: 'getMovie',
+        imdb: imdb,
+        newAPI: true,
+      })
+      console.log('[alex] [api] getting movie data', url)
+      fetch(url)
+        .then((r) => r.text())
+        .then((data) => {
+          data = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly".
+          let d = JSON.parse(data)
+          if (!d.title) reject('wrong data...')
+          console.log('getData ', d)
+
+          resolve(d)
+        })
+    })
   },
 }
 
@@ -110,10 +137,6 @@ const movies = {
   },
 
   addInfo(movie, skipTags) {
-    console.log('titleeee', movie.title)
-    if (movie.imdb == 'tt0088247') {
-      console.log('now!')
-    }
     movie.join_status = movies.joinStatus3(movie.movieContent, movie.providers, skipTags)
     movie.brief_status = movies.getSummary(movie)
     if (typeof movie.movieValues == 'string')
@@ -237,4 +260,5 @@ module.exports = {
   providers,
   utils,
   extension,
+  api,
 }

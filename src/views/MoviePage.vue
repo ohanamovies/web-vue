@@ -14,7 +14,9 @@
           <img
             :src="poster()"
             :alt="title()"
-            :style="{ borderBottom: '4px solid ' + item.join_status.color }"
+            :style="{
+              borderBottom: '4px solid ' + (item.join_status ? item.join_status.color : 'black'),
+            }"
           />
         </v-col>
         <v-col>
@@ -119,7 +121,13 @@ export default {
   },
   data() {
     return {
-      item: {},
+      item: {
+        poster: { en: '' },
+        title: { en: '' },
+        plot: { en: '' },
+        genres: [],
+        join_status: { color: '', icon: '', status: '', cuts: -1 },
+      },
     }
   },
   computed: {
@@ -144,17 +152,17 @@ export default {
     },
 
     poster() {
-      let path = this.item.poster[this.language] || this.item.poster['en']
+      let path = this.item.poster[this.language()] || this.item.poster['en']
       return 'https://image.tmdb.org/t/p/w200' + path
     },
 
     title() {
       if (!this.item.title) return ''
-      return this.item.title[this.language] || this.item.title['primary']
+      return this.item.title[this.language()] || this.item.title['primary']
     },
 
     plot() {
-      return this.item.plot[this.language] || this.item.plot['en']
+      return this.item.plot[this.language()] || this.item.plot['en']
     },
 
     parsedURL() {

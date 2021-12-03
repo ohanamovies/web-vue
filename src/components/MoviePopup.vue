@@ -89,7 +89,7 @@
                   </a>
                 </fc-tooltip>
 
-                <router-link :to="'/item/' + item.imdb">Ohana</router-link>
+                <router-link :to="'/item/' + item.imdb" class="modern-link">Ohana</router-link>
               </div>
 
               <div v-if="false">
@@ -161,6 +161,7 @@
                   </div>
                 </div>
 
+                <!-- Ohana summary -->
                 <div style="text-align: center; margin: 15px 0px 5px; font-weight: 500">
                   <v-icon
                     v-if="item.join_status.icon != 'none'"
@@ -169,13 +170,14 @@
                   >
                     {{ item.join_status.icon }}
                   </v-icon>
-                  <span :style="'color: ' + item.join_status.color">
+                  <span :style="'color: ' + item.join_status.color || 'orange'">
                     {{ ohanaSummary }}
                   </span>
                 </div>
 
+                <!-- Tags -->
                 <div style="display: flex; justify-content: center">
-                  <!-- chips - scenes -->
+                  <!-- chips: scenes -->
                   <span>
                     <fc-tooltip
                       v-for="(g, index) in item.brief_status"
@@ -197,7 +199,7 @@
                     </fc-tooltip>
                   </span>
 
-                  <!-- chips - movie values -->
+                  <!-- chips: movie values -->
                   <span>
                     <fc-tooltip
                       v-for="(g, index) in item.movieValues"

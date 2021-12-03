@@ -41,16 +41,14 @@
     </v-dialog>
 
     <!-- Section title -->
-    <div v-if="bypass">
+    <div v-if="bypass || is_clean || (is_done && hasApp)">
       <b>Watch options </b>
-      <i v-if="is_missing">(beware unhealthy content)</i>
-      <i v-else-if="is_unknown">(beware unknown content)</i>
-      <i v-else-if="is_mixed">(beware mixed content)</i>
-      <i v-else-if="is_done || hasApp">(edited)</i>
-      <i v-else-if="no_settings">(no settings)</i>
-    </div>
-    <div v-else-if="is_clean || (is_done && hasApp) || bypass">
-      <b>Watch options</b>
+      <i v-if="is_missing || (is_done && !hasApp)" style="color: red">(beware unhealthy content)</i>
+      <i v-else-if="is_unknown" style="color: orange">(beware unknown content)</i>
+      <i v-else-if="is_mixed" style="color: orange">(beware mixed content)</i>
+      <i v-else-if="is_done || hasApp" style="color: green">(edited)</i>
+      <i v-else-if="no_settings" style="color: gray">(no settings)</i>
+      <i v-else-if="is_clean" style="color: green">(healthy)</i>
     </div>
 
     <!-- WATCH OPTIONS -->
@@ -112,11 +110,12 @@
     </div>
 
     <!-- movie is pending -->
-    <div v-if="is_missing || is_unknown || (is_done && !hasApp) || is_mixed">
+    <div v-if="is_missing || is_unknown || (is_done && !hasApp) || is_mixed" style="margin: auto">
       <span v-if="!bypass">
         <span class="modern-link" @click="bypass = true">See watch options anyway</span>
       </span>
-      <!--<span v-else class="modern-link" @click="bypass = false">Hide watch options</span>-->
+
+      <!-- <span v-else class="modern-link" @click="bypass = false">Hide watch options</span> -->
     </div>
   </div>
 </template>
