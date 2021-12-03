@@ -223,6 +223,23 @@ const providers = {
     if (h.includes('disneyplus')) return 'Disney Plus'
     return h
   },
+  getLogo(provider) {
+    if (provider == 'netflix') return 'images/providers/netflix.png'
+    if (provider == 'justwatch') return 'images/providers/justwatch.jpg'
+    if (provider == 'primevideo') return 'images/providers/primevideo.png'
+    if (provider == 'disneyplus') return 'images/providers/disneyplus.png'
+    if (provider == 'movistarplus') return 'images/providers/movistarplus.png'
+    if (provider == 'hboespana') return 'images/providers/hbomax.png'
+    if (provider == 'hbomax') return 'images/providers/hbomax.png'
+  },
+  getLink(provider, providerID) {
+    providerID = providerID.split('_')[1]
+    if (provider == 'netflix') return 'https://www.netflix.com/watch/' + providerID
+    if (provider == 'hboespana') return 'https://es.hboespana.com/movies/-/' + providerID + '/play'
+    if (provider == 'disneyplus') return 'https://www.disneyplus.com/en-gb/video/' + providerID
+    if (provider == 'primevideo') return 'https://primevideo.com/watch?gti=' + providerID
+    if (provider == 'movistarplus') return 'https://ver.movistarplus.es/ficha?id=' + providerID
+  },
 }
 
 const utils = {

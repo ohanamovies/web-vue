@@ -1,7 +1,7 @@
 <template>
   <div class="moviepage">
     <!-- overview -->
-    <div>
+    <div v-if="!this.loading">
       <h2>
         {{ title() }}
         <span style="font-size: 60%; font-color: rgba(0, 0, 0, 0.6); margin-top: 3px">
@@ -40,49 +40,71 @@
 
         <b>With Ohana</b>
 
+        <h2>Providers</h2>
+
         <div v-for="(p, index) in item.providers" :key="index">
-          <h3>{{ p.provider }}</h3>
-          <v-chip small v-for="(a, ai) in p.availability" :key="ai">{{ a }}</v-chip>
-          <br />
-          <div>
-            {{ p.filterStatus }}
-          </div>
-          <div>
-            <h4>Filters</h4>
-            <div
-              v-for="(scene, sid) in p.sceneFilters"
-              :key="sid"
-              style="border: 1px solid grey; border-radius: 5px; padding: 10px; margin-bottom: 10px"
-            >
-              <h5>Filter {{ sid }}</h5>
-              <p>
-                Duration: {{ formatTime(scene.end - scene.start) }}
-                <span style="font-size: 80%">
-                  ({{ formatTime(scene.start) }} to {{ formatTime(scene.end) }})</span
-                >
-              </p>
-              <div>
-                <p>
-                  <b>What you need to know:</b>
-                  {{ scene.plot_description || 'No replacing text provided.' }}
-                </p>
-              </div>
-
-              <div>
-                <b>Filter Tags</b>
-                <v-chip x-small class="ml-1" v-for="(t, it) in scene.tags" :key="it">{{
-                  t
-                }}</v-chip>
-              </div>
-
-              <div style="margin-top: 5px">
-                Edited by @{{ scene.modified[0] }} on
-                {{ new Date(scene.modified[2]).toISOString() }}
-              </div>
-              <div style="margin-top: 5px">Accessed: {{ scene.accessed }} times</div>
+          <h3 class="providerH3" @click="visibleProvider = index">{{ p.provider }}</h3>
+          <div v-if="visibleProvider == index">
+            <p>
+              Link:
+              <a
+                :href="getLink(p.provider, p.providerID)"
+                target="_blank"
+                rel="noopener noreferrer"
+                >{{ getLink(p.provider, p.providerID) }}</a
+              >
+            </p>
+            Countries: <v-chip small v-for="(a, ai) in p.availability" :key="ai">{{ a }}</v-chip>
+            <br />
+            <br />
+            <div>
+              FitlerStatus:
+              <code>{{ p.filterStatus }}</code>
             </div>
-            <div style="font-size: 60%; font-family: consolas">
-              {{ p.sceneFilters }}
+            <div>
+              <h4>Filters</h4>
+              <div
+                v-for="(scene, sid) in p.sceneFilters"
+                :key="sid"
+                style="
+                  border: 1px solid grey;
+                  border-radius: 5px;
+                  padding: 10px;
+                  margin-bottom: 10px;
+                "
+              >
+                <div v-if="scene">
+                  <h5>Filter {{ sid }}</h5>
+                  <p>
+                    Duration: {{ formatTime(scene.end - scene.start) }}
+                    <span style="font-size: 80%">
+                      ({{ formatTime(scene.start) }} to {{ formatTime(scene.end) }})</span
+                    >
+                  </p>
+                  <div>
+                    <p>
+                      <b>What you need to know:</b>
+                      {{ scene.plot_description || 'No replacing text provided.' }}
+                    </p>
+                  </div>
+
+                  <div>
+                    <b>Filter Tags</b>
+                    <v-chip x-small class="ml-1" v-for="(t, it) in scene.tags" :key="it">{{
+                      t
+                    }}</v-chip>
+                  </div>
+
+                  <div style="margin-top: 5px">
+                    Edited by @{{ scene.modified[0] }} on
+                    {{ new Date(scene.modified[2]).toISOString() }}
+                  </div>
+                  <div style="margin-top: 5px">Accessed: {{ scene.accessed }} times</div>
+                </div>
+                <div style="font-size: 60%; font-family: consolas">
+                  <code> {{ p.sceneFilters }}</code>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -100,7 +122,10 @@
 
     <div>
       <b>all data</b>
-      {{ item }}
+      <pre
+        style="background-color: rgba(200, 200, 200, 0.4); padding: 10px; white-space: pre-wrap"
+        >{{ item }}</pre
+      >
     </div>
 
     <br /><br /><br />
@@ -121,6 +146,8 @@ export default {
   },
   data() {
     return {
+      loading: false,
+      visibleProvider: -1,
       item: {
         poster: { en: '' },
         title: { en: '' },
@@ -134,6 +161,9 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile']),
   },
   methods: {
+    getLink(provider, providerID) {
+      return ohana.providers.getLink(provider, providerID)
+    },
     formatTime(t) {
       let sec = t / 1000
       let h = Math.floor(sec / 3600)
@@ -170,8 +200,10 @@ export default {
     },
   },
   async mounted() {
+    this.loading = true
     this.item = await ohana.api.getMovie(this.imdb)
     this.item = ohana.movies.addInfo(this.item, this.skipTags)
+    this.loading = false
   },
 }
 </script>
@@ -180,7 +212,17 @@ export default {
 .moviepage {
   margin-top: 40px;
   padding: 10px;
+  max-width: 800px;
+  margin: auto;
+  cursor: pointer;
   /*background-color: #141414;
   color: white;*/
+}
+
+.providerH3 {
+  color: white;
+  background-color: darkred;
+  padding: 2px 10px;
+  margin: 10px 0px;
 }
 </style>
