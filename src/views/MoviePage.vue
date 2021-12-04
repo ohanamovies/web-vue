@@ -1,7 +1,10 @@
 <template>
   <div class="moviepage">
     <!-- overview -->
-    <div v-if="!this.loading">
+    <div v-if="loading">
+      <v-progress-linear indeterminate color="green"></v-progress-linear>
+    </div>
+    <div v-if="!loading">
       <h2>
         {{ title() }}
         <span style="font-size: 60%; font-color: rgba(0, 0, 0, 0.6); margin-top: 3px">
@@ -43,7 +46,12 @@
         <h2>Providers</h2>
 
         <div v-for="(p, index) in item.providers" :key="index">
-          <h3 class="providerH3" @click="visibleProvider = index">{{ p.provider }}</h3>
+          <h3
+            class="providerH3"
+            @click="visibleProvider == index ? (visibleProvider = -1) : (visibleProvider = index)"
+          >
+            {{ p.provider }}: {{ joinStatus(p.filterStatus).status }}
+          </h3>
           <div v-if="visibleProvider == index">
             <p>
               Link:
@@ -54,13 +62,37 @@
                 >{{ getLink(p.provider, p.providerID) }}</a
               >
             </p>
-            Countries: <v-chip small v-for="(a, ai) in p.availability" :key="ai">{{ a }}</v-chip>
+            Countries available:
+            <v-chip small v-for="(a, ai) in p.availability" :key="ai">{{ a }}</v-chip>
             <br />
             <br />
             <div>
-              FitlerStatus:
-              <code>{{ p.filterStatus }}</code>
+              FilterStatus: {{ joinStatus(p.filterStatus) }}
+
+              <div>
+                <table id="filterStatus" style="max-width: 300px" border="1">
+                  <tr>
+                    <th>Tag</th>
+                    <th>Health</th>
+                    <th>Trust</th>
+                    <th>Color</th>
+                  </tr>
+                  <tr v-for="(v, k) in p.filterStatus" :key="k">
+                    <td>{{ k }}</td>
+                    <td>
+                      {{ p.filterStatus[k].health }}
+                    </td>
+                    <td>{{ p.filterStatus[k].trust }}</td>
+                    <td>
+                      <v-icon small :color="getColor(p.filterStatus[k])"
+                        >mdi-checkbox-blank-circle</v-icon
+                      >
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </div>
+            <code>{{ p.filterStatus }}</code>
             <div>
               <h4>Filters</h4>
               <div
@@ -158,25 +190,36 @@ export default {
     }
   },
   computed: {
-    ...mapState(['isChrome', 'hasApp', 'isMobile']),
+    ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
   },
   methods: {
+    joinStatus(filterStatus) {
+      return ohana.movies.joinStatus2(filterStatus, this.settings.skip_tags)
+    },
+    getColor(tagStatus) {
+      //TODO: use ohana.movies.xxx function instead of copy-pasting here...
+      let color = ''
+
+      if (tagStatus.health > 0.5) {
+        color = 'green'
+      } else if (tagStatus.health < -0.5) {
+        color = 'red'
+      } else {
+        color = 'orange'
+      }
+      if (tagStatus.trust <= 1 || tagStatus.trust == Infinity) {
+        color = 'lightgray'
+      }
+      return color
+    },
     getLink(provider, providerID) {
       return ohana.providers.getLink(provider, providerID)
     },
     formatTime(t) {
-      let sec = t / 1000
-      let h = Math.floor(sec / 3600)
-      let m = Math.floor((sec % 3600) / 60)
-      let s = Math.floor((sec % 3600) % 60)
-
-      let xh = h < 10 ? '0' + h : h
-      let xm = m < 10 ? '0' + m : m
-      let xs = s < 10 ? '0' + s : s
-      return xh + ':' + xm + ':' + xs
+      return ohana.utils.formatTime(t)
     },
     language() {
-      //TODO: use vuex?
+      //TODO: use vuex to maintain reactiveness?
       return this.$i18n.locale.toLowerCase().split('-')[0]
       //return ohana.user.language()
     },
@@ -214,7 +257,7 @@ export default {
   padding: 10px;
   max-width: 800px;
   margin: auto;
-  cursor: pointer;
+
   /*background-color: #141414;
   color: white;*/
 }
@@ -224,5 +267,37 @@ export default {
   background-color: darkred;
   padding: 2px 10px;
   margin: 10px 0px;
+  cursor: pointer;
+}
+
+/* TABLE */
+
+#filterStatus {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#filterStatus td,
+#filterStatus th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#filterStatus tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#filterStatus tr:hover {
+  background-color: #ddd;
+}
+
+#filterStatus th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: white;
 }
 </style>
