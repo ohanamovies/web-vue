@@ -3,7 +3,7 @@
     <div style="position: relative">
       <v-tabs
         v-model="tab"
-        style="margin-top: 0px; position: sticky; top: 0px"
+        style="margin-top: 0px; position: sticky; top: 0px; z-index: 99999"
         :fixed-tabs="isMobile"
         center-active
       >
@@ -22,19 +22,19 @@
           padding: '10px 20px',
         }"
       >
-        <div style="min-height: 400px">
+        <v-tabs-items v-model="tab" style="min-height: 400px" id="tabsElement">
           <!--sensitivity-->
-          <div v-if="tab == 0">
+          <v-tab-item>
             <Tags2 />
-          </div>
+          </v-tab-item>
 
           <!-- Extension check-->
-          <div v-if="tab == 1">
+          <v-tab-item>
             <providers-select></providers-select>
-          </div>
+          </v-tab-item>
 
           <!-- Log-in / out -->
-          <div v-if="tab == 2">
+          <v-tab-item>
             <!-- <h2>3. Login</h2>-->
             <!-- Already signed in -->
             <div v-if="loggedIn">
@@ -43,17 +43,13 @@
             <div v-else>
               <Login />
             </div>
-          </div>
+          </v-tab-item>
 
           <!-- Extension check-->
-          <div v-if="tab == 3">
+          <v-tab-item>
             <check-extension></check-extension>
-          </div>
-
-          <div v-if="tab == 4">
-            <sensitivity short_version />
-          </div>
-        </div>
+          </v-tab-item>
+        </v-tabs-items>
       </div>
     </div>
     <!-- <div style="margin-top: 40px; font-size: 80%">-->
@@ -61,7 +57,7 @@
 </template>
 
 <script>
-import Sensitivity from '@/components/Settings/Sensitivity.vue'
+//import Sensitivity from '@/components/Settings/Sensitivity.vue'
 import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
 import Tags2 from '@/components/Settings/Tags2.vue'
@@ -70,8 +66,22 @@ import UserPage from '@/components/Settings/UserPage.vue'
 import { mapState } from 'vuex'
 
 export default {
-  components: { Sensitivity, Login, ProvidersSelect, CheckExtension, Tags2, UserPage },
+  components: { Login, ProvidersSelect, CheckExtension, Tags2, UserPage },
 
+  props: {
+    page: {
+      type: Number,
+      default: 0,
+    },
+  },
+  watch: {
+    tab() {
+      document.getElementById('tabsElement').scrollIntoView(true)
+    },
+    page(newValue) {
+      this.tab = newValue
+    },
+  },
   data() {
     return {
       key: 'value',

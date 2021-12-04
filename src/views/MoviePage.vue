@@ -32,24 +32,39 @@
       </v-row>
     </div>
 
-    <!-- movieContent -->
     <div>
-      <!-- wihtouth ohana -->
+      <!-- Movie Data -->
       <div>
-        <b>Wihtouth Ohana</b>
+        <h2>Movie Data</h2>
         <div>
-          {{ item.movieContent }}
+          <h4>movieContent</h4>
+          <code>{{ item.movieContent }}</code>
         </div>
 
-        <b>With Ohana</b>
+        <div>
+          <h4>join status</h4>
+          <code>{{ item.join_status }}</code>
+        </div>
 
+        <div>
+          <h4>brief status</h4>
+          <code>{{ item.brief_status }}</code>
+        </div>
+
+        <div>
+          <h4>Movie values</h4>
+          <code>
+            {{ item.movieValues }}
+          </code>
+        </div>
+      </div>
+
+      <!--Providers-->
+      <div>
         <h2>Providers</h2>
 
         <div v-for="(p, index) in item.providers" :key="index">
-          <h3
-            class="providerH3"
-            @click="visibleProvider == index ? (visibleProvider = -1) : (visibleProvider = index)"
-          >
+          <h3 class="providerH3" @click="focusProvider(index, $event)">
             {{ p.provider }}: {{ joinStatus(p.filterStatus).status }}
           </h3>
           <div v-if="visibleProvider == index">
@@ -67,15 +82,16 @@
             <br />
             <br />
             <div>
-              FilterStatus: {{ joinStatus(p.filterStatus) }}
+              FilterStatus joinStatus: {{ joinStatus(p.filterStatus) }}
 
               <div>
-                <table id="filterStatus" style="max-width: 300px" border="1">
+                <table id="filterStatusTable" style="max-width: 300px" border="1">
                   <tr>
                     <th>Tag</th>
                     <th>Health</th>
                     <th>Trust</th>
                     <th>Color</th>
+                    <th>Cuts</th>
                   </tr>
                   <tr v-for="(v, k) in p.filterStatus" :key="k">
                     <td>{{ k }}</td>
@@ -87,6 +103,9 @@
                       <v-icon small :color="getColor(p.filterStatus[k])"
                         >mdi-checkbox-blank-circle</v-icon
                       >
+                    </td>
+                    <td>
+                      {{ getCuts(k, p) }}
                     </td>
                   </tr>
                 </table>
@@ -114,9 +133,11 @@
                     >
                   </p>
                   <div>
-                    <p>
+                    <p :style="{ color: scene.plot_description ? 'default' : 'grey' }">
                       <b>What you need to know:</b>
-                      {{ scene.plot_description || 'No replacing text provided.' }}
+                      <i>
+                        {{ scene.plot_description || 'No replacing text provided.' }}
+                      </i>
                     </p>
                   </div>
 
@@ -128,24 +149,17 @@
                   </div>
 
                   <div style="margin-top: 5px">
-                    Edited by @{{ scene.modified[0] }} on
+                    Edited by @{{ scene.modified[0] }} (level {{ scene.modified[1] }}) on
                     {{ new Date(scene.modified[2]).toISOString() }}
                   </div>
                   <div style="margin-top: 5px">Accessed: {{ scene.accessed }} times</div>
                 </div>
                 <div style="font-size: 60%; font-family: consolas">
-                  <code> {{ p.sceneFilters }}</code>
+                  <code> {{ scene }}</code>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <br />
-
-        <b>Movie values</b>
-        <div>
-          {{ item.movieValues }}
         </div>
       </div>
 
@@ -193,6 +207,28 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
   },
   methods: {
+    getCuts(tag, providerData) {
+      let cuts = 0
+
+      for (const key in providerData.sceneFilters) {
+        if (Object.hasOwnProperty.call(providerData.sceneFilters, key)) {
+          const scene = providerData.sceneFilters[key]
+          if (scene && scene.tags && scene.tags.includes(tag)) {
+            cuts++
+          }
+        }
+      }
+      return cuts
+    },
+    focusProvider(index, event) {
+      this.visibleProvider == index ? (this.visibleProvider = -1) : (this.visibleProvider = index)
+      //event.target.parentNode.scrollIntoView({ behavior: 'smooth', block: 'start' }) //true)
+
+      const navBarMargin = 50
+      const y = event.target.getBoundingClientRect().top + window.pageYOffset - navBarMargin
+      window.scrollTo({ top: y, left: 0, behavior: 'smooth' })
+    },
+
     joinStatus(filterStatus) {
       return ohana.movies.joinStatus2(filterStatus, this.settings.skip_tags)
     },
@@ -272,28 +308,28 @@ export default {
 
 /* TABLE */
 
-#filterStatus {
+#filterStatusTable {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
 
-#filterStatus td,
-#filterStatus th {
+#filterStatusTable td,
+#filterStatusTable th {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-#filterStatus tr:nth-child(even) {
+#filterStatusTable tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-#filterStatus tr:hover {
+#filterStatusTable tr:hover {
   background-color: #ddd;
 }
 
-#filterStatus th {
+#filterStatusTable th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;

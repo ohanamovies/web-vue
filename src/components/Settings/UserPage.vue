@@ -5,6 +5,8 @@
 
     <br />
     <span class="modern-link" @click="logout()" style="font-size: 70%">Logout</span>
+
+    <p></p>
   </div>
 </template>
 

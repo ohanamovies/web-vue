@@ -154,7 +154,14 @@ const movies = {
     return def
   },
 
+  /**
+   * Status per category, without redundant tags.
+   * @param {object} movie
+   * @param {object} movie.movieContent The tag
+   * @returns One tag per category with its status: only the top tag per category (so if it has ver erotic + moderately erotic, for sex/nudity = very erotic (moderately erotic is redundant))
+   */
   getSummary(movie) {
+    //TODO: if very gory is mixed, and moderately gory is missing, how do we say it?
     let content = movie.movieContent
     //let status = movie.filterStatus
     let brief_status = {}

@@ -2,41 +2,52 @@
   <div style="max-width: 400px; margin: auto; overflow: auto">
     <!-- Providers -->
 
-    <h4>What providers do you use?</h4>
+    <div>
+      <h4>Where are you?</h4>
+      <p>
+        Country is used to check availabiliy of movies and shows (as providers don't offer the same
+        in every country).
+      </p>
+      <CountrySelect />
+    </div>
 
-    <p>
-      Ohana TV redirects you to the providers that offer the content. We don't offer content
-      ourselves.
-    </p>
-    <p>We will prioritize content available in your providers.</p>
-    <v-list>
-      <div v-for="(provider, index) in providersList" :key="index">
-        <v-list-item @click="toggle(provider.value)">
-          <v-list-item-icon>
-            <img
-              height="25"
-              :src="'images/providers/' + provider.value + '.png'"
-              :alt="provider.text"
-            />
-          </v-list-item-icon>
-          <v-list-item-content>
-            {{ provider.text }}
-          </v-list-item-content>
-          <v-list-item-action>
-            <v-checkbox
-              :input-value="
-                settings.providers ? settings.providers.includes(provider.value) : false
-              "
-            ></v-checkbox>
-          </v-list-item-action>
-        </v-list-item>
-        <v-divider class="ma-0" v-if="index + 1 < providersList.length"></v-divider>
+    <div>
+      <h4>What providers do you use?</h4>
+
+      <p>
+        Ohana TV redirects you to the providers that offer the content. We don't offer content
+        ourselves.
+      </p>
+      <p>We will prioritize content available in your providers.</p>
+      <v-list>
+        <div v-for="(provider, index) in providersList" :key="index">
+          <v-list-item @click="toggle(provider.value)">
+            <v-list-item-icon>
+              <img
+                height="25"
+                :src="'images/providers/' + provider.value + '.png'"
+                :alt="provider.text"
+              />
+            </v-list-item-icon>
+            <v-list-item-content>
+              {{ provider.text }}
+            </v-list-item-content>
+            <v-list-item-action>
+              <v-checkbox
+                :input-value="
+                  settings.providers ? settings.providers.includes(provider.value) : false
+                "
+              ></v-checkbox>
+            </v-list-item-action>
+          </v-list-item>
+          <v-divider class="ma-0" v-if="index + 1 < providersList.length"></v-divider>
+        </div>
+      </v-list>
+      <div style="text-align: right; margin-right: 10px">
+        <span class="modern-link" @click="selectOrUnselectAll()">{{
+          settings.providers.length == 0 ? 'Select all' : 'Clear selection'
+        }}</span>
       </div>
-    </v-list>
-    <div style="text-align: right; margin-right: 10px">
-      <span class="modern-link" @click="selectOrUnselectAll()">{{
-        settings.providers.length == 0 ? 'Select all' : 'Clear selection'
-      }}</span>
     </div>
     <br />
     <br />
@@ -45,9 +56,14 @@
 
 <script>
 import { mapState } from 'vuex'
+import CountrySelect from '@/components/Settings/CountrySelect.vue'
 export default {
+  components: {
+    CountrySelect,
+  },
   data() {
     return {
+      country: {},
       providersList: [
         { text: 'Netflix', value: 'netflix' },
         { text: 'HBO Max', value: 'hbomax' },

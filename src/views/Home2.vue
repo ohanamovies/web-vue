@@ -32,7 +32,11 @@
           <settings2 style="margin-top: 0px; background-color: white" />
         </v-card-text>
         <v-card-actions style="background-color: #141414; color: white">
-          Ohana TV experience will adjust to your settings
+          Ohana TV experience will adjust to your settings.
+          <v-spacer></v-spacer>
+          <span @click="show_welcomeTour = true" class="modern-link" style="white-space: nowrap">
+            See tour</span
+          >
         </v-card-actions>
       </v-card>
       <div
@@ -464,6 +468,7 @@ export default {
     show_welcomeTour(newValue) {
       if (!newValue) {
         //tour closed
+
         this.getAllData(true)
       }
     },
@@ -1018,7 +1023,7 @@ hr {
   z-index: 9999;
 }
 .arrow-box:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .arrow-box .arrow.left {
   left: 0;
@@ -1033,18 +1038,25 @@ hr {
   display: block;
   position: relative;
   top: calc(50% - 15px);
+
   /*margin: 30px auto;*/
   margin: auto;
   width: 15px;
   height: 15px;
-  border-top: 4px solid white;
-  border-left: 4px solid white;
+  border-top: 4px solid rgba(255, 255, 255, 0.5);
+  border-left: 4px solid rgba(255, 255, 255, 0.5);
 }
-.arrow-right {
-  transform: rotate(135deg);
+.arrow-box:hover div {
+  border-top: 4px solid rgba(255, 255, 255, 1);
+  border-left: 4px solid rgba(255, 255, 255, 1);
 }
 
+.arrow-right {
+  transform: rotate(135deg);
+  right: calc(50% - 15px);
+}
 .arrow-left {
   transform: rotate(-45deg);
+  left: calc(50% - 15px);
 }
 </style>

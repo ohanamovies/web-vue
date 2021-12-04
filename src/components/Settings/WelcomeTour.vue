@@ -4,7 +4,11 @@
       Welcome to Ohana TV
     </v-card-title>
     <v-card-text class="pa-0" style="overflow-y: auto">
-      <v-tabs-items v-model="slide" style="height: 100%; margin: auto; overflow-y: auto">
+      <v-tabs-items
+        v-model="slide"
+        style="height: 100%; margin: auto; overflow-y: auto"
+        id="tour_tabsElement"
+      >
         <v-tab-item
           class="pa-0 ma-0 outerr"
           style="margin: auto; cursor: pointer"
@@ -161,6 +165,8 @@ export default {
       this.slide = newValue
     },
     slide(newValue) {
+      document.getElementById('tour_tabsElement').scrollIntoView(true)
+
       if (newValue >= this.nSlides) {
         let s = this.settings
         s.web_tour = new Date()
