@@ -33,145 +33,169 @@
     </div>
 
     <div>
-      <!-- Movie Data -->
-      <div>
-        <h2>Movie Data</h2>
-        <div>
-          <h4>movieContent</h4>
-          <code>{{ item.movieContent }}</code>
-        </div>
+      <v-tabs v-model="tab">
+        <v-tab>Movie Data</v-tab>
+        <v-tab>Providers</v-tab>
+        <v-tab>All data</v-tab>
+      </v-tabs>
 
-        <div>
-          <h4>join status</h4>
-          <code>{{ item.join_status }}</code>
-        </div>
-
-        <div>
-          <h4>brief status</h4>
-          <code>{{ item.brief_status }}</code>
-        </div>
-
-        <div>
-          <h4>Movie values</h4>
-          <code>
-            {{ item.movieValues }}
-          </code>
-        </div>
-      </div>
-
-      <!--Providers-->
-      <div>
-        <h2>Providers</h2>
-
-        <div v-for="(p, index) in item.providers" :key="index">
-          <h3 class="providerH3" @click="focusProvider(index, $event)">
-            {{ p.provider }}: {{ joinStatus(p.filterStatus).status }}
-          </h3>
-          <div v-if="visibleProvider == index">
-            <p>
-              Link:
-              <a
-                :href="getLink(p.provider, p.providerID)"
-                target="_blank"
-                rel="noopener noreferrer"
-                >{{ getLink(p.provider, p.providerID) }}</a
-              >
-            </p>
-            Countries available:
-            <v-chip small v-for="(a, ai) in p.availability" :key="ai">{{ a }}</v-chip>
-            <br />
-            <br />
+      <v-tabs-items v-model="tab">
+        <!-- Movie Data -->
+        <v-tab-item>
+          <div>
+            <h2>Movie Data</h2>
             <div>
-              FilterStatus joinStatus: {{ joinStatus(p.filterStatus) }}
-
-              <div>
-                <table id="filterStatusTable" style="max-width: 300px" border="1">
-                  <tr>
-                    <th>Tag</th>
-                    <th>Health</th>
-                    <th>Trust</th>
-                    <th>Color</th>
-                    <th>Cuts</th>
-                  </tr>
-                  <tr v-for="(v, k) in p.filterStatus" :key="k">
-                    <td>{{ k }}</td>
-                    <td>
-                      {{ p.filterStatus[k].health }}
-                    </td>
-                    <td>{{ p.filterStatus[k].trust }}</td>
-                    <td>
-                      <v-icon small :color="getColor(p.filterStatus[k])"
-                        >mdi-checkbox-blank-circle</v-icon
-                      >
-                    </td>
-                    <td>
-                      {{ getCuts(k, p) }}
-                    </td>
-                  </tr>
-                </table>
-              </div>
+              <h4>movieContent</h4>
+              <code>{{ item.movieContent }}</code>
             </div>
-            <code>{{ p.filterStatus }}</code>
+
             <div>
-              <h4>Filters</h4>
-              <div
-                v-for="(scene, sid) in p.sceneFilters"
-                :key="sid"
-                style="
-                  border: 1px solid grey;
-                  border-radius: 5px;
-                  padding: 10px;
-                  margin-bottom: 10px;
-                "
-              >
-                <div v-if="scene">
-                  <h5>Filter {{ sid }}</h5>
-                  <p>
-                    Duration: {{ formatTime(scene.end - scene.start) }}
-                    <span style="font-size: 80%">
-                      ({{ formatTime(scene.start) }} to {{ formatTime(scene.end) }})</span
-                    >
-                  </p>
-                  <div>
-                    <p :style="{ color: scene.plot_description ? 'default' : 'grey' }">
-                      <b>What you need to know:</b>
-                      <i>
-                        {{ scene.plot_description || 'No replacing text provided.' }}
-                      </i>
-                    </p>
-                  </div>
+              <h4>join status</h4>
+              <code>{{ item.join_status }}</code>
+            </div>
 
-                  <div>
-                    <b>Filter Tags</b>
-                    <v-chip x-small class="ml-1" v-for="(t, it) in scene.tags" :key="it">{{
-                      t
-                    }}</v-chip>
-                  </div>
+            <div>
+              <h4>brief status</h4>
+              <code>{{ item.brief_status }}</code>
+            </div>
 
-                  <div style="margin-top: 5px">
-                    Edited by @{{ scene.modified[0] }} (level {{ scene.modified[1] }}) on
-                    {{ new Date(scene.modified[2]).toISOString() }}
-                  </div>
-                  <div style="margin-top: 5px">Accessed: {{ scene.accessed }} times</div>
-                </div>
-                <div style="font-size: 60%; font-family: consolas">
-                  <code> {{ scene }}</code>
-                </div>
-              </div>
+            <div>
+              <h4>Movie values</h4>
+              <code>
+                {{ item.movieValues }}
+              </code>
             </div>
           </div>
-        </div>
-      </div>
+        </v-tab-item>
+
+        <!--Providers-->
+        <v-tab-item>
+          <div>
+            <v-tabs v-model="providerTab">
+              <v-tab v-for="(p, index) in item.providers" :key="index">{{ p.provider }}</v-tab>
+            </v-tabs>
+
+            <v-tabs-items v-model="providerTab">
+              <v-tab-item v-for="(p, index) in item.providers" :key="index">
+                {{ p.provider }}: {{ joinStatus(p.filterStatus).status }}
+                <div>
+                  <p>
+                    Link:
+                    <a
+                      :href="getLink(p.provider, p.providerID)"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >{{ getLink(p.provider, p.providerID) }}</a
+                    >
+                  </p>
+                  Countries available:
+                  <v-chip small v-for="(a, ai) in p.availability" :key="ai">{{ a }}</v-chip>
+                  <br />
+                  <br />
+                  <div>
+                    FilterStatus joinStatus: {{ joinStatus(p.filterStatus) }}
+
+                    <div>
+                      <table id="filterStatusTable" style="max-width: 300px" border="1">
+                        <tr>
+                          <th>Tag</th>
+                          <th>Health</th>
+                          <th>Trust</th>
+                          <th>Color</th>
+                          <th>Cuts</th>
+                        </tr>
+                        <tr v-for="(v, k) in p.filterStatus" :key="k">
+                          <td>{{ k }}</td>
+                          <td>
+                            {{ p.filterStatus[k].health }}
+                          </td>
+                          <td>{{ p.filterStatus[k].trust }}</td>
+                          <td>
+                            <v-icon small :color="getColor(p.filterStatus[k])"
+                              >mdi-checkbox-blank-circle</v-icon
+                            >
+                          </td>
+                          <td>
+                            {{ getCuts(k, p) }}
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <code>{{ p.filterStatus }}</code>
+                  <div>
+                    <h4>Filters</h4>
+                    <div
+                      v-for="(scene, sid) in p.sceneFilters"
+                      :key="sid"
+                      style="
+                        border: 1px solid grey;
+                        border-radius: 5px;
+                        padding: 10px;
+                        margin-bottom: 10px;
+                      "
+                    >
+                      <div v-if="scene">
+                        <h5>Filter {{ sid }}</h5>
+                        <p>
+                          Duration: {{ formatTime(scene.end - scene.start) }}
+                          <span style="font-size: 80%">
+                            ({{ formatTime(scene.start) }} to {{ formatTime(scene.end) }})</span
+                          >
+                        </p>
+                        <div>
+                          <p :style="{ color: scene.plot_description ? 'default' : 'grey' }">
+                            <b>What you need to know:</b>
+                            <i>
+                              {{ scene.plot_description || 'No replacing text provided.' }}
+                            </i>
+                          </p>
+                        </div>
+
+                        <div>
+                          <b>Filter Tags</b>
+                          <v-chip x-small class="ml-1" v-for="(t, it) in scene.tags" :key="it">{{
+                            t
+                          }}</v-chip>
+                        </div>
+
+                        <div style="margin-top: 5px">
+                          Edited by @{{ scene.modified[0] }} (level {{ scene.modified[1] }}) on
+                          {{ new Date(scene.modified[2]).toISOString() }}
+                        </div>
+                        <div style="margin-top: 5px">Accessed: {{ scene.accessed }} times</div>
+                      </div>
+                      <div style="font-size: 60%; font-family: consolas">
+                        <code> {{ scene }}</code>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </v-tab-item>
+            </v-tabs-items>
+
+            <div v-for="(p, index) in item.providers" :key="index">
+              <h3 class="providerH3" @click="focusProvider(index, $event)"></h3>
+            </div>
+          </div>
+        </v-tab-item>
+
+        <v-tab-item>
+          <div>
+            <b>all data</b>
+            <pre
+              style="
+                background-color: rgba(200, 200, 200, 0.4);
+                padding: 10px;
+                white-space: pre-wrap;
+              "
+              >{{ item }}</pre
+            >
+          </div>
+        </v-tab-item>
+      </v-tabs-items>
 
       <div></div>
-    </div>
-
-    <div>
-      <b>all data</b>
-      <pre
-        style="background-color: rgba(200, 200, 200, 0.4); padding: 10px; white-space: pre-wrap"
-        >{{ item }}</pre
-      >
     </div>
 
     <br /><br /><br />
@@ -192,8 +216,10 @@ export default {
   },
   data() {
     return {
+      tab: 0,
+      providerTab: 0,
       loading: false,
-      visibleProvider: -1,
+
       item: {
         poster: { en: '' },
         title: { en: '' },
@@ -219,14 +245,6 @@ export default {
         }
       }
       return cuts
-    },
-    focusProvider(index, event) {
-      this.visibleProvider == index ? (this.visibleProvider = -1) : (this.visibleProvider = index)
-      //event.target.parentNode.scrollIntoView({ behavior: 'smooth', block: 'start' }) //true)
-
-      const navBarMargin = 50
-      const y = event.target.getBoundingClientRect().top + window.pageYOffset - navBarMargin
-      window.scrollTo({ top: y, left: 0, behavior: 'smooth' })
     },
 
     joinStatus(filterStatus) {
