@@ -46,6 +46,28 @@
             <h2>Movie Data</h2>
             <div>
               <h4>movieContent</h4>
+              <table id="myBeautifulTable" style="max-width: 350px" border="1">
+                <tr>
+                  <th>Tag</th>
+                  <th>Health</th>
+                  <th>Trust</th>
+                  <th>Color</th>
+                  <th>Cuts</th>
+                </tr>
+                <tr v-for="(v, k) in item.movieContent" :key="k">
+                  <td>{{ k }}</td>
+                  <td>
+                    {{ item.movieContent[k].health }}
+                  </td>
+                  <td>{{ item.movieContent[k].trust }}</td>
+                  <td>
+                    <v-icon small :color="getColor(item.movieContent[k])"
+                      >mdi-checkbox-blank-circle</v-icon
+                    >
+                  </td>
+                  <td>0</td>
+                </tr>
+              </table>
               <code>{{ item.movieContent }}</code>
             </div>
 
@@ -96,7 +118,7 @@
                     FilterStatus joinStatus: {{ joinStatus(p.filterStatus) }}
 
                     <div>
-                      <table id="filterStatusTable" style="max-width: 300px" border="1">
+                      <table id="myBeautifulTable" style="max-width: 350px" border="1">
                         <tr>
                           <th>Tag</th>
                           <th>Health</th>
@@ -326,28 +348,28 @@ export default {
 
 /* TABLE */
 
-#filterStatusTable {
+#myBeautifulTable {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
 
-#filterStatusTable td,
-#filterStatusTable th {
+#myBeautifulTable td,
+#myBeautifulTable th {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
 }
 
-#filterStatusTable tr:nth-child(even) {
+#myBeautifulTable tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
-#filterStatusTable tr:hover {
+#myBeautifulTable tr:hover {
   background-color: #ddd;
 }
 
-#filterStatusTable th {
+#myBeautifulTable th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
