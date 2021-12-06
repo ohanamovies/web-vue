@@ -1,8 +1,9 @@
+<!-- Open by extension when user uninstalls it -->
 <template>
   <div class="subpage">
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
       <div class="inner">
-        <h4>See you soon!</h4>
+        <h4>See you soon! 👋</h4>
         <p>
           We are sad to see you removed our extension. If you had trouble using it, please notice
           that our volunteers are doing their best to fix bugs and improve everything.

@@ -121,8 +121,8 @@
 </template>
 
 <script>
-import CheckExtension from './Settings/CheckExtension.vue'
-import Sensitivity from './Settings/Sensitivity.vue'
+import CheckExtension from '@/components/Settings/CheckExtension.vue'
+import Sensitivity from '@/components/Settings/Sensitivity.vue'
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
 

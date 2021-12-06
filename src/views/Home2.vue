@@ -317,7 +317,7 @@
       width="750"
       :style="{ marginTop: isMobile ? '40px' : '0px', zIndex: 99999999999998 }"
     >
-      <MoviePopup :selection="selectedItemInfo" @close="showMovieDialog = false" />
+      <MoviePopup :imdb="selectedItemInfo.imdb" @close="showMovieDialog = false" />
     </v-dialog>
   </div>
 </template>
@@ -327,7 +327,7 @@
 import sharedjs from '@/sharedjs'
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
-import MoviePopup from '../components/MoviePopup.vue'
+import MoviePopup from '../components/MoviePopup/MoviePopup.vue'
 import MyFooter2 from '../components/MyFooter2'
 
 import WelcomeTour from '@/components/Settings/WelcomeTour.vue'
@@ -416,7 +416,7 @@ export default {
           query: { imdbRating: 8 }, // sort is done by number of votes
         },
         {
-          title: 'Healthy TV Shows ',
+          title: 'Healthy TV Shows (for your settings) ',
           data: [],
           query: { type: 'series', clean: JSON.stringify(this.skipTags) },
         },

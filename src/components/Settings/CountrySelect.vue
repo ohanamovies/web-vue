@@ -50,8 +50,10 @@ export default {
       if (this.settings.country) return this.settings.country
 
       if (ohana.user.language().substr(0, 2) == 'es') {
+        this.changeCountry('ES')
         return 'ES'
       } else {
+        this.changeCountry('US')
         return 'US'
       }
     },

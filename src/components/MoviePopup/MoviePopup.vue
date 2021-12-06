@@ -11,7 +11,14 @@
     </v-dialog>
 
     <!-- A: if we have valid data  -->
-    <v-card v-if="item.title" @keydown.esc="closeMe()" style="position: relative">
+    <v-card v-if="loading" style="background-color: black">
+      <v-card-text>
+        <div style="margin: auto; text-align: center">
+          <v-progress-circular indeterminate color="cyan"></v-progress-circular>
+        </div>
+      </v-card-text>
+    </v-card>
+    <v-card v-else-if="item.title" @keydown.esc="closeMe()" style="position: relative">
       <!-- {{ close me }} -->
 
       <span style="margin: 0 5px auto auto; position: absolute; top: 5px; right: 5px">
@@ -259,45 +266,39 @@ const provider = require('@/assets/provider')
 const rawTags = require('@/assets/raw_tags')
 import ohana from '@/assets/ohana'
 
-import MovieWatchOptions from './MovieWatchOptions2.vue'
+import MovieWatchOptions from '@/components/MoviePopup/MovieWatchOptions2.vue'
 import { mapState } from 'vuex'
 
-import Login from './Settings/Login.vue'
+import Login from '@/components/Settings/Login.vue'
 
 export default {
   components: {
     MovieWatchOptions,
-
     Login,
   },
   props: {
-    selection: {
-      type: Object,
-      default: function () {
-        return {}
-      },
+    imdb: {
+      type: String,
+      default: '',
     },
   },
   data() {
     return {
       item: {},
+      loading: false,
+
       categories: [],
       severities: [],
       viewMore: false,
 
       dialog_login: false,
-
       blur_if_missing: true,
     }
   },
 
   watch: {
-    selection: {
-      handler: function () {
-        console.log('updated selection', this.selection)
-        this.getData()
-      },
-      deep: true,
+    imdb() {
+      this.getData()
     },
   },
 
@@ -412,13 +413,20 @@ export default {
     },
 
     async getData() {
-      this.item = this.selection
-      if (this.item.imdb) {
-        this.item = await ohana.api.getMovie(this.item.imdb)
-        this.item = ohana.movies.addInfo(this.item, this.skipTags)
+      //this.item = this.selection
+      this.item = {}
+      this.loading = true
+      if (this.imdb) {
+        try {
+          this.item = await ohana.api.getMovie(this.imdb)
+          this.item = ohana.movies.addInfo(this.item, this.skipTags)
+        } catch (error) {
+          console.log('error 10612 loading popup', error)
+        }
       } else {
         console.warn('[alex] need imdb id to get data...')
       }
+      this.loading = false
     },
   },
   mounted() {

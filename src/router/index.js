@@ -1,21 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from '../views/Home.vue'
-import About from '../views/About.vue'
-import Home2 from '../views/Home2.vue'
-import About2 from '../views/About2.vue'
-import Community from '../views/Community.vue'
-import Content from '../views/Content.vue'
-import Elements from '../views/Elements.vue'
-import Stats from '../views/Stats.vue'
-import GetStarted from '../views/Tutorials/GetStarted.vue'
-import FAQs from '../views/Tutorials/FAQs.vue'
-import NotFoundComponent from '../views/Tutorials/NotFoundComponent.vue'
-import SettingsPage2 from '../views/SettingsPage2.vue'
-import Bye from '../views/Bye.vue'
-import MoviePage from '../views/MoviePage.vue'
-import Privacy from '../views/Legal/Privacy.vue'
+import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
+
+import Home from '@/views/Home.vue'
+import About from '@/views/About.vue'
+import Home2 from '@/views/Home2.vue'
+import About2 from '@/views/About2.vue'
+import Community from '@/views/Community.vue'
+import Content from '@/views/Content.vue'
+import Elements from '@/views/Elements.vue'
+import Stats from '@/views/Stats.vue'
+import GetStarted from '@/views/Tutorials/GetStarted.vue'
+import FAQs from '@/views/Tutorials/FAQs.vue'
+import NotFoundComponent from '@/views/Tutorials/NotFoundComponent.vue'
+import SettingsPage2 from '@/views/SettingsPage2.vue'
+import Bye from '@/views/Extension/Bye.vue'
+import Welcome from '@/views/Extension/Welcome.vue'
+import MoviePage from '@/views/MoviePage.vue'
+import Privacy from '@/views/Legal/Privacy.vue'
 import TermsOfUse from '@/views/Legal/TermsOfUse.vue'
 import ContactUs from '@/views/Legal/ContactUs.vue'
 
@@ -75,9 +78,26 @@ const routes = [
     component: GetStarted,
   },
   {
+    path: '/extension/bye',
+    name: 'Bye',
+    component: Bye,
+  },
+  {
+    path: '/extension/welcome',
+    name: 'Welcome',
+    component: Welcome,
+  },
+  {
+    path: '/extension/popup/:imdb',
+    name: 'MoviePopup',
+    props: true,
+    component: MoviePopup,
+  },
+  {
     path: '/bye',
     name: 'Bye',
     component: Bye,
+    deprecated: true,
   },
   {
     path: '/faqs',

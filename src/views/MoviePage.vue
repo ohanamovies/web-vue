@@ -1,36 +1,14 @@
 <template>
   <div class="moviepage">
     <!-- overview -->
+
     <div v-if="loading">
       <v-progress-linear indeterminate color="green"></v-progress-linear>
     </div>
-    <div v-if="!loading">
-      <h2>
-        {{ title() }}
-        <span style="font-size: 60%; font-color: rgba(0, 0, 0, 0.6); margin-top: 3px">
-          ({{ item.released }})</span
-        >
-      </h2>
-      <span style="font-color: rgba(0, 0, 0, 0.6); margin-top: 3px">type: {{ item.type }}</span>
-      <v-row>
-        <v-col>
-          <img
-            :src="poster()"
-            :alt="title()"
-            :style="{
-              borderBottom: '4px solid ' + (item.join_status ? item.join_status.color : 'black'),
-            }"
-          />
-        </v-col>
-        <v-col>
-          <div style="display: flex; justify-content: space-between">
-            <b>Overview </b>
-            <i style="font-size: 85%">{{ item.genres.join(' - ') }}</i>
-          </div>
-          <p>{{ plot() }}</p>
-        </v-col>
-      </v-row>
-    </div>
+
+    <MoviePopup :imdb="imdb" />
+
+    <br />
 
     <div>
       <v-tabs v-model="tab">
@@ -228,8 +206,12 @@
 const provider = require('@/assets/provider')
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
+import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 
 export default {
+  components: {
+    MoviePopup,
+  },
   props: {
     imdb: {
       type: String,

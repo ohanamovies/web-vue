@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-app>
-      <v-main>
+      <v-main v-if="!isPopup">
         <div v-if="devMode" style="position: fixed; top: 0px; left: 50%; z-index: 999999">
           <v-btn
             color="red"
@@ -46,6 +46,9 @@
         <!-- todo: for now forced to all pages by putting it in this App.vue component. If needed, remove from here and put the line of code in each subpage (if styling would depends on parent classes etc.) -->
         <my-footer></my-footer>
       </v-main>
+      <v-main v-else>
+        <router-view />
+      </v-main>
     </v-app>
   </div>
 </template>
@@ -71,6 +74,9 @@ export default {
   },
   computed: {
     ...mapState(['isChrome', 'isMobile', 'hasApp']),
+    isPopup() {
+      return this.$router.currentRoute.path.includes('/extension/popup')
+    },
     devMode() {
       return window.location.hostname == 'localhost'
     },
