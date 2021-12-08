@@ -1,6 +1,7 @@
 //const provider = require('@/assets/provider')
 
 const i18n = require('@/plugins/i18n').default
+const providerjs = require('./provider')
 
 const user = {
   language() {
@@ -23,6 +24,27 @@ const api = {
           data = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly".
           let d = JSON.parse(data)
           if (!d.title) reject('wrong data...')
+          console.log('getData ', d)
+
+          resolve(d)
+        })
+    })
+  },
+  async getEpisodes(imdb) {
+    return new Promise((resolve, reject) => {
+      let url = utils.buildURL({
+        action: 'getEpisodes',
+        imdb: imdb,
+        newAPI: true,
+      })
+      console.log('[alex] [api] getting episodes data', url)
+      fetch(url)
+        .then((r) => r.text())
+        .then((data) => {
+          data = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly".
+
+          let d = JSON.parse(data)
+          if (!d.length) reject('wrong data...')
           console.log('getData ', d)
 
           resolve(d)
@@ -161,7 +183,7 @@ const movies = {
    * @returns One tag per category with its status: only the top tag per category (so if it has ver erotic + moderately erotic, for sex/nudity = very erotic (moderately erotic is redundant))
    */
   getSummary(movie) {
-    //TODO: if very gory is mixed, and moderately gory is missing, how do we say it?
+    //TODO: if very erotic is mixed, and moderately erotic is missing, how do we put it?
     let content = movie.movieContent
     //let status = movie.filterStatus
     let brief_status = {}
@@ -246,6 +268,9 @@ const providers = {
     if (provider == 'disneyplus') return 'https://www.disneyplus.com/en-gb/video/' + providerID
     if (provider == 'primevideo') return 'https://primevideo.com/watch?gti=' + providerID
     if (provider == 'movistarplus') return 'https://ver.movistarplus.es/ficha?id=' + providerID
+  },
+  async getID(url) {
+    return providerjs.parseURL(url).id //.pid
   },
 }
 

@@ -17,7 +17,7 @@ import NotFoundComponent from '@/views/Tutorials/NotFoundComponent.vue'
 import SettingsPage2 from '@/views/SettingsPage2.vue'
 import Bye from '@/views/Extension/Bye.vue'
 import Welcome from '@/views/Extension/Welcome.vue'
-import MoviePage from '@/views/MoviePage.vue'
+import MoviePage from '@/views/MoviePage/MoviePage.vue'
 import Privacy from '@/views/Legal/Privacy.vue'
 import TermsOfUse from '@/views/Legal/TermsOfUse.vue'
 import ContactUs from '@/views/Legal/ContactUs.vue'
@@ -27,13 +27,17 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'Home2',
+    component: Home2,
+  },
+  {
+    path: '/old',
     name: 'Home',
     component: Home,
   },
   {
     path: '/magic',
-    name: 'Home2',
-    component: Home2,
+    redirect: '/',
   },
   {
     path: '/item/:imdb',

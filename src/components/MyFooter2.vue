@@ -47,8 +47,8 @@
       <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
       <p>We also use IMDb data</p>
       <p>
-        Data about scnes is provided by our users, as per our
-        <router-link to="terms-of-use">terms of use</router-link>.
+        <router-link to="terms-of-use">Terms of use</router-link> |
+        <router-link to="/privacy-policy">Privacy Policy</router-link>.
       </p>
     </div>
   </div>

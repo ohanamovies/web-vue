@@ -59,7 +59,9 @@
         </div>
 
         <!-- Sensitivity -->
-        <Settings2 style="margin-bottom: 30px" />
+        <div>
+          <Settings2 style="margin-bottom: 30px" />
+        </div>
 
         <router-link class="button" to="/find-movies">{{ $t('discoverContent') }}</router-link>
       </div>

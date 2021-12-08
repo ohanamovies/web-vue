@@ -29,7 +29,7 @@
           >
         </div>
         <v-card-text class="pa-1 pt-0">
-          <settings2 style="margin-top: 0px; background-color: white" />
+          <Settings2 :page="0" style="margin-top: 0px; background-color: white" />
         </v-card-text>
         <v-card-actions style="background-color: #141414; color: white">
           Ohana TV experience will adjust to your settings.
@@ -108,6 +108,7 @@
       </v-card>
     </v-dialog>
 
+    <!-- nav bar  -->
     <div class="sticky2" style="z-index: 99999">
       <div
         v-if="!isMobile"
@@ -183,7 +184,7 @@
       </div>
     </section>
 
-    <!-- black header bar -->
+    <!-- black header bar, to keep sticky bar visibile -->
     <div
       class="stickybar"
       style="
@@ -208,6 +209,7 @@
             >
           </p>
         </div>
+
         <div v-else style="padding-top: 50px"></div>
 
         <div v-for="(section, index) in sections" :key="index" style="max-width: 90%; margin: auto">
@@ -217,11 +219,11 @@
             <!-- POSTERS -->
             <div
               style="position: relative"
-              v-show="!section.finishLoading || section.data.length > 0"
+              v-show="section.data.length > 0 || section.finishLoading"
             >
               <!-- arrow left -->
               <div
-                v-show="section.data.length > 1"
+                v-show="section.data.length > 1 && !isMobile"
                 class="arrow-box left"
                 @click="scrollLeft($event.target.nextSibling)"
               >
@@ -237,7 +239,9 @@
                   v-for="(item, index2) in section.data"
                   :key="index2"
                   @click="openMovieDialog(item)"
-                  :style="{ borderBottom: '4px solid ' + item.join_status.color }"
+                  :style="{
+                    borderBottom: '4px solid ' + item.join_status.color,
+                  }"
                 >
                   <!-- image-->
                   <div class="image" style="width: 100%; cursor: pointer">
@@ -261,26 +265,32 @@
                   </div>
                 </div>
               </div>
-              <!-- posters placeholder -->
-              <div v-show="section.loading" class="posters_wrapper2">
-                <div class="poster" v-for="n in 10" :key="n">
-                  <div class="image" style="width: 100%">
-                    <img src="/images/empty-poster.png" class="waiting" alt="loading" />
-                  </div>
-                </div>
-              </div>
+
               <!-- arrow right -->
               <div
-                v-show="section.data.length > 1"
+                v-show="section.data.length > 1 && !isMobile"
                 class="arrow-box right"
-                @click="scrollRight($event.target.previousSibling.previousSibling)"
+                @click="scrollRight($event.target.previousSibling)"
               >
                 <div
                   class="arrow-right"
-                  @click.stop="
-                    scrollRight($event.target.parentNode.previousSibling.previousSibling)
-                  "
+                  @click.stop="scrollRight($event.target.parentNode.previousSibling)"
                 ></div>
+              </div>
+            </div>
+
+            <!-- posters placeholder -->
+            <div
+              v-show="
+                (section.loading == false ? false : true) &&
+                (section.data ? section.data.length == 0 : true)
+              "
+              class="posters_wrapper2"
+            >
+              <div class="poster" v-for="n in 10" :key="n">
+                <div class="image" style="width: 100%">
+                  <img src="/images/empty-poster.png" class="waiting" alt="loading" />
+                </div>
               </div>
             </div>
 
@@ -553,16 +563,18 @@ export default {
     },
 
     async getData(index, resetSection = false) {
-      if (index == 1 && this.skipTags.length == 0) {
-        this.loading = false
-        this.finishLoading = true
-        return console.log('No settings to offer filtered content')
-      }
-
       console.log('getData', index)
       let section = this.sections[index]
       if (!section) return console.log('no section ', index)
 
+      //cleaned only if user have settings
+      if (index == 1 && this.skipTags.length == 0) {
+        section.loading = false
+        section.finishLoading = true
+        return console.log('No settings to offer filtered content')
+      }
+
+      //reset means we remove all data and start over.
       if (resetSection) {
         section.data = []
         section.finishLoading = false
@@ -599,6 +611,9 @@ export default {
       } else {
         query.clean = JSON.stringify(this.skipTags)
       }
+
+      //remove series for now:
+      query.type = 'movie' //TODO: Remove this once we clarify series!
 
       // Fetch data
       var url = ohana.utils.buildURL(query)
@@ -767,13 +782,18 @@ div.posters_wrapper2 div.poster {
   overflow: hidden;
   max-width: 150px;
   min-width: 150px;
+  max-height: 225px; /*it's important to fix height so screen doesn't shake when images come... */
+  min-height: 225px;
   transition: top ease 0.4s;
 }
 
 @media only screen and (max-width: 400px) {
+  /* smaller poster on mobile */
   div.posters_wrapper2 div.poster {
     max-width: 120px;
     min-width: 120px;
+    max-height: 180px;
+    min-height: 180px;
   }
 }
 

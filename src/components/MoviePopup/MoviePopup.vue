@@ -21,8 +21,11 @@
     <v-card v-else-if="item.title" @keydown.esc="closeMe()" style="position: relative">
       <!-- {{ close me }} -->
 
-      <span style="margin: 0 5px auto auto; position: absolute; top: 5px; right: 5px">
-        <v-icon @click="closeMe">mdi-close</v-icon>
+      <span
+        style="margin: 0 5px auto auto; position: absolute; top: 5px; right: 5px"
+        v-if="!hideCloseButton"
+      >
+        <v-icon @click="closeMe()">mdi-close</v-icon>
       </span>
 
       <!-- TITLE -->
@@ -156,15 +159,13 @@
                 <div>
                   <div class="overview" v-if="plot.length < 200 || viewMore">
                     {{ plot }}
-                    <a v-if="plot.length >= 200" @click="viewMore = false" class="modern-link">
+                    <a v-if="plot.length >= 200" @click="viewMore = false" style="font-size: 80%">
                       Read less</a
                     >
                   </div>
                   <div v-else>
-                    {{ plot.slice(0, 200 - 40) }}...
-                    <a @click="viewMore = true" class="modern-link" style="font-size: 80%"
-                      >Read more</a
-                    >
+                    {{ plot.slice(0, 200 - 50) }}...
+                    <a @click="viewMore = true" style="font-size: 80%">Read more</a>
                   </div>
                 </div>
 
@@ -252,9 +253,11 @@
     <v-card v-else>
       <v-card-text style="height: 310px">
         <div>
-          <span> Error!</span>
+          <span> Error! Please try again.</span>
           <br />
-          <span>{{ item }}</span>
+          <v-btn depressed text @click="getData()">Try again</v-btn>
+          <br />
+          <!-- <span>{{ item }}</span>-->
         </div>
       </v-card-text>
     </v-card>
@@ -281,7 +284,12 @@ export default {
       type: String,
       default: '',
     },
+    hideCloseButton: {
+      type: Boolean,
+      default: false,
+    },
   },
+
   data() {
     return {
       item: {},
@@ -376,6 +384,7 @@ export default {
 
   methods: {
     resetPopup() {
+      console.log('reset popup')
       this.viewMore = false
       this.blur_if_missing = true
     },
@@ -400,6 +409,7 @@ export default {
     closeMe() {
       //TODO: This doesn't apply if ESC or click outside, as dialog closes itself
       //emit close action
+      this.resetPopup()
       this.$emit('close', false)
     },
     tagsDescription() {
@@ -414,6 +424,7 @@ export default {
 
     async getData() {
       //this.item = this.selection
+      this.resetPopup() //read more = false, etc.
       this.item = {}
       this.loading = true
       if (this.imdb) {

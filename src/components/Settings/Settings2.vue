@@ -16,13 +16,14 @@
 
       <div
         :style="{
-          maxHeight: isMobile ? '' : '550px',
-          height: isMobile ? '' : '550px',
+          maxHeight: isMobile ? '70vh' : '550px',
+          height: isMobile ? '70vh' : '550px',
           overflowY: 'auto',
           padding: '10px 20px',
         }"
+        id="tabsElementSettings"
       >
-        <v-tabs-items v-model="tab" style="min-height: 400px" id="tabsElement">
+        <v-tabs-items v-model="tab" style="min-height: 400px">
           <!--sensitivity-->
           <v-tab-item>
             <Tags2 />
@@ -76,7 +77,7 @@ export default {
   },
   watch: {
     tab() {
-      document.getElementById('tabsElement').scrollIntoView(true)
+      document.getElementById('tabsElementSettings').scrollTo(0, 0)
     },
     page(newValue) {
       this.tab = newValue

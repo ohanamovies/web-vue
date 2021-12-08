@@ -1,5 +1,5 @@
 <template>
-  <div id="vheader" v-if="no_magic">
+  <div id="vheader" v-if="!isNewHome">
     <div>
       <v-app-bar
         :fixed="!isHome"
@@ -9,7 +9,7 @@
         :color="isHome || isNewHome ? 'rgba(0, 0, 0, 0)' : '#6cc091'"
         dark
         :style="{
-          zIndex: '99999',
+          zIndex: '9999999',
           padding: isMobile ? '0px' : '0px 30px',
           marginTop: isHome && !isMobile ? '40px' : '0px',
         }"
@@ -87,7 +87,7 @@ export default {
       return this.$route.path == '/'
     },
     isNewHome() {
-      return this.$route.path == '/magic'
+      return this.$route.path == '/'
     },
     no_magic() {
       return !window.location.href.includes('magic')
@@ -100,7 +100,7 @@ export default {
       routes: [
         { to: '/', key: 'home' },
         { to: '/get-started', key: 'getStarted' },
-        { to: '/find-movies', key: 'discoverContent' },
+
         { to: '/settings', key: 'settings' },
 
         { to: '/community', key: 'support_ohana' },

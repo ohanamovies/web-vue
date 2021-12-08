@@ -47,7 +47,7 @@
         <my-footer></my-footer>
       </v-main>
       <v-main v-else>
-        <router-view />
+        <router-view :hideCloseButton="true" />
       </v-main>
     </v-app>
   </div>
