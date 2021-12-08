@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b>dedit valuesds</b>
+    <b>Edit values (this won't be saved!)</b>
 
     <v-list style="max-width: 500px; margin: auto">
       <v-list-group v-for="(value_group, i) in raw_values" :key="i" v-model="value_group.active">

@@ -30,9 +30,9 @@
           <p>This is data at {{ item.type }} level</p>
           <v-tabs v-model="movieDataTab">
             <v-tab>movieContent</v-tab>
+            <v-tab>values</v-tab>
             <v-tab>join status</v-tab>
             <v-tab>brief status</v-tab>
-            <v-tab>values</v-tab>
           </v-tabs>
 
           <v-tabs-items v-model="movieDataTab">
@@ -64,6 +64,14 @@
               <code>{{ item.movieContent }}</code>
             </v-tab-item>
 
+            <!-- movie values -->
+            <v-tab-item>
+              <EditValues />
+              <code>
+                {{ item.movieValues }}
+              </code>
+            </v-tab-item>
+
             <!-- join_status -->
             <v-tab-item>
               <h4>join status</h4>
@@ -74,14 +82,6 @@
             <v-tab-item>
               <h4>brief status</h4>
               <code>{{ item.brief_status }}</code>
-            </v-tab-item>
-            <!-- movie values -->
-            <v-tab-item>
-              <h4>Movie values</h4>
-              <code>
-                {{ item.movieValues }}
-              </code>
-              <EditValues />
             </v-tab-item>
           </v-tabs-items>
         </v-tab-item>
