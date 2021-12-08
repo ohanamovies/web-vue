@@ -81,6 +81,7 @@
               <code>
                 {{ item.movieValues }}
               </code>
+              <EditValues />
             </v-tab-item>
           </v-tabs-items>
         </v-tab-item>
@@ -247,12 +248,14 @@ import { mapState } from 'vuex'
 import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 import Login from '@/components/Settings/Login.vue'
 import AddProvider from '@/views/MoviePage/AddProvider.vue'
+import EditValues from '@/views/MoviePage/EditValues.vue'
 
 export default {
   components: {
     MoviePopup,
     Login,
     AddProvider,
+    EditValues,
   },
   props: {
     imdb: {
