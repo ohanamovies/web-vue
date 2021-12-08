@@ -1,6 +1,15 @@
 <template>
   <div>
+    <br />
     <b>Edit values (this won't be saved!)</b>
+
+    <div>
+      Postivo: <v-icon color="green">mdi-thumb-up</v-icon>
+      <br />
+      Negativo: <v-icon color="red">mdi-thumb-down</v-icon>
+      <br />
+      Mezcla: <v-icon color="orange">mdi-thumbs-up-down</v-icon>
+    </div>
 
     <v-list style="max-width: 500px; margin: auto">
       <v-list-group v-for="(value_group, i) in raw_values" :key="i" v-model="value_group.active">

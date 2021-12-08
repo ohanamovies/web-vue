@@ -183,7 +183,7 @@ var values = [
   },
   {
     value: 'Friendship',
-    title: { es: 'Derechos de la mujer', en: '' },
+    title: { es: 'Amor de amistad', en: '' },
     description: { es: '', en: '' },
     values: [
       {
