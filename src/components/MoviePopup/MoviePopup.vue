@@ -310,7 +310,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['isChrome', 'hasApp', 'isMobile']),
+    ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
     skipTags() {
       return this.$store.state.settings.skip_tags || []
     },

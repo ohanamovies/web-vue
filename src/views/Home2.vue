@@ -33,12 +33,14 @@
         </v-card-text>
         <v-card-actions style="border-top: 1px solid gray"
           ><!--style="background-color: #141414; color: white"-->
-          Ohana TV experience will adjust to your settings.
-          <span @click="show_welcomeTour = true" class="modern-link" style="white-space: nowrap">
-            See tour</span
+          <span
+            >Ohana TV experience will adjust to your settings.
+            <span @click="show_welcomeTour = true" class="modern-link" style="white-space: nowrap">
+              See tour</span
+            ></span
           >
           <v-spacer></v-spacer>
-          <v-btn @click="dialog_lang = true" text>{{ settings.language }}</v-btn>
+          <v-btn max-width="30" @click="dialog_lang = true" text>{{ settings.language }}</v-btn>
           <!-- <LanguageSelect style="max-width: 250px" /> -->
         </v-card-actions>
       </v-card>
