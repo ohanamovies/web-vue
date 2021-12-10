@@ -7,9 +7,10 @@
         :fixed-tabs="isMobile"
         center-active
       >
-        <v-tab><v-icon class="mr-2" small>mdi-cog</v-icon>Settings</v-tab>
+        <v-tab><v-icon class="mr-2" small>mdi-movie-open</v-icon>Filters</v-tab>
         <v-tab><v-icon class="mr-2" small>mdi-television</v-icon>Platforms</v-tab>
         <v-tab><v-icon class="mr-2" small>mdi-account</v-icon>Account</v-tab>
+        <v-tab><v-icon class="mr-2" small>mdi-cog</v-icon>Settings</v-tab>
         <v-tab><v-icon class="mr-2" small>mdi-download</v-icon>Install</v-tab>
         <v-tab v-if="false"><v-icon class="mr-2" small>mdi-cog</v-icon>Settings old</v-tab>
       </v-tabs>
@@ -46,6 +47,12 @@
             </div>
           </v-tab-item>
 
+          <v-tab-item>
+            <div>
+              <OtherSettings />
+            </div>
+          </v-tab-item>
+
           <!-- Extension check-->
           <v-tab-item>
             <check-extension></check-extension>
@@ -61,13 +68,22 @@
 //import Sensitivity from '@/components/Settings/Sensitivity.vue'
 import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
+import OtherSettings from '@/components/Settings/OtherSettings.vue'
 import Tags2 from '@/components/Settings/Tags2.vue'
 import Login from '@/components/Settings/Login.vue'
 import UserPage from '@/components/Settings/UserPage.vue'
+
 import { mapState } from 'vuex'
 
 export default {
-  components: { Login, ProvidersSelect, CheckExtension, Tags2, UserPage },
+  components: {
+    Login,
+    ProvidersSelect,
+    CheckExtension,
+    Tags2,
+    UserPage,
+    OtherSettings,
+  },
 
   props: {
     page: {

@@ -1,3 +1,5 @@
+const i18n = require('@/plugins/i18n').default
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -12,7 +14,7 @@ Vue.use(Vuex)
 
 function checkSettings(settings) {
   if (settings && settings.ignore_default_settings) {
-    // Force default values if any key has a different data type
+    // Force default values if any key has a different data type or is missing (wonderful in case we add further settings)
     for (var key in store.state.default_settings) {
       if (typeof store.state.default_settings[key] !== typeof settings[key]) {
         settings[key] = store.state.default_settings[key]
@@ -42,6 +44,10 @@ const store = new Vuex.Store({
       authToken: '',
       welcomed: 0,
       providers: [],
+      language: navigator.language.split('-')[0] || navigator.userLanguage.split('-')[0],
+      country:
+        navigator.language.split('-')[1].toUpperCase() ||
+        navigator.userLanguage.split('-')[1].toUpperCase(), //TODO: we could just do a fetch to https://ipinfo.io/ to get the ip-based location...
     },
     skipTags: [],
     hasApp: false,
@@ -59,6 +65,8 @@ const store = new Vuex.Store({
     [mutations.SET_SETTINGS](state, settings) {
       //0. validate settings structure, use default where not right
       settings = checkSettings(settings)
+
+      i18n.locale = settings.language //propate the language setting to the i18n library :)
 
       //1. Save locally as fallback (in case no extension or removed later)
       localStorage.settings = JSON.stringify(settings)

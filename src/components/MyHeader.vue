@@ -9,7 +9,7 @@
         :color="isHome || isNewHome ? 'rgba(0, 0, 0, 0)' : '#6cc091'"
         dark
         :style="{
-          zIndex: '9999999',
+          zIndex: '9999998',
           padding: isMobile ? '0px' : '0px 30px',
           marginTop: isHome && !isMobile ? '40px' : '0px',
         }"
@@ -47,7 +47,7 @@
       temporary
       right
       app
-      style="z-index: 999999"
+      style="z-index: 9999999"
     >
       <v-list dense nav>
         <!-- Web routes -->

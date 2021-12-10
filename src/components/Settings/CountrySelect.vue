@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import ohana from '@/assets/ohana'
+//import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
 export default {
   data() {
@@ -49,7 +49,8 @@ export default {
     selectedCountry() {
       if (this.settings.country) return this.settings.country
 
-      if (ohana.user.language().substr(0, 2) == 'es') {
+      //fallback (shouldn't be used, as vuex offers directly this same default value)
+      if (this.settings.language == 'es') {
         this.changeCountry('ES')
         return 'ES'
       } else {
@@ -60,13 +61,19 @@ export default {
     countriesDropdown() {
       let output = []
       for (let i = 0; i < this.countries.length; i++) {
+        let search_text = Object.keys(this.countries[i].translations)
+          .map((x) => this.countries[i].translations[x].common)
+          .join(' ')
         output.push({
           text:
             this.getNameTranslation(this.countries[i]) +
             ' ' +
             this.countries[i].cca2 +
             ' ' +
-            this.countries[i].region, //used for filter
+            this.countries[i].region +
+            ' ' +
+            search_text, //used for filter
+
           value: this.countries[i].cca2,
           name: this.getNameTranslation(this.countries[i]) + ' (' + this.countries[i].cca2 + ')',
           cca2: this.countries[i].cca2,
@@ -86,7 +93,7 @@ export default {
       this.$store.dispatch('updateSettings', settings)
     },
     getNameTranslation(country) {
-      let x = ohana.user.language().substr(0, 2)
+      let x = this.settings.language
       if (x == 'en') return country.name.common //eng is here
       if (x == 'es') return country.translations.spa.common //translations are here
     },

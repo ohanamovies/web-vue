@@ -71,6 +71,7 @@
         <v-tab-item class="outerr">
           <ProvidersSelect />
         </v-tab-item>
+        <v-tab-item class="outerr"> <OtherSettings /> </v-tab-item>
         <v-tab-item class="outerr">
           <div style="max-width: 400px; margin: auto">
             <Login />
@@ -122,12 +123,13 @@
 import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
 import WelcomeSheet from '@/components/Settings/WelcomeSheet.vue'
+import OtherSettings from '@/components/Settings/OtherSettings.vue'
 import Login from '@/components/Settings/Login.vue'
 import Tags2 from './Tags2.vue'
 import { mapState } from 'vuex'
 
 export default {
-  components: { Login, ProvidersSelect, CheckExtension, WelcomeSheet, Tags2 },
+  components: { Login, ProvidersSelect, CheckExtension, WelcomeSheet, Tags2, OtherSettings },
   props: {
     page: {
       type: Number,
@@ -140,6 +142,7 @@ export default {
     nextSteps() {
       return [
         'Start',
+        'Next',
         'Next',
         'Next',
         'Next',
@@ -168,6 +171,9 @@ export default {
       document.getElementById('tour_tabsElement').scrollIntoView(true)
 
       if (newValue >= this.nSlides) {
+        this.slide = 0 //reset (in case reopened!)
+
+        //let's save the date user did the tour in its own settings.
         let s = this.settings
         s.web_tour = new Date()
         this.$store.dispatch('updateSettings', s)

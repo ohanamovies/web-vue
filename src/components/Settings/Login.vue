@@ -8,7 +8,7 @@
     </div>
 
     <div v-else>
-      <h4>Login or sign up</h4>
+      <h4>Log in or sign up</h4>
       <p>
         With an Ohana TV account, you will be able to contribute to the community. Also, your
         preferences will follow you along if you switch devices.

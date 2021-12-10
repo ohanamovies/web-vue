@@ -44,7 +44,7 @@
 
         <!-- Footer: Imported here as component (Towards more modular coding) -->
         <!-- todo: for now forced to all pages by putting it in this App.vue component. If needed, remove from here and put the line of code in each subpage (if styling would depends on parent classes etc.) -->
-        <my-footer></my-footer>
+        <MyFooter />
       </v-main>
       <v-main v-else>
         <router-view :hideCloseButton="true" />

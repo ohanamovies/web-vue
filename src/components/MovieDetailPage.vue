@@ -255,7 +255,6 @@
 </template>
 
 <script>
-const provider = require('@/assets/provider')
 const rawTags = require('@/assets/raw_tags')
 import ohana from '@/assets/ohana'
 
@@ -304,8 +303,7 @@ export default {
     },
 
     language() {
-      //TODO: use vuex?
-      return ohana.user.language
+      return this.settings.language
     },
     mapping() {
       return {
@@ -314,7 +312,7 @@ export default {
     },
 
     parsedURL() {
-      return provider.parseURL(this.selection.watch_url) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
+      return ohana.providers.parseURL(this.selection.watch_url) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
     },
 
     ohanaSummaryHtml() {

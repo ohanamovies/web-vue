@@ -242,7 +242,6 @@
 </template>
 
 <script>
-const provider = require('@/assets/provider')
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
 import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
@@ -326,9 +325,7 @@ export default {
       return ohana.utils.formatTime(t)
     },
     language() {
-      //TODO: use vuex to maintain reactiveness?
-      return this.$i18n.locale.toLowerCase().split('-')[0]
-      //return ohana.user.language()
+      return this.settings.language
     },
 
     poster() {
@@ -346,7 +343,7 @@ export default {
     },
 
     parsedURL() {
-      return provider.parseURL(this.item.watch_url) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
+      return ohana.providers.parseURL(this.item.watch_url) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
     },
   },
   async mounted() {

@@ -19,10 +19,10 @@
               v-text="
                 value_group.title.es +
                 ' (' +
-                value_group.values.filter((x) => x.status && x.status != 'irrelevant').length +
+                value_group.values.filter((x) => x.status || x.status == 0).length +
                 ')'
               "
-              style="font-size: 110%"
+              style="font-size: 110%; font-weight: 600 !important"
             ></v-list-item-title>
           </v-list-item-content>
         </template>
@@ -38,9 +38,9 @@
           </v-list-item-content>
 
           <v-list-item-icon>
-            <v-icon v-if="value.status == 'positive'" color="green">mdi-thumb-up</v-icon>
-            <v-icon v-else-if="value.status == 'negative'" color="red">mdi-thumb-down</v-icon>
-            <v-icon v-else-if="value.status == 'mixed'" color="orange">mdi-thumbs-up-down</v-icon>
+            <v-icon v-if="value.status == 1" color="green">mdi-thumb-up</v-icon>
+            <v-icon v-else-if="value.status == -1" color="red">mdi-thumb-down</v-icon>
+            <v-icon v-else-if="value.status == 0" color="orange">mdi-thumbs-up-down</v-icon>
             <v-icon v-else color="black">mdi-circle-outline</v-icon>
           </v-list-item-icon>
         </v-list-item>
@@ -55,11 +55,12 @@ export default {
   data() {
     return {
       raw_values: raw_values.values,
+      selected_values: [],
     }
   },
   methods: {
     toggleValue(i, j) {
-      let options = ['positive', 'negative', 'mixed', 'irrelevant']
+      let options = [1, -1, 0, null]
       let index = options.indexOf(this.raw_values[i].values[j].status)
 
       console.log('iiii', i)

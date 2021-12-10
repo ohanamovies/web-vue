@@ -31,14 +31,26 @@
         <v-card-text class="pa-1 pt-0">
           <Settings2 :page="0" style="margin-top: 0px; background-color: white" />
         </v-card-text>
-        <v-card-actions style="background-color: #141414; color: white">
+        <v-card-actions style="border-top: 1px solid gray"
+          ><!--style="background-color: #141414; color: white"-->
           Ohana TV experience will adjust to your settings.
-          <v-spacer></v-spacer>
           <span @click="show_welcomeTour = true" class="modern-link" style="white-space: nowrap">
             See tour</span
           >
+          <v-spacer></v-spacer>
+          <v-btn @click="dialog_lang = true" text>{{ settings.language }}</v-btn>
+          <!-- <LanguageSelect style="max-width: 250px" /> -->
         </v-card-actions>
       </v-card>
+
+      <v-dialog v-model="dialog_lang" max-width="300">
+        <v-card>
+          <v-card-title></v-card-title>
+          <v-card-text>
+            <LanguageSelect style="max-width: 250px" />
+          </v-card-text>
+        </v-card>
+      </v-dialog>
       <div
         v-if="false"
         :style="{
@@ -319,7 +331,7 @@
       </div>
     </section>
 
-    <MyFooter2 />
+    <MyFooter />
 
     <v-dialog
       v-model="showMovieDialog"
@@ -338,10 +350,10 @@ import sharedjs from '@/sharedjs'
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
 import MoviePopup from '../components/MoviePopup/MoviePopup.vue'
-import MyFooter2 from '../components/MyFooter2'
 
 import WelcomeTour from '@/components/Settings/WelcomeTour.vue'
 import Settings2 from '@/components/Settings/Settings2.vue'
+import LanguageSelect from '@/components/Settings/LanguageSelect.vue'
 //import Sensitivity from '@/components/Settings/Sensitivity.vue'
 import Tags2 from '@/components/Settings/Tags2.vue'
 
@@ -351,8 +363,8 @@ export default {
     MoviePopup,
     Settings2,
     //Sensitivity,
-    MyFooter2,
     Tags2,
+    LanguageSelect,
   },
 
   head: function () {
@@ -369,6 +381,7 @@ export default {
       show_welcomeTour: false,
       settingsPage: 0,
       dialog_sensitivity: false,
+      dialog_lang: false, //dialog
 
       showMenu: false,
       mini: true,
@@ -516,7 +529,7 @@ export default {
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
     language() {
-      return this.$i18n.locale.toLowerCase().split('-')[0]
+      return this.settings.language
     },
     skipTags() {
       return this.$store.state.settings.skip_tags || []

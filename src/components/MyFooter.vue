@@ -1,114 +1,70 @@
 <template>
-  <footer id="footer" v-if="no_magic">
-    <div class="inner">
-      <h3 style="margin-bottom: 10px !important">Get in touch</h3>
-      <p style="font-size: 90%; opacity: 0.6">We'd love to hear from you</p>
+  <div>
+    <section
+      id="sponsors"
+      class="wrapper align-center"
+      style="background-color: #172026; color: white"
+    >
+      <div class="inner">
+        <h1 style="font-size: 24pt; color: white; font-weight: 500">Support Ohana</h1>
 
-      <form action="#" method="post">
-        <div class="field half first">
-          <label for="name">Name</label>
-          <input name="name" id="name" type="text" placeholder="Name" v-model="name" />
-        </div>
-        <div class="field half">
-          <label for="email">Email</label>
-          <input name="email" id="email" type="email" placeholder="Email" v-model="email" />
-        </div>
-        <div class="field">
-          <label for="message">Message</label>
-          <textarea
-            name="message"
-            id="message"
-            rows="6"
-            placeholder="Message"
-            v-model="message"
-          ></textarea>
-        </div>
-        <!--
-            <ul class="actions">
-              <li>
-                <input value="Send Message" class="button" type="submit" />
-              </li>
-            </ul>
-            -->
-      </form>
-      <!-- class="button"-->
+        <article style="max-width: 500px; margin: auto">
+          <p>
+            The ongoing development of Ohana is made possible by its communnity of volunteers,
+            donors, and sponsors. Want to help?
+          </p>
+          <a
+            class="button special"
+            href="https://www.patreon.com/ohanamovies"
+            target="_blank"
+            style="color: #469ae8"
+            >Visit our Patreon now!</a
+          >
+          <br />
+          <router-link to="/community" class="modern-link">Discover other ways to help</router-link>
+        </article>
 
-      <button @click="sendMessage()" style="background-color: white">Send</button>
-      <br />
-      <span>{{ infoText }}</span>
-      <br />
-      <br />
-      <br />
+        <h3 style="font-size: 16pt; color: white; font-weight: 500; margin-top: 30px">Sponsors</h3>
 
+        <div class="flex flex-3">
+          <a href="https://methos.media/" target="_blank" style="margin: auto">
+            <div class="image">
+              <img
+                width="200px"
+                src="images/sponsors/methods_media-white2.png"
+                alt="Methods Media"
+              />
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- legal mentions -->
+
+    <div style="background-color: #6cc091; color: white; padding: 10px; font-size: 80%">
       <div class="copyright">
         &copy; Ohana. Design:
         <a href="https://templated.co">TEMPLATED</a>. <br />
-        {{
-          isChrome
-            ? 'Well done! You are using Chrome'
-            : 'Note: It seems your browser is not compatible with Ohana :( | Try Google Chrome'
-        }}
+
         <!-- Images: <a href="https://unsplash.com">Unsplash</a>. -->
         <!-- Template and elements: https://templated.co/projection -->
       </div>
+      <b style="color: white">Dependencies and claims:</b>
+      <br />
+      <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+      <p>We also use IMDb data</p>
+      <p>
+        <router-link to="terms-of-use">Terms of use</router-link> |
+        <router-link to="/privacy-policy">Privacy Policy</router-link> |
+        <router-link to="/contact-us">Contact us</router-link>
+      </p>
     </div>
-  </footer>
+  </div>
 </template>
 
 <script>
-export default {
-  props: {
-    isChrome: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  data() {
-    return {
-      email: '',
-      name: '',
-      message: '',
-      infoText: '',
-    }
-  },
-  computed: {
-    no_magic() {
-      return !(window.location.href.includes('magic') || window.location.href.includes('item/'))
-    },
-  },
-  methods: {
-    sendMessage() {
-      var murl = 'https://www.arrietaeguren.es/movies/app/email.php'
-
-      if (this.email == '' || this.name == '' || this.message == '') {
-        this.infoText = 'Please, fill all the data'
-        return
-      }
-
-      if (!this.email.includes('@')) {
-        this.infoText = 'Invalid email. Please, fix and try again.'
-        return
-      }
-
-      var fd = new FormData()
-      fd.append('email', this.email)
-      fd.append('name', this.name)
-      fd.append('message', this.message)
-
-      fetch(murl, {
-        method: 'post',
-        body: fd,
-      })
-        .then((response) => {
-          return response.json()
-        })
-        .then((myJson) => {
-          console.log(myJson) //message sent
-          this.infoText = 'Message sent. Thank you!'
-        })
-    },
-  },
-}
+export default {}
 </script>
 
 <style lang="scss" scoped></style>

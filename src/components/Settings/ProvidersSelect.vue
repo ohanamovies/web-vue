@@ -3,15 +3,6 @@
     <!-- Providers -->
 
     <div>
-      <h4>Where are you?</h4>
-      <p>
-        Country is used to check availabiliy of movies and shows (as providers don't offer the same
-        in every country).
-      </p>
-      <CountrySelect />
-    </div>
-
-    <div>
       <h4>What providers do you use?</h4>
 
       <p>
@@ -56,11 +47,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import CountrySelect from '@/components/Settings/CountrySelect.vue'
+
 export default {
-  components: {
-    CountrySelect,
-  },
   data() {
     return {
       country: {},
