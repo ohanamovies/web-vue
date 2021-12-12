@@ -55,12 +55,12 @@ function searchMatch(searchText, searchInText) {
  * @returns
  */
 function headObject(title, description, path) {
-  let siteName = 'Ohana Movies'
+  let siteName = 'Ohana TV'
   let url = window.location.host + '/#' + path
 
   url = window.location.href
   let image = {
-    url: 'https://ohanamovies.org/icons/apple-touch-icon-180x180.png',
+    url: 'https://ohana.tv/icons/apple-touch-icon-180x180.png',
     width: 180,
     height: 180,
   }

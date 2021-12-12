@@ -198,13 +198,20 @@
               </div>
             </v-tab-item>
 
+            <!-- Add Provider -->
             <v-tab-item>
-              <div v-if="!settings.username">
-                <b>Sorry, only registered users can edit stuff.</b>
-                <Login style="border: 3px solid lightblue; padding: 10px; border-radius: 8px" />
+              <div style="margin-top: 10px">
+                To add a provider, you must open the {{ item.type }} in that provider, and start
+                editing. We will guide you there.
               </div>
-              <div v-else>
-                <AddProvider />
+              <div v-if="false">
+                <div v-if="!settings.username">
+                  <b>Sorry, only registered users can edit stuff.</b>
+                  <Login style="border: 3px solid lightblue; padding: 10px; border-radius: 8px" />
+                </div>
+                <div v-else>
+                  <AddProvider />
+                </div>
               </div>
             </v-tab-item>
           </v-tabs-items>
@@ -248,8 +255,16 @@ import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 import Login from '@/components/Settings/Login.vue'
 import AddProvider from '@/views/MoviePage/AddProvider.vue'
 import EditValues from '@/views/MoviePage/EditValues.vue'
+import sharedjs from '@/sharedjs'
 
 export default {
+  head: function () {
+    //This is used to generate the meta tags needed for better SEO and stuff.
+    //TODO: this is not reactive
+    let title = 'Movie Page ' + this.imdb //  this.item.title[this.settings.language]
+    let desc = 'Details about the movie ' + this.imdb // this.item.plot ? this.item.plot[this.settings.language]
+    return sharedjs.headObject(title, desc)
+  },
   components: {
     MoviePopup,
     Login,
@@ -272,9 +287,9 @@ export default {
       confirmCountry: false,
 
       item: {
-        poster: { en: '' },
-        title: { en: '' },
-        plot: { en: '' },
+        poster: { en: '', es: '' },
+        title: { en: '', es: '' },
+        plot: { en: '', es: '' },
         genres: [],
         join_status: { color: '', icon: '', status: '', cuts: -1 },
       },
@@ -356,6 +371,7 @@ export default {
     if (this.item.type == 'series') {
       this.episodes = await ohana.api.getEpisodes(this.imdb) //not doing await
     }
+
     this.loading = false
   },
 }

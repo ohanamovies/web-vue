@@ -11,7 +11,7 @@
     </v-dialog>
 
     <!-- A: if we have valid data  -->
-    <v-card v-if="loading" style="background-color: black">
+    <v-card v-if="loading" style="background-color: white">
       <v-card-text>
         <div style="margin: auto; text-align: center">
           <v-progress-circular indeterminate color="cyan"></v-progress-circular>
@@ -178,6 +178,7 @@
                   >
                     {{ item.join_status.icon }}
                   </v-icon>
+
                   <span :style="'color: ' + item.join_status.color || 'orange'">
                     {{ ohanaSummary }}
                   </span>
@@ -266,7 +267,7 @@
 
 <script>
 const rawTags = require('@/assets/raw_tags')
-import ohana from '@/assets/ohana'
+import ohana from '@/assets/ohana/index'
 
 import MovieWatchOptions from '@/components/MoviePopup/MovieWatchOptions2.vue'
 import { mapState } from 'vuex'
@@ -291,7 +292,8 @@ export default {
 
   data() {
     return {
-      item: {},
+      //item: {},
+      raw_item: {},
       loading: false,
 
       categories: [],
@@ -310,6 +312,13 @@ export default {
   },
 
   computed: {
+    item() {
+      if (this.raw_item.movieContent) {
+        return ohana.movies.addInfo(this.raw_item, this.skipTags)
+      } else {
+        return {}
+      }
+    },
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
     skipTags() {
       return this.$store.state.settings.skip_tags || []
@@ -379,6 +388,9 @@ export default {
   },
 
   methods: {
+    joinStatus(item) {
+      return ohana.movies.joinStatus3(item.movieContent, item.providers, this.settings.skipTags)
+    },
     resetPopup() {
       console.log('reset popup')
       this.viewMore = false
@@ -421,12 +433,12 @@ export default {
     async getData() {
       //this.item = this.selection
       this.resetPopup() //read more = false, etc.
-      this.item = {}
+      this.raw_item = {}
       this.loading = true
       if (this.imdb) {
         try {
-          this.item = await ohana.api.getMovie(this.imdb)
-          this.item = ohana.movies.addInfo(this.item, this.skipTags)
+          this.raw_item = await ohana.api.getMovie(this.imdb)
+          //this.item = ohana.movies.addInfo(this.item, this.skipTags)
         } catch (error) {
           console.log('error 10612 loading popup', error)
         }

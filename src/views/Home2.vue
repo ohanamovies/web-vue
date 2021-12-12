@@ -128,10 +128,10 @@
         v-if="!isMobile"
         style="margin: auto auto auto 48%; font-size: 24px; white-space: nowrap"
       >
-        ohana.tv
+        Ohana TV
       </div>
 
-      <div v-else style="margin: auto auto auto 5px; white-space: nowrap">ohana.tv</div>
+      <div v-else style="margin: auto auto auto 5px; white-space: nowrap">Ohana TV</div>
       <div>
         <v-text-field
           outlined
@@ -440,11 +440,13 @@ export default {
           data: [],
           query: { imdbRating: 8 }, // sort is done by number of votes
         },
+        /*        
         {
           title: 'Healthy TV Shows (for your settings) ',
           data: [],
           query: { type: 'series', clean: JSON.stringify(this.skipTags) },
         },
+        */
         {
           title: 'Documentaries',
           data: [],
@@ -539,8 +541,11 @@ export default {
   },
   methods: {
     joinStatus(item) {
-      let super_item = ohana.movies.addInfo(item)
-      return super_item.join_status
+      //TODO: we can use something like this instead of item.join_status to ensure things are reactive, but maybe too much computing cost...
+      let i = { ...item }
+      delete i.join_status
+      i = ohana.movies.addInfo(i, this.skipTags)
+      return i.join_status
     },
     scrollLeft(e) {
       e.scrollLeft -= e.offsetWidth - 140

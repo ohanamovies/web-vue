@@ -11,10 +11,22 @@
       >
         <v-tab-item
           class="pa-0 ma-0 outerr"
-          style="margin: auto; cursor: pointer"
-          @click="slide = slide + 1"
+          style="margin: auto; cursor: pointer; position: relative"
         >
-          <WelcomeSheet />
+          <div @click="slide = slide + 1">
+            <WelcomeSheet />
+          </div>
+          <div
+            style="
+              width: 200px;
+              position: absolute;
+              bottom: 40px;
+              left: calc(50% - 100px);
+              z-index: 9999999;
+            "
+          >
+            <LanguageSelect dark />
+          </div>
         </v-tab-item>
 
         <v-tab-item
@@ -124,12 +136,21 @@ import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
 import WelcomeSheet from '@/components/Settings/WelcomeSheet.vue'
 import OtherSettings from '@/components/Settings/OtherSettings.vue'
+import LanguageSelect from '@/components/Settings/LanguageSelect.vue'
 import Login from '@/components/Settings/Login.vue'
 import Tags2 from './Tags2.vue'
 import { mapState } from 'vuex'
 
 export default {
-  components: { Login, ProvidersSelect, CheckExtension, WelcomeSheet, Tags2, OtherSettings },
+  components: {
+    Login,
+    ProvidersSelect,
+    CheckExtension,
+    WelcomeSheet,
+    Tags2,
+    OtherSettings,
+    LanguageSelect,
+  },
   props: {
     page: {
       type: Number,

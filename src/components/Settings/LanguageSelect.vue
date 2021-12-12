@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-select
-      dense
+      :dark="dark"
       hide-details
       outlined
       :items="languages"
@@ -9,12 +9,36 @@
       :label="langLabel"
       @change="changeLanguage($event)"
     ></v-select>
+
+    <div
+      v-if="settings.language == 'es' && !hideDetails"
+      :style="{
+        marginTop: '10px',
+        fontSize: '85%',
+        color: dark ? 'white' : 'default',
+        lineHeight: '1.1',
+      }"
+    >
+      Nota: La mayor parte de la web está aún en inglés, pero estamos trabajando en ello.
+      <router-link v-if="!dark" to="/community" target="_blank">Ayudar</router-link>
+      <!-- FIXME: using dark here is an ugly workaround -->
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 export default {
+  props: {
+    hideDetails: {
+      type: Boolean,
+      default: false,
+    },
+    dark: {
+      type: Boolean,
+      default: false,
+    },
+  },
   computed: {
     ...mapState(['settings']),
     lang() {
