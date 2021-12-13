@@ -21,6 +21,7 @@
         <v-tab>Providers</v-tab>
         <v-tab>Episodes</v-tab>
         <v-tab>Raw data</v-tab>
+        <v-tab>Raw data + AddInfo</v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
@@ -239,6 +240,21 @@
             >
           </div>
         </v-tab-item>
+
+        <!-- RAW DATA -->
+        <v-tab-item>
+          <div>
+            <b>raw data</b>
+            <pre
+              style="
+                background-color: rgba(200, 200, 200, 0.4);
+                padding: 10px;
+                white-space: pre-wrap;
+              "
+              >{{ item_with_add_data }}</pre
+            >
+          </div>
+        </v-tab-item>
       </v-tabs-items>
 
       <div></div>
@@ -249,7 +265,7 @@
 </template>
 
 <script>
-import ohana from '@/assets/ohana'
+import ohana from '@/assets/ohana/index'
 import { mapState } from 'vuex'
 import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 import Login from '@/components/Settings/Login.vue'
@@ -298,6 +314,9 @@ export default {
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
+    item_with_add_data() {
+      return ohana.movies.addInfo(this.item, this.settings.skip_tags)
+    },
   },
   methods: {
     getCuts(tag, providerData) {

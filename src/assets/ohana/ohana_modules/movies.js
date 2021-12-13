@@ -104,7 +104,39 @@ const movies = {
   },
 
   addInfo(movie, skipTags) {
+    //TODO: somewhere we should remove the providers that are not edited, if we are going to say that the movie is edited.
     movie.join_status = movies.joinStatus3(movie.movieContent, movie.providers, skipTags)
+
+    //clarify which providers are done and which ones not!
+    movie.healthyProviders = []
+    movie.unhealthyProviders = []
+
+    if (movie.providers && skipTags) {
+      for (let i = 0; i < movie.providers.length; i++) {
+        const p = movie.providers[i]
+
+        if (!p.cleanTags) {
+          movie.unhealthyProviders.push(p)
+          continue
+        }
+
+        const cleanTags = p.cleanTags.split(' ')
+
+        let clean = true
+        for (let j = 0; j < skipTags.length; j++) {
+          const tag = skipTags[j].toLowerCase().replace(/\s/g, '_')
+          if (!cleanTags.includes(tag)) clean = false
+        }
+
+        if (clean) {
+          movie.healthyProviders.push(p)
+        } else {
+          movie.unhealthyProviders.push(p)
+        }
+      }
+    }
+    //------------------
+
     movie.brief_status = movies.getSummary(movie)
     if (typeof movie.movieValues == 'string')
       movie.movieValues = movies.parse(movie.movieValues, {})

@@ -1,6 +1,7 @@
 <template>
   <div>
     <!-- Sensitivity dialog -->
+
     <v-dialog
       v-model="dialog_sensitivity"
       max-width="500"
@@ -55,7 +56,7 @@
     <div v-if="is_clean || (is_done && hasApp) || bypass">
       <!-- providers -->
       <div style="display: flex">
-        <div v-for="(provider, index) in selection.providers" :key="index">
+        <div v-for="(provider, index) in displayProviders" :key="index">
           <a
             v-if="provider.provider != 'justwatch'"
             class="provider-link"
@@ -68,7 +69,7 @@
       </div>
       <!-- JustWatch -->
 
-      <span v-if="!selection.providers.length">
+      <span v-if="!displayProviders.length">
         <span>Sorry, no known providers available. </span>
         <a
           class="modern-link"
@@ -80,7 +81,7 @@
       </span>
 
       <div style="font-size: 80%">
-        {{ selection.providers.length ? 'Powered by' : 'You may search on ' }}
+        {{ displayProviders.length ? 'Powered by' : 'You may search on ' }}
         <a href="https://www.justwatch.com" target="_blank">
           <img height="9" src="images/providers/justwatch-rectangle.png" alt="JustWatch" />
         </a>
@@ -157,6 +158,14 @@ export default {
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile']),
+    displayProviders() {
+      //not offer options where content is not edited!!!
+      if (this.is_done) {
+        return this.selection.healthyProviders
+      } else {
+        return this.selection.providers
+      }
+    },
     no_settings() {
       return this.selection.join_status.status == 'unset'
     },

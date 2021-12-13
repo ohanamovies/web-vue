@@ -44,16 +44,22 @@
 
     <div style="background-color: #6cc091; color: white; padding: 10px; font-size: 80%">
       <div class="copyright">
-        &copy; Ohana. Design:
-        <a href="https://templated.co">TEMPLATED</a>. <br />
+        &copy; Ohana {{ new Date().getFullYear() }}
+        <!-- Design:
+        <a href="https://templated.co">TEMPLATED</a>. -->
+        <br />
 
         <!-- Images: <a href="https://unsplash.com">Unsplash</a>. -->
         <!-- Template and elements: https://templated.co/projection -->
       </div>
-      <b style="color: white">Dependencies and claims:</b>
+
       <br />
-      <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
-      <p>We also use IMDb data</p>
+      <p>
+        Ohana TV uses the
+        <a href="https://www.themoviedb.org/" rel="noopener noreferrer" target="_blank">TMDB</a> API
+        but is not endorsed or certified by TMDB. Same for
+        <a href="https://imdb.com" target="_blank" rel="noopener noreferrer">IMDb</a> data.
+      </p>
       <p>
         <router-link to="terms-of-use">Terms of use</router-link> |
         <router-link to="/privacy-policy">Privacy Policy</router-link> |
