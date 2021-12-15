@@ -333,8 +333,6 @@
       </div>
     </section>
 
-    <MyFooter />
-
     <v-dialog
       v-model="showMovieDialog"
       scrollable
