@@ -664,6 +664,11 @@ export default {
           for (var i = 0; i < data.length; i++) {
             ohana.movies.addInfo(data[i], this.skipTags)
           }
+
+          const excludeFromHome = ['tt0314331'] //imdb ids of movies to explicitely hide from home (so only show when searched)
+          data = data.filter((x) => {
+            return index == 0 || !excludeFromHome.includes(x.imdb)
+          })
           section.data = [...section.data, ...data]
 
           console.log(section.data)
