@@ -67,7 +67,7 @@
           <!-- donate -->
           <div class="alex1">
             <div><b>Donate</b> to support the development of Ohana.</div>
-            <a class="button" href="https://www.patreon.com/ohanamovies" target="_blank">donate</a>
+            <a class="button" href="https://www.patreon.com/ohanatv" target="_blank">donate</a>
           </div>
 
           <!-- TODO: confirm if use this one: feedback -->

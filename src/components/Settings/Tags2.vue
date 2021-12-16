@@ -42,11 +42,12 @@
       </table>
     </div>
 
-    <!--default -->
-    <div style="margin-top: 10px">
+    <!--default 
+    <div style="margin-top: 10px" v-if="false">
       Not sure?
       <span class="modern-link" @click="setDefaultSettings()">use the most used settings</span>.
     </div>
+    -->
 
     <!-- OPTIONS -->
     <div v-for="(category, c) in raw_tags.content" :key="c">
@@ -157,10 +158,12 @@ export default {
 
       this.$store.dispatch('updateSettings', settings)
     },
+    /**
+     * @deprecated
+     */
     setDefaultSettings() {
       let settings = this.settings
       settings.skip_tags = ['Very erotic', 'Moderately erotic'] //[...this.$store.state.default_settings.skip_tags]
-
       this.$store.dispatch('updateSettings', settings)
     },
     getIcon(tag) {

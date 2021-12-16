@@ -159,7 +159,7 @@
             </li>
             <li>
               <b>Donar. </b>
-              <a href="https://www.patreon.com/ohanamovies" target="_blank">Donaciones</a>
+              <a href="https://www.patreon.com/ohanatv" target="_blank">Donaciones</a>
             </li>
             <li><b>Código.</b> ¿Sabes escribir código?</li>
           </ol>
@@ -322,7 +322,7 @@
             </li>
             <li>
               <b>Donate. </b>
-              <a href="https://www.patreon.com/ohanamovies" target="_blank">Donate</a>
+              <a href="https://www.patreon.com/ohanatv" target="_blank">Donate</a>
             </li>
             <li><b>Code.</b> Do you know how to code?</li>
           </ol>

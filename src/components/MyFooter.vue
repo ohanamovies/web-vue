@@ -15,7 +15,7 @@
           </p>
           <a
             class="button special"
-            href="https://www.patreon.com/ohanamovies"
+            href="https://www.patreon.com/ohanatv"
             target="_blank"
             style="color: #469ae8"
             >Visit our Patreon now!</a
