@@ -1,7 +1,9 @@
 const utils = require('./utils').utils
 
 const api = {
-  async query(query) {
+  async query(query, newAPI = true) {
+    query.newAPI = newAPI
+
     return new Promise((resolve, reject) => {
       let url = utils.buildURL(query)
 
@@ -11,53 +13,33 @@ const api = {
         .then((data) => {
           data = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly".
           let d = JSON.parse(data)
-          if (!d.title) reject('wrong data...')
+          //if (!d.title) reject('wrong data...')  //TODO: why did we put this? maybe for "getMovie?"
           console.log('getData ', d)
 
           resolve(d)
         })
+        .catch((e) => reject(e))
     })
   },
   async getMovie(imdb) {
-    return new Promise((resolve, reject) => {
-      let url = utils.buildURL({
-        action: 'getMovie',
-        imdb: imdb,
-        newAPI: true,
-      })
-      console.log('[alex] [api] getting movie data', url)
-      fetch(url)
-        .then((r) => r.text())
-        .then((data) => {
-          data = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly".
-          let d = JSON.parse(data)
-          if (!d.title) reject('wrong data...')
-          console.log('getData ', d)
-
-          resolve(d)
-        })
-    })
+    let params = {
+      action: 'getMovie',
+      imdb: imdb,
+    }
+    return this.query(params)
   },
   async getEpisodes(imdb) {
-    return new Promise((resolve, reject) => {
-      let url = utils.buildURL({
-        action: 'getEpisodes',
-        imdb: imdb,
-        newAPI: true,
-      })
-      console.log('[alex] [api] getting episodes data', url)
-      fetch(url)
-        .then((r) => r.text())
-        .then((data) => {
-          data = data.replaceAll('Slighty', 'Slightly') //data might come with "Slighty" instead of "Slightly".
+    let params = { action: 'getEpisodes', imdb: imdb }
+    return this.query(params)
+  },
 
-          let d = JSON.parse(data)
-          if (!d.length) reject('wrong data...')
-          console.log('getData ', d)
-
-          resolve(d)
-        })
-    })
+  async getLatestEdited() {
+    let params = {
+      action: 'findMovies',
+      sort_by: 'last_edited',
+      sort_dir: 'desc',
+    }
+    return this.query(params)
   },
 }
 

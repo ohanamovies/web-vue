@@ -21,6 +21,7 @@ import MoviePage from '@/views/MoviePage/MoviePage.vue'
 import Privacy from '@/views/Legal/Privacy.vue'
 import TermsOfUse from '@/views/Legal/TermsOfUse.vue'
 import ContactUs from '@/views/Legal/ContactUs.vue'
+import Editors from '@/views/Editors/Editors.vue'
 
 Vue.use(VueRouter)
 
@@ -38,6 +39,11 @@ const routes = [
   {
     path: '/magic',
     redirect: '/',
+  },
+  {
+    path: '/editors',
+    name: 'Editors',
+    component: Editors,
   },
   {
     path: '/item/:imdb',

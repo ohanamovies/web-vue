@@ -15,10 +15,10 @@
           </p>
           <a
             class="button special"
-            href="https://www.patreon.com/ohanatv"
+            href="https://www.paypal.com/donate/?hosted_button_id=NKWWBA9FYGPTU"
             target="_blank"
             style="color: #469ae8"
-            >Visit our Patreon now!</a
+            >Donate</a
           >
           <br />
           <router-link to="/community" class="modern-link">Discover other ways to help</router-link>

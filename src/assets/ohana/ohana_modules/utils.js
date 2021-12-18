@@ -28,4 +28,5 @@ const utils = {
     return xh + ':' + xm + ':' + xs
   },
 }
+
 module.exports = { utils }
