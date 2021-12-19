@@ -4,14 +4,11 @@
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
         <!--   SPANISH TEXT -->
         <div class="inner">
-          <div style="height: 80px"></div>
-          <h1>Latest edited</h1>
-          <p>Here are the latest edited movies and shows:</p>
+          <h1>{{ username }}</h1>
 
-          <!-- {{ items }} -->
           <div v-if="error">Error. <button @click="getData()">try again</button></div>
-          <div v-else-if="loading">Loading...</div>
-          <div v-else style="max-width: 600px; margin: auto; padding: 5px">
+          <div v-if="loading">Loading...</div>
+          <div v-else>
             <div v-for="(item, index) in items" :key="index">
               <MovieListItem :item="item" />
             </div>
@@ -24,11 +21,18 @@
 
 <script>
 import ohana from '@/assets/ohana/index'
-import MovieListItem from './MovieeListItem.vue'
 import { mapState } from 'vuex'
+import MovieListItem from './MovieeListItem.vue'
+
 export default {
   components: {
     MovieListItem,
+  },
+  props: {
+    username: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -38,7 +42,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
+    ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'extension_version']),
   },
   methods: {
     async getData() {
@@ -50,6 +54,7 @@ export default {
           action: 'findMovies',
           sort_by: 'last_edited',
           sort_dir: 'desc',
+          contributors: JSON.stringify([this.username]),
         })
         this.loading = false
       } catch (error) {
@@ -63,4 +68,4 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped></style>

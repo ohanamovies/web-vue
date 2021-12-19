@@ -22,6 +22,7 @@ import Privacy from '@/views/Legal/Privacy.vue'
 import TermsOfUse from '@/views/Legal/TermsOfUse.vue'
 import ContactUs from '@/views/Legal/ContactUs.vue'
 import Editors from '@/views/Editors/Editors.vue'
+import UsernamePage from '@/views/Editors/UsernamePage.vue'
 
 Vue.use(VueRouter)
 
@@ -44,6 +45,12 @@ const routes = [
     path: '/editors',
     name: 'Editors',
     component: Editors,
+  },
+  {
+    path: '/editors/:username',
+    name: 'UsernamePage',
+    component: UsernamePage,
+    props: true,
   },
   {
     path: '/item/:imdb',

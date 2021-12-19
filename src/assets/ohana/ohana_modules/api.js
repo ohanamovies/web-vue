@@ -32,15 +32,6 @@ const api = {
     let params = { action: 'getEpisodes', imdb: imdb }
     return this.query(params)
   },
-
-  async getLatestEdited() {
-    let params = {
-      action: 'findMovies',
-      sort_by: 'last_edited',
-      sort_dir: 'desc',
-    }
-    return this.query(params)
-  },
 }
 
 module.exports = { api }
