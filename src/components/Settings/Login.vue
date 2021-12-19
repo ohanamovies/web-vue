@@ -234,7 +234,7 @@ export default {
           if (data) {
             console.log('dataaaa', data)
             let settings = this.$store.state.settings
-            settings.username = this.username_or_email
+            settings.username = data.username //make sure we use the username from the server
             settings.authToken = data.token
             settings.level = data.level
             this.$store.dispatch('updateSettings', settings)

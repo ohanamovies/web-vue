@@ -6,7 +6,7 @@
         <div class="inner">
           <div style="height: 80px"></div>
           <h1>Latest edited</h1>
-          <p>Here are the latest edited movies and shows:</p>
+          <p>Here are the latest {{ items.length }} edited movies and shows:</p>
 
           <!-- {{ items }} -->
           <div v-if="error">Error. <button @click="getData()">try again</button></div>
@@ -15,6 +15,7 @@
             <div v-for="(item, index) in items" :key="index">
               <MovieListItem :item="item" />
             </div>
+            <button @click="getData(true)">Load more</button>
           </div>
         </div>
       </section>
@@ -35,22 +36,30 @@ export default {
       items: [],
       loading: false,
       error: false,
+      pageSize: 50,
     }
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
   },
   methods: {
-    async getData() {
+    async getData(more = false) {
       this.loading = true
       this.error = false
-      this.items = []
+
       try {
-        this.items = await ohana.api.query({
+        let data = await ohana.api.query({
           action: 'findMovies',
           sort_by: 'last_edited',
           sort_dir: 'desc',
+          page: Math.round(this.items.length / this.pageSize) + 1,
+          pageSize: this.pageSize,
         })
+        if (more) {
+          this.items = [...this.items, ...data]
+        } else {
+          this.items = [...data]
+        }
         this.loading = false
       } catch (error) {
         this.error = true
@@ -59,6 +68,16 @@ export default {
   },
   mounted() {
     this.getData()
+
+    // Detect when scrolled to bottom.
+    const footer = document.querySelector('#footer')
+    const body = document.getElementsByTagName('body')[0]
+    body.onscroll = () => {
+      let left = body.clientHeight - window.innerHeight - footer.clientHeight - window.scrollY
+      if (left < 200) {
+        this.getData(true)
+      }
+    }
   },
 }
 </script>

@@ -21,22 +21,41 @@
             ><br />
             <span style="font-size: 80%">Edited by:</span>
             <v-chip
-              :to="'/editors/' + contributor"
+              :to="'/editors/' + clean(contributor)"
               v-for="(contributor, index2) in item.contributors.split(' ')"
               :key="index2"
               x-small
               class="ml-1"
-              >{{ contributor }}</v-chip
+              >{{ clean(contributor) }}</v-chip
             >
           </td>
         </tr>
       </table>
     </router-link>
-    <div v-else>Invalid item</div>
+    <div v-else>
+      Invalid/Unknown item
+      <br />
+
+      <div v-if="item.providers && item.providers.length">
+        <span style="font-size: 80%">
+          Identify it in:
+          <v-chip
+            :href="providerUrl(provider.providerID)"
+            target="_blank"
+            v-for="(provider, index2) in item.providers"
+            :key="index2"
+            x-small
+            class="ml-1"
+            >{{ provider.provider }}</v-chip
+          >
+        </span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import ohana from '@/assets/ohana/index'
 import { mapState } from 'vuex'
 export default {
   props: {
@@ -57,11 +76,20 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
   },
   methods: {
+    clean(text) {
+      let newtext = text.replace(/\s/g, '')
+      newtext = newtext.replace(/@.*/g, '')
+      newtext = newtext.toLowerCase()
+      return newtext
+    },
     getPoster(item) {
       if (!item || !item.poster) return
       return (
         'https://image.tmdb.org/t/p/w200' + item.poster[this.settings.language] || item.poster['en']
       ) //TODO: use size w154?
+    },
+    providerUrl(providerID) {
+      return ohana.providers.getLink2(providerID)
     },
   },
 }

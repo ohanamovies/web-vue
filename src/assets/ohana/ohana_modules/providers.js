@@ -27,6 +27,15 @@ const providers = {
     if (provider == 'primevideo') return 'https://primevideo.com/watch?gti=' + providerID
     if (provider == 'movistarplus') return 'https://ver.movistarplus.es/ficha?id=' + providerID
   },
+  getLink2(id) {
+    let provider = id.split('_')[0]
+    let providerID = id.split('_')[1]
+    if (provider == 'netflix') return 'https://www.netflix.com/watch/' + providerID
+    if (provider == 'hboespana') return 'https://es.hboespana.com/movies/-/' + providerID + '/play'
+    if (provider == 'disneyplus') return 'https://www.disneyplus.com/en-gb/video/' + providerID
+    if (provider == 'primevideo') return 'https://primevideo.com/watch?gti=' + providerID
+    if (provider == 'movistarplus') return 'https://ver.movistarplus.es/ficha?id=' + providerID
+  },
   parseURL(url) {
     this.fromApi.parseURL(url)
   },

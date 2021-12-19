@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="footer">
     <section
       id="sponsors"
       class="wrapper align-center"
