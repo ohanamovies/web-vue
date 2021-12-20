@@ -10,8 +10,8 @@
       </tr>
       <tr v-for="(user, index) in data" :key="index">
         <td>
-          <router-link :to="'/editor/' + user.data.username">
-            {{ user.data.username }}
+          <router-link :to="'/editor/' + clean(user.data.username)">
+            {{ clean(user.data.username) }}
           </router-link>
         </td>
         <td>{{ user.data.uniqueMovies }}</td>
@@ -32,6 +32,16 @@ export default {
     }
   },
   methods: {
+    clean(text) {
+      if (typeof text === 'string') {
+        let newtext = text.replace(/\s/g, '')
+        newtext = newtext.replace(/@.*/g, '')
+        newtext = newtext.toLowerCase()
+        return newtext
+      } else {
+        return text
+      }
+    },
     async getData() {
       let data = await ohana.api.query({
         action: 'getStats',
