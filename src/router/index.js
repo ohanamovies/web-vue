@@ -42,12 +42,13 @@ const routes = [
     redirect: '/',
   },
   {
-    path: '/editors',
+    path: '/editors/:page?',
     name: 'Editors',
     component: Editors,
+    props: true,
   },
   {
-    path: '/editors/:username',
+    path: '/editor/:username/:page?',
     name: 'UsernamePage',
     component: UsernamePage,
     props: true,

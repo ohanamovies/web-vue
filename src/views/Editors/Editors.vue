@@ -6,8 +6,12 @@
         <div class="inner">
           <div style="height: 80px"></div>
           <h1>Latest edited</h1>
-          <p>Here are the latest {{ items.length }} edited movies and shows:</p>
-
+          <div v-if="page == 1">
+            <p>Here are the latest {{ items.length }} edited movies and shows:</p>
+          </div>
+          <div v-if="page > 1">
+            <p>{{ page * pageSize + 1 + '-' + (page * pageSize + pageSize) }}</p>
+          </div>
           <!-- {{ items }} -->
           <div v-if="error">Error. <button @click="getData()">try again</button></div>
           <div v-else-if="loading">Loading...</div>
@@ -15,7 +19,10 @@
             <div v-for="(item, index) in items" :key="index">
               <MovieListItem :item="item" />
             </div>
-            <button @click="getData(true)">Load more</button>
+            <!-- pages -->
+
+            <button v-if="page > 1" @click="nextPage(-1)">previous page</button>
+            <button v-if="items.length >= pageSize" @click="nextPage(1)">next page</button>
           </div>
         </div>
       </section>
@@ -31,18 +38,32 @@ export default {
   components: {
     MovieListItem,
   },
+  props: {
+    page: {
+      type: String,
+      default: '1',
+    },
+  },
+  watch: {
+    page() {
+      this.getData()
+    },
+  },
   data() {
     return {
       items: [],
       loading: false,
       error: false,
-      pageSize: 50,
+      pageSize: 20,
     }
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
   },
   methods: {
+    nextPage(increment) {
+      this.$router.push('/editors/' + (+this.page + +increment))
+    },
     async getData(more = false) {
       this.loading = true
       this.error = false
@@ -52,7 +73,8 @@ export default {
           action: 'findMovies',
           sort_by: 'last_edited',
           sort_dir: 'desc',
-          page: Math.round(this.items.length / this.pageSize) + 1,
+          //imdb: 'tt0758758',
+          page: this.page, //Math.round(this.items.length / this.pageSize) + 1,
           pageSize: this.pageSize,
         })
         if (more) {
@@ -64,20 +86,12 @@ export default {
       } catch (error) {
         this.error = true
       }
+
+      window.scrollTo(0, 0)
     },
   },
   mounted() {
     this.getData()
-
-    // Detect when scrolled to bottom.
-    const footer = document.querySelector('#footer')
-    const body = document.getElementsByTagName('body')[0]
-    body.onscroll = () => {
-      let left = body.clientHeight - window.innerHeight - footer.clientHeight - window.scrollY
-      if (left < 200) {
-        this.getData(true)
-      }
-    }
   },
 }
 </script>
