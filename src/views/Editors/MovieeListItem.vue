@@ -44,9 +44,13 @@
                 :color="joinStatus[provider.provider].color"
                 dark
               >
-                {{ provider.provider + ' (' + joinStatus[provider.provider].cuts + ' cuts)' }}
-                <v-avatar right v-if="joinStatus[provider.provider].icon != 'none'">
-                  <v-icon x-small>{{ joinStatus[provider.provider].icon }}</v-icon>
+                {{ provider.provider + ' (' + joinStatus[provider.provider].cuts + ' edits)' }}
+                <v-avatar right>
+                  <v-icon x-small>{{
+                    joinStatus[provider.provider].icon == 'none'
+                      ? 'mdi-emoticon-happy'
+                      : joinStatus[provider.provider].icon
+                  }}</v-icon>
                 </v-avatar>
               </v-chip>
             </span>

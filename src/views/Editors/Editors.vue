@@ -4,8 +4,14 @@
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
         <!--   SPANISH TEXT -->
         <div class="inner">
-          <div style="height: 80px"></div>
           <h1>Latest edited</h1>
+
+          <!-- stats -->
+          <div>
+            <!-- TODO: stats -->
+            <EditorsStats />
+          </div>
+
           <div v-if="page == 1">
             <p>Here are the latest {{ items.length }} edited movies and shows:</p>
           </div>
@@ -33,10 +39,12 @@
 <script>
 import ohana from '@/assets/ohana/index'
 import MovieListItem from './MovieeListItem.vue'
+import EditorsStats from './EditorsStats.vue'
 import { mapState } from 'vuex'
 export default {
   components: {
     MovieListItem,
+    EditorsStats,
   },
   props: {
     page: {
@@ -67,6 +75,7 @@ export default {
     async getData(more = false) {
       this.loading = true
       this.error = false
+      this.items = []
 
       try {
         let data = await ohana.api.query({
