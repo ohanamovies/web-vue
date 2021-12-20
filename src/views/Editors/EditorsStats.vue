@@ -49,6 +49,9 @@ export default {
       })
       for (let i = 0; i < data.length; i++) {
         data[i].data = JSON.parse(data[i].data)
+        if (data[i].data.username == 'imdb' || data[i].data.username == 'excel') {
+          data.splice(i, 1)
+        }
       }
 
       data.sort((a, b) => {
