@@ -23,6 +23,7 @@ import TermsOfUse from '@/views/Legal/TermsOfUse.vue'
 import ContactUs from '@/views/Legal/ContactUs.vue'
 import Editors from '@/views/Editors/Editors.vue'
 import UsernamePage from '@/views/Editors/UsernamePage.vue'
+import PendingMapping from '@/views/Editors/PendingMapping.vue'
 
 Vue.use(VueRouter)
 
@@ -52,6 +53,12 @@ const routes = [
     name: 'UsernamePage',
     component: UsernamePage,
     props: true,
+  },
+  {
+    path: '/editors/stats/pending-mapping',
+    name: 'PendingMapping',
+    component: PendingMapping,
+    props: false,
   },
   {
     path: '/item/:imdb',

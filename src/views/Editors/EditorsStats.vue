@@ -1,14 +1,16 @@
 <template>
   <div>
-    <table border="1">
+    <table border="1" style="margin-bottom: 0px; padding-bottom: 0px">
       <tr>
+        <th>#</th>
         <th>user</th>
         <th>contributed to</th>
         <th>tagged</th>
         <th>scenes added</th>
         <th>scenes removed</th>
       </tr>
-      <tr v-for="(user, index) in data" :key="index">
+      <tr v-for="(user, index) in data2" :key="index">
+        <td>{{ index }}</td>
         <td>
           <router-link :to="'/editor/' + clean(user.data.username)">
             {{ clean(user.data.username) }}
@@ -20,6 +22,11 @@
         <td>{{ user.data.removedScenes }}</td>
       </tr>
     </table>
+    <span class="modern-link" @click="seeAll = !seeAll">{{
+      seeAll ? 'see less' : 'see more'
+    }}</span>
+    <br />
+    <br />
   </div>
 </template>
 
@@ -28,8 +35,15 @@ import ohana from '@/assets/ohana/index'
 export default {
   data() {
     return {
-      data: null,
+      data: [],
+      seeAll: false,
     }
+  },
+  computed: {
+    data2() {
+      if (this.seeAll) return this.data
+      return [...this.data].slice(0, 5)
+    },
   },
   methods: {
     clean(text) {
