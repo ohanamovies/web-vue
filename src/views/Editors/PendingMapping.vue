@@ -2,7 +2,7 @@
   <div>
     <div class="subpage">
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
-        <h1>Votes pending provider id</h1>
+        <h1>Votes pending provider id: {{ items.length }}</h1>
         <p>This should be fixed by opening the url and doing a manual mapping</p>
         <div v-if="loading">Loading...</div>
         <div v-else>
