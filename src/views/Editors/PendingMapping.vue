@@ -2,6 +2,7 @@
   <div>
     <div class="subpage">
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
+        <EditorsIndex />
         <h1>Votes pending provider id: {{ items.length }}</h1>
         <p>This should be fixed by opening the url and doing a manual mapping</p>
         <div v-if="loading">Loading...</div>
@@ -18,11 +19,22 @@
               <td>
                 {{ index }}
               </td>
-              <td>
+              <td style="font-size: 70%">
                 <a :href="watchUrl(item.targetID)" target="_blank">{{ item.targetID }}</a>
               </td>
-              <td>{{ removeDup(JSON.parse(item.users)).join(', ') }}</td>
-              <td>{{ JSON.parse(item.actions).join(', ') }}</td>
+              <td>
+                <v-chip
+                  small
+                  class="mr-1"
+                  v-for="(user, j) in removeDup(JSON.parse(item.users))"
+                  :key="j"
+                  :to="'/editor/' + clean(user)"
+                  >{{ clean(user) }}
+                </v-chip>
+              </td>
+              <td>
+                {{ JSON.parse(item.actions).join(', ') }}
+              </td>
               <td>{{ item.lastEdit.toLocaleString() }}</td>
             </tr>
           </table>
@@ -33,8 +45,12 @@
 </template>
 
 <script>
+import EditorsIndex from './EditorsIndex.vue'
 import ohana from '@/assets/ohana/index'
 export default {
+  components: {
+    EditorsIndex,
+  },
   data() {
     return {
       items: [],
@@ -42,6 +58,16 @@ export default {
     }
   },
   methods: {
+    clean(text) {
+      if (typeof text === 'string') {
+        let newtext = text.replace(/\s/g, '')
+        newtext = newtext.replace(/@.*/g, '')
+        newtext = newtext.toLowerCase()
+        return newtext
+      } else {
+        return text
+      }
+    },
     removeDup(arr) {
       return [...new Set(arr)]
     },

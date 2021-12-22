@@ -4,8 +4,8 @@
       <tr>
         <th>#</th>
         <th>user</th>
-        <th>contributed to</th>
-        <th>tagged</th>
+        <th>movies user contributed</th>
+        <th>movies tagged</th>
         <th>scenes added</th>
         <th>scenes removed</th>
       </tr>

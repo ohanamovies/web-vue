@@ -4,6 +4,7 @@
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
         <!--   SPANISH TEXT -->
         <div class="inner">
+          <EditorsIndex />
           <h1>Latest edited</h1>
 
           <!-- stats -->
@@ -40,11 +41,13 @@
 import ohana from '@/assets/ohana/index'
 import MovieListItem from './MovieeListItem.vue'
 import EditorsStats from './EditorsStats.vue'
+import EditorsIndex from './EditorsIndex.vue'
 import { mapState } from 'vuex'
 export default {
   components: {
     MovieListItem,
     EditorsStats,
+    EditorsIndex,
   },
   props: {
     page: {
