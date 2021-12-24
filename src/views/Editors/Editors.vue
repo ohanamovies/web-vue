@@ -6,6 +6,7 @@
         <div class="inner">
           <EditorsIndex />
           <h1>Latest edited</h1>
+          <h2>Leaderboard</h2>
 
           <!-- stats -->
           <div>

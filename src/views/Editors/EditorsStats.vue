@@ -2,10 +2,10 @@
   <div>
     <div style="overflow-x: auto">
       <table border="1" style="margin-bottom: 0px; padding-bottom: 0px">
-        <tr>
+        <tr style="font-size: 80%">
           <th>#</th>
           <th>user</th>
-          <th>movies user contributed</th>
+          <th>movies contributed</th>
           <th>movies tagged</th>
           <th>scenes added</th>
           <th>scenes removed</th>
