@@ -24,6 +24,7 @@ import ContactUs from '@/views/Legal/ContactUs.vue'
 import Editors from '@/views/Editors/Editors.vue'
 import UsernamePage from '@/views/Editors/UsernamePage.vue'
 import PendingMapping from '@/views/Editors/PendingMapping.vue'
+import EditorsLeaderboard from '@/views/Editors/EditorsLeaderboard.vue'
 
 Vue.use(VueRouter)
 
@@ -58,6 +59,12 @@ const routes = [
     path: '/editors/stats/pending-mapping',
     name: 'PendingMapping',
     component: PendingMapping,
+    props: false,
+  },
+  {
+    path: '/editors/stats/leaderboard',
+    name: 'EditorsLeaderboard',
+    component: EditorsLeaderboard,
     props: false,
   },
   {

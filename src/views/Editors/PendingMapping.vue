@@ -4,7 +4,7 @@
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
         <div class="inner">
           <EditorsIndex />
-          <h1>Votes pending provider id: {{ items.length }}</h1>
+          <b>Votes pending provider id: {{ items.length }}</b>
           <p>This should be fixed by opening the url and doing a manual mapping</p>
           <div v-if="loading">Loading...</div>
           <div v-else>

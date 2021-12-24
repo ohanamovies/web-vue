@@ -1,12 +1,15 @@
 <template>
-  <div style="display: flex; font-size: 80%">
-    <div v-for="(r, index) in routes" :key="index">
-      <router-link :to="r.route" style="margin: 5px" :style="{ fontWeight: fw(r) }">{{
-        r.text
-      }}</router-link
-      >|
+  <div>
+    <h1>Editors</h1>
+    <div style="display: flex; font-size: 80%">
+      <div v-for="(r, index) in routes" :key="index">
+        <router-link :to="r.route" style="margin: 5px" :style="{ fontWeight: fw(r) }">{{
+          r.text
+        }}</router-link
+        >|
+      </div>
+      <hr />
     </div>
-    <hr />
   </div>
 </template>
 
@@ -20,8 +23,9 @@ export default {
     ...mapState(['settings']),
     routes() {
       let routes = [
-        { text: 'last edited', route: '/editors' },
-        { text: 'pending mapping', route: '/editors/stats/pending-mapping' },
+        { text: 'Leaderboard', route: '/editors/stats/leaderboard' },
+        { text: 'Last edited', route: '/editors' },
+        { text: 'Pending mapping', route: '/editors/stats/pending-mapping' },
       ]
       if (this.settings.username) {
         routes.push({ text: 'my edits', route: '/editor/' + this.settings.username })

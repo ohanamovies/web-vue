@@ -3,6 +3,10 @@
     <h2>Hello {{ settings.username }}!</h2>
     You are level {{ settings.level }}
 
+    <p>
+      <router-link :to="'/editor/' + this.settings.username">my edits</router-link>
+    </p>
+
     <br />
     <span class="modern-link" @click="logout()" style="font-size: 70%">Logout</span>
 

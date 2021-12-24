@@ -5,14 +5,6 @@
         <!--   SPANISH TEXT -->
         <div class="inner">
           <EditorsIndex />
-          <h1>Latest edited</h1>
-          <h2>Leaderboard</h2>
-
-          <!-- stats -->
-          <div>
-            <!-- TODO: stats -->
-            <EditorsStats />
-          </div>
 
           <div v-if="page == 1">
             <p>Here are the latest {{ items.length }} edited movies and shows:</p>
@@ -41,13 +33,12 @@
 <script>
 import ohana from '@/assets/ohana/index'
 import MovieListItem from './MovieeListItem.vue'
-import EditorsStats from './EditorsStats.vue'
+
 import EditorsIndex from './EditorsIndex.vue'
 import { mapState } from 'vuex'
 export default {
   components: {
     MovieListItem,
-    EditorsStats,
     EditorsIndex,
   },
   props: {
