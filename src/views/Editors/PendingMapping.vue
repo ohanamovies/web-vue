@@ -2,42 +2,46 @@
   <div>
     <div class="subpage">
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
-        <EditorsIndex />
-        <h1>Votes pending provider id: {{ items.length }}</h1>
-        <p>This should be fixed by opening the url and doing a manual mapping</p>
-        <div v-if="loading">Loading...</div>
-        <div v-else>
-          <table>
-            <tr>
-              <th>#</th>
-              <th>targetID</th>
-              <th>users</th>
-              <th>actions</th>
-              <th>lastEdit</th>
-            </tr>
-            <tr v-for="(item, index) in items" :key="index">
-              <td>
-                {{ index }}
-              </td>
-              <td style="font-size: 70%">
-                <a :href="watchUrl(item.targetID)" target="_blank">{{ item.targetID }}</a>
-              </td>
-              <td>
-                <v-chip
-                  small
-                  class="mr-1"
-                  v-for="(user, j) in removeDup(JSON.parse(item.users))"
-                  :key="j"
-                  :to="'/editor/' + clean(user)"
-                  >{{ clean(user) }}
-                </v-chip>
-              </td>
-              <td>
-                {{ JSON.parse(item.actions).join(', ') }}
-              </td>
-              <td>{{ item.lastEdit.toLocaleString() }}</td>
-            </tr>
-          </table>
+        <div class="inner">
+          <EditorsIndex />
+          <h1>Votes pending provider id: {{ items.length }}</h1>
+          <p>This should be fixed by opening the url and doing a manual mapping</p>
+          <div v-if="loading">Loading...</div>
+          <div v-else>
+            <div style="overflow-x: auto">
+              <table>
+                <tr>
+                  <th>#</th>
+                  <th>targetID</th>
+                  <th>users</th>
+                  <th>actions</th>
+                  <th>lastEdit</th>
+                </tr>
+                <tr v-for="(item, index) in items" :key="index">
+                  <td>
+                    {{ index }}
+                  </td>
+                  <td style="font-size: 70%; max-width: 15px; word-wrap: break-word">
+                    <a :href="watchUrl(item.targetID)" target="_blank">{{ item.targetID }}</a>
+                  </td>
+                  <td>
+                    <v-chip
+                      small
+                      class="mr-1"
+                      v-for="(user, j) in removeDup(JSON.parse(item.users))"
+                      :key="j"
+                      :to="'/editor/' + clean(user)"
+                      >{{ clean(user) }}
+                    </v-chip>
+                  </td>
+                  <td>
+                    {{ JSON.parse(item.actions).join(', ') }}
+                  </td>
+                  <td>{{ item.lastEdit.toLocaleString() }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
       </section>
     </div>

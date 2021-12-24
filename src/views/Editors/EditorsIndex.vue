@@ -1,10 +1,7 @@
 <template>
   <div style="display: flex; font-size: 80%">
     <div v-for="(r, index) in routes" :key="index">
-      <router-link :to="r.route">
-        {{ r.text }}
-      </router-link>
-      |
+      <router-link :to="r.route" style="margin: 5px"> {{ r.text }} </router-link>|
     </div>
     <hr />
   </div>

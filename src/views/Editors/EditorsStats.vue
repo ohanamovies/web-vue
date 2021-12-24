@@ -1,27 +1,29 @@
 <template>
   <div>
-    <table border="1" style="margin-bottom: 0px; padding-bottom: 0px">
-      <tr>
-        <th>#</th>
-        <th>user</th>
-        <th>movies user contributed</th>
-        <th>movies tagged</th>
-        <th>scenes added</th>
-        <th>scenes removed</th>
-      </tr>
-      <tr v-for="(user, index) in data2" :key="index">
-        <td>{{ index }}</td>
-        <td>
-          <router-link :to="'/editor/' + clean(user.data.username)">
-            {{ clean(user.data.username) }}
-          </router-link>
-        </td>
-        <td>{{ user.data.uniqueMovies }}</td>
-        <td>{{ user.data.tagged }}</td>
-        <td>{{ user.data.addedScenes }}</td>
-        <td>{{ user.data.removedScenes }}</td>
-      </tr>
-    </table>
+    <div style="overflow-x: auto">
+      <table border="1" style="margin-bottom: 0px; padding-bottom: 0px">
+        <tr>
+          <th>#</th>
+          <th>user</th>
+          <th>movies user contributed</th>
+          <th>movies tagged</th>
+          <th>scenes added</th>
+          <th>scenes removed</th>
+        </tr>
+        <tr v-for="(user, index) in data2" :key="index">
+          <td>{{ index }}</td>
+          <td>
+            <router-link :to="'/editor/' + clean(user.data.username)">
+              {{ clean(user.data.username) }}
+            </router-link>
+          </td>
+          <td>{{ user.data.uniqueMovies }}</td>
+          <td>{{ user.data.tagged }}</td>
+          <td>{{ user.data.addedScenes }}</td>
+          <td>{{ user.data.removedScenes }}</td>
+        </tr>
+      </table>
+    </div>
     <span class="modern-link" @click="seeAll = !seeAll">{{
       seeAll ? 'see less' : 'see more'
     }}</span>
