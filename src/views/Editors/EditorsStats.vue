@@ -47,12 +47,15 @@ export default {
   },
   methods: {
     clean(text) {
+      console.log('clean', text)
       if (typeof text === 'string') {
         let newtext = text.replace(/\s/g, '')
         newtext = newtext.replace(/@.*/g, '')
         newtext = newtext.toLowerCase()
+        console.log('cleaned', newtext)
         return newtext
       } else {
+        console.log('cleaned', text)
         return text
       }
     },
@@ -62,7 +65,6 @@ export default {
         about: 'editors',
       })
       for (let i = 0; i < data.length; i++) {
-        data[i].data = JSON.parse(data[i].data)
         if (data[i].data.username == 'imdb' || data[i].data.username == 'excel') {
           data.splice(i, 1)
         }
