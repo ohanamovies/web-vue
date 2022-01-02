@@ -1,8 +1,11 @@
+const SOURCE = 'web'
+
 const utils = require('./utils').utils
 
 const api = {
   async query(query, newAPI = true) {
     query.newAPI = newAPI
+    query.source = SOURCE
 
     return new Promise((resolve, reject) => {
       let url = utils.buildURL(query)
@@ -28,8 +31,8 @@ const api = {
     }
     return this.query(params)
   },
-  async getEpisodes(imdb) {
-    let params = { action: 'getEpisodes', imdb: imdb }
+  async getEpisodes(imdbParent) {
+    let params = { action: 'getEpisodes', imdbParent: imdbParent }
     return this.query(params)
   },
 }

@@ -221,7 +221,29 @@
         <v-tab-item>
           <h4>Episodes are work in progress</h4>
           <div v-if="episodes">
-            {{ episodes }}
+            <router-link
+              :to="'./' + episode.tconst"
+              v-for="episode of episodes"
+              :key="episode.tconst"
+            >
+              <div
+                class="episodeListItem"
+                :style="{ fontWeight: episode.tconst == imdb ? 'bold' : 'normal' }"
+              >
+                {{
+                  'S' +
+                  episode.seasonNumber +
+                  'E' +
+                  episode.episodeNumber +
+                  ': ' +
+                  episode.primaryTitle +
+                  ' (' +
+                  episode.runtimeMinutes +
+                  ' min)'
+                }}
+                <br />
+              </div>
+            </router-link>
           </div>
           <div v-else>Hmmm. No data?</div>
         </v-tab-item>
@@ -309,6 +331,7 @@ export default {
         genres: [],
         join_status: { color: '', icon: '', status: '', cuts: -1 },
       },
+
       episodes: false,
     }
   },
@@ -316,6 +339,33 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
     item_with_add_data() {
       return ohana.movies.addInfo(this.item, this.settings.skip_tags)
+    },
+    poster() {
+      let path = ''
+      if (this.item.poster[this.language]) path = this.item.poster[this.language]
+      else if (this.item.poster['en']) path = this.item.poster['en']
+      if (path) return 'https://image.tmdb.org/t/p/w200' + path
+      else return 'https://ohana.tv/images/empty-poster.png'
+    },
+
+    finalTitle() {
+      if (this.item.season && this.item.episode) {
+        return 'S' + this.item.season + 'E' + this.item.episode + ': ' + this.title
+      } else {
+        return this.title
+      }
+    },
+
+    title() {
+      if (this.item.title[this.language]) return this.item.title[this.language]
+      if (this.item.title['primary']) return this.item.title['primary']
+      return ''
+    },
+
+    plot() {
+      if (this.item.plot[this.language]) return this.item.plot[this.language]
+      if (this.item.plot['primary']) return this.item.plot['primary']
+      return ''
     },
   },
   methods: {
@@ -362,20 +412,6 @@ export default {
       return this.settings.language
     },
 
-    poster() {
-      let path = this.item.poster[this.language()] || this.item.poster['en']
-      return 'https://image.tmdb.org/t/p/w200' + path
-    },
-
-    title() {
-      if (!this.item.title) return ''
-      return this.item.title[this.language()] || this.item.title['primary']
-    },
-
-    plot() {
-      return this.item.plot[this.language()] || this.item.plot['en']
-    },
-
     parsedURL() {
       return ohana.providers.parseURL(this.item.watch_url) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
     },
@@ -387,8 +423,11 @@ export default {
     this.item = ohana.movies.addInfo(this.item, this.skipTags)
 
     //episodes
-    if (this.item.type == 'series') {
-      this.episodes = await ohana.api.getEpisodes(this.imdb) //not doing await
+    if (this.item.parent) {
+      // this.parent_item = await ohana.api.getMovie(this.item.parent)
+      this.episodes = await ohana.api.getEpisodes(this.item.parent)
+    } else if (this.item.type == 'series') {
+      this.episodes = await ohana.api.getEpisodes(this.imdb) //TODO: may not need to do await...
     }
 
     this.loading = false
@@ -397,6 +436,18 @@ export default {
 </script>
 
 <style scoped>
+.episodeListItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+}
+.episodeListItem:hover {
+  background-color: #eee;
+}
 .moviepage {
   margin-top: 80px !important;
   padding: 10px;

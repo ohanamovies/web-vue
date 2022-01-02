@@ -51,6 +51,9 @@
             >
               {{ blur_if_missing ? 'See poster' : 'Blur poster' }}
             </div>
+            <div v-if="item.parent" style="text-align: center">
+              <router-link :to="'./' + item.parent">check the full serie</router-link>
+            </div>
           </v-col>
           <v-col class="pa-0">
             <v-card-title
@@ -62,7 +65,7 @@
                 margin-bottom: 5px;
               "
             >
-              <span style="max-width: calc(100% - 30px)">{{ title }}</span>
+              <span style="max-width: calc(100% - 30px)">{{ finalTitle }}</span>
               <span style="font-size: 60%; font-color: rgba(0, 0, 0, 0.6); margin-top: 3px">
                 ({{ item.released }})</span
               >
@@ -257,7 +260,16 @@
           <span> Error! Please try again.</span>
           <br />
           <v-btn depressed text @click="getData()">Try again</v-btn>
-          <br />
+          <span
+            ><br /><br />You may check
+            <a
+              :href="'https://www.imdb.com/title/' + imdb"
+              target="_blank"
+              rel="noopener noreferrer"
+              >IMDb</a
+            >
+            as fallback</span
+          >
           <!-- <span>{{ item }}</span>-->
         </div>
       </v-card-text>
@@ -348,16 +360,31 @@ export default {
     },
 
     poster() {
-      let path = this.item.poster[this.language] || this.item.poster['en']
-      return 'https://image.tmdb.org/t/p/w200' + path
+      let path = ''
+      if (this.item.poster[this.language]) path = this.item.poster[this.language]
+      else if (this.item.poster['en']) path = this.item.poster['en']
+      if (path) return 'https://image.tmdb.org/t/p/w200' + path
+      else return 'https://ohana.tv/images/empty-poster.png'
+    },
+
+    finalTitle() {
+      if (this.item.season && this.item.episode) {
+        return 'S' + this.item.season + 'E' + this.item.episode + ': ' + this.title
+      } else {
+        return this.title
+      }
     },
 
     title() {
-      return this.item.title[this.language] || this.item.title['primary']
+      if (this.item.title[this.language]) return this.item.title[this.language]
+      if (this.item.title['primary']) return this.item.title['primary']
+      return ''
     },
 
     plot() {
-      return this.item.plot[this.language] || this.item.plot['en']
+      if (this.item.plot[this.language]) return this.item.plot[this.language]
+      if (this.item.plot['primary']) return this.item.plot['primary']
+      return ''
     },
 
     parsedURL() {

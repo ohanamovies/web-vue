@@ -3,12 +3,12 @@
     <table style="margin: 0">
       <router-link :to="'/item/' + item.imdb" class="no_hover">
         <tr v-if="item.title">
-          <td style="vertical-align: top; padding: 0px 5px" width="80">
-            <img width="80" :src="getPoster(item)" />
+          <td v-if="poster" style="vertical-align: top; padding: 0px 5px" width="80">
+            <img width="80" :src="poster" />
           </td>
           <td style="vertical-align: top; padding: 0px 5px">
             <h3>
-              {{ item.title ? item.title.en : '' }}
+              {{ finalTitle }}
               <span style="font-size: 50%">({{ item.released }})</span>
             </h3>
             <p v-if="false">{{ item.plot ? item.plot.en : '' }}</p>
@@ -96,6 +96,26 @@ export default {
 
       return output
     },
+    finalTitle() {
+      if (this.item.season && this.item.episode) {
+        return 'S' + this.item.season + 'E' + this.item.episode + ': ' + this.title
+      } else {
+        return this.title
+      }
+    },
+
+    title() {
+      if (this.item.title[this.language]) return this.item.title[this.language]
+      if (this.item.title['primary']) return this.item.title['primary']
+      return ''
+    },
+    poster() {
+      let path = ''
+      if (this.item.poster[this.language]) path = this.item.poster[this.language]
+      else if (this.item.poster['en']) path = this.item.poster['en']
+      if (path) return 'https://image.tmdb.org/t/p/w200' + path
+      else return false //'https://ohana.tv/images/empty-poster.png'
+    },
   },
   methods: {
     clean(text) {
@@ -104,12 +124,7 @@ export default {
       newtext = newtext.toLowerCase()
       return newtext
     },
-    getPoster(item) {
-      if (!item || !item.poster) return
-      return (
-        'https://image.tmdb.org/t/p/w200' + item.poster[this.settings.language] || item.poster['en']
-      ) //TODO: use size w154?
-    },
+
     providerUrl(providerID) {
       return ohana.providers.getLink2(providerID)
     },
