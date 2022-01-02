@@ -51,9 +51,6 @@
             >
               {{ blur_if_missing ? 'See poster' : 'Blur poster' }}
             </div>
-            <div v-if="item.parent" style="text-align: center">
-              <router-link :to="'./' + item.parent">check the full serie</router-link>
-            </div>
           </v-col>
           <v-col class="pa-0">
             <v-card-title
@@ -235,17 +232,22 @@
                 </div>
               </div>
               <!-- Feedbak button -->
-              <div style="text-align: right; padding-right: 10px">
-                <a
-                  v-if="is_unknown || is_missing"
-                  class="modern-link"
-                  :href="feedback_link"
-                  target="_blank"
-                  >Request review
-                </a>
-                <a v-else class="modern-link" :href="feedback_link" target="_blank">{{
-                  $t('feedbackPopUp')
-                }}</a>
+              <div style="dispay: flex">
+                <div v-if="item.parent" style="text-align: left; padding-right: 10px">
+                  <router-link :to="'./' + item.parent">check the full serie</router-link>
+                </div>
+                <div style="text-align: right; padding-right: 10px">
+                  <a
+                    v-if="is_unknown || is_missing"
+                    class="modern-link"
+                    :href="feedback_link"
+                    target="_blank"
+                    >Request review
+                  </a>
+                  <a v-else class="modern-link" :href="feedback_link" target="_blank">{{
+                    $t('feedbackPopUp')
+                  }}</a>
+                </div>
               </div>
             </v-card-text>
           </v-col>
