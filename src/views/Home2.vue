@@ -413,7 +413,7 @@ export default {
           query: {},
         },
         {
-          title: 'Cleaned for you by Ohana',
+          title: 'Edited for you by Ohana',
           data: [],
           query: {},
         },

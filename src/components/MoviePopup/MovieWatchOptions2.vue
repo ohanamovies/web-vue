@@ -47,7 +47,7 @@
       <i v-if="is_missing || (is_done && !hasApp)" style="color: red">(beware unhealthy content)</i>
       <i v-else-if="is_unknown" style="color: orange">(beware unknown content)</i>
       <i v-else-if="is_mixed" style="color: orange">(beware mixed content)</i>
-      <i v-else-if="is_done || hasApp" style="color: green">(edited)</i>
+      <i v-else-if="is_done && hasApp" style="color: green">(edited)</i>
       <i v-else-if="no_settings" style="color: gray">(no settings)</i>
       <i v-else-if="is_clean" style="color: green">(healthy)</i>
     </div>
