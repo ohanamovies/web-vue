@@ -1,12 +1,12 @@
 <template>
-  <div id="footer">
+  <div id="footerr">
     <section
       id="sponsors"
       class="wrapper align-center"
-      style="background-color: #172026; color: white"
+      style="background-color: #141414; color: white"
     >
       <div class="inner">
-        <h1 style="font-size: 24pt; color: white; font-weight: 500">Support Ohana</h1>
+        <h1 style="font-size: 24pt; color: white; font-weight: 500">Want more?</h1>
 
         <article style="max-width: 500px; margin: auto">
           <p>
@@ -42,7 +42,15 @@
 
     <!-- legal mentions -->
 
-    <div style="background-color: #6cc091; color: white; padding: 10px; font-size: 80%">
+    <div
+      style="
+        background-color: #6cc091;
+        color: white;
+        padding: 10px;
+        font-size: 80%;
+        text-align: center;
+      "
+    >
       <div class="copyright">
         &copy; Ohana {{ new Date().getFullYear() }}
         <!-- Design:
@@ -55,10 +63,10 @@
 
       <br />
       <p>
-        Ohana TV uses the
-        <a href="https://www.themoviedb.org/" rel="noopener noreferrer" target="_blank">TMDB</a> API
-        but is not endorsed or certified by TMDB. Same for
-        <a href="https://imdb.com" target="_blank" rel="noopener noreferrer">IMDb</a> data.
+        Ohana TV uses data from
+        <a href="https://www.themoviedb.org/" rel="noopener noreferrer" target="_blank">TMDB</a> and
+        <a href="https://imdb.com" target="_blank" rel="noopener noreferrer">IMDb</a> but is not
+        endorsed nor certified by TMDB or IMDb. Same for
       </p>
       <p>
         <router-link to="terms-of-use">Terms of use</router-link> |

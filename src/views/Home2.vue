@@ -413,7 +413,7 @@ export default {
           query: {},
         },
         {
-          title: 'Novedades',
+          title: 'Recently reviewed',
           data: [],
           query: { sort_by: 'last_edited' },
         },
