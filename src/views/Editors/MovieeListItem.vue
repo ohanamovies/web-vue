@@ -2,33 +2,41 @@
   <div style="padding: 5px; margin: 5px; border-radius: 5px; border: 1px solid #e0e0e0">
     <table style="margin: 0">
       <router-link :to="'/item/' + item.imdb" class="no_hover">
-        <tr v-if="item.title">
+        <tr v-if="Object.keys(item.title).length">
           <td v-if="poster" style="vertical-align: top; padding: 0px 5px" width="80">
             <img width="80" :src="poster" />
           </td>
           <td style="vertical-align: top; padding: 0px 5px">
-            <h3>
+            <h3 style="margin-bottom: 5px">
               {{ finalTitle }}
               <span style="font-size: 50%">({{ item.released }})</span>
             </h3>
+            <span v-if="parentData" style="font-size: 75%; color: black"
+              >Part of
+              <router-link :to="'/item/' + parentData.imdb">
+                {{ parentData.title.primary }}</router-link
+              ></span
+            >
+
             <p v-if="false">{{ item.plot ? item.plot.en : '' }}</p>
           </td>
         </tr>
         <tr v-else style="color: black">
-          Invalid/Unknown item
+          Unknown/Invalid item
         </tr>
       </router-link>
+
       <tr>
         <td colspan="2">
           <span style="font-size: 80%"
             >Edited by:
             <v-chip
-              :to="'/editor/' + clean(contributor)"
+              :to="'/editor/' + cleanContributor(contributor)"
               v-for="(contributor, index2) in item.contributors.split(' ')"
               :key="index2"
               x-small
               class="ml-1"
-              >{{ clean(contributor) }}</v-chip
+              >{{ cleanContributor(contributor) }}</v-chip
             >
           </span>
 
@@ -59,6 +67,7 @@
           <span style="font-size: 75%; color: black">
             Last edited: {{ new Date(item.lastEdited).toLocaleString() }}
           </span>
+          <br />
         </td>
       </tr>
     </table>
@@ -81,6 +90,7 @@ export default {
   data() {
     return {
       key: 'value',
+      parentData: false,
     }
   },
   computed: {
@@ -110,15 +120,23 @@ export default {
       return ''
     },
     poster() {
+      //returns item poster or parent's if parent imdb
       let path = ''
-      if (this.item.poster[this.language]) path = this.item.poster[this.language]
-      else if (this.item.poster['en']) path = this.item.poster['en']
+      let item = this.item
+      if (this.parentData) item = this.parentData
+
+      console.log('item', item)
+
+      if (!item.poster) return false
+      if (item.poster[this.language]) path = item.poster[this.language]
+      else if (item.poster['en']) path = item.poster['en']
+
       if (path) return 'https://image.tmdb.org/t/p/w200' + path
       else return false //'https://ohana.tv/images/empty-poster.png'
     },
   },
   methods: {
-    clean(text) {
+    cleanContributor(text) {
       let newtext = text.replace(/\s/g, '')
       newtext = newtext.replace(/@.*/g, '')
       newtext = newtext.toLowerCase()
@@ -128,6 +146,11 @@ export default {
     providerUrl(providerID) {
       return ohana.providers.getLink2(providerID)
     },
+  },
+  async mounted() {
+    if (this.item.parent && this.item.parent.startsWith('tt')) {
+      this.parentData = await ohana.api.getMovie(this.item.parent)
+    }
   },
 }
 </script>

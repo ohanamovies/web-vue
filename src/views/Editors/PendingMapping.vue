@@ -34,10 +34,10 @@
                       >{{ clean(user) }}
                     </v-chip>
                   </td>
-                  <td>
+                  <td style="font-size: 80%">
                     {{ JSON.parse(item.actions).join(', ') }}
                   </td>
-                  <td>{{ item.lastEdit.toLocaleString() }}</td>
+                  <td style="font-size: 80%">{{ new Date(item.lastEdit).toLocaleString() }}</td>
                 </tr>
               </table>
             </div>

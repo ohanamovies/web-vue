@@ -231,27 +231,45 @@
                   <movie-watch-options :selection="item"></movie-watch-options>
                 </div>
               </div>
-              <!-- Feedbak button -->
-              <div style="dispay: flex">
-                <div v-if="item.parent" style="text-align: left; padding-right: 10px">
-                  <router-link :to="'./' + item.parent">check the full serie</router-link>
-                </div>
-                <div style="text-align: right; padding-right: 10px">
-                  <a
-                    v-if="is_unknown || is_missing"
-                    class="modern-link"
-                    :href="feedback_link"
-                    target="_blank"
-                    >Request review
-                  </a>
-                  <a v-else class="modern-link" :href="feedback_link" target="_blank">{{
-                    $t('feedbackPopUp')
-                  }}</a>
-                </div>
-              </div>
             </v-card-text>
           </v-col>
         </v-row>
+
+        <!-- Feedbak button -->
+        <div v-if="item.parent" style="position: relative; height: 20px">
+          <div style="position: absolute; left: 10px">
+            <router-link :to="'./' + item.parent" v-if="item.parent"
+              >check the full serie</router-link
+            >
+          </div>
+        </div>
+        <div style="position: relative; height: 20px">
+          <div style="position: absolute; left: 10px; display: flex">
+            <b>Contributors:</b>
+            <div v-for="(contributor, index) of item.contributors.split(' ')" :key="index">
+              <v-chip
+                v-if="contributor != 'excel' && contributor"
+                class="ml-1"
+                x-small
+                :to="'/editors/' + cleanContributor(contributor)"
+              >
+                {{ cleanContributor(contributor) }}
+              </v-chip>
+            </div>
+          </div>
+          <div style="position: absolute; right: 10px">
+            <a
+              v-if="is_unknown || is_missing"
+              class="modern-link"
+              :href="feedback_link"
+              target="_blank"
+              >Request review
+            </a>
+            <a v-else class="modern-link" :href="feedback_link" target="_blank">{{
+              $t('feedbackPopUp')
+            }}</a>
+          </div>
+        </div>
       </v-card-text>
     </v-card>
 
@@ -417,6 +435,12 @@ export default {
   },
 
   methods: {
+    cleanContributor(text) {
+      let newtext = text.replace(/\s/g, '')
+      newtext = newtext.replace(/@.*/g, '')
+      newtext = newtext.toLowerCase()
+      return newtext
+    },
     joinStatus(item) {
       return ohana.movies.joinStatus3(item.movieContent, item.providers, this.settings.skipTags)
     },

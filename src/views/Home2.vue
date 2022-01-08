@@ -413,9 +413,9 @@ export default {
           query: {},
         },
         {
-          title: 'Edited for you by Ohana',
+          title: 'Novedades',
           data: [],
-          query: {},
+          query: { sort_by: 'last_edited' },
         },
 
         {
@@ -624,8 +624,6 @@ export default {
       // Add either title (index == 0) or tags we want to be clean
       if (index == 0) {
         query.title = this.title
-      } else if (index == 1) {
-        query.edited = JSON.stringify(this.skipTags)
       } else {
         query.clean = JSON.stringify(this.skipTags)
       }

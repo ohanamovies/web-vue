@@ -17,6 +17,7 @@ import NotFoundComponent from '@/views/Tutorials/NotFoundComponent.vue'
 import SettingsPage2 from '@/views/SettingsPage2.vue'
 import Bye from '@/views/Extension/Bye.vue'
 import Welcome from '@/views/Extension/Welcome.vue'
+import ReleaseNotes from '@/views/Extension/ReleaseNotes.vue'
 import MoviePage from '@/views/MoviePage/MoviePage.vue'
 import Privacy from '@/views/Legal/Privacy.vue'
 import TermsOfUse from '@/views/Legal/TermsOfUse.vue'
@@ -118,6 +119,11 @@ const routes = [
     path: '/extension/welcome',
     name: 'Welcome',
     component: Welcome,
+  },
+  {
+    path: '/extension/release-notes',
+    name: 'ReleaseNotes',
+    component: ReleaseNotes,
   },
   {
     path: '/extension/popup/:imdb',
