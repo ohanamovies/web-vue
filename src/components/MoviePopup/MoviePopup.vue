@@ -244,9 +244,9 @@
           </div>
         </div>
         <div style="position: relative; height: 20px">
-          <div style="position: absolute; left: 10px; display: flex">
-            <b>Contributors:</b>
-            <div v-for="(contributor, index) of item.contributors.split(' ')" :key="index">
+          <div style="position: absolute; left: 0px; display: flex">
+            <b v-if="contributors.length > 0">Contributors:</b>
+            <div v-for="(contributor, index) of contributors" :key="index">
               <v-chip
                 v-if="contributor != 'excel' && contributor != 'imdb' && contributor"
                 class="ml-1"
@@ -257,7 +257,7 @@
               </v-chip>
             </div>
           </div>
-          <div style="position: absolute; right: 10px">
+          <div style="position: absolute; right: 0px">
             <a
               v-if="is_unknown || is_missing"
               class="modern-link"
@@ -344,6 +344,12 @@ export default {
   },
 
   computed: {
+    contributors() {
+      let c = this.item.contributors.split(' ')
+      let remove = ['excel', 'imdb']
+      c = c.filter((e) => !remove.includes(e))
+      return c
+    },
     item() {
       if (this.raw_item.movieContent) {
         return ohana.movies.addInfo(this.raw_item, this.skipTags)
