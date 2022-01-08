@@ -248,7 +248,7 @@
             <b>Contributors:</b>
             <div v-for="(contributor, index) of item.contributors.split(' ')" :key="index">
               <v-chip
-                v-if="contributor != 'excel' && contributor"
+                v-if="contributor != 'excel' && contributor != 'imdb' && contributor"
                 class="ml-1"
                 x-small
                 :to="'/editors/' + cleanContributor(contributor)"
