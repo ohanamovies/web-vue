@@ -78,7 +78,7 @@ export default {
           chipTag.color = 'black'
           output.push(chipTag)
         } else if (this.selectedValues.some((item) => tag.parents.includes(item))) {
-          chipTag.color = 'primary'
+          chipTag.color = 'success'
           output.push(chipTag)
         }
       }
