@@ -26,6 +26,7 @@ import Editors from '@/views/Editors/Editors.vue'
 import UsernamePage from '@/views/Editors/UsernamePage.vue'
 import PendingMapping from '@/views/Editors/PendingMapping.vue'
 import EditorsLeaderboard from '@/views/Editors/EditorsLeaderboard.vue'
+import RemoteControl from '@/views/Extension/RemoteControl.vue'
 
 Vue.use(VueRouter)
 
@@ -44,10 +45,17 @@ const routes = [
     path: '/magic',
     redirect: '/',
   },
+
   {
     path: '/editors/:page?',
     name: 'Editors',
     component: Editors,
+    props: true,
+  },
+  {
+    path: '/extension/remote/:target',
+    name: 'RemoteControl',
+    component: RemoteControl,
     props: true,
   },
   {
