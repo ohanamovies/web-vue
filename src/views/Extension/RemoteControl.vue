@@ -5,6 +5,7 @@
         <h1>Target: {{ target }}</h1>
         Connected: {{ connected }}
         <br />
+        <p v-if="error" style="color: red">{{ error }}</p>
         <div v-if="movieData">Title: {{ movieData.title }}</div>
 
         <ul class="actions fit">
@@ -20,9 +21,6 @@
           <li><button @click="seekForward(+10000)" class="button fit">+10</button></li>
         </ul>
 
-        <div style="height: 20vh; overflow-y: auto">
-          {{ messages }}
-        </div>
         <div>
           <ul>
             <li v-for="(m, index) of messages" :key="index">{{ m }}</li>
@@ -49,6 +47,7 @@ export default {
       connected: false,
       messages: [],
       movieData: false,
+      error: '',
     }
   },
   methods: {
@@ -83,9 +82,13 @@ export default {
       })
     },
     handleSocketMessage(msg) {
-      this.messages.push(msg)
-      if (msg.action == 'movie-data') {
+      let data = JSON.parse(msg)
+      this.error = ''
+      this.messages.push(data)
+      if (data.action == 'movie-data') {
         this.movieData = msg.data
+      } else if (data.message == 'Internal server error') {
+        this.error = 'Ouch. Something went wrong. You sure movie is still there?'
       }
     },
     sendMessageToServer(action, data = null) {
