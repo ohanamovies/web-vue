@@ -1,9 +1,18 @@
 const SOURCE = 'web'
+//const store = require('@/vuex/store').default
 
 const utils = require('./utils').utils
 
 const api = {
-  async query(query, newAPI = true) {
+  async query(query, newAPI = true, signRequest = true) {
+    //console.log('store from api:!!!', store.getters.settings2)
+
+    if (signRequest) {
+      let s = JSON.parse(localStorage.settings)
+      query.user = s.username
+      query.token = s.authToken
+    }
+
     query.newAPI = newAPI
     query.source = SOURCE
 

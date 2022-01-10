@@ -67,7 +67,9 @@
 
             <!-- movie values -->
             <v-tab-item>
-              <EditValues />
+              <EditValues :imdb="imdb" />
+              <br />
+              Current data:
               <code>
                 {{ item.movieValues }}
               </code>
@@ -292,7 +294,7 @@ import { mapState } from 'vuex'
 import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 import Login from '@/components/Settings/Login.vue'
 import AddProvider from '@/views/MoviePage/AddProvider.vue'
-import EditValues from '@/views/MoviePage/EditValues.vue'
+import EditValues from '@/views/MoviePage/EditValues2.vue'
 import sharedjs from '@/sharedjs'
 
 export default {

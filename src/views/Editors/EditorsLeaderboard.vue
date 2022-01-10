@@ -16,6 +16,7 @@
                 <th>scenes added</th>
                 <th>scenes removed</th>
                 <th>movies mapped</th>
+                <th>last edited</th>
               </tr>
               <tr v-for="(user, index) in data2" :key="index">
                 <td>{{ index }}</td>
@@ -29,6 +30,7 @@
                 <td>{{ user.data.addedScenes }}</td>
                 <td>{{ user.data.removedScenes }}</td>
                 <td>{{ user.data.mapped }}</td>
+                <td style="font-size: 7pt">{{ user.data.lastEdited }}</td>
               </tr>
             </table>
           </div>

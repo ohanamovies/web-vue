@@ -57,7 +57,10 @@ const store = new Vuex.Store({
     isMobile: false,
   },
   getters: {
-    //getters are like computed properties for the store. Use store.getters.testPlus1 toa access
+    //getters are like computed properties for the store. Use store.getters.testPlus1 to access
+    settings2: (state) => {
+      return state.settings
+    },
   },
   mutations: {
     //trigger mutations by using store.commit(mutationName, payload)
