@@ -18,11 +18,13 @@
                   append-icon="mdi-magnify"
                   label="Search"
                   single-line
+                  clearable
                   hide-details
                 ></v-text-field>
               </v-card-title>
               <div style="overflow-x: auto">
                 <!-- TODO: in a wonderful future, we may need to implement server-side pagination -->
+                <!-- to keep mobile table as in desktop, add prop: mobile-breakpoint="0" -->
                 <v-data-table
                   dense
                   :loading="loading"
@@ -33,7 +35,6 @@
                   class="elevation-1"
                   :sort-by.sync="sortBy"
                   :sort-desc.sync="sortDesc"
-                  mobile-breakpoint="0"
                 >
                   <template v-slot:[`item.username`]="{ item }">
                     <router-link :to="'/editor/' + clean(item.username)">{{
@@ -73,6 +74,7 @@ export default {
         { value: 'addedScenes', text: 'scenes added' },
         { value: 'removedScenes', text: 'scenes removed' },
         { value: 'mapped', text: 'movies mapped' },
+        { value: 'valued', text: 'movies valued' },
         { value: 'votes', text: 'total votes' },
         { value: 'lastEdited', text: 'last edited' },
       ],
