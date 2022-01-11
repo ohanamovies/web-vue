@@ -2155,11 +2155,11 @@ textarea {
   -webkit-appearance: none;
   -ms-appearance: none;
   appearance: none;
-  background: #6cc091;
+  /*background: #6cc091;*/
   border-radius: 10px;
   border: none;
-  border: solid 2px #8dcca9;
-  color: #fff;
+  /*border: solid 2px #8dcca9;*/
+  /*color: #fff;*/
   display: block;
   outline: 0;
   padding: 0 1em;
@@ -2182,8 +2182,9 @@ input[type='email']:focus,
 input[type='tel']:focus,
 select:focus,
 textarea:focus {
-  border-color: #4bae77;
-  box-shadow: 0 0 0 1px #4bae77;
+  font-size: 100%;
+  /*border-color: #4bae77;*/
+  /*box-shadow: 0 0 0 1px #4bae77;*/
 }
 
 .select-wrapper {

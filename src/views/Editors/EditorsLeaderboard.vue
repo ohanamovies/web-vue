@@ -1,44 +1,52 @@
 <template>
   <div>
     <div class="subpage">
-      <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
+      <section id="main" class="wrapper" style="max-width: 900px; margin: auto">
         <!--   SPANISH TEXT -->
         <div class="inner">
           <EditorsIndex />
 
-          <div style="overflow-x: auto">
-            <table border="1" style="margin-bottom: 0px; padding-bottom: 0px">
-              <tr style="font-size: 80%">
-                <th>#</th>
-                <th>user</th>
-                <th>movies contributed</th>
-                <th>movies tagged</th>
-                <th>scenes added</th>
-                <th>scenes removed</th>
-                <th>movies mapped</th>
-                <th>last edited</th>
-              </tr>
-              <tr v-for="(user, index) in data2" :key="index">
-                <td>{{ index }}</td>
-                <td>
-                  <router-link :to="'/editor/' + clean(user.data.username)">
-                    {{ clean(user.data.username) }}
-                  </router-link>
-                </td>
-                <td>{{ user.data.uniqueMovies }}</td>
-                <td>{{ user.data.tagged }}</td>
-                <td>{{ user.data.addedScenes }}</td>
-                <td>{{ user.data.removedScenes }}</td>
-                <td>{{ user.data.mapped }}</td>
-                <td style="font-size: 7pt">{{ user.data.lastEdited }}</td>
-              </tr>
-            </table>
+          <v-btn v-if="fetchError" @click="getData()">Try again</v-btn>
+
+          <div v-else>
+            <v-card>
+              <v-card-title>
+                Leaderboard
+                <v-spacer></v-spacer>
+                <v-text-field
+                  v-model="search"
+                  append-icon="mdi-magnify"
+                  label="Search"
+                  single-line
+                  hide-details
+                ></v-text-field>
+              </v-card-title>
+              <div style="overflow-x: auto">
+                <!-- TODO: in a wonderful future, we may need to implement server-side pagination -->
+                <v-data-table
+                  dense
+                  :loading="loading"
+                  :search="search"
+                  :headers="headers"
+                  :items="data.map((x) => x.data)"
+                  :items-per-page="10"
+                  class="elevation-1"
+                  :sort-by.sync="sortBy"
+                  :sort-desc.sync="sortDesc"
+                  mobile-breakpoint="0"
+                >
+                  <template v-slot:[`item.username`]="{ item }">
+                    <router-link :to="'/editor/' + clean(item.username)">{{
+                      clean(item.username)
+                    }}</router-link>
+                  </template>
+                  <template v-slot:[`item.lastEdited`]="{ item }">
+                    <span style="font-size: 8pt">{{ item.lastEdited }}</span>
+                  </template>
+                </v-data-table>
+              </div>
+            </v-card>
           </div>
-          <span class="modern-link" @click="seeAll = !seeAll">{{
-            seeAll ? 'see less' : 'see more'
-          }}</span>
-          <br />
-          <br />
         </div>
       </section>
     </div>
@@ -54,16 +62,25 @@ export default {
   },
   data() {
     return {
+      fetchError: false,
+      search: '',
+      sortBy: ['tagged'],
+      sortDesc: [true],
+      headers: [
+        { value: 'username', text: 'user' },
+        { value: 'uniqueMovies', text: 'movies contributed' },
+        { value: 'tagged', text: 'movies tagged' },
+        { value: 'addedScenes', text: 'scenes added' },
+        { value: 'removedScenes', text: 'scenes removed' },
+        { value: 'mapped', text: 'movies mapped' },
+        { value: 'votes', text: 'total votes' },
+        { value: 'lastEdited', text: 'last edited' },
+      ],
       data: [],
-      seeAll: false,
+      loading: false,
     }
   },
-  computed: {
-    data2() {
-      if (this.seeAll) return this.data
-      return [...this.data].slice(0, 5)
-    },
-  },
+
   methods: {
     clean(text) {
       console.log('clean', text)
@@ -71,18 +88,25 @@ export default {
         let newtext = text.replace(/\s/g, '')
         newtext = newtext.replace(/@.*/g, '')
         newtext = newtext.toLowerCase()
-        console.log('cleaned', newtext)
+        //console.log('cleaned', newtext)
         return newtext
       } else {
-        console.log('cleaned', text)
+        //console.log('cleaned', text)
         return text
       }
     },
     async getData() {
-      let data = await ohana.api.query({
-        action: 'getStats',
-        about: 'editors',
-      })
+      this.loading = true
+      let data = []
+      try {
+        data = await ohana.api.query({
+          action: 'getStats',
+          about: 'editors',
+        })
+      } catch (error) {
+        this.fetchError = true
+        return
+      }
       for (let i = 0; i < data.length; i++) {
         if (data[i].data.username == 'imdb' || data[i].data.username == 'excel') {
           data.splice(i, 1)
@@ -94,6 +118,7 @@ export default {
       })
 
       this.data = data
+      this.loading = false
     },
   },
   mounted() {
@@ -102,12 +127,4 @@ export default {
 }
 </script>
 
-<style scoped>
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-th {
-  background-color: #4caf50;
-  color: white;
-}
-</style>
+<style scoped></style>
