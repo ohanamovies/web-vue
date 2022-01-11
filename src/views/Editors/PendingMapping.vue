@@ -30,7 +30,7 @@
                       class="mr-1"
                       v-for="(user, j) in removeDup(JSON.parse(item.users))"
                       :key="j"
-                      :to="'/editor/' + clean(user)"
+                      :to="'/editors/user/' + clean(user)"
                       >{{ clean(user) }}
                     </v-chip>
                   </td>

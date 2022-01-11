@@ -75,6 +75,10 @@ const messages = {
     restore_deafult_values: 'Restore default values',
     navigate_to_home: 'Navigate to home',
     manage_preferences: 'Manage preferences',
+    leaderboard: {
+      intro:
+        'In this table we celebrate the contributions of our users, who make possible Ohana TV. THANK YOU for your hard work!',
+    },
   },
   es: {
     whatIsOhana: '¿Qué es Ohana?',
@@ -146,6 +150,10 @@ const messages = {
     restore_deafult_values: 'Restaurar valores por defecto',
     navigate_to_home: 'Ir a la portada',
     manage_preferences: 'Ajustar mis preferencias',
+    leaderboard: {
+      intro:
+        'En esta tabla celebramos las contribuciones de nuestros usuarios, que hacen posible Ohana TV. ¡GRACIAS por vuestro trabajo!',
+    },
   },
 }
 

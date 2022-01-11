@@ -9,13 +9,17 @@
           <v-btn v-if="fetchError" @click="getData()">Try again</v-btn>
 
           <div v-else>
+            <p>
+              {{ $t('leaderboard.intro') }}
+            </p>
             <v-card>
               <v-card-title>
-                Leaderboard
-                <v-spacer></v-spacer>
                 <v-text-field
+                  outlined
+                  dense
+                  style="max-width: 400px"
                   v-model="search"
-                  append-icon="mdi-magnify"
+                  prepend-inner-icon="mdi-magnify"
                   label="Search"
                   single-line
                   clearable
@@ -35,9 +39,10 @@
                   class="elevation-1"
                   :sort-by.sync="sortBy"
                   :sort-desc.sync="sortDesc"
+                  mobile-breakpoint="0"
                 >
                   <template v-slot:[`item.username`]="{ item }">
-                    <router-link :to="'/editor/' + clean(item.username)">{{
+                    <router-link :to="'/editors/user/' + clean(item.username)">{{
                       clean(item.username)
                     }}</router-link>
                   </template>

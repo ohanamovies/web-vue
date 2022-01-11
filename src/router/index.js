@@ -59,7 +59,7 @@ const routes = [
     props: true,
   },
   {
-    path: '/editor/:username/:page?',
+    path: '/editors/user/:username/:page?',
     name: 'UsernamePage',
     component: UsernamePage,
     props: true,

@@ -28,7 +28,7 @@ export default {
         { text: 'Pending mapping', route: '/editors/stats/pending-mapping' },
       ]
       if (this.settings.username) {
-        routes.push({ text: 'my edits', route: '/editor/' + this.settings.username })
+        routes.push({ text: 'my edits', route: '/editors/user/' + this.settings.username })
       }
       return routes
     },

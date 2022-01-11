@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     nextPage(increment) {
-      this.$router.push('/editor/' + this.username + '/' + (+this.page + +increment))
+      this.$router.push('/editors/user/' + this.username + '/' + (+this.page + +increment))
     },
     async getData() {
       this.loading = true

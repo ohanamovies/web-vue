@@ -31,7 +31,7 @@
           <span style="font-size: 80%"
             >Edited by:
             <v-chip
-              :to="'/editor/' + cleanContributor(contributor)"
+              :to="'/editors/user/' + cleanContributor(contributor)"
               v-for="(contributor, index2) in item.contributors.split(' ')"
               :key="index2"
               x-small

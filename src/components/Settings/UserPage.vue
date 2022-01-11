@@ -4,7 +4,7 @@
     You are level {{ settings.level }}
 
     <p>
-      <router-link :to="'/editor/' + this.settings.username">my edits</router-link>
+      <router-link :to="'/editors/user/' + this.settings.username">my edits</router-link>
     </p>
 
     <br />

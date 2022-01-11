@@ -251,7 +251,7 @@
                 v-if="contributor != 'excel' && contributor != 'imdb' && contributor"
                 class="ml-1"
                 x-small
-                :to="'/editor/' + cleanContributor(contributor)"
+                :to="'/editors/user/' + cleanContributor(contributor)"
               >
                 {{ cleanContributor(contributor) }}
               </v-chip>
