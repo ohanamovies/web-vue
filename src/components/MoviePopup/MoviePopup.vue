@@ -276,6 +276,7 @@
     <!-- B: if no data, show "error" -->
     <v-card v-else>
       <v-card-text style="height: 310px">
+        {{ item }}
         <div>
           <span> Error! Please try again.</span>
           <br />
@@ -345,6 +346,7 @@ export default {
 
   computed: {
     contributors() {
+      if (!this.item.contributors) return []
       let c = this.item.contributors.split(' ')
       let remove = ['excel', 'imdb']
       c = c.filter((e) => !remove.includes(e))

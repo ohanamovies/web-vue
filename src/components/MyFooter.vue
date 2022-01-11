@@ -6,6 +6,14 @@
       style="background-color: #141414; color: white"
     >
       <div class="inner">
+        <div
+          style="
+            border-top: 1px solid rgba(200, 200, 200, 0.3);
+            margin: auto;
+            margin-bottom: 30px;
+            max-width: 80%;
+          "
+        ></div>
         <h1 style="font-size: 24pt; color: white; font-weight: 500">Want more?</h1>
 
         <article style="max-width: 500px; margin: auto">
@@ -24,56 +32,54 @@
           <router-link to="/community" class="modern-link">Discover other ways to help</router-link>
         </article>
 
-        <h3 style="font-size: 16pt; color: white; font-weight: 500; margin-top: 30px">Sponsors</h3>
+        <div style="margin-top: 90px">
+          <h3 style="font-size: 16pt; color: white; font-weight: 500; margin-top: 30px">
+            Sponsors
+          </h3>
 
-        <div class="flex flex-3">
-          <a href="https://methos.media/" target="_blank" style="margin: auto">
-            <div class="image">
-              <img
-                width="200px"
-                src="images/sponsors/methods_media-white2.png"
-                alt="Methods Media"
-              />
-            </div>
-          </a>
+          <div class="flex flex-3">
+            <a href="https://methos.media/" target="_blank" style="margin: auto">
+              <div class="image">
+                <img
+                  width="200px"
+                  src="images/sponsors/methods_media-white2.png"
+                  alt="Methods Media"
+                />
+              </div>
+            </a>
+          </div>
         </div>
       </div>
-    </section>
 
-    <!-- legal mentions -->
+      <!-- legal mentions -->
 
-    <div
-      style="
-        background-color: #6cc091;
-        color: white;
-        padding: 10px;
-        font-size: 80%;
-        text-align: center;
-      "
-    >
-      <div class="copyright">
-        &copy; Ohana {{ new Date().getFullYear() }}
-        <!-- Design:
+      <div
+        style="margin-top: 70px; color: white; padding: 10px; font-size: 80%; text-align: center"
+      >
+        <div class="copyright">
+          &copy; Ohana {{ new Date().getFullYear() }}
+          <!-- Design:
         <a href="https://templated.co">TEMPLATED</a>. -->
+          <br />
+
+          <!-- Images: <a href="https://unsplash.com">Unsplash</a>. -->
+          <!-- Template and elements: https://templated.co/projection -->
+        </div>
+
         <br />
-
-        <!-- Images: <a href="https://unsplash.com">Unsplash</a>. -->
-        <!-- Template and elements: https://templated.co/projection -->
+        <p>
+          Ohana TV uses data from
+          <a href="https://www.themoviedb.org/" rel="noopener noreferrer" target="_blank">TMDB</a>
+          and <a href="https://imdb.com" target="_blank" rel="noopener noreferrer">IMDb</a> but is
+          not endorsed nor certified by TMDB or IMDb.
+        </p>
+        <p>
+          <router-link to="terms-of-use">Terms of use</router-link> |
+          <router-link to="/privacy-policy">Privacy Policy</router-link> |
+          <router-link to="/contact-us">Contact us</router-link>
+        </p>
       </div>
-
-      <br />
-      <p>
-        Ohana TV uses data from
-        <a href="https://www.themoviedb.org/" rel="noopener noreferrer" target="_blank">TMDB</a> and
-        <a href="https://imdb.com" target="_blank" rel="noopener noreferrer">IMDb</a> but is not
-        endorsed nor certified by TMDB or IMDb. Same for
-      </p>
-      <p>
-        <router-link to="terms-of-use">Terms of use</router-link> |
-        <router-link to="/privacy-policy">Privacy Policy</router-link> |
-        <router-link to="/contact-us">Contact us</router-link>
-      </p>
-    </div>
+    </section>
   </div>
 </template>
 

@@ -144,7 +144,7 @@ export default {
 
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
-    let title = 'FAQs - Ohana'
+    let title = 'FAQs - Ohana TV'
     let desc = 'Have questions about Ohana Movies? We are here to answer them!'
     return sharedjs.headObject(title, desc)
   },
