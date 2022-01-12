@@ -47,7 +47,7 @@
                     }}</router-link>
                   </template>
                   <template v-slot:[`item.lastEdited`]="{ item }">
-                    <span style="font-size: 8pt">{{ item.lastEdited }}</span>
+                    <span style="font-size: 8pt; white-space: nowrap">{{ item.lastEdited }}</span>
                   </template>
                 </v-data-table>
               </div>

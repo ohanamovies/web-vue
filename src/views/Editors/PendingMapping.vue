@@ -8,23 +8,41 @@
           <p>This should be fixed by opening the url and doing a manual mapping</p>
           <div v-if="loading">Loading...</div>
           <div v-else>
-            <div style="overflow-x: auto">
-              <table>
-                <tr>
-                  <th>#</th>
-                  <th>targetID</th>
-                  <th>users</th>
-                  <th>actions</th>
-                  <th>lastEdit</th>
-                </tr>
-                <tr v-for="(item, index) in items" :key="index">
-                  <td>
-                    {{ index }}
-                  </td>
-                  <td style="font-size: 70%; max-width: 15px; word-wrap: break-word">
-                    <a :href="watchUrl(item.targetID)" target="_blank">{{ item.targetID }}</a>
-                  </td>
-                  <td>
+            <v-card>
+              <v-card-title>
+                <v-text-field
+                  outlined
+                  dense
+                  style="max-width: 400px"
+                  v-model="search"
+                  prepend-inner-icon="mdi-magnify"
+                  label="Search"
+                  single-line
+                  clearable
+                  hide-details
+                ></v-text-field>
+              </v-card-title>
+              <div style="overflow-x: auto">
+                <!-- TODO: in a wonderful future, we may need to implement server-side pagination -->
+                <!-- to keep mobile table as in desktop, add prop: mobile-breakpoint="0" -->
+                <v-data-table
+                  dense
+                  :loading="loading"
+                  :search="search"
+                  :headers="headers"
+                  :items="items"
+                  :items-per-page="10"
+                  class="elevation-1"
+                  :sort-by.sync="sortBy"
+                  :sort-desc.sync="sortDesc"
+                  mobile-breakpoint="0"
+                >
+                  <template v-slot:[`item.targetID`]="{ item }">
+                    <a style="font-size: 9pt" :href="watchUrl(item.targetID)" target="_blank">{{
+                      item.targetID
+                    }}</a>
+                  </template>
+                  <template v-slot:[`item.users`]="{ item }">
                     <v-chip
                       small
                       class="mr-1"
@@ -33,14 +51,18 @@
                       :to="'/editors/user/' + clean(user)"
                       >{{ clean(user) }}
                     </v-chip>
-                  </td>
-                  <td style="font-size: 80%">
+                  </template>
+                  <template v-slot:[`item.actions`]="{ item }">
                     {{ JSON.parse(item.actions).join(', ') }}
-                  </td>
-                  <td style="font-size: 80%">{{ new Date(item.lastEdit).toLocaleString() }}</td>
-                </tr>
-              </table>
-            </div>
+                  </template>
+                  <template v-slot:[`item.lastEdit`]="{ item }">
+                    <span style="font-size: 8pt; white-space: nowrap">{{
+                      item.lastEdit.substr(0, 10)
+                    }}</span>
+                  </template>
+                </v-data-table>
+              </div>
+            </v-card>
           </div>
         </div>
       </section>
@@ -59,6 +81,16 @@ export default {
     return {
       items: [],
       loading: false,
+
+      search: '',
+      sortBy: ['tagged'],
+      sortDesc: [true],
+      headers: [
+        { value: 'targetID', text: 'targetID' },
+        { value: 'users', text: 'users' },
+        { value: 'actions', text: 'actions' },
+        { value: 'lastEdit', text: 'lastEdit' },
+      ],
     }
   },
   methods: {
@@ -80,10 +112,12 @@ export default {
     },
     async getData() {
       this.loading = true
-      this.items = await ohana.api.query({
+
+      const items = await ohana.api.query({
         action: 'getStats',
         about: 'pendingMapping',
       })
+      this.items = items.filter((item) => !item.targetID.startsWith('tt'))
       this.loading = false
     },
   },
