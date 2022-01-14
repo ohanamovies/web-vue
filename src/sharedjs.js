@@ -56,9 +56,9 @@ function searchMatch(searchText, searchInText) {
  */
 function headObject(title, description, path) {
   let siteName = 'Ohana TV'
-  let url = window.location.host + '/#' + path
+  //let url = window.location.host + '/#' + path
 
-  url = window.location.href
+  let url = window.location.href
   let image = {
     url: 'https://ohana.tv/icons/apple-touch-icon-180x180.png',
     width: 180,
@@ -88,13 +88,22 @@ function headObject(title, description, path) {
       { id: 'twitter:description', name: 'twitter:description', content: description },
       { id: 'twitter:image', name: 'twitter:image', content: image.url },
     ],
+  }
 
-    title: {
-      inner: title || 'Ohana Movies',
-      complement: '',
-      separator: '',
+  if (path != '/' && title) {
+    xx.title = {
+      inner: title, // || 'Ohana TV',
+      separator: '-',
+      complement: 'Ohana TV',
       id: 'meta-title',
-    },
+    }
+  } else {
+    xx.title = {
+      inner: 'Ohana TV',
+      id: 'meta-title',
+      separator: false,
+      complement: false,
+    }
   }
 
   return xx

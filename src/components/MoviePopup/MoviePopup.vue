@@ -388,11 +388,17 @@ export default {
     },
 
     poster() {
+      //TODO: optimize poster size? (e.g.: w154)
+      const emptyPoster = 'https://ohana.tv/images/empty-poster.png'
+      let item = this.item
+      if (item.parentData) item = item.parentData
+      if (!item || !item.poster) return emptyPoster
+
       let path = ''
-      if (this.item.poster[this.language]) path = this.item.poster[this.language]
-      else if (this.item.poster['en']) path = this.item.poster['en']
+      if (item.poster[this.language]) path = item.poster[this.language]
+      else if (item.poster['en']) path = item.poster['en']
       if (path) return 'https://image.tmdb.org/t/p/w200' + path
-      else return 'https://ohana.tv/images/empty-poster.png'
+      else return emptyPoster
     },
 
     finalTitle() {
@@ -429,7 +435,7 @@ export default {
       } else if (status == 'clean') {
         text = `This ${type} is healthy for your settings. Nothing to filter here.`
       } else if (status == 'done') {
-        text = `We've created filters for this ${type} to make it healthy as per your settings.`
+        text = `We've created filters for this ${type} to make it healthy for your settings.`
       } else if (status == 'missing') {
         text = `This ${type} contains scenes you consider unhealthy. But we don't have filters yet to help you skip them.`
       } else if (status == 'mixed') {

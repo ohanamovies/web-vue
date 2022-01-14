@@ -512,7 +512,7 @@ export default {
   components: { Sensitivity },
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
-    let title = 'Get started - Ohana TV'
+    let title = 'Get started'
     let desc = 'Learn how to watch clean content'
     return sharedjs.headObject(title, desc)
   },

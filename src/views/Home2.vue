@@ -260,7 +260,7 @@
                   <!-- image-->
                   <div class="image" style="width: 100%; cursor: pointer">
                     <img
-                      :src="getPoster(item)"
+                      :src="poster(item)"
                       :alt="getTitle(item)"
                       :class="[item.join_status.status == 'missing' ? 'blur_image' : '']"
                     />
@@ -369,9 +369,9 @@ export default {
 
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
-    let title = 'Ohana TV¡'
+    let title = 'Ohana TV'
     let desc = 'Watch movies and shows in a healthy way, thanks to our software and community.'
-    return sharedjs.headObject(title, desc)
+    return sharedjs.headObject(title, desc, '/')
   },
 
   data() {
@@ -550,9 +550,18 @@ export default {
     scrollRight(e) {
       e.scrollLeft += e.offsetWidth - 140
     },
-    getPoster(item) {
-      if (!item || !item.poster) return
-      return 'https://image.tmdb.org/t/p/w200' + item.poster[this.language] || item.poster['en'] //TODO: use size w154?
+    poster(item) {
+      //TODO: optimize poster size? (e.g.: w154)
+      const emptyPoster = 'https://ohana.tv/images/empty-poster.png'
+      //let item = this.item
+      if (item.parentData) item = item.parentData
+      if (!item || !item.poster) return emptyPoster
+
+      let path = ''
+      if (item.poster[this.language]) path = item.poster[this.language]
+      else if (item.poster['en']) path = item.poster['en']
+      if (path) return 'https://image.tmdb.org/t/p/w200' + path
+      else return emptyPoster
     },
     getTitle(item) {
       if (!item || !item.title) return
@@ -996,6 +1005,8 @@ hr {
   width: 100%;
   background-color: transparent;
   z-index: 99999;
+  backdrop-filter: blur(10px);
+  /*background-color: rgba(0, 0, 0, 0.05);*/
 }
 
 @media only screen and (max-width: 700px) {

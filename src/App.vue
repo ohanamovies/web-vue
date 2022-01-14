@@ -2,7 +2,7 @@
   <div id="app">
     <v-app>
       <v-main v-if="!isPopup">
-        <div v-if="devMode" style="position: fixed; top: 0px; left: 50%; z-index: 999999">
+        <div v-if="devMode" style="position: fixed; bottom: 10px; right: 10px; z-index: 999999">
           <v-btn
             color="red"
             fab

@@ -17,76 +17,61 @@
     <div v-if="!item.type">Hmm, something seems off.</div>
     <div v-else>
       <v-tabs v-model="tab">
-        <v-tab>Movie Data</v-tab>
+        <v-tab>movie Content</v-tab>
+        <v-tab>movie Scenes</v-tab>
+        <v-tab>values</v-tab>
         <v-tab>Providers</v-tab>
         <v-tab>Episodes</v-tab>
-        <v-tab>Raw data</v-tab>
-        <v-tab>Raw data + AddInfo</v-tab>
+        <v-tab>dev</v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
-        <!-- MOVIE DATA -->
+        <!-- movieContent -->
         <v-tab-item>
+          <h4>movieContent</h4>
+          <table id="myBeautifulTable" style="max-width: 350px" border="1">
+            <tr>
+              <th>Tag</th>
+              <th>Health</th>
+              <th>Trust</th>
+              <th>Color</th>
+              <th>Cuts</th>
+            </tr>
+            <tr v-for="(v, k) in item.movieContent" :key="k">
+              <td>{{ k }}</td>
+              <td>
+                {{ item.movieContent[k].health }}
+              </td>
+              <td>{{ item.movieContent[k].trust }}</td>
+              <td>
+                <v-icon small :color="getColor(item.movieContent[k])"
+                  >mdi-checkbox-blank-circle</v-icon
+                >
+              </td>
+              <td>0</td>
+            </tr>
+          </table>
+          <code>{{ item.movieContent }}</code>
+        </v-tab-item>
+
+        <!--movieScenes-->
+        <v-tab-item>
+          <div v-for="(scene, sid) in item.movieScenes" :key="sid">
+            <SceneItem :scene="scene" />
+          </div>
+          <code>
+            {{ item.movieScenes }}
+          </code>
+        </v-tab-item>
+
+        <!-- movie values -->
+        <v-tab-item>
+          <EditValues :imdb="imdb" />
           <br />
-          <p>This is data at {{ item.type }} level</p>
-          <v-tabs v-model="movieDataTab">
-            <v-tab>movieContent</v-tab>
-            <v-tab>values</v-tab>
-            <v-tab>join status</v-tab>
-            <v-tab>brief status</v-tab>
-          </v-tabs>
-
-          <v-tabs-items v-model="movieDataTab">
-            <!-- movieContent -->
-            <v-tab-item>
-              <h4>movieContent</h4>
-              <table id="myBeautifulTable" style="max-width: 350px" border="1">
-                <tr>
-                  <th>Tag</th>
-                  <th>Health</th>
-                  <th>Trust</th>
-                  <th>Color</th>
-                  <th>Cuts</th>
-                </tr>
-                <tr v-for="(v, k) in item.movieContent" :key="k">
-                  <td>{{ k }}</td>
-                  <td>
-                    {{ item.movieContent[k].health }}
-                  </td>
-                  <td>{{ item.movieContent[k].trust }}</td>
-                  <td>
-                    <v-icon small :color="getColor(item.movieContent[k])"
-                      >mdi-checkbox-blank-circle</v-icon
-                    >
-                  </td>
-                  <td>0</td>
-                </tr>
-              </table>
-              <code>{{ item.movieContent }}</code>
-            </v-tab-item>
-
-            <!-- movie values -->
-            <v-tab-item>
-              <EditValues :imdb="imdb" />
-              <br />
-              Current data:
-              <code>
-                {{ item.movieValues }}
-              </code>
-            </v-tab-item>
-
-            <!-- join_status -->
-            <v-tab-item>
-              <h4>join status</h4>
-              <code>{{ item.join_status }}</code>
-            </v-tab-item>
-
-            <!-- brief status -->
-            <v-tab-item>
-              <h4>brief status</h4>
-              <code>{{ item.brief_status }}</code>
-            </v-tab-item>
-          </v-tabs-items>
+          Current data:
+          <code>
+            {{ item.movieValues }}
+          </code>
         </v-tab-item>
 
         <!-- PROVIDERS -->
@@ -163,38 +148,7 @@
                     "
                   >
                     <div v-if="scene">
-                      <h5>Filter {{ sid }}</h5>
-                      <p>
-                        Duration: {{ formatTime(scene.end - scene.start) }}
-                        <span style="font-size: 80%">
-                          ({{ formatTime(scene.start) }} to {{ formatTime(scene.end) }})</span
-                        >
-                      </p>
-                      <div>
-                        <p :style="{ color: scene.plot_description ? 'default' : 'grey' }">
-                          <b>What you need to know:</b>
-                          <i>
-                            {{ scene.plot_description || 'No replacing text provided.' }}
-                          </i>
-                        </p>
-                      </div>
-
-                      <div>
-                        <b>Filter Tags</b>
-                        <v-chip x-small class="ml-1" v-for="(t, it) in scene.tags" :key="it">{{
-                          t
-                        }}</v-chip>
-                      </div>
-
-                      <div style="margin-top: 5px" v-if="scene.modified">
-                        Edited by @{{ scene.modified[0] }} (level {{ scene.modified[1] }}) on
-                        {{ new Date(scene.modified[2]).toISOString() }}
-                      </div>
-                      <div v-else>edited: {{ scene.modified }}</div>
-                      <div style="margin-top: 5px">Accessed: {{ scene.accessed }} times</div>
-                    </div>
-                    <div style="font-size: 60%; font-family: consolas">
-                      <code> {{ scene }}</code>
+                      <SceneItemOld :scene="scene" />
                     </div>
                   </div>
                 </div>
@@ -220,6 +174,7 @@
           </v-tabs-items>
         </v-tab-item>
 
+        <!-- EPISODES -->
         <v-tab-item>
           <h4>Episodes are work in progress</h4>
           <div v-if="episodes">
@@ -250,34 +205,59 @@
           <div v-else>Hmmm. No data?</div>
         </v-tab-item>
 
-        <!-- RAW DATA -->
+        <!-- DEV DATA -->
         <v-tab-item>
-          <div>
-            <b>raw data</b>
-            <pre
-              style="
-                background-color: rgba(200, 200, 200, 0.4);
-                padding: 10px;
-                white-space: pre-wrap;
-              "
-              >{{ item }}</pre
-            >
-          </div>
-        </v-tab-item>
+          <br />
+          <p>This is data at {{ item.type }} level</p>
+          <v-tabs v-model="movieDataTab">
+            <v-tab>Raw data</v-tab>
+            <v-tab>Raw data + AddInfo</v-tab>
+            <v-tab>join status</v-tab>
+            <v-tab>brief status</v-tab>
+          </v-tabs>
 
-        <!-- RAW DATA -->
-        <v-tab-item>
-          <div>
-            <b>raw data</b>
-            <pre
-              style="
-                background-color: rgba(200, 200, 200, 0.4);
-                padding: 10px;
-                white-space: pre-wrap;
-              "
-              >{{ item_with_add_data }}</pre
-            >
-          </div>
+          <v-tabs-items v-model="movieDataTab">
+            <!-- RAW DATA -->
+            <v-tab-item>
+              <div>
+                <b>raw data</b>
+                <pre
+                  style="
+                    background-color: rgba(200, 200, 200, 0.4);
+                    padding: 10px;
+                    white-space: pre-wrap;
+                  "
+                  >{{ item }}</pre
+                >
+              </div>
+            </v-tab-item>
+
+            <!-- RAW DATA -->
+            <v-tab-item>
+              <div>
+                <b>raw data</b>
+                <pre
+                  style="
+                    background-color: rgba(200, 200, 200, 0.4);
+                    padding: 10px;
+                    white-space: pre-wrap;
+                  "
+                  >{{ item_with_add_data }}</pre
+                >
+              </div>
+            </v-tab-item>
+            <!-- join_status -->
+            <v-tab-item>
+              <h4>join status</h4>
+              <code>{{ item.join_status }}</code>
+            </v-tab-item>
+
+            <!-- brief status -->
+            <v-tab-item>
+              <h4>brief status</h4>
+              <code>{{ item.brief_status }}</code>
+            </v-tab-item>
+          </v-tabs-items>
         </v-tab-item>
       </v-tabs-items>
 
@@ -295,13 +275,16 @@ import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 import Login from '@/components/Settings/Login.vue'
 import AddProvider from '@/views/MoviePage/AddProvider.vue'
 import EditValues from '@/views/MoviePage/EditValues2.vue'
+import SceneItem from '@/views/MoviePage/SceneItem.vue'
+import SceneItemOld from '@/views/MoviePage/SceneItemOld.vue'
 import sharedjs from '@/sharedjs'
 
 export default {
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
     //TODO: this is not reactive
-    let title = 'Movie Page ' + this.imdb //  this.item.title[this.settings.language]
+    const titlejs = this.item.parent ? this.item.parentData.title : this.item.title
+    let title = titlejs ? titlejs[this.settings.language] : 'Movie Page for ' + this.imdb
     let desc = 'Details about the movie ' + this.imdb // this.item.plot ? this.item.plot[this.settings.language]
     return sharedjs.headObject(title, desc)
   },
@@ -310,11 +293,18 @@ export default {
     Login,
     AddProvider,
     EditValues,
+    SceneItem,
+    SceneItemOld,
   },
   props: {
     imdb: {
       type: String,
       default: '',
+    },
+  },
+  watch: {
+    async imdb() {
+      await this.getData()
     },
   },
   data() {
@@ -343,11 +333,17 @@ export default {
       return ohana.movies.addInfo(this.item, this.settings.skip_tags)
     },
     poster() {
+      //TODO: optimize poster size? (e.g.: w154)
+      const emptyPoster = 'https://ohana.tv/images/empty-poster.png'
+      let item = this.item
+      if (item.parentData) item = item.parentData
+      if (!item || !item.poster) return emptyPoster
+
       let path = ''
-      if (this.item.poster[this.language]) path = this.item.poster[this.language]
-      else if (this.item.poster['en']) path = this.item.poster['en']
+      if (item.poster[this.language]) path = item.poster[this.language]
+      else if (item.poster['en']) path = item.poster['en']
       if (path) return 'https://image.tmdb.org/t/p/w200' + path
-      else return 'https://ohana.tv/images/empty-poster.png'
+      else return emptyPoster
     },
 
     finalTitle() {
@@ -417,22 +413,27 @@ export default {
     parsedURL() {
       return ohana.providers.parseURL(this.item.watch_url) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
     },
+    async getData() {
+      this.loading = true
+      //item
+      this.item = await ohana.api.getMovie(this.imdb)
+      this.item = ohana.movies.addInfo(this.item, this.skipTags)
+
+      //episodes
+      if (this.item.parent) {
+        // this.parent_item = await ohana.api.getMovie(this.item.parent)
+        this.episodes = await ohana.api.getEpisodes(this.item.parent)
+      } else if (this.item.type == 'series') {
+        this.episodes = await ohana.api.getEpisodes(this.imdb) //TODO: may not need to do await...
+      }
+
+      this.loading = false
+
+      this.$emit('updateHead')
+    },
   },
   async mounted() {
-    this.loading = true
-    //item
-    this.item = await ohana.api.getMovie(this.imdb)
-    this.item = ohana.movies.addInfo(this.item, this.skipTags)
-
-    //episodes
-    if (this.item.parent) {
-      // this.parent_item = await ohana.api.getMovie(this.item.parent)
-      this.episodes = await ohana.api.getEpisodes(this.item.parent)
-    } else if (this.item.type == 'series') {
-      this.episodes = await ohana.api.getEpisodes(this.imdb) //TODO: may not need to do await...
-    }
-
-    this.loading = false
+    await this.getData()
   },
 }
 </script>

@@ -15,7 +15,10 @@ import '@mdi/font/css/materialdesignicons.css'
 // Add internationalization
 import i18n from '@/plugins/i18n'
 
-Vue.use(VueHead)
+Vue.use(VueHead, {
+  separator: '',
+  complement: '',
+})
 //Vue.use(Vuex) //not sure if redundant...
 
 Vue.config.productionTip = false

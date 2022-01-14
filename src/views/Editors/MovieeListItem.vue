@@ -120,19 +120,17 @@ export default {
       return ''
     },
     poster() {
-      //returns item poster or parent's if parent imdb
-      let path = ''
+      //TODO: optimize poster size? (e.g.: w154)
+      const emptyPoster = 'https://ohana.tv/images/empty-poster.png'
       let item = this.item
       if (this.parentData) item = this.parentData
+      if (!item || !item.poster) return emptyPoster
 
-      console.log('item', item)
-
-      if (!item.poster) return false
+      let path = ''
       if (item.poster[this.language]) path = item.poster[this.language]
       else if (item.poster['en']) path = item.poster['en']
-
       if (path) return 'https://image.tmdb.org/t/p/w200' + path
-      else return false //'https://ohana.tv/images/empty-poster.png'
+      else return emptyPoster
     },
   },
   methods: {
@@ -148,6 +146,7 @@ export default {
     },
   },
   async mounted() {
+    //TODO: If API return this by default (tbc), no need to fetch parentData
     if (this.item.parent && this.item.parent.startsWith('tt')) {
       this.parentData = await ohana.api.getMovie(this.item.parent)
     }

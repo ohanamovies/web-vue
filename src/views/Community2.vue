@@ -142,7 +142,7 @@ import { mapState } from 'vuex'
 export default {
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
-    let title = 'Our Community - Ohana TV'
+    let title = 'Our Community'
     let desc = 'Meet (and join!) our community of volunteers'
     return sharedjs.headObject(title, desc)
   },

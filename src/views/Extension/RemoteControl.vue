@@ -12,7 +12,7 @@
           <li><button @click="seekForward(-10000)" class="button fit">-10</button></li>
           <li>
             <button
-              @click="sendMessageToExtension({ msg: 'play-pause' })"
+              @click="sendMessageToExtensionContentScript({ msg: 'play-pause' })"
               class="button special fit"
             >
               <v-icon>mdi-play</v-icon><v-icon>mdi-pause</v-icon>
@@ -52,15 +52,18 @@ export default {
   },
   methods: {
     seekForward(diff) {
-      this.sendMessageToExtension({ msg: 'seek-diff', diff: diff })
+      this.sendMessageToExtensionContentScript({ msg: 'seek-diff', diff: diff })
+    },
+    disconnect() {
+      this.socket.close()
     },
     connect() {
       this.socket = new WebSocket(WEBSOCKET_URL)
       this.socket.addEventListener('open', (e) => {
         this.connected = true
         console.log('[alex] WebSocket connected', e)
-        this.sendMessageToServer('getMyConnectionId')
-        //this.sendMessageToExtension('getMovieData')
+        this.sendSocketMessage('getMyConnectionId')
+        //this.sendMessageToExtensionContentScript('getMovieData')
       })
 
       this.socket.addEventListener('close', (e) => {
@@ -89,34 +92,60 @@ export default {
         this.movieData = msg.data
       } else if (data.message == 'Internal server error') {
         this.error = 'Ouch. Something went wrong. You sure movie is still there?'
+        this.disconnect()
       }
     },
-    sendMessageToServer(action, data = null) {
-      console.log('[alex][ws] sendMessageToServer: ', action, data)
+    sendSocketMessage(action, data = null, target = 'server', tries = 0) {
+      if (!this.socket) {
+        this.connect()
+        return this.sendSocketMessage(action, data, target, tries)
+      }
+
       const payload = {
-        action: 'message',
+        action: 'message', //ws route
         data: {
           action: action,
-          target: this.target,
+          target: target,
           data: data,
         },
       }
-      if (this.socket) {
-        return this.socket.send(JSON.stringify(payload))
-      } else {
-        return { success: false, error: 'socket is not connected' }
+      console.log('[alex][ws] sendSocketMessage: ', payload)
+
+      const readyState = this.socket.readyState
+      const rs = {
+        CONNECTING: 0,
+        OPEN: 1,
+        CLOSING: 2,
+        CLOSED: 3,
       }
-    },
-    sendMessageToExtension(msg) {
-      if (!this.connected) {
-        //connect if not connected :)
-        this.connect()
+
+      if (tries > 5) {
+        console.error('Error. Not able to send message')
+        return false
+      }
+
+      if (readyState == rs.CLOSING || readyState == rs.CLOSED) {
+        this.connect() //connect if not connected
+        return this.sendSocketMessage(action, data, target, tries + 1)
+      }
+
+      //socket is still connecting. try again in a moment
+      if (readyState == rs.CONNECTING) {
         setTimeout(() => {
-          this.sendMessageToExtension(msg)
-        }, 1500)
+          this.sendSocketMessage(action, data, target, tries + 1)
+        }, 200 * tries)
         return
       }
-      this.sendMessageToServer('message', msg)
+
+      //socket is OPEN. Let's send the message
+      if (readyState == rs.OPEN) {
+        return this.socket.send(JSON.stringify(payload))
+      }
+
+      return false
+    },
+    sendMessageToExtensionContentScript(msg) {
+      this.sendSocketMessage('content-script-message', msg, this.target)
     },
   },
 }
