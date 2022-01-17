@@ -53,6 +53,11 @@ const routes = [
   },
 
   {
+    path: '/find-movies',
+    redirect: '/',
+  },
+
+  {
     path: '/editors/:page?',
     name: 'Editors',
     component: Editors,
@@ -110,8 +115,8 @@ const routes = [
     component: Content,
   },
   {
-    path: '/find-movies',
-    name: 'find-movies',
+    path: '/find-movies-old',
+    name: 'find-movies-old',
     component: Content,
   },
   {

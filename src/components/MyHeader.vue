@@ -102,6 +102,7 @@ export default {
         { to: '/get-started', key: 'getStarted' },
 
         { to: '/settings', key: 'settings' },
+        { to: '/editors', key: 'editors' },
 
         { to: '/community', key: 'support_ohana' },
 
