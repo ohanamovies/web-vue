@@ -227,7 +227,13 @@
         <div v-else style="padding-top: 50px"></div>
 
         <div v-for="(section, index) in sections" :key="index" style="max-width: 90%; margin: auto">
-          <div v-show="(title && index == 0) || (!title && index != 0)" :data-id="index">
+          <div
+            v-show="
+              (title && index == 0) ||
+              (!title && index != 0 && (section.data.length > 0 || section.loading))
+            "
+            :data-id="index"
+          >
             <h4 style="color: white; margin: 0; padding-top: 20px">{{ section.title }}</h4>
 
             <!-- POSTERS -->
@@ -346,6 +352,7 @@
 
 <script>
 // @ is an alias to /src
+import tags_excel from '@/assets/tags_excel'
 import sharedjs from '@/sharedjs'
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
@@ -405,7 +412,7 @@ export default {
         { text: 'Youtube', value: 'youtube' },*/
       ],
 
-      sections: [
+      sections_old: [
         {
           title: 'Search results',
           data: [],
@@ -437,7 +444,7 @@ export default {
           data: [],
           query: { imdbRating: 8 }, // sort is done by number of votes
         },
-        /*        
+        /*
         {
           title: 'Healthy TV Shows (for your settings) ',
           data: [],
@@ -529,6 +536,21 @@ export default {
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
+    sections() {
+      const sectionsAux = tags_excel.getTagsLocal('es').sections
+      let sections = []
+      for (let i = 0; i < sectionsAux.length; i++) {
+        const s = sectionsAux[i]
+        let x = {
+          title: s.name,
+          data: [],
+          query: JSON.parse(s.mappings),
+        }
+        sections.push(x)
+      }
+      return sections //.splice(0, 5)
+      //return tags_excel.adaptTags(s)
+    },
     language() {
       return this.settings.language
     },
@@ -639,6 +661,11 @@ export default {
       //remove series for now:
       query.type = 'movie' //TODO: Remove this once we clarify series!
 
+      //Preapare request a bit (stringify stuff)
+      for (const key in query) {
+        if (Array.isArray(query[key])) query[key] = JSON.stringify(query[key])
+        if (typeof query[key] == 'object') query[key] = JSON.stringify(query[key])
+      }
       // Fetch data
       var url = ohana.utils.buildURL(query)
       fetch(url)

@@ -82,10 +82,10 @@
       "type": "context",
       "notes": "",
       "parents": "",
-      "name_en": "",
-      "name_es": "",
-      "tip_en": "Non natural sex, eg: oral sex, anal sex, masturbation, bestiality...",
-      "tip_es": "Relaciones sexuales no naturales, ej: sexo oral, sexo anal, masturbación, zoofilia...",
+      "name_en": "Anti-natural",
+      "name_es": "Anti natural",
+      "tip_en": "Non natural sex, eg: oral sex, anal sex, masturbation, bestiality, homosexuality...",
+      "tip_es": "Relaciones sexuales no naturales, ej: sexo oral, sexo anal, masturbación, zoofilia, homosexualidad...",
       "mappings": "Non-procreative"
     },
     {
@@ -97,17 +97,6 @@
       "name_es": "Infidelidad",
       "tip_en": "Unfaithfulness to a partner, eg: adultery…",
       "tip_es": "Infidelidad a tu pareja, por ejemplo, adulterio",
-      "mappings": " "
-    },
-    {
-      "key": "homosexual",
-      "type": "context",
-      "notes": "",
-      "parents": "",
-      "name_en": "Homosexual",
-      "name_es": "Homosexual",
-      "tip_en": "Sexual or romantic relationship between individuals of the same sex",
-      "tip_es": "Relación sexual o romántica entre personas del mismo sexo",
       "mappings": " "
     },
     {
@@ -573,29 +562,18 @@
       "mappings": " "
     },
     {
-      "key": "parenthood",
+      "key": "parent-child",
       "type": "value",
-      "notes": "maternal/paternal",
+      "notes": "paternal / filial / cuidado 3° edad",
       "parents": "family-love",
       "name_en": "",
-      "name_es": "Amor paterno",
+      "name_es": "Amor entre padres e hijos",
       "tip_en": "",
       "tip_es": "",
       "mappings": " "
     },
     {
-      "key": "filiation",
-      "type": "value",
-      "notes": "filial / cuidado 3° edad",
-      "parents": "family-love",
-      "name_en": "",
-      "name_es": "Amor filial",
-      "tip_en": "",
-      "tip_es": "",
-      "mappings": " "
-    },
-    {
-      "key": "sponsal",
+      "key": "romantic-love",
       "type": "value",
       "notes": "[romantic-love]",
       "parents": "family-love",
@@ -604,6 +582,17 @@
       "tip_en": "",
       "tip_es": "",
       "mappings": " "
+    },
+    {
+      "key": "",
+      "type": "",
+      "notes": "some extra values...",
+      "parents": "family-love",
+      "name_en": "",
+      "name_es": "",
+      "tip_en": "",
+      "tip_es": "",
+      "mappings": ""
     },
     {
       "key": "",
@@ -641,21 +630,21 @@
     {
       "key": "fidelity",
       "type": "value",
-      "notes": "fidelidad y compromiso para toda la vida (vs infidelidad/divorcio)",
+      "notes": "",
       "parents": "romantic-love",
       "name_en": "Fidelity",
       "name_es": "Fidelidad",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Amor fiel e incondicional, que se sobrepone a las dificultades, perdona y pide perdón...",
       "mappings": " "
     },
     {
-      "key": "chastity",
+      "key": "loved-not-used",
       "type": "value",
-      "notes": "castidad (vs abuso/usar y tirar/lujuria)",
+      "notes": "castidad (vs abuso, usar y tirar, lujuria)",
       "parents": "romantic-love",
-      "name_en": "",
-      "name_es": "",
+      "name_en": " Loving not using ",
+      "name_es": "Amar no usar ",
       "tip_en": "",
       "tip_es": "",
       "mappings": " "
@@ -663,12 +652,12 @@
     {
       "key": "tender-self-giving",
       "type": "value",
-      "notes": "cariño y amor como entrega/servicio al otro",
+      "notes": "",
       "parents": "romantic-love",
       "name_en": "Tender & self giving",
       "name_es": "Cariño y entrega mutua",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Cariño y amor como entrega/servicio al otro",
       "mappings": " "
     },
     {
@@ -685,7 +674,7 @@
     {
       "key": "womens-rights",
       "type": "group",
-      "notes": "",
+      "notes": "llamarle de otra forma?",
       "parents": " ",
       "name_en": "Women's rights",
       "name_es": "Derechos de la mujer",
@@ -698,55 +687,44 @@
       "type": "value",
       "notes": "Derechos sexo biológico (vs trans) https://contraelborradodelasmujeres.org/",
       "parents": "womens-rights",
-      "name_en": "",
+      "name_en": " ",
       "name_es": "",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Derecho a espacios seguros, categorias deportivas... basadas en el sexo biológico https://contraelborradodelasmujeres.org/",
       "mappings": " "
     },
     {
-      "key": "non-objectification",
+      "key": "loved-not-used",
       "type": "value",
-      "notes": "Amar/castidad (vs abuso/cuerpo como mercancía). Trata blancas, prostitución (vs compra cuerpo/sexo)",
+      "notes": "castidad",
       "parents": "womens-rights",
-      "name_en": "",
-      "name_es": "",
+      "name_en": "Loved not used",
+      "name_es": "Amadas no usadas",
       "tip_en": "",
-      "tip_es": "",
-      "mappings": " "
-    },
-    {
-      "key": "sexual-consent",
-      "type": "value",
-      "notes": "Consentimiento (vs violación...)",
-      "parents": "womens-rights",
-      "name_en": "Sexual consent",
-      "name_es": "Consentimiento sexual",
-      "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Derecho a ser tratadas, amadas y valoradas por su persona, y no como un cuerpo u objeto sexual...",
       "mappings": " "
     },
     {
       "key": "equal-womens-rights",
       "type": "value",
-      "notes": "Derecho a voto, educación, trabajo, igualdad de oportunidades...",
+      "notes": "igualdad a secas?",
       "parents": "womens-rights",
       "name_en": "Equal rights",
       "name_es": "Igualdad de derechos",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Derecho a voto, educación, trabajo, igualdad de oportunidades...",
       "mappings": " "
     },
     {
-      "key": "heroine",
-      "type": "value ",
-      "notes": "",
-      "parents": "",
-      "name_en": "",
-      "name_es": "",
+      "key": "feminine-genius",
+      "type": "value",
+      "notes": "mostrar el valor/belleza/contribución social de la mujer/lo femenino, virtudes propiamente femeninas (genio femenino de JPII)",
+      "parents": "womens-rights",
+      "name_en": "Feminine genius",
+      "name_es": "Genio femenino",
       "tip_en": "",
-      "tip_es": "",
-      "mappings": ""
+      "tip_es": "Muestra la gran contribución de la mujer a la sociedad",
+      "mappings": " "
     },
     {
       "key": "",
@@ -767,18 +745,18 @@
       "name_en": "Transcendence",
       "name_es": "Trascendencia",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Apertura a la transcendencia, a la belleza, la verdad, el sentido...",
       "mappings": " "
     },
     {
       "key": "purpose",
       "type": "value",
-      "notes": "sentido y alegría de vivir",
+      "notes": "sentido y alegría de vivir, vocación",
       "parents": "transcendence",
-      "name_en": "Life purpose & joy",
-      "name_es": "Sentido y alegria de vivir",
-      "tip_en": "",
-      "tip_es": "",
+      "name_en": "Life purpose",
+      "name_es": "Sentido de vivir",
+      "tip_en": "Life purpose & joy",
+      "tip_es": "Sentido y alegria de vivir",
       "mappings": " "
     },
     {
@@ -789,7 +767,7 @@
       "name_en": "Truth",
       "name_es": "Verdad",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Busqueda de la verdad",
       "mappings": " "
     },
     {
@@ -800,8 +778,8 @@
       "name_en": "Beauty",
       "name_es": "Belleza",
       "tip_en": "",
-      "tip_es": "",
-      "mappings": ""
+      "tip_es": "Busqueda de la belleza",
+      "mappings": " "
     },
     {
       "key": "faith",
@@ -839,23 +817,34 @@
     {
       "key": "justice",
       "type": "group",
-      "notes": "Justicia social/Cuidado necesitados (empatía/misericordia?) justice & social care",
+      "notes": "Justicia y misericordia?",
       "parents": " ",
-      "name_en": "Justice & social care",
-      "name_es": "Justicia y cuidado social",
+      "name_en": "Social justice",
+      "name_es": "Justicia social",
       "tip_en": "",
       "tip_es": "",
       "mappings": " "
     },
     {
-      "key": "pro-life",
+      "key": "mental-health",
       "type": "value",
-      "notes": "no nacido (aborto y FIV) y 3ª edad (eutanasia)",
+      "notes": "",
       "parents": "justice",
-      "name_en": "Pro-life",
-      "name_es": "Pro-vida",
+      "name_en": "Mental health ",
+      "name_es": "Salud mental",
       "tip_en": "",
-      "tip_es": "Defensa del derecho a la vida: derechos del no nacido (vs aborto y FIV) y 3ª edad (vs eutanasia)",
+      "tip_es": "Muestra especial atención, cuidado y empatía hacia quienes sufren de una mala salud mental",
+      "mappings": " "
+    },
+    {
+      "key": "unborn",
+      "type": "value",
+      "notes": "",
+      "parents": "justice",
+      "name_en": "Unborn",
+      "name_es": "No nacido ",
+      "tip_en": "",
+      "tip_es": "Defensa del derecho a la vida del no nacido (vs aborto, FIV, investigación con embriones...)",
       "mappings": " "
     },
     {
@@ -866,51 +855,40 @@
       "name_en": "Ecology",
       "name_es": "Ecologia",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Protección y cuidado del medio ambiente",
       "mappings": " "
     },
     {
       "key": "equal-rights",
       "type": "value",
-      "notes": "racismo, derechos mujer...",
+      "notes": "",
       "parents": "justice",
       "name_en": "Equal rigths",
       "name_es": "Igualdad de derechos",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Igualda de derechos y libertades con independencia del sexo, raza, religión...",
       "mappings": " "
     },
     {
-      "key": "vulnerable",
+      "key": "elderly-disabled",
       "type": "value",
-      "notes": "mental health, disminuidos psíquicos/mentales",
+      "notes": "",
       "parents": "justice",
-      "name_en": "",
-      "name_es": "",
+      "name_en": "Elderly & disabled",
+      "name_es": "Ancianos y discapacitados",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Cuidado de ancianos y discapacitados, mostrando el valor y belleza de sus vidas",
       "mappings": " "
     },
     {
       "key": "poor",
       "type": "value",
-      "notes": "pobreza África, sin techo, desempleo...",
+      "notes": "",
       "parents": "justice",
-      "name_en": "",
-      "name_es": "",
+      "name_en": "Poor",
+      "name_es": "Pobres",
       "tip_en": "",
-      "tip_es": "",
-      "mappings": " "
-    },
-    {
-      "key": "acts-of-mercy",
-      "type": "value",
-      "notes": "obras de misericordia",
-      "parents": "justice",
-      "name_en": "",
-      "name_es": "",
-      "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Lucha por la reducción de la pobreza: ayuda, cuidado, educación... de personas sin hogar o en situación de pobreza",
       "mappings": " "
     },
     {
@@ -932,18 +910,18 @@
       "name_en": "Self-giving",
       "name_es": "Entrega y generosidad",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Visión de la vida orientada al servicio, generosidad y entrega a los demás",
       "mappings": " "
     },
     {
       "key": "generosity",
       "type": "value",
-      "notes": "generosidad y desprendimiento vs codicia/egoísmo",
+      "notes": "",
       "parents": "self-giving",
       "name_en": "Generosity",
       "name_es": "Generosidad",
       "tip_en": "Generosity & detachment",
-      "tip_es": "Generosidad y desprendimiento",
+      "tip_es": "Generosidad y desprendimiento, frente a codicia y egoismo",
       "mappings": " "
     },
     {
@@ -951,7 +929,7 @@
       "type": "value",
       "notes": "espiritu de servicio",
       "parents": "self-giving",
-      "name_en": "",
+      "name_en": "Service",
       "name_es": "Servicio",
       "tip_en": "",
       "tip_es": "",
@@ -960,20 +938,20 @@
     {
       "key": "sacrifice",
       "type": "value",
-      "notes": "sacrificio y heroic-acts, diligencia",
+      "notes": "",
       "parents": "self-giving",
-      "name_en": "",
+      "name_en": "Sacrifice",
       "name_es": "Sacrificio",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Sacrificio, actos heroicos, diligencia...",
       "mappings": " "
     },
     {
       "key": "humility",
       "type": "value",
-      "notes": "humildad vs soberbia",
+      "notes": "la humildad es la verdad",
       "parents": "self-giving",
-      "name_en": "",
+      "name_en": "Humility",
       "name_es": "Humildad",
       "tip_en": "",
       "tip_es": "",
@@ -982,7 +960,7 @@
     {
       "key": "gratitude",
       "type": "value",
-      "notes": "Agradecimiento/gratitud.... compassion?",
+      "notes": "compasion?",
       "parents": "self-giving",
       "name_en": "Gratitude",
       "name_es": "Gratitud",
@@ -1004,7 +982,7 @@
     {
       "key": "reconciliation",
       "type": "group",
-      "notes": "",
+      "notes": "puede ser demasiado toda una sección?",
       "parents": "",
       "name_en": "Reconciliation",
       "name_es": "Reconciliación",
@@ -1029,7 +1007,7 @@
       "notes": "",
       "parents": "reconciliation",
       "name_en": "",
-      "name_es": "",
+      "name_es": "Redención",
       "tip_en": "",
       "tip_es": "",
       "mappings": ""
@@ -1040,7 +1018,7 @@
       "notes": "",
       "parents": "reconciliation",
       "name_en": "",
-      "name_es": "",
+      "name_es": "Reconciliacion",
       "tip_en": "",
       "tip_es": "",
       "mappings": ""
@@ -1081,12 +1059,12 @@
     {
       "key": "friendship",
       "type": "value",
-      "notes": "Amistad y compañerismo",
+      "notes": "",
       "parents": "other",
-      "name_en": "",
-      "name_es": "",
+      "name_en": "Friendship",
+      "name_es": "Amistad",
       "tip_en": "",
-      "tip_es": "",
+      "tip_es": "Amistad y compañerismo",
       "mappings": " "
     },
     {
@@ -1095,7 +1073,7 @@
       "notes": "honesty & trust",
       "parents": "other",
       "name_en": "",
-      "name_es": "",
+      "name_es": "Honestidad",
       "tip_en": "",
       "tip_es": "",
       "mappings": " "
@@ -1106,7 +1084,7 @@
       "notes": "",
       "parents": "other",
       "name_en": "",
-      "name_es": "",
+      "name_es": "Responsabilidad",
       "tip_en": "",
       "tip_es": "",
       "mappings": " "
@@ -1117,7 +1095,7 @@
       "notes": "",
       "parents": "other",
       "name_en": "",
-      "name_es": "",
+      "name_es": "Dignidad humana",
       "tip_en": "",
       "tip_es": "",
       "mappings": ""
@@ -1125,8 +1103,19 @@
     {
       "key": "keeping-promises",
       "type": "",
-      "notes": "",
+      "notes": "parte de responsabilidad?",
       "parents": "other",
+      "name_en": "",
+      "name_es": "Mantener promesas",
+      "tip_en": "",
+      "tip_es": "",
+      "mappings": ""
+    },
+    {
+      "key": "",
+      "type": "",
+      "notes": "",
+      "parents": "",
       "name_en": "",
       "name_es": "",
       "tip_en": "",
@@ -1161,10 +1150,10 @@
       "notes": "",
       "parents": "",
       "name_en": "Recently reviewed",
-      "name_es": "",
+      "name_es": "Revisadas recientemente",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ sort_by: 'last_edited' }"
+      "mappings": "{ \"sort_by\": \"last_edited\" }"
     },
     {
       "key": "family",
@@ -1175,7 +1164,7 @@
       "name_es": "Ver con los peques",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ genres: \"['Animation']\" }"
+      "mappings": "{ \"genres\": [\"Animation\"] }"
     },
     {
       "key": "best-rated",
@@ -1186,7 +1175,7 @@
       "name_es": "Mejor valoradas",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ imdbRating: 8 }"
+      "mappings": "{ \"imdbRating\": 8 }"
     },
     {
       "key": "classics",
@@ -1197,7 +1186,7 @@
       "name_es": "Clásicas",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ releasedBefore: 1970 }"
+      "mappings": "{ \"releasedBefore\": 1970 }"
     },
     {
       "key": "family-love",
@@ -1208,7 +1197,7 @@
       "name_es": "Familia",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ values: \"['family-love']\"}"
+      "mappings": "{ \"values\": [\"family-love\"] }"
     },
     {
       "key": "romantic-love",
@@ -1219,7 +1208,7 @@
       "name_es": "Amor romántico",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ values: \"['romantic-love']\"}"
+      "mappings": "{ \"values\": [\"romantic-love\"] }"
     },
     {
       "key": "womens-rights",
@@ -1230,7 +1219,7 @@
       "name_es": "Derechos de la mujer",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ values: \"['womens-rights']\"}"
+      "mappings": "{ \"values\": [\"womens-rights\"] }"
     },
     {
       "key": "transcendence",
@@ -1240,19 +1229,19 @@
       "name_en": "Transcendence",
       "name_es": "Trascendencia",
       "tip_en": "",
-      "tip_es": "",
-      "mappings": "{ values: \"['transcendence']\"}"
+      "tip_es": "Apertura a la transcendencia, a la belleza, la verdad, el sentido...",
+      "mappings": "{ \"values\": [\"transcendence\"] }"
     },
     {
       "key": "justice",
       "type": "section",
       "notes": "",
       "parents": "",
-      "name_en": "Justice & social care",
-      "name_es": "Justicia y cuidado social",
+      "name_en": "Social justice",
+      "name_es": "Justicia social",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ values: \"['justice']\"}"
+      "mappings": "{ \"values\": [\"justice\"] }"
     },
     {
       "key": "self-giving",
@@ -1262,8 +1251,8 @@
       "name_en": "Self-giving",
       "name_es": "Entrega y generosidad",
       "tip_en": "",
-      "tip_es": "",
-      "mappings": "{ values: \"['self-giving']\"}"
+      "tip_es": "Visión de la vida orientada al servicio, generosidad y entrega a los demás",
+      "mappings": "{ \"values\": [\"self-giving\"] }"
     },
     {
       "key": "reconciliation",
@@ -1274,7 +1263,7 @@
       "name_es": "Reconciliación",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ values: \"['reconciliation']\"}"
+      "mappings": "{ \"values\": [\"reconciliation\"] }"
     },
     {
       "key": "other",
@@ -1285,7 +1274,7 @@
       "name_es": "Otros valores",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ values: \"['other']\"}"
+      "mappings": "{ \"values\": [\"other\"] }"
     },
     {
       "key": "romance",
@@ -1296,7 +1285,7 @@
       "name_es": "Romantica",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ genres: \"['romance']\"}"
+      "mappings": "{ \"genres\": [\"romance\"] }"
     },
     {
       "key": "comedy",
@@ -1307,7 +1296,7 @@
       "name_es": "Comedia",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ genres: \"['comedy']\"}"
+      "mappings": "{ \"genres\": [\"comedy\"] }"
     },
     {
       "key": "documentary",
@@ -1318,7 +1307,7 @@
       "name_es": "Documental",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ genres: \"['documentary']\"}"
+      "mappings": "{ \"genres\": [\"documentary\"] }"
     },
     {
       "key": "fantasy_sci-fi",
@@ -1329,7 +1318,7 @@
       "name_es": "Fantasia y Ciencia Ficción",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ genres: \"['fantasy','sci-fi']\"}"
+      "mappings": "{ \"genres\": [\"fantasy\",\"sci-fi\"] }"
     },
     {
       "key": "history",
@@ -1340,7 +1329,7 @@
       "name_es": "Historia",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ genres: \"['history']\"}"
+      "mappings": "{ \"genres\": [\"history\"] }"
     },
     {
       "key": "thriller",
@@ -1351,7 +1340,7 @@
       "name_es": "Suspense",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ genres: \"['thriller']\"}"
+      "mappings": "{ \"genres\": [\"thriller\"] }"
     },
     {
       "key": "musical",
@@ -1362,7 +1351,7 @@
       "name_es": "Musical",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ genres: \"['musical']\"}"
+      "mappings": "{ \"genres\": [\"musical\"] }"
     },
     {
       "key": "war",
@@ -1373,7 +1362,7 @@
       "name_es": "Bélico",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ genres: \"['war']\"}"
+      "mappings": "{ \"genres\": [\"war\"] }"
     },
     {
       "key": "action_adventure",
@@ -1384,7 +1373,7 @@
       "name_es": "Acción y Aventura",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ genres: \"['action','adventure']\"}"
+      "mappings": "{ \"genres\": [\"action\",\"adventure\"] }"
     }
   ]
 }

@@ -13,6 +13,7 @@ function adaptTags(tags_excel, lang) {
     scene: [],
     values: [],
     sections: [],
+    actions: [],
   }
 
   for (let i = 0; i < tags_excel.length; i++) {
@@ -23,6 +24,8 @@ function adaptTags(tags_excel, lang) {
       context: 'scene',
       group: 'values',
       value: 'values',
+      section: 'sections',
+      action: 'actions',
     }
 
     if (!mapGroup[tag.type]) continue //skip these
