@@ -54,13 +54,13 @@
           <code>{{ item.movieContent }}</code>
         </v-tab-item>
 
-        <!--movieScenes-->
+        <!--movieFilters-->
         <v-tab-item>
-          <div v-for="(scene, sid) in item.movieScenes" :key="sid">
+          <div v-for="(scene, sid) in item.movieFilters" :key="sid">
             <SceneItem :scene="scene" />
           </div>
           <code>
-            {{ item.movieScenes }}
+            {{ item.movieFilters }}
           </code>
         </v-tab-item>
 

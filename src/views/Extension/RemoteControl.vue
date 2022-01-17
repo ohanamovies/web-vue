@@ -29,7 +29,7 @@
       <div style="text-align: center; font-size: 10pt">
         <div style="font-weight: bold">
           <span v-if="connected" style="color: green">Connected</span>
-          <span v-else style="color: red"></span>
+          <span v-else style="color: red">Not connected</span>
         </div>
 
         <p v-if="error" style="color: red">{{ error }}</p>
@@ -37,9 +37,26 @@
     </div>
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
       <div class="inner">
-        <!-- movie data FYI -->
-        <div v-if="movieData && movieData.imdb">
-          <MoviePopup v-if="movieData" :imdb="movieData.imdb" />
+        <div v-if="fcData">
+          <!-- movie data FYI -->
+          <div v-if="fcData && fcData.metadata && fcData.metadata.imdb">
+            <MoviePopup :imdb="fcData.metadata.imdb" :hideCloseButton="true" />
+          </div>
+
+          <!-- scenes -->
+          <div style="font-size: 10pt">
+            <div
+              v-for="(scene, i) of fcData.scenes"
+              :key="i"
+              style="padding: 5px; margin: 5px; border-top: 1px solid gray"
+            >
+              <b>Scene #{{ i + 1 }}</b>
+              <br />
+              <b>Tags:</b> {{ scene.tags.join(', ') }}
+              <br />
+              <b>Skip:</b> {{ scene.skip }}
+            </div>
+          </div>
         </div>
 
         <div style="font-size: 7pt; margin-top: 30px; margin-bottom: 20px">
@@ -72,7 +89,7 @@ export default {
       socket: null,
       connected: false,
       messages: [],
-      movieData: false,
+      fcData: false,
       error: '',
     }
   },
@@ -90,7 +107,7 @@ export default {
         console.log('[alex] WebSocket connected', e)
         this.sendSocketMessage('getMyConnectionId')
         this.sendSocketMessage('get-metadata', { target: this.target })
-        //this.sendMessageToExtensionContentScript('getMovieData')
+        //this.sendMessageToExtensionContentScript('getfcData')
       })
 
       this.socket.addEventListener('close', (e) => {
@@ -116,9 +133,9 @@ export default {
       this.error = ''
       this.messages.push(m)
       if (m.action == 'new-metadata') {
-        this.movieData = m.data
+        this.fcData = m.data
       } else if (m.message == 'Internal server error') {
-        this.error = 'Ouch. Something went wrong. You sure movie is still there?'
+        this.error = 'Ouch. Something went wrong. Try re-scanning the QR code'
         this.disconnect()
       }
     },
