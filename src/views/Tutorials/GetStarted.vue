@@ -27,8 +27,8 @@
         <div>
           Aquí encontrarás una introducción sobre como usar Ohana:
           <ol>
-            <li><a href="/#how-to-watch">Cómo ver películas cortadas</a></li>
-            <li><a href="/#how-to-create-filters">Cómo crear filtros</a></li>
+            <li><a href="/get-started#how-to-watch">Cómo ver películas cortadas</a></li>
+            <li><a href="/get-started#how-to-create-filters">Cómo crear filtros</a></li>
           </ol>
           <p>
             Para saber qué es Ohana, visita nuestro sección
@@ -266,8 +266,8 @@
         <div>
           Here you'll find a quick guide about how to use Ohana. This is:
           <ol>
-            <li><a href="#how-to-watch">How to watch clean movies</a></li>
-            <li><a href="#how-to-create-filters">How to create filters</a></li>
+            <li><a href="/get-started#how-to-watch">How to watch clean movies</a></li>
+            <li><a href="/get-started#how-to-create-filters">How to create filters</a></li>
           </ol>
           <p>
             To learn what's Ohana visit our <router-link to="/about">About section</router-link>.
@@ -537,9 +537,10 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 h2 {
-  padding-top: 40px;
+  padding-top: 50px;
+
   margin-bottom: 10px;
   font-weight: bold;
 }

@@ -1,13 +1,18 @@
 <template>
   <div class="subpage">
-    <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
-      <div class="inner">
-        <h1>Target: {{ target }}</h1>
-        Connected: {{ connected }}
-        <br />
-        <p v-if="error" style="color: red">{{ error }}</p>
-        <div v-if="movieData">Title: {{ movieData.title }}</div>
-
+    <!-- control buttons -->
+    <div
+      style="
+        position: fixed;
+        bottom: 0px;
+        background-color: white;
+        border-top: 1px solid gray;
+        padding: 5px;
+        width: 100%;
+        z-index: 999999;
+      "
+    >
+      <div style="max-width: 500px; margin: auto">
         <ul class="actions fit">
           <li><button @click="seekForward(-10000)" class="button fit">-10</button></li>
           <li>
@@ -20,8 +25,25 @@
           </li>
           <li><button @click="seekForward(+10000)" class="button fit">+10</button></li>
         </ul>
+      </div>
+      <div style="text-align: center; font-size: 10pt">
+        <div style="font-weight: bold">
+          <span v-if="connected" style="color: green">Connected</span>
+          <span v-else style="color: red"></span>
+        </div>
 
-        <div>
+        <p v-if="error" style="color: red">{{ error }}</p>
+      </div>
+    </div>
+    <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
+      <div class="inner">
+        <!-- movie data FYI -->
+        <div v-if="movieData && movieData.imdb">
+          <MoviePopup v-if="movieData" :imdb="movieData.imdb" />
+        </div>
+
+        <div style="font-size: 7pt; margin-top: 30px; margin-bottom: 20px">
+          <b>[Dev] Messages Received</b>
           <ul>
             <li v-for="(m, index) of messages" :key="index">{{ m }}</li>
           </ul>
@@ -33,8 +55,12 @@
 
 <script>
 const WEBSOCKET_URL = 'wss://vz7ojh22k6.execute-api.eu-west-1.amazonaws.com/dev'
+import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 
 export default {
+  components: {
+    MoviePopup,
+  },
   props: {
     target: {
       type: String,
@@ -63,6 +89,7 @@ export default {
         this.connected = true
         console.log('[alex] WebSocket connected', e)
         this.sendSocketMessage('getMyConnectionId')
+        this.sendSocketMessage('get-metadata', { target: this.target })
         //this.sendMessageToExtensionContentScript('getMovieData')
       })
 
@@ -85,12 +112,12 @@ export default {
       })
     },
     handleSocketMessage(msg) {
-      let data = JSON.parse(msg)
+      let m = JSON.parse(msg)
       this.error = ''
-      this.messages.push(data)
-      if (data.action == 'movie-data') {
-        this.movieData = msg.data
-      } else if (data.message == 'Internal server error') {
+      this.messages.push(m)
+      if (m.action == 'new-metadata') {
+        this.movieData = m.data
+      } else if (m.message == 'Internal server error') {
         this.error = 'Ouch. Something went wrong. You sure movie is still there?'
         this.disconnect()
       }
@@ -148,7 +175,17 @@ export default {
       this.sendSocketMessage('content-script-message', msg, this.target)
     },
   },
+  mounted() {
+    this.connect()
+  },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+ul {
+  margin: 0px;
+}
+li {
+  padding: 0px;
+}
+</style>
