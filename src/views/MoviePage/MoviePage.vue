@@ -55,7 +55,9 @@
 
           <!-- Scenes -->
           <h4>Filters</h4>
-          <p v-if="Object.keys(item.movieFilters).length == 0">No filters so far</p>
+          <p v-if="!item.movieFilters || Object.keys(item.movieFilters).length == 0">
+            No filters so far.
+          </p>
           <div v-for="(scene, sid) in item.movieFilters" :key="sid">
             <SceneItem v-if="scene" :scene="scene" />
           </div>
@@ -269,13 +271,31 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
     movieContentSummary() {
       let nFilters = 0
+      const type = this.item.type
+      let minHealth = null
+      let minTrust = null
       for (const tag of this.settings.skip_tags) {
         nFilters += this.item.filterStatus[tag] ? this.item.filterStatus[tag].scenes.length : 0
+        let h = this.item.filterStatus[tag] ? this.item.filterStatus[tag].health : 0
+        let t = this.item.filterStatus[tag] ? this.item.filterStatus[tag].trust : 0
+        if (!minHealth || h <= minHealth) minHealth = h
+        if (!minTrust || t <= minTrust) minTrust = t
       }
-      if (nFilters == 0) {
-        return 'The original of this movie is healthy for your settings.'
+
+      if (minHealth > 0.5 && minTrust > 1) {
+        //TODO: Confirm minTrust threshold
+        if (nFilters == 0) {
+          return 'The original of this movie is healthy for your settings.'
+        } else {
+          return 'It takes ' + nFilters + ' filters to make this movie healthy for your settings.'
+        }
       } else {
-        return 'It takes ' + nFilters + ' filters to make this movie healthy for your settings.'
+        if (nFilters == 0) {
+          //TODO
+          return 'This movie contains unhealthy content for your settings. But no one has created filters yet to make it healthy.'
+        } else {
+          return `We have ${nFilters} filters, but we are not sure if that's enough to make this ${type} healthy for your settings.`
+        }
       }
     },
     item_with_add_data() {

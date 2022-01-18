@@ -100,15 +100,22 @@ export default {
     fetchCountries() {
       console.log('fetching countries...')
       const url = 'https://restcountries.com/v3.1/all'
+      const useLocal = true
       this.loading = true
-      fetch(url)
-        .then((r) => {
-          this.loading = false
-          return r.json()
-        })
-        .then((countries) => {
-          this.countries = [...countries]
-        })
+
+      if (useLocal) {
+        this.countries = require('@/assets/countries.json')
+        this.loading = false
+      } else {
+        fetch(url)
+          .then((r) => {
+            this.loading = false
+            return r.json()
+          })
+          .then((countries) => {
+            this.countries = [...countries]
+          })
+      }
     },
   },
   mounted() {

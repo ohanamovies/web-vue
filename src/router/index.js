@@ -4,9 +4,9 @@ import VueRouter from 'vue-router'
 import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 
 import Home from '@/views/Home.vue'
-import About from '@/views/About.vue'
+import AboutOld from '@/views/AboutOld.vue'
 import Home2 from '@/views/Home2.vue'
-import About2 from '@/views/About2.vue'
+import About2 from '@/views/About.vue'
 import Community from '@/views/Community.vue'
 import Content from '@/views/Content.vue'
 import Elements from '@/views/Elements.vue'
@@ -95,14 +95,14 @@ const routes = [
   },
 
   {
-    path: '/about2',
+    path: '/about',
     name: 'About2',
     component: About2,
   },
   {
-    path: '/about',
-    name: 'About',
-    component: About,
+    path: '/about_old',
+    name: 'AboutOld',
+    component: AboutOld,
   },
   {
     path: '/community',

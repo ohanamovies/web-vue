@@ -6,11 +6,11 @@
         <div id="menu">
           En esta sección encontraras:
           <ol>
-            <li><a href="#what-is-ohana">¿Qué es Ohana?</a></li>
-            <li><a href="#why-skipping">¿Por qué omitir contenido?</a></li>
-            <li><a href="#vision-statement">¿Por qué estamos aquí? (Visión)</a></li>
-            <li><a href="#mission-statement">¿Qué hacemos? (Misión)</a></li>
-            <li><a href="#how-can-i-help">¿Cómo puedo ayudar?</a></li>
+            <li><a href="/about#what-is-ohana">¿Qué es Ohana?</a></li>
+            <li><a href="/about#why-skipping">¿Por qué omitir contenido?</a></li>
+            <li><a href="/about#vision-statement">¿Por qué estamos aquí? (Visión)</a></li>
+            <li><a href="/about#mission-statement">¿Qué hacemos? (Misión)</a></li>
+            <li><a href="/about#how-can-i-help">¿Cómo puedo ayudar?</a></li>
           </ol>
           <p>
             Para comenzar a usar Ohana visite nuestra sección
@@ -43,6 +43,79 @@
             Si te gustan las películas geniales, pero no te gusta ver escenas inapropiadas, te
             encantará conocer Ohana.
           </p>
+        </div>
+
+        <!-- Three -->
+        <div id="three" class="wrapper align-center" style="min-height: 100vh">
+          <div class="inner">
+            <div class="flex flex-3">
+              <article>
+                <div class="image round">
+                  <img src="images/mental-health.jpeg" height="150px" :alt="$t('value1')" />
+                </div>
+                <header>
+                  <h3>{{ $t('value1') }}</h3>
+                </header>
+                <p>{{ $t('value1Desc') }}</p>
+                <br />
+              </article>
+              <article>
+                <div class="image round">
+                  <img src="images/choice-square.png" height="150px" :alt="$t('value2')" />
+                </div>
+                <header>
+                  <h3>{{ $t('value2') }}</h3>
+                </header>
+                <p>{{ $t('value2Desc') }}</p>
+                <br />
+              </article>
+              <article>
+                <div class="image round">
+                  <img src="images/fam-square.jpg" height="150px" :alt="$t('value3')" />
+                </div>
+                <header>
+                  <h3>{{ $t('value3') }}</h3>
+                </header>
+                <p>{{ $t('value3Desc') }}</p>
+                <br />
+              </article>
+              <article>
+                <div class="image round">
+                  <img src="images/womens-rights-square.png" height="150px" :alt="$t('value4')" />
+                </div>
+                <header>
+                  <h3>{{ $t('value4') }}</h3>
+                </header>
+                <p>{{ $t('value4Desc') }}</p>
+                <br />
+              </article>
+              <article>
+                <div class="image round">
+                  <img src="images/providers-square.jpg" height="150px" :alt="$t('value5')" />
+                </div>
+                <header>
+                  <h3>{{ $t('value5') }}</h3>
+                </header>
+                <p>{{ $t('value5Desc') }}</p>
+                <br />
+              </article>
+              <article>
+                <div class="image round">
+                  <img src="images/keyboard-square.jpg" height="150px" :alt="$t('value6')" />
+                </div>
+                <header>
+                  <h3>{{ $t('value6') }}</h3>
+                </header>
+                <p>{{ $t('value6Desc') }}</p>
+                <br />
+              </article>
+            </div>
+            <footer>
+              <router-link to="get-started" class="button special">{{
+                $t('getStarted')
+              }}</router-link>
+            </footer>
+          </div>
         </div>
 
         <div id="why-skipping">
@@ -171,11 +244,11 @@
         <div id="menu">
           In this section you will find:
           <ol>
-            <li><a href="#what-is-ohana">What is Ohana?</a></li>
-            <li><a href="#why-skipping">Why skipping content?</a></li>
-            <li><a href="#vision-statement">Why are we here? (Vission)</a></li>
-            <li><a href="#mission-statement">What do we do? (Mission)</a></li>
-            <li><a href="#how-can-i-help">How can I help?</a></li>
+            <li><a href="/about#what-is-ohana">What is Ohana?</a></li>
+            <li><a href="/about#why-skipping">Why skipping content?</a></li>
+            <li><a href="/about#vision-statement">Why are we here? (Vission)</a></li>
+            <li><a href="/about#mission-statement">What do we do? (Mission)</a></li>
+            <li><a href="/about#how-can-i-help">How can I help?</a></li>
           </ol>
           <p>
             To get started into how to use Ohana visit our
