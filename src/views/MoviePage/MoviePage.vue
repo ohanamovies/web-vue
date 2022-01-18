@@ -38,8 +38,7 @@
               :key="k"
               :color="v.health > 0.5 ? 'green' : v.health < -0.5 ? 'red' : 'orange'"
               class="ma-1"
-              :x-small="isMobile"
-              :small="!isMobile"
+              small
               :outlined="!settings.skip_tags.includes(k)"
               dark
             >
@@ -54,20 +53,14 @@
           <EditValues :imdb="imdb" :original="item.movieValues" />
 
           <!-- Scenes -->
-          <h4>Filters</h4>
-          <p v-if="!item.movieFilters || Object.keys(item.movieFilters).length == 0">
-            No filters so far.
-          </p>
-          <div v-for="(scene, sid) in item.movieFilters" :key="sid">
-            <SceneItem v-if="scene" :scene="scene" />
-          </div>
+          <h4>All filters</h4>
+          <ScenesList :items="item.movieFilters" />
         </v-tab-item>
 
         <!--movieFilters-->
         <v-tab-item>
-          <div v-for="(scene, sid) in item.movieFilters" :key="sid">
-            <SceneItem v-if="scene" :scene="scene" />
-          </div>
+          <ScenesList :items="item.movieFilters" />
+
           <code>
             {{ item.movieFilters }}
           </code>
@@ -216,7 +209,8 @@ import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 
 import EditValues from '@/views/MoviePage/EditValues2.vue'
 import EditTags from '@/views/MoviePage/EditTags.vue'
-import SceneItem from '@/views/MoviePage/SceneItem.vue'
+
+import ScenesList from '@/views/MoviePage/ScenesList.vue'
 
 import sharedjs from '@/sharedjs'
 
@@ -234,7 +228,8 @@ export default {
 
     EditValues,
     EditTags,
-    SceneItem,
+
+    ScenesList,
   },
   props: {
     imdb: {
@@ -345,6 +340,9 @@ export default {
     },
   },
   methods: {
+    includesAny(arr1, arr2) {
+      return ohana.utils.includesAny(arr1, arr2)
+    },
     getCuts(tag, providerData) {
       let cuts = 0
 

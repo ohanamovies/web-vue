@@ -3,9 +3,9 @@
     <div v-if="scene">
       <div v-if="scene.times">
         <b>Duration: {{ formatTime(averageDuration(scene.times)) }}</b>
-        <span v-if="Object.keys(scene.times).length > 0" style="font-size: 80%"
-          >(average between providers)</span
-        >
+        <span v-if="Object.keys(scene.times).length > 1" style="font-size: 80%">
+          (average between providers)
+        </span>
         <ul>
           <li v-for="(time, provider) in scene.times" :key="provider">
             <b>{{ provider }}</b>
@@ -36,6 +36,19 @@
         }}</v-chip>
       </div>
       <div><b>Last edited:</b> {{ new Date(scene.updatedAt).toISOString() }}</div>
+
+      <div v-if="scene.draft">
+        <b style="color: red">DRAFT</b>
+      </div>
+
+      <div v-if="scene.flags && scene.flags.length" style="font-size: 70%">
+        <b>Flags</b>
+        <ul>
+          <li v-for="(flag, index) in scene.flags" :key="index">
+            {{ flag }}
+          </li>
+        </ul>
+      </div>
 
       <div v-if="false" style="font-size: 60%; font-family: consolas">
         <code> {{ scene }}</code>

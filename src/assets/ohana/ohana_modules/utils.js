@@ -27,6 +27,18 @@ const utils = {
     let xs = s < 10 ? '0' + s : s
     return xh + ':' + xm + ':' + xs
   },
+
+  includesAny: function (arr1, arr2) {
+    if (arr1.indexOf('All') !== -1) return true
+    if (arr2.indexOf('All') !== -1) return true
+    return arr1.some((v) => arr2.indexOf(v) !== -1)
+  },
+  includesAll: function (arrBig, arrSmall) {
+    for (const iterator of arrSmall) {
+      if (!arrBig.includes(iterator)) return false
+    }
+    return true
+  },
 }
 
 module.exports = { utils }
