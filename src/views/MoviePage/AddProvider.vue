@@ -1,3 +1,4 @@
+<!--  @deprecated -->
 <template>
   <div>
     <b>A provider is missing? you can add it!</b>

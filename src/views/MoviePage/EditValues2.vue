@@ -7,17 +7,43 @@
     <div v-else-if="loading"><b>Loading... Please wait a minute</b></div>
 
     <div v-else>
-      <TagsSelector title="Your vote:" :items="chips" v-model="selectedValues" :multiple="true" />
-      <br />
-      <button class="button special" @click="sendVote()" :disabled="!settings.username">
-        Send my vote
-      </button>
-      <span v-if="!settings.username">
-        <b>You need to login to post data</b>
-      </span>
-      <br />
-      <br />
-      Preview: <code>{{ keysToHealth(selectedValues) }}</code>
+      <p>
+        <span v-if="editMode"> What is your proposal? </span>
+        <span v-else> Our community says: </span>
+        <span class="modern-link" style="margin-left: 8px" @click="editMode = !editMode">{{
+          editMode ? 'Cancel' : 'Edit'
+        }}</span>
+      </p>
+      <TagsSelector
+        v-if="editMode"
+        :readOnly="!editMode"
+        :items="userChips"
+        v-model="userValues"
+        :multiple="true"
+      />
+      <TagsSelector
+        v-else
+        :readOnly="true"
+        :items="communityChips"
+        v-model="communityValues"
+        :multiple="true"
+      />
+      <div v-if="editMode">
+        <button
+          class="button special"
+          style="margin-bottom: 5px"
+          @click="sendVote()"
+          :disabled="!settings.username"
+        >
+          Send my vote
+        </button>
+        <span v-if="!settings.username">
+          <b>You need to login to post data</b>
+        </span>
+      </div>
+
+      Preview: <code>{{ keysToHealth(userValues) }}</code> <br />
+      Original: <code>{{ original }}</code>
     </div>
   </div>
 </template>
@@ -25,7 +51,7 @@
 <script>
 import ohana from '@/assets/ohana/index'
 import tags_excel from '@/assets/tags_excel'
-import TagsSelector from './TagsSelector.vue'
+import TagsSelector from '@/components/TagsSelector.vue'
 import { mapState } from 'vuex'
 export default {
   components: {
@@ -36,23 +62,31 @@ export default {
       type: String,
       default: '',
     },
+    original: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
   },
   data() {
     return {
-      selectedValues: [],
+      editMode: false,
+      userValues: [],
+      communityValues: [],
       alltags: { scenes: [], values: [] },
       loading: false,
     }
   },
   watch: {
-    selectedValues(newValue) {
+    userValues(newValue) {
       //make sure we remove the children if parent is removed
       if (this.alltags.length) {
         newValue.forEach((key) => {
           let parents = this.alltags.values.find((x) => x.key == key).parents
           if (parents.length > 0) {
             if (!newValue.some((item) => parents.includes(item))) {
-              this.selectedValues.splice(this.selectedValues.indexOf(key), 1)
+              this.userValues.splice(this.userValues.indexOf(key), 1)
             }
           }
         })
@@ -66,7 +100,7 @@ export default {
       return this.alltags.values
     },
 
-    chips() {
+    userChips() {
       let output = []
       for (const tag of this.values) {
         const chipTag = {
@@ -77,7 +111,25 @@ export default {
         if (tag.parents.length == 0) {
           chipTag.color = 'black'
           output.push(chipTag)
-        } else if (this.selectedValues.some((item) => tag.parents.includes(item))) {
+        } else if (this.userValues.some((item) => tag.parents.includes(item))) {
+          chipTag.color = 'success'
+          output.push(chipTag)
+        }
+      }
+      return output
+    },
+    communityChips() {
+      let output = []
+      for (const tag of this.values) {
+        const chipTag = {
+          value: tag.key,
+          title: tag.name ? tag.name : tag.key,
+          description: tag.tip,
+        }
+        if (tag.parents.length == 0) {
+          chipTag.color = 'black'
+          output.push(chipTag)
+        } else if (this.communityValues.some((item) => tag.parents.includes(item))) {
           chipTag.color = 'success'
           output.push(chipTag)
         }
@@ -96,7 +148,7 @@ export default {
       }
       const myvote = await ohana.api.query(query)
       for (const key in myvote) {
-        this.selectedValues.push(key)
+        this.userValues.push(key)
       }
     },
     keysToHealth(arr) {
@@ -107,7 +159,7 @@ export default {
       return output
     },
     sendVote() {
-      let voteData = this.keysToHealth(this.selectedValues)
+      let voteData = this.keysToHealth(this.userValues)
 
       let query = {
         action: 'setValues',
@@ -125,7 +177,6 @@ export default {
           return response.json()
         })
         .then((data) => {
-          console.log('dataaaaa', data)
           this.alltags = tags_excel.adaptTags(data.records, this.settings.language)
           this.loading = false
         })
@@ -135,6 +186,10 @@ export default {
   mounted() {
     this.getAllTags()
     this.getUserVote()
+
+    for (const key in this.original) {
+      this.communityValues.push(key)
+    }
   },
 }
 </script>

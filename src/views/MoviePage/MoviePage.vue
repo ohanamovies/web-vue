@@ -17,47 +17,52 @@
     <div v-if="!item.type">Hmm, something seems off.</div>
     <div v-else>
       <v-tabs v-model="tab">
-        <v-tab>movie Content</v-tab>
-        <v-tab>movie Scenes</v-tab>
-        <v-tab>values</v-tab>
+        <v-tab>Content</v-tab>
+        <v-tab>Filters</v-tab>
+        <v-tab>Values</v-tab>
         <v-tab>Providers</v-tab>
-        <v-tab>Episodes</v-tab>
+        <v-tab v-if="showEpisodes">Episodes</v-tab>
         <v-tab>dev</v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
-        <!-- movieContent -->
+        <!-- CONTENT -->
         <v-tab-item>
-          <h4>movieContent</h4>
-          <table id="myBeautifulTable" style="max-width: 350px" border="1">
-            <tr>
-              <th>Tag</th>
-              <th>Health</th>
-              <th>Trust</th>
-              <th>Color</th>
-              <th>Cuts</th>
-            </tr>
-            <tr v-for="(v, k) in item.movieContent" :key="k">
-              <td>{{ k }}</td>
-              <td>
-                {{ item.movieContent[k].health }}
-              </td>
-              <td>{{ item.movieContent[k].trust }}</td>
-              <td>
-                <v-icon small :color="getColor(item.movieContent[k])"
-                  >mdi-checkbox-blank-circle</v-icon
-                >
-              </td>
-              <td>0</td>
-            </tr>
-          </table>
-          <code>{{ item.movieContent }}</code>
+          <!-- filterStatus -->
+          <div style="margin-top: 5px">
+            <h4>Movie Content</h4>
+
+            <v-chip
+              v-for="(v, k) of item.filterStatus"
+              :key="k"
+              :color="v.health > 0.5 ? 'green' : v.health < -0.5 ? 'red' : 'orange'"
+              class="ma-1"
+              :x-small="isMobile"
+              :small="!isMobile"
+              :outlined="!settings.skip_tags.includes(k)"
+              dark
+            >
+              {{ k }}
+              {{ '(' + v.scenes.length + (v.scenes.length == 1 ? ' filter' : ' filters') + ')' }}
+            </v-chip>
+          </div>
+
+          <!-- values -->
+          <h4>Values</h4>
+          <EditValues :imdb="imdb" :original="item.movieValues" />
+
+          <!-- Scenes -->
+          <h4>Filters</h4>
+          <p v-if="Object.keys(item.movieFilters).length == 0">No filters so far</p>
+          <div v-for="(scene, sid) in item.movieFilters" :key="sid">
+            <SceneItem v-if="scene" :scene="scene" />
+          </div>
         </v-tab-item>
 
         <!--movieFilters-->
         <v-tab-item>
           <div v-for="(scene, sid) in item.movieFilters" :key="sid">
-            <SceneItem :scene="scene" />
+            <SceneItem v-if="scene" :scene="scene" />
           </div>
           <code>
             {{ item.movieFilters }}
@@ -66,7 +71,7 @@
 
         <!-- movie values -->
         <v-tab-item>
-          <EditValues :imdb="imdb" />
+          <EditValues :imdb="imdb" :original="item.movieValues" />
           <br />
           Current data:
           <code>
@@ -77,105 +82,37 @@
         <!-- PROVIDERS -->
         <v-tab-item>
           <br />
-          <p>This is data at provider level</p>
 
-          <v-tabs v-model="providerTab">
-            <v-tab v-for="(p, index) in item.providers" :key="index">{{ p.provider }}</v-tab>
-            <v-tab>+ Add Provider</v-tab>
-          </v-tabs>
+          <div v-if="tmdbAvailability.lenght">
+            <div v-for="(p, i) in tmdbAvailability" :key="i">
+              {{ p }}
+            </div>
+          </div>
 
-          <v-tabs-items v-model="providerTab">
-            <v-tab-item v-for="(p, index) in item.providers" :key="index">
-              <br />
+          <div v-for="(p, index) in item.providers" :key="index">
+            <b>{{ p.provider }}</b>
+            <div>
               <p>
-                status for you: <b>{{ joinStatus(p.filterStatus).status }}</b>
+                Link:
+                <a
+                  :href="getLink(p.provider, p.providerID)"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >{{ getLink(p.provider, p.providerID) }}</a
+                >
               </p>
-              <div>
-                <p>
-                  Link:
-                  <a
-                    :href="getLink(p.provider, p.providerID)"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >{{ getLink(p.provider, p.providerID) }}</a
-                  >
-                </p>
-                Countries available:
-                <v-chip small v-for="(a, ai) in p.availability" :key="ai">{{ a }}</v-chip>
-                <br />
-                <br />
-                <div>
-                  FilterStatus joinStatus: {{ joinStatus(p.filterStatus) }}
-
-                  <div>
-                    <table id="myBeautifulTable" style="max-width: 350px" border="1">
-                      <tr>
-                        <th>Tag</th>
-                        <th>Health</th>
-                        <th>Trust</th>
-                        <th>Color</th>
-                        <th>Cuts</th>
-                      </tr>
-                      <tr v-for="(v, k) in p.filterStatus" :key="k">
-                        <td>{{ k }}</td>
-                        <td>
-                          {{ p.filterStatus[k].health }}
-                        </td>
-                        <td>{{ p.filterStatus[k].trust }}</td>
-                        <td>
-                          <v-icon small :color="getColor(p.filterStatus[k])"
-                            >mdi-checkbox-blank-circle</v-icon
-                          >
-                        </td>
-                        <td>
-                          {{ getCuts(k, p) }}
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-                <code>{{ p.filterStatus }}</code>
-                <div>
-                  <h4>Filters</h4>
-                  <div
-                    v-for="(scene, sid) in p.sceneFilters"
-                    :key="sid"
-                    style="
-                      border: 1px solid grey;
-                      border-radius: 5px;
-                      padding: 10px;
-                      margin-bottom: 10px;
-                    "
-                  >
-                    <div v-if="scene">
-                      <SceneItemOld :scene="scene" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </v-tab-item>
-
-            <!-- Add Provider -->
-            <v-tab-item>
-              <div style="margin-top: 10px">
-                To add a provider, you must open the {{ item.type }} in that provider, and start
-                editing. We will guide you there.
-              </div>
-              <div v-if="false">
-                <div v-if="!settings.username">
-                  <b>Sorry, only registered users can edit stuff.</b>
-                  <Login style="border: 3px solid lightblue; padding: 10px; border-radius: 8px" />
-                </div>
-                <div v-else>
-                  <AddProvider />
-                </div>
-              </div>
-            </v-tab-item>
-          </v-tabs-items>
+              Countries available:
+              <v-chip small v-for="(a, ai) in p.availability" :key="ai">{{ a }}</v-chip>
+              <br />
+              <br />
+              <div>FilterStatus joinStatus: {{ joinStatus(p.filterStatus) }}</div>
+              <code>{{ p.filterStatus }}</code>
+            </div>
+          </div>
         </v-tab-item>
 
         <!-- EPISODES -->
-        <v-tab-item>
+        <v-tab-item v-if="showEpisodes">
           <h4>Episodes are work in progress</h4>
           <div v-if="episodes">
             <router-link
@@ -272,11 +209,10 @@
 import ohana from '@/assets/ohana/index'
 import { mapState } from 'vuex'
 import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
-import Login from '@/components/Settings/Login.vue'
-import AddProvider from '@/views/MoviePage/AddProvider.vue'
+
 import EditValues from '@/views/MoviePage/EditValues2.vue'
 import SceneItem from '@/views/MoviePage/SceneItem.vue'
-import SceneItemOld from '@/views/MoviePage/SceneItemOld.vue'
+
 import sharedjs from '@/sharedjs'
 
 export default {
@@ -290,11 +226,9 @@ export default {
   },
   components: {
     MoviePopup,
-    Login,
-    AddProvider,
+
     EditValues,
     SceneItem,
-    SceneItemOld,
   },
   props: {
     imdb: {
@@ -331,6 +265,15 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
     item_with_add_data() {
       return ohana.movies.addInfo(this.item, this.settings.skip_tags)
+    },
+    showEpisodes() {
+      return this.item.parent
+    },
+    tmdbAvailability() {
+      if (!this.item.availability) return this.item.providers.map((p) => p.provider) //let's take the ones from our db
+      let a = this.item.availability.split(' ')
+      a = a.filter((x) => x.split('_')[1] == this.settings.country)
+      return a.map((x) => x.split('_')[0])
     },
     poster() {
       //TODO: optimize poster size? (e.g.: w154)

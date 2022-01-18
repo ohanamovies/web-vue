@@ -42,14 +42,24 @@
     </v-dialog>
 
     <!-- Section title -->
-    <div v-if="bypass || is_clean || (is_done && hasApp)">
+    <div v-if="bypass || is_clean || (is_done && hasApp)" style="display: flex">
       <b>Watch options </b>
-      <i v-if="is_missing || (is_done && !hasApp)" style="color: red">(beware unhealthy content)</i>
-      <i v-else-if="is_unknown" style="color: orange">(beware unknown content)</i>
-      <i v-else-if="is_mixed" style="color: orange">(beware mixed content)</i>
-      <i v-else-if="is_done && hasApp" style="color: green">(edited)</i>
-      <i v-else-if="no_settings" style="color: gray">(no settings)</i>
-      <i v-else-if="is_clean" style="color: green">(healthy)</i>
+      <div style="font-size: 80%; margin-left: 8px">
+        {{ displayProviders.length ? 'Powered by' : 'You may search on ' }}
+        <a href="https://www.justwatch.com" target="_blank">
+          <img height="9" src="images/providers/justwatch-rectangle.png" alt="JustWatch" />
+        </a>
+      </div>
+      <div v-if="false">
+        <i v-if="is_missing || (is_done && !hasApp)" style="color: red"
+          >(beware unhealthy content)</i
+        >
+        <i v-else-if="is_unknown" style="color: orange">(beware unknown content)</i>
+        <i v-else-if="is_mixed" style="color: orange">(beware mixed content)</i>
+        <i v-else-if="is_done && hasApp" style="color: green">(edited)</i>
+        <i v-else-if="no_settings" style="color: gray">(no settings)</i>
+        <i v-else-if="is_clean" style="color: green">(healthy)</i>
+      </div>
     </div>
 
     <!-- WATCH OPTIONS -->
@@ -79,13 +89,6 @@
           >Try tmdb.
         </a>
       </span>
-
-      <div style="font-size: 80%">
-        {{ displayProviders.length ? 'Powered by' : 'You may search on ' }}
-        <a href="https://www.justwatch.com" target="_blank">
-          <img height="9" src="images/providers/justwatch-rectangle.png" alt="JustWatch" />
-        </a>
-      </div>
     </div>
 
     <!-- no settings -->
@@ -208,6 +211,7 @@ export default {
 
 .provider-link-rectangle > img {
   height: 16px;
+  width: 37;
   margin: 2px 10px 0px 0px;
   /*padding-top: 5px;*/ /* weird, but otherwise not well aligned with flex*/
   border-radius: 2px;

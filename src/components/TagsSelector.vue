@@ -1,14 +1,9 @@
 <template>
   <div class="containerr">
-    <b v-if="title">{{ title }}</b>
-    <br />
+    <b v-if="title" style="margin-bottom: 10px">{{ title }} </b>
     <div>
       <div v-for="(t, index) of items" :key="index">
-        <fc-tooltip
-          :text="t.description ? t.description : 'No data available'"
-          :html="false"
-          position="top"
-        >
+        <fc-tooltip :text="t.description ? t.description : ''" :html="false" position="top">
           <v-chip
             class="mr-1 mt-1"
             small
@@ -33,6 +28,7 @@ export default {
       default: true,
     },
     value: [Array, String],
+    readOnly: { type: Boolean, deafault: false },
     title: {
       type: String,
       default: '',
@@ -57,6 +53,7 @@ export default {
   },
   methods: {
     toggleItem(v) {
+      if (this.readOnly) return
       let newValue = null
 
       //let's return the value in the same Type as given (Array or String)

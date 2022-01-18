@@ -31,7 +31,7 @@
       <!-- TITLE -->
       <v-card-text class="pb-3">
         <v-row>
-          <v-col cols="4" v-if="!isMobile" class="pa-0">
+          <v-col cols="4" v-if="!isMobile" class="pa-0" style="position: relative">
             <img
               :src="poster"
               :alt="item.title"
@@ -39,17 +39,27 @@
                 objectFit: 'contain',
                 width: '100%',
                 padding: '20px 10px 0px',
+                cursor:
+                  item.join_status.status == 'missing' && !blur_if_missing ? 'pointer' : 'auto',
               }"
               :class="[item.join_status.status == 'missing' && blur_if_missing ? 'blur_image' : '']"
+              @click="blur_if_missing = !blur_if_missing"
             />
 
             <div
               class="modern-link"
-              style="text-align: center; font-size: 80%"
+              style="
+                position: absolute;
+                bottom: 50px;
+                text-align: center;
+                width: 100%;
+
+                font-size: 80%;
+              "
               v-if="item.join_status.status == 'missing'"
               @click="blur_if_missing = !blur_if_missing"
             >
-              {{ blur_if_missing ? 'See poster' : 'Blur poster' }}
+              {{ blur_if_missing ? 'See poster' : '' }}
             </div>
           </v-col>
           <v-col class="pa-0">
@@ -101,47 +111,6 @@
 
                 <router-link :to="'/item/' + item.imdb" class="modern-link">Ohana</router-link>
               </div>
-
-              <div v-if="false">
-                <!-- movie scenes -->
-                <span>
-                  <fc-tooltip
-                    v-for="(g, index) in item.brief_status"
-                    :key="index"
-                    :text="getText(g, index)"
-                  >
-                    <v-chip
-                      :color="getColor(index, g)"
-                      :x-small="isMobile"
-                      :small="!isMobile"
-                      class="mr-1"
-                      :style="{
-                        color: ['red', 'green', 'orange'].includes(getColor(index, g))
-                          ? 'white'
-                          : 'default',
-                      }"
-                      >{{ index }}</v-chip
-                    >
-                  </fc-tooltip>
-                </span>
-
-                <!-- movie values -->
-                <span>
-                  <fc-tooltip
-                    v-for="(g, index) in item.movieValues"
-                    :key="index"
-                    :text="getText(index, g)"
-                  >
-                    <v-chip
-                      :color="getValueColor(index, g)"
-                      :x-small="isMobile"
-                      :small="!isMobile"
-                      class="mr-1"
-                      >{{ index }}</v-chip
-                    >
-                  </fc-tooltip>
-                </span>
-              </div>
             </v-card-subtitle>
 
             <!-- CONTENT -->
@@ -185,49 +154,62 @@
                 </div>
 
                 <!-- Tags -->
-                <div style="display: flex; justify-content: center">
-                  <!-- chips: scenes -->
-                  <span>
+                <div>
+                  <!-- chips: scenes for your skipTags -->
+                  <div style="padding-bottom: 5px">
                     <fc-tooltip
-                      v-for="(g, index) in item.brief_status"
+                      v-for="(tag, index) in skipTags"
                       :key="index"
-                      :text="getText(g, index)"
+                      :text="getTooltip3(tag, index)"
                     >
                       <v-chip
-                        :color="getColor(index, g)"
+                        :color="getColor3(tag)"
                         :x-small="isMobile"
                         :small="!isMobile"
-                        class="mr-1"
+                        class="ml-1"
                         :style="{
-                          color: ['red', 'green', 'orange'].includes(getColor(index, g))
+                          color: ['red', 'green', 'orange'].includes(getColor3(tag))
                             ? 'white'
                             : 'default',
                         }"
-                        >{{ index }}</v-chip
                       >
+                        {{
+                          tag +
+                          ' (' +
+                          getEditsCount3(tag) +
+                          (getEditsCount3(tag) == 1 ? ' filter)' : ' filters)')
+                        }}
+                      </v-chip>
                     </fc-tooltip>
-                  </span>
+                  </div>
 
                   <!-- chips: movie values -->
-                  <span>
-                    <fc-tooltip
-                      v-for="(g, index) in item.movieValues"
-                      :key="index"
-                      :text="getText(index, g)"
-                    >
-                      <v-chip
-                        :color="getValueColor(index, g)"
-                        :x-small="isMobile"
-                        :small="!isMobile"
-                        class="mr-1"
-                        >{{ index }}</v-chip
+
+                  <div v-if="movieValues.length > 0">
+                    <b>Movie Values: </b> <i> {{ movieValues.map((x) => x.name).join(' - ') }}</i>
+
+                    <div v-if="false">
+                      <fc-tooltip
+                        v-for="(value, index) in movieValues"
+                        :key="index"
+                        :text="value.description"
                       >
-                    </fc-tooltip>
-                  </span>
+                        <v-chip
+                          :color="getValueColor(value.health)"
+                          :x-small="isMobile"
+                          :small="!isMobile"
+                          outlined
+                          dark
+                          class="ml-1"
+                          >{{ value.name }}</v-chip
+                        >
+                      </fc-tooltip>
+                    </div>
+                  </div>
                 </div>
 
                 <!-- Watch on -->
-                <div style="margin-top: 20px">
+                <div style="margin-top: 10px">
                   <movie-watch-options :selection="item"></movie-watch-options>
                 </div>
               </div>
@@ -301,8 +283,10 @@
 <script>
 const rawTags = require('@/assets/raw_tags')
 import ohana from '@/assets/ohana/index'
+import tags_excel from '@/assets/tags_excel'
 
 import MovieWatchOptions from '@/components/MoviePopup/MovieWatchOptions2.vue'
+
 import { mapState } from 'vuex'
 
 import Login from '@/components/Settings/Login.vue'
@@ -345,6 +329,25 @@ export default {
   },
 
   computed: {
+    movieValues() {
+      let output = []
+      const values = tags_excel.getTagsLocal(this.settings.language).values
+
+      for (const key in this.item.movieValues) {
+        const value = values.find((v) => v.key == key)
+        if (!value) continue
+
+        if (value.parents && value.parents.length == 0) {
+          output.push({
+            health: this.item.movieValues[key].health,
+            trust: this.item.movieValues[key].trust,
+            description: value.tip ? value.tip : '',
+            name: value.name,
+          })
+        }
+      }
+      return output
+    },
     contributors() {
       if (!this.item.contributors) return []
       let c = this.item.contributors.split(' ')
@@ -429,17 +432,27 @@ export default {
       //TODO: Draft (shall we add here a link to watch, if healthy?)
       let status = this.item.join_status.status
       let type = this.item.type
+      let nFilters = 0
+      for (const tag of this.skipTags) {
+        nFilters += this.item.filterStatus[tag] ? this.item.filterStatus[tag].scenes.length : 0
+      }
       let text = ''
       if (status == 'unset') {
         text = `To know if this ${type} is healthy for you, let us know your preferences.`
       } else if (status == 'clean') {
         text = `This ${type} is healthy for your settings. Nothing to filter here.`
       } else if (status == 'done') {
-        text = `We've created filters for this ${type} to make it healthy for your settings.`
+        text = `We've created ${nFilters} ${
+          nFilters == 1 ? ' filter' : ' filters'
+        } to make this ${type} healthy for your settings.`
       } else if (status == 'missing') {
-        text = `This ${type} contains scenes you consider unhealthy. But we don't have filters yet to help you skip them.`
+        text = `This ${type} contains scenes you consider unhealthy. But we don't have all the filters ready yet.`
       } else if (status == 'mixed') {
-        text = `This ${type} might contain content you consider unhealthy. We are not sure. 🤷‍♂️`
+        if (nFilters == 0) {
+          text = `This ${type} might contain content you consider unhealthy. We are not sure. 🤷‍♂️`
+        } else {
+          text = `Although we have ${nFilters} filters for this ${type}, it might still contain content you consider unhealthy.`
+        }
       } else {
         text = `Ouch! We don't know if this content if healthy for your settings! `
       }
@@ -463,6 +476,33 @@ export default {
       this.viewMore = false
       this.blur_if_missing = true
     },
+    getTooltip3(tag) {
+      const edits = this.getEditsCount3(tag)
+      const color = this.getColor3(tag)
+
+      let text = ''
+
+      if (color == 'green' && edits == 0) text = 'No need to filter this tag'
+      else if (color == 'green' && edits > 0)
+        text = `All ${edits} edits to filter this tag are created`
+      else if (color == 'red' && edits == 0)
+        text =
+          'There is content of this type not yet filtered' +
+          (edits > 0 ? ', although we have filters' : '')
+      else if (color == 'orange') text = 'We are not 100% sure all this content is filtered'
+      else text = `We don't have enough information about this tag.`
+      return text
+    },
+    getColor3(tag) {
+      if (!this.item.filterStatus[tag]) return 'lightgrey'
+      else if (this.item.filterStatus[tag].health > 0.5) return 'green'
+      else if (this.item.filterStatus[tag].health < -0.5) return 'red'
+      else return 'orange'
+    },
+    getEditsCount3(tag) {
+      if (!this.item.filterStatus[tag]) return 0
+      else return this.item.filterStatus[tag].scenes.length
+    },
     getColor(key, value) {
       console.log(value)
       if (this.skipTags.includes(key)) {
@@ -471,10 +511,10 @@ export default {
       }
       return 'lightgray'
     },
-    getValueColor(key, value) {
+    getValueColor(health) {
       //if (value.trust < 2) return 'orange'
-      if (value.health < -0.5) return 'red'
-      if (value.health > 0.5) return 'green'
+      if (health < -0.5) return 'red'
+      if (health > 0.5) return 'green'
       return 'lightgray'
     },
     getText(key, value) {

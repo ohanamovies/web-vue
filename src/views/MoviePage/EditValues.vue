@@ -63,7 +63,7 @@ export default {
       let options = [1, -1, 0, null]
       let index = options.indexOf(this.raw_values[i].values[j].status)
 
-      console.log('iiii', i)
+      //console.log('iiii', i)
       index++
 
       if (index >= options.length) index = 0
