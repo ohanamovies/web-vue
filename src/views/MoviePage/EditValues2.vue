@@ -8,10 +8,17 @@
 
     <div v-else>
       <p>
-        <span v-if="editMode"> What is your proposal? </span>
-        <span v-else>Accordign to our community, these are the values present in this film</span>
+        <span v-if="editMode">What is your proposal?</span>
+
+        <span v-else-if="communityValues.length"
+          >Our community has identifyied the values highlighted here.</span
+        >
+        <span v-else
+          >We don't have information about values in this film. Be the first contributing
+          here!</span
+        >
         <span class="modern-link" style="margin-left: 8px" @click="editMode = !editMode">{{
-          editMode ? 'Cancel' : 'Edit'
+          editMode ? 'Cancel' : 'Edit values'
         }}</span>
       </p>
       <TagsSelector
@@ -22,7 +29,7 @@
         :multiple="true"
       />
       <TagsSelector
-        v-else
+        v-else-if="communityValues.length"
         :readOnly="true"
         :items="communityChips"
         v-model="communityValues"

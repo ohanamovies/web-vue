@@ -273,7 +273,7 @@ export default {
         nFilters += this.item.filterStatus[tag] ? this.item.filterStatus[tag].scenes.length : 0
       }
       if (nFilters == 0) {
-        return 'The original of this movie is healthy for your settings'
+        return 'The original of this movie is healthy for your settings.'
       } else {
         return 'It takes ' + nFilters + ' filters to make this movie healthy for your settings.'
       }
