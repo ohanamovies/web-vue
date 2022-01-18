@@ -31,6 +31,7 @@
           <!-- filterStatus -->
           <div style="margin-top: 5px">
             <h4>Movie Content</h4>
+            <p>{{ movieContentSummary }}</p>
 
             <v-chip
               v-for="(v, k) of item.filterStatus"
@@ -45,6 +46,7 @@
               {{ k }}
               {{ '(' + v.scenes.length + (v.scenes.length == 1 ? ' filter' : ' filters') + ')' }}
             </v-chip>
+            <EditTags v-if="false" :imdb="imdb" :origintal="item.filterStatus" />
           </div>
 
           <!-- values -->
@@ -211,6 +213,7 @@ import { mapState } from 'vuex'
 import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 
 import EditValues from '@/views/MoviePage/EditValues2.vue'
+import EditTags from '@/views/MoviePage/EditTags.vue'
 import SceneItem from '@/views/MoviePage/SceneItem.vue'
 
 import sharedjs from '@/sharedjs'
@@ -228,6 +231,7 @@ export default {
     MoviePopup,
 
     EditValues,
+    EditTags,
     SceneItem,
   },
   props: {
@@ -263,6 +267,17 @@ export default {
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
+    movieContentSummary() {
+      let nFilters = 0
+      for (const tag of this.settings.skip_tags) {
+        nFilters += this.item.filterStatus[tag] ? this.item.filterStatus[tag].scenes.length : 0
+      }
+      if (nFilters == 0) {
+        return 'The original of this movie is healthy for your settings'
+      } else {
+        return 'It takes ' + nFilters + ' filters to make this movie healthy for your settings.'
+      }
+    },
     item_with_add_data() {
       return ohana.movies.addInfo(this.item, this.settings.skip_tags)
     },

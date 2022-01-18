@@ -9,7 +9,7 @@
     <div v-else>
       <p>
         <span v-if="editMode"> What is your proposal? </span>
-        <span v-else> Our community says: </span>
+        <span v-else>Accordign to our community, these are the values present in this film</span>
         <span class="modern-link" style="margin-left: 8px" @click="editMode = !editMode">{{
           editMode ? 'Cancel' : 'Edit'
         }}</span>
@@ -147,8 +147,13 @@ export default {
         id: this.imdb,
       }
       const myvote = await ohana.api.query(query)
-      for (const key in myvote) {
-        this.userValues.push(key)
+
+      if (Object.keys(myvote).length > 0) {
+        for (const key in myvote) {
+          this.userValues.push(key)
+        }
+      } else {
+        this.userValues = this.communityValues //so we can edit starting from where community left
       }
     },
     keysToHealth(arr) {
