@@ -1,18 +1,33 @@
 <template>
   <!-- note: not returning a div, so this stays inline-->
-  <v-tooltip open-delay="500" :top="top" :bottom="bottom" :left="left" :right="right" color="black">
-    <template v-slot:activator="{ on, attrs }">
-      <span v-bind="attrs" v-on="on">
-        <slot>
-          <!-- by using <fc-tooltip>xxxx</fc-tooltip>, xxxx will be set here -->
-        </slot>
+  <div style="display: inline">
+    <v-tooltip
+      v-if="text"
+      open-delay="500"
+      :top="top"
+      :bottom="bottom"
+      :left="left"
+      :right="right"
+      color="black"
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <span v-bind="attrs" v-on="on">
+          <slot>
+            <!-- by using <fc-tooltip>xxxx</fc-tooltip>, xxxx will be set here -->
+          </slot>
+        </span>
+      </template>
+      <span v-if="!html" :style="{ fontSize: fontSize + 'px' }">
+        {{ text }}
       </span>
-    </template>
-    <span v-if="!html" :style="{ fontSize: fontSize + 'px' }">
-      {{ text }}
-    </span>
-    <span v-else v-html="text" :style="{ fontSize: fontSize + 'px' }"></span>
-  </v-tooltip>
+      <span v-else v-html="text" :style="{ fontSize: fontSize + 'px' }"></span>
+    </v-tooltip>
+    <div v-else style="display: inline">
+      <slot>
+        <!-- by using <fc-tooltip>xxxx</fc-tooltip>, xxxx will be set here -->
+      </slot>
+    </div>
+  </div>
 </template>
 
 <script>

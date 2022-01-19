@@ -150,7 +150,7 @@
         </v-text-field>
       </div>
       <div>
-        <router-link to="/about2" style="color: white; text-decoration: none">
+        <router-link to="/about" style="color: white; text-decoration: none">
           <v-icon style="color: white" v-if="isMobile">mdi-information-outline</v-icon>
           <span v-else>About </span>
         </router-link>

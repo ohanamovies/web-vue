@@ -45,7 +45,7 @@
               {{ k }}
               {{ '(' + v.scenes.length + (v.scenes.length == 1 ? ' filter' : ' filters') + ')' }}
             </v-chip>
-            <EditTags v-if="false" :imdb="imdb" :origintal="item.filterStatus" />
+            <EditTags v-if="false" :imdb="imdb" :original="item.filterStatus" />
           </div>
 
           <!-- values -->
