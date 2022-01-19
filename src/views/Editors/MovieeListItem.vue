@@ -2,7 +2,7 @@
   <div style="padding: 5px; margin: 5px; border-radius: 5px; border: 1px solid #e0e0e0">
     <table style="margin: 0">
       <router-link :to="'/item/' + item.imdb" class="no_hover">
-        <tr v-if="Object.keys(item.title).length">
+        <tr v-if="item.title && Object.keys(item.title).length">
           <td v-if="poster" style="vertical-align: top; padding: 0px 5px" width="80">
             <img width="80" :src="poster" />
           </td>
@@ -14,7 +14,7 @@
             <span v-if="parentData" style="font-size: 75%; color: black"
               >Part of
               <router-link :to="'/item/' + parentData.imdb">
-                {{ parentData.title.primary }}</router-link
+                {{ localize(parentData.title) }}</router-link
               ></span
             >
 
@@ -41,6 +41,16 @@
           </span>
 
           <br />
+          <!-- skip tags -->
+          <div>
+            <FilterStatusChips x-small :item="item" />
+          </div>
+          <br />
+
+          <!-- providers new test -->
+          <!-- TODO: Finish this and replace the other providers list -->
+          <ProvidersStatus v-if="false" :item="item" />
+          <!-- providers -->
           <span style="font-size: 80%">
             Platforms:
             <v-chip
@@ -76,8 +86,14 @@
 
 <script>
 import ohana from '@/assets/ohana/index'
+import FilterStatusChips from '@/components/Movies/FilterStatusChips'
+import ProvidersStatus from '@/components/Movies/ProvidersStatus'
 import { mapState } from 'vuex'
 export default {
+  components: {
+    FilterStatusChips,
+    ProvidersStatus,
+  },
   props: {
     item: {
       type: Object,
@@ -115,9 +131,7 @@ export default {
     },
 
     title() {
-      if (this.item.title[this.language]) return this.item.title[this.language]
-      if (this.item.title['primary']) return this.item.title['primary']
-      return ''
+      return this.localize(this.item.title, 'primary')
     },
     poster() {
       //TODO: optimize poster size? (e.g.: w154)
@@ -134,6 +148,17 @@ export default {
     },
   },
   methods: {
+    localize(textObject, fallbackKey) {
+      if (!textObject) return ''
+      if (Object.keys(textObject).length == 0) {
+        return ''
+      }
+      const lang = this.settings.language
+      if (textObject[lang]) return textObject[lang]
+      else if (textObject['en']) return textObject['en']
+      else if (textObject[fallbackKey]) return textObject[fallbackKey]
+      else return textObject[Object.keys(textObject)[0]]
+    },
     cleanContributor(text) {
       let newtext = text.replace(/\s/g, '')
       newtext = newtext.replace(/@.*/g, '')

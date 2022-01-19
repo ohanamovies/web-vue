@@ -33,18 +33,8 @@
             <h4>Movie Content</h4>
             <p>{{ movieContentSummary }}</p>
 
-            <v-chip
-              v-for="(v, k) of item.filterStatus"
-              :key="k"
-              :color="v.health > 0.5 ? 'green' : v.health < -0.5 ? 'red' : 'orange'"
-              class="ma-1"
-              small
-              :outlined="!settings.skip_tags.includes(k)"
-              dark
-            >
-              {{ k }}
-              {{ '(' + v.scenes.length + (v.scenes.length == 1 ? ' filter' : ' filters') + ')' }}
-            </v-chip>
+            <FilterStatusChips small :item="item" />
+
             <EditTags v-if="false" :imdb="imdb" :original="item.filterStatus" />
           </div>
 
@@ -213,6 +203,7 @@ import EditTags from '@/views/MoviePage/EditTags.vue'
 import ScenesList from '@/views/MoviePage/ScenesList.vue'
 
 import sharedjs from '@/sharedjs'
+import FilterStatusChips from '@/components/Movies/FilterStatusChips.vue'
 
 export default {
   head: function () {
@@ -230,6 +221,7 @@ export default {
     EditTags,
 
     ScenesList,
+    FilterStatusChips,
   },
   props: {
     imdb: {
