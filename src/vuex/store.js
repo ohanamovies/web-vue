@@ -26,6 +26,12 @@ function checkSettings(settings) {
     return store.state.default_settings
   }
 }
+function getDefaultCountry() {
+  return (
+    navigator.language.split('-')[1].toUpperCase() ||
+    navigator.userLanguage.split('-')[1].toUpperCase()
+  ) //TODO: we could just do a fetch to https://ipinfo.io/ to get the ip-based location...
+}
 
 const store = new Vuex.Store({
   state: {
@@ -45,9 +51,7 @@ const store = new Vuex.Store({
       welcomed: 0,
       providers: [],
       language: navigator.language.split('-')[0] || navigator.userLanguage.split('-')[0],
-      country:
-        navigator.language.split('-')[1].toUpperCase() ||
-        navigator.userLanguage.split('-')[1].toUpperCase(), //TODO: we could just do a fetch to https://ipinfo.io/ to get the ip-based location...
+      country: getDefaultCountry(),
     },
     skipTags: [],
     hasApp: false,
@@ -109,7 +113,7 @@ const store = new Vuex.Store({
     },
   },
 
-  //we can also use ACTOINS, if we want to do something async (like fetching data from API)
+  //we can also use ACTIONS, if we want to do something async (like fetching data from API)
 })
 
 export default store

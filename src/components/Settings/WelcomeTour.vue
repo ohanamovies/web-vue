@@ -36,28 +36,20 @@
         >
           <div class="middlee">
             <div class="innerr">
-              <p><b>What we watch affects us</b></p>
               <p>
-                Movies and shows may have content that you consider unhealthy (you believe it harms
-                you).
+                <b>What we watch affects us</b><br />Movies and shows may have unhealthy content.
               </p>
-            </div>
-          </div>
-        </v-tab-item>
-
-        <v-tab-item
-          class="outerr"
-          style="text-align: center; cursor: pointer"
-          @click="slide = slide + 1"
-        >
-          <div class="middlee">
-            <div class="innerr">
-              <p><b>Ohana TV helps you avoding the unhealthy</b></p>
+              <br />
               <p>
-                In two ways: (1) we inform you, and (2) our software allows you to watch movies with
-                unhealthy content skipping the unhealthy content.
+                <b>Ohana TV helps you avoding the unhealthy</b> <br />
+                In two ways: (1) we inform you, and (2) our chrome extension enables you to skip the
+                unhealthy.
               </p>
-              <p>You define what's healthy and what's not. Let's do that now.</p>
+              <br />
+              <p>
+                <b>You define what's healthy and what's not.</b> <br />
+                Let's do that now.
+              </p>
             </div>
           </div>
         </v-tab-item>
@@ -87,7 +79,7 @@
             <div class="innerr" style="text-align: center">
               <h2>You are all set</h2>
               <p>We think you are going to love Ohana TV!</p>
-              <p class="modern-link" @click="slide++">Let's go</p>
+              <!-- <p class="modern-link" @click="slide++">Let's go</p> -->
             </div>
           </div>
         </v-tab-item>
@@ -149,18 +141,7 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'extension_version']),
 
     nextSteps() {
-      return [
-        'Start',
-        'Next',
-        'Next',
-        'Next',
-        'Next',
-        'Next',
-        'Next',
-        this.loggedIn ? 'Next' : 'Skip',
-        'Next',
-        'Done',
-      ]
+      return ['Start', 'Next', 'Next', 'Next', this.loggedIn ? 'Next' : 'Skip', 'Next', 'Done']
     },
     nextStepText() {
       return this.nextSteps[this.slide]

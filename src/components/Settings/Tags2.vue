@@ -1,9 +1,8 @@
 <template>
   <div style="font-size: 90%">
     <p>
-      Click on the below options to define what content you consider
-      <span style="color: red">unhealthy</span>. Ohana TV will help you avoiding it. Don't worry: we
-      love movies as much as you do, we won't destroy them.
+      Click on the options below to define what content you consider
+      <span style="color: red">unhealthy</span>. Ohana TV will help you avoiding it.
     </p>
 
     <!-- table explaining each color -->
