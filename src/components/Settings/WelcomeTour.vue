@@ -57,33 +57,21 @@
                 In two ways: (1) we inform you, and (2) our software allows you to watch movies with
                 unhealthy content skipping the unhealthy content.
               </p>
-            </div>
-          </div>
-        </v-tab-item>
-
-        <v-tab-item
-          class="outerr"
-          style="text-align: center; cursor: pointer"
-          @click="slide = slide + 1"
-        >
-          <div class="middlee">
-            <div class="innerr">
-              <p><b>Ohana TV adapts to you</b></p>
               <p>You define what's healthy and what's not. Let's do that now.</p>
             </div>
           </div>
         </v-tab-item>
+
         <v-tab-item class="outerr">
           <div style="max-width: 400px; margin: auto">
             <h4>What do you want to skip?</h4>
-
             <Tags2 />
           </div>
         </v-tab-item>
         <v-tab-item class="outerr">
           <ProvidersSelect />
         </v-tab-item>
-        <v-tab-item class="outerr"> <OtherSettings /> </v-tab-item>
+        <!-- <v-tab-item class="outerr"> <OtherSettings /> </v-tab-item> -->
         <v-tab-item class="outerr">
           <div style="max-width: 400px; margin: auto">
             <Login />
@@ -135,7 +123,7 @@
 import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
 import WelcomeSheet from '@/components/Settings/WelcomeSheet.vue'
-import OtherSettings from '@/components/Settings/OtherSettings.vue'
+//import OtherSettings from '@/components/Settings/OtherSettings.vue'
 import LanguageSelect from '@/components/Settings/LanguageSelect.vue'
 import Login from '@/components/Settings/Login.vue'
 import Tags2 from './Tags2.vue'
@@ -148,7 +136,7 @@ export default {
     CheckExtension,
     WelcomeSheet,
     Tags2,
-    OtherSettings,
+    //OtherSettings,
     LanguageSelect,
   },
   props: {

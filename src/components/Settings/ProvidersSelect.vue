@@ -3,13 +3,20 @@
     <!-- Providers -->
 
     <div>
-      <h4>What providers do you use?</h4>
+      <h4>What platforms do you use?</h4>
 
       <p>
         Ohana TV redirects you to the providers that offer the content. We don't offer content
         ourselves.
       </p>
       <p>We will prioritize content available in your providers.</p>
+
+      <CountrySelect />
+      <p style="margin-top: 10px; font-size: 80%; line-height: normal">
+        <b>Note: </b>Content providers (Netflix, etc.) don't offer the same movies/shows in all
+        countries. This setting is used to show you watch options available in your country.
+      </p>
+
       <v-list>
         <div v-for="(provider, index) in providersList" :key="index">
           <v-list-item @click="toggle(provider.value)">
@@ -46,9 +53,13 @@
 </template>
 
 <script>
+import CountrySelect from '@/components/Settings/CountrySelect.vue'
 import { mapState } from 'vuex'
 
 export default {
+  components: {
+    CountrySelect,
+  },
   data() {
     return {
       country: {},

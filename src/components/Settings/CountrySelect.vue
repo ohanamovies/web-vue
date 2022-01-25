@@ -87,6 +87,17 @@ export default {
   },
 
   methods: {
+    async fetchCountryFromIP() {
+      try {
+        //TODO: review we want to do it this way... (maybe get an API key and add this to our own api.)
+        const url = 'https://ipinfo.io/json'
+        let response = await fetch(url)
+        let data = await response.json()
+        if (data.country) this.changeCountry(data.country)
+      } catch (error) {
+        console.log('error fetching country from ip')
+      }
+    },
     changeCountry(v) {
       let settings = { ...this.settings }
       settings.country = v
@@ -98,7 +109,6 @@ export default {
       if (x == 'es') return country.translations.spa.common //translations are here
     },
     fetchCountries() {
-      console.log('fetching countries...')
       const url = 'https://restcountries.com/v3.1/all'
       const useLocal = true
       this.loading = true
@@ -107,6 +117,7 @@ export default {
         this.countries = require('@/assets/countries.json')
         this.loading = false
       } else {
+        console.log('fetching countries...')
         fetch(url)
           .then((r) => {
             this.loading = false
@@ -120,6 +131,9 @@ export default {
   },
   mounted() {
     this.fetchCountries()
+    if (!this.settings.welcomed) {
+      this.fetchCountryFromIP()
+    }
   },
 }
 </script>
