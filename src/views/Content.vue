@@ -417,7 +417,7 @@
           ></v-progress-linear>
         </div>
 
-        <!-- search top -->
+        <!-- SEARCH top -->
         <div id="search-top" style="display: flex">
           <v-text-field
             outlined
@@ -443,7 +443,7 @@
             </div>
           </v-text-field>
 
-          <!-- advanced button more visible with search-->
+          <!-- ADVANCED button more visible with search-->
           <v-btn
             :icon="isMobile"
             :outlined="!isMobile"

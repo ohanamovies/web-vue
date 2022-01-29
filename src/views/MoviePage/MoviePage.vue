@@ -7,7 +7,7 @@
     </div>
 
     <v-alert type="warning" outlined
-      >Hey! please notice this page is under construction, and things don't work.</v-alert
+      >Hey! please notice we are still working on this page, and things don't work.</v-alert
     >
 
     <MoviePopup :imdb="imdb" :hideCloseButton="true" />
@@ -43,8 +43,20 @@
           <EditValues :imdb="imdb" :original="item.movieValues" />
 
           <!-- Scenes -->
-          <h4>All filters</h4>
+          <h4>All filters ({{ Object.keys(item.movieFilters).length }})</h4>
           <ScenesList :items="item.movieFilters" />
+
+          <!-- providers -->
+          <h4>Where to watch</h4>
+          <ProvidersStatus :item="item" />
+
+          <!-- Feedback -->
+          <div>
+            <hr />
+            <a class="modern-link" :href="feedback_link" target="_blank">{{
+              $t('feedbackPopUp')
+            }}</a>
+          </div>
         </v-tab-item>
 
         <!--movieFilters-->
@@ -138,6 +150,7 @@
             <v-tab>Raw data + AddInfo</v-tab>
             <v-tab>join status</v-tab>
             <v-tab>brief status</v-tab>
+            <v-tab>providers status v2</v-tab>
           </v-tabs>
 
           <v-tabs-items v-model="movieDataTab">
@@ -156,7 +169,7 @@
               </div>
             </v-tab-item>
 
-            <!-- RAW DATA -->
+            <!-- RAW DATA + AddInfo -->
             <v-tab-item>
               <div>
                 <b>raw data</b>
@@ -181,6 +194,11 @@
               <h4>brief status</h4>
               <code>{{ item.brief_status }}</code>
             </v-tab-item>
+
+            <v-tab-item>
+              <h4>Providers v2</h4>
+              <ProvidersStatus :item="item" />
+            </v-tab-item>
           </v-tabs-items>
         </v-tab-item>
       </v-tabs-items>
@@ -204,6 +222,7 @@ import ScenesList from '@/views/MoviePage/ScenesList.vue'
 
 import sharedjs from '@/sharedjs'
 import FilterStatusChips from '@/components/Movies/FilterStatusChips.vue'
+import ProvidersStatus from '@/components/Movies/ProvidersStatus.vue'
 
 export default {
   head: function () {
@@ -222,6 +241,7 @@ export default {
 
     ScenesList,
     FilterStatusChips,
+    ProvidersStatus,
   },
   props: {
     imdb: {
@@ -256,6 +276,15 @@ export default {
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
+    feedback_link() {
+      return (
+        'https://docs.google.com/forms/d/e/1FAIpQLScnTNbXu79Sbinmlw6QhBIa5T76T0QCEMFLt4OIiSN08aHQKw/viewform?usp=pp_url&entry.2077317668=' +
+        '[request]: ' +
+        this.item.title.primary +
+        ' - imdb:' +
+        this.item.imdb
+      )
+    },
     movieContentSummary() {
       let nFilters = 0
       const type = this.item.type
@@ -272,7 +301,7 @@ export default {
       if (minHealth > 0.5 && minTrust > 1) {
         //TODO: Confirm minTrust threshold
         if (nFilters == 0) {
-          return 'The original of this movie is healthy for your settings.'
+          return 'No need to filter this movie: it is healthy for your settings as it is.'
         } else {
           return 'It takes ' + nFilters + ' filters to make this movie healthy for your settings.'
         }
@@ -407,6 +436,13 @@ export default {
 </script>
 
 <style scoped>
+h4 {
+  border-left: 5px solid rgb(108, 192, 145);
+  padding-left: 5px;
+  line-height: normal;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
 .episodeListItem {
   display: flex;
   flex-direction: row;

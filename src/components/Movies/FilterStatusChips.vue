@@ -11,7 +11,16 @@
       :x-small="xSmall"
     >
       {{ k }}
-      {{ '(' + v.scenes.length + (v.scenes.length == 1 ? ' filter' : ' filters') + ')' }}
+      {{
+        '(' +
+        v.scenes.length +
+        (v.scenes.length == 0 && v.health > 0.5
+          ? ' scenes'
+          : v.scenes.length == 1
+          ? ' filter'
+          : ' filters') +
+        ')'
+      }}
     </v-chip>
   </div>
 </template>
@@ -39,6 +48,7 @@ export default {
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
     orderedTags() {
+      //put the skip tags first
       let output = {}
       for (const t of this.settings.skip_tags) {
         output[t] = this.item.filterStatus[t] || { health: 0, scenes: [], trust: 0 }

@@ -49,7 +49,7 @@
 
           <!-- providers new test -->
           <!-- TODO: Finish this and replace the other providers list -->
-          <ProvidersStatus v-if="false" :item="item" />
+          <ProvidersStatus v-if="true" :item="item" />
           <!-- providers -->
           <span style="font-size: 80%">
             Platforms:

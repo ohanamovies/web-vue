@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       windowWidth: 0,
-      hasApp_dev: false,
+      hasApp_dev: true,
       showDevMenu: false,
     }
   },

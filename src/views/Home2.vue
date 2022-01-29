@@ -223,8 +223,27 @@
             >
           </p>
         </div>
-
         <div v-else style="padding-top: 50px"></div>
+
+        <div
+          v-if="false"
+          style="display: flex; overflow-x: auto; justify-content: center; flex-wrap: wrap"
+        >
+          <div
+            v-for="(t, index) of [
+              'Sex/Nudity: Moderate',
+              'Violence: Severe',
+              'Profanity: Disabled',
+              'Learn more',
+            ]"
+            :key="index"
+          >
+            <v-chip small class="mx-1" :outlined="index > 1" dark :color="index == 3 ? 'blue' : ''">
+              {{ t }}
+              <v-icon v-if="index != 3">mdi-chevron-down</v-icon>
+            </v-chip>
+          </div>
+        </div>
 
         <div v-for="(section, index) in sections" :key="index" style="max-width: 90%; margin: auto">
           <div

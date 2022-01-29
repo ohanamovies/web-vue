@@ -43,8 +43,8 @@
 
     <!-- Section title -->
     <div v-if="bypass || is_clean || (is_done && hasApp)" style="display: flex">
-      <b>Watch options </b>
-      <div style="font-size: 80%; margin-left: 8px">
+      <b>Watch options: </b>
+      <div v-if="displayProviders.length" style="font-size: 80%; margin-left: 8px">
         {{ displayProviders.length ? 'Powered by' : 'You may search on ' }}
         <a href="https://www.justwatch.com" target="_blank">
           <img height="9" src="images/providers/justwatch-rectangle.png" alt="JustWatch" />
@@ -63,7 +63,14 @@
     </div>
 
     <!-- WATCH OPTIONS -->
+    <!-- providers v2 -->
     <div v-if="is_clean || (is_done && hasApp) || bypass">
+      <ProvidersStatus :item="selection" />
+    </div>
+
+    <!-- JustWatch -->
+
+    <div v-if="false && (is_clean || (is_done && hasApp) || bypass)">
       <!-- providers -->
       <div style="display: flex">
         <div v-for="(provider, index) in displayProviders" :key="index">
@@ -77,7 +84,6 @@
           </a>
         </div>
       </div>
-      <!-- JustWatch -->
 
       <span v-if="!displayProviders.length">
         <span>Sorry, no known providers available. </span>
@@ -116,7 +122,8 @@
     <!-- movie is pending -->
     <div v-if="is_missing || is_unknown || (is_done && !hasApp) || is_mixed" style="margin: auto">
       <span v-if="!bypass">
-        <span class="modern-link" @click="bypass = true">See watch options anyway</span>
+        <span class="modern-link" @click="bypass = true">See watch options anyway</span
+        ><v-icon small :class="['ml-0', 'pl-0']" color="#0070d7">mdi-chevron-down </v-icon>
       </span>
 
       <!-- <span v-else class="modern-link" @click="bypass = false">Hide watch options</span> -->
@@ -128,12 +135,14 @@
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
 import Sensitivity from '@/components/Settings/Sensitivity.vue'
 import ohana from '@/assets/ohana'
+import ProvidersStatus from '@/components/Movies/ProvidersStatus.vue'
 import { mapState } from 'vuex'
 
 export default {
   components: {
     CheckExtension,
     Sensitivity,
+    ProvidersStatus,
   },
   props: {
     selection: {

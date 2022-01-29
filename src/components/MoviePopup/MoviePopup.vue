@@ -108,8 +108,6 @@
                     <img src="images/providers/tmdb-rectangle.png" />
                   </a>
                 </fc-tooltip>
-
-                <router-link :to="'/item/' + item.imdb" class="modern-link">Ohana</router-link>
               </div>
             </v-card-subtitle>
 
@@ -151,37 +149,63 @@
                   <span :style="'color: ' + item.join_status.color || 'orange'">
                     {{ ohanaSummary }}
                   </span>
+
+                  <span
+                    @click="showDetails = !showDetails"
+                    style="cursor: pointer; font-size: 90%; color: #0070d7"
+                    >Details<v-icon
+                      small
+                      :class="['ml-0', 'pl-0', showDetails ? 'rotate' : '']"
+                      color="#0070d7"
+                      >mdi-chevron-down
+                    </v-icon>
+                  </span>
                 </div>
 
                 <!-- Tags -->
+
                 <div>
-                  <!-- chips: scenes for your skipTags -->
-                  <div style="padding-bottom: 5px">
-                    <fc-tooltip
-                      v-for="(tag, index) in skipTags"
-                      :key="index"
-                      :text="getTooltip3(tag, index)"
+                  <v-slide-y-transition>
+                    <!-- chips: scenes for your skipTags -->
+                    <div
+                      v-if="showDetails"
+                      style="
+                        padding-bottom: 5px;
+                        display: flex;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                      "
                     >
-                      <v-chip
-                        :color="getColor3(tag)"
-                        :x-small="isMobile"
-                        :small="!isMobile"
-                        class="ml-1"
-                        :style="{
-                          color: ['red', 'green', 'orange'].includes(getColor3(tag))
-                            ? 'white'
-                            : 'default',
-                        }"
+                      <fc-tooltip
+                        v-for="(tag, index) in skipTags"
+                        :key="index"
+                        :text="getTooltip3(tag, index)"
                       >
-                        {{
-                          tag +
-                          ' (' +
-                          getEditsCount3(tag) +
-                          (getEditsCount3(tag) == 1 ? ' filter)' : ' filters)')
-                        }}
-                      </v-chip>
-                    </fc-tooltip>
-                  </div>
+                        <v-chip
+                          :color="getColor3(tag)"
+                          :x-small="isMobile"
+                          :small="!isMobile"
+                          class="ml-1"
+                          :style="{
+                            color: ['red', 'green', 'orange'].includes(getColor3(tag))
+                              ? 'white'
+                              : 'default',
+                          }"
+                        >
+                          {{
+                            tag +
+                            ' (' +
+                            getEditsCount3(tag) +
+                            (getEditsCount3(tag) == 0
+                              ? ' scenes)'
+                              : getEditsCount3(tag) == 1
+                              ? ' filter)'
+                              : ' filters)')
+                          }}
+                        </v-chip>
+                      </fc-tooltip>
+                    </div>
+                  </v-slide-y-transition>
 
                   <!-- chips: movie values -->
 
@@ -217,7 +241,6 @@
           </v-col>
         </v-row>
 
-        <!-- Feedbak button -->
         <div v-if="item.parent" style="position: relative; height: 20px">
           <div style="position: absolute; left: 10px">
             <router-link :to="'./' + item.parent" v-if="item.parent"
@@ -225,6 +248,8 @@
             >
           </div>
         </div>
+
+        <!-- Contributors / Feedbak buttons -->
         <div style="position: relative; height: 20px">
           <div style="position: absolute; left: 0px; display: flex">
             <b v-if="contributors.length > 0">Contributors:</b>
@@ -239,6 +264,7 @@
               </v-chip>
             </div>
           </div>
+          <!--
           <div style="position: absolute; right: 0px">
             <a
               v-if="is_unknown || is_missing"
@@ -250,6 +276,14 @@
             <a v-else class="modern-link" :href="feedback_link" target="_blank">{{
               $t('feedbackPopUp')
             }}</a>
+          </div>
+          -->
+
+          <div
+            style="position: absolute; right: 0px"
+            v-if="$router.currentRoute.path != '/item/' + item.imdb"
+          >
+            <router-link :to="'/item/' + item.imdb" class="modern-link">See more</router-link>
           </div>
         </div>
       </v-card-text>
@@ -309,6 +343,7 @@ export default {
 
   data() {
     return {
+      showDetails: false,
       //item: {},
       raw_item: {},
       loading: false,
@@ -454,7 +489,7 @@ export default {
           text = `Although we have ${nFilters} filters for this ${type}, it might still contain content you consider unhealthy.`
         }
       } else {
-        text = `Ouch! We don't know if this content if healthy for your settings! `
+        text = `Ouch! We don't know if this content is healthy for your settings! `
       }
 
       return text
@@ -601,5 +636,9 @@ export default {
 
 .v-chip.v-size--small {
   font-size: 12px;
+}
+
+.rotate {
+  transform: rotate(-180deg);
 }
 </style>

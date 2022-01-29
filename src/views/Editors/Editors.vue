@@ -32,7 +32,7 @@
 
 <script>
 import ohana from '@/assets/ohana/index'
-import MovieListItem from './MovieeListItem.vue'
+import MovieListItem from './MovieListItem.vue'
 
 import EditorsIndex from './EditorsIndex.vue'
 import { mapState } from 'vuex'
