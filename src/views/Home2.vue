@@ -675,7 +675,9 @@ export default {
       if (index == 0) {
         query.title = this.title
       } else {
-        query.clean = JSON.stringify(this.skipTags)
+        let homeSkipTags = [...this.skipTags]
+        if (!homeSkipTags.includes('Very erotic')) homeSkipTags.push('Very erotic')
+        query.clean = JSON.stringify(homeSkipTags)
       }
 
       //remove series for now:
