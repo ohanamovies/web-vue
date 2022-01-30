@@ -32,7 +32,14 @@
       </div>
     </div>
     <div v-else>
-      {{ $t('no_providers') }}
+      {{ $t('popup.no_providers')[0] }}
+      <a
+        class="modern-link"
+        v-if="item.tmdb"
+        target="_blank"
+        :href="'https://www.themoviedb.org/' + item.tmdb + '/watch?&locale=' + settings.country"
+        >{{ $t('popup.no_providers')[1] }}.
+      </a>
     </div>
   </div>
 </template>

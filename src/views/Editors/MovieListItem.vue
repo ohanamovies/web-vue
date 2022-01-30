@@ -19,6 +19,12 @@
             >
 
             <p v-if="false">{{ item.plot ? item.plot.en : '' }}</p>
+
+            <div>
+              <!-- providers (v2) -->
+              <br />
+              <ProvidersStatus v-if="true" :item="item" />
+            </div>
           </td>
         </tr>
         <tr v-else style="color: black">
@@ -45,34 +51,7 @@
           <div>
             <FilterStatusChips x-small :item="item" />
           </div>
-          <br />
 
-          <!-- providers new test -->
-          <!-- TODO: Finish this and replace the other providers list -->
-          <ProvidersStatus v-if="true" :item="item" />
-          <!-- providers -->
-          <span style="font-size: 80%">
-            Platforms:
-            <v-chip
-              :href="providerUrl(provider.providerID)"
-              target="_blank"
-              v-for="(provider, index2) in item.providers"
-              :key="index2"
-              x-small
-              class="ml-1"
-              :color="joinStatus[provider.provider].color"
-              dark
-            >
-              {{ provider.provider + ' (' + joinStatus[provider.provider].cuts + ' edits)' }}
-              <v-avatar right>
-                <v-icon x-small>{{
-                  joinStatus[provider.provider].icon == 'none'
-                    ? 'mdi-emoticon-happy'
-                    : joinStatus[provider.provider].icon
-                }}</v-icon>
-              </v-avatar>
-            </v-chip>
-          </span>
           <br />
           <span style="font-size: 75%; color: black">
             Last edited: {{ new Date(item.lastEdited).toLocaleString() }}

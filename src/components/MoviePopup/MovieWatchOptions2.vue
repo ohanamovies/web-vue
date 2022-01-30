@@ -12,7 +12,7 @@
       <v-card>
         <v-card-title></v-card-title>
         <v-card-text>
-          <Sensitivity />
+          <Settings2 />
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -133,7 +133,7 @@
 
 <script>
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
-import Sensitivity from '@/components/Settings/Sensitivity.vue'
+import Settings2 from '@/components/Settings/Settings2.vue'
 import ohana from '@/assets/ohana'
 import ProvidersStatus from '@/components/Movies/ProvidersStatus.vue'
 import { mapState } from 'vuex'
@@ -141,7 +141,7 @@ import { mapState } from 'vuex'
 export default {
   components: {
     CheckExtension,
-    Sensitivity,
+    Settings2,
     ProvidersStatus,
   },
   props: {

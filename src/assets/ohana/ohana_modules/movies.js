@@ -51,14 +51,17 @@ const movies = {
       status = cuts ? 'done' : 'clean'
       color = 'green'
       icon = 'none'
+      //icon = 'mdi-shield-check'
     } else if (health < -0.5) {
       status = 'missing'
       color = 'red'
       icon = 'mdi-heart-broken'
+      //icon = 'mdi-shield-alert'
     } else {
       status = 'mixed'
       color = 'orange'
       icon = 'mdi-heart-broken'
+      //icon = 'mdi-help-circle'
     }
     if (trust <= 1 || trust == Infinity) {
       status = 'unknown'

@@ -225,6 +225,7 @@
         </div>
         <div v-else style="padding-top: 50px"></div>
 
+        <!-- testing with settings tags at the top of the Home page -->
         <div
           v-if="false"
           style="display: flex; overflow-x: auto; justify-content: center; flex-wrap: wrap"

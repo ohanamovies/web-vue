@@ -72,11 +72,16 @@ const messages = {
     confidence: 'Confidence',
     feedbackPopUp: 'Report an error',
     resultsBasedOn: ['Results based on your', 'settings', 'and', 'filters'],
+    manage_preferences: 'Manage preferences',
+    popup: {
+      no_providers: ['No providers found.', 'Try on TMDB'],
+      goToFullDetails: '+info',
+    },
     /*others */
     restore_deafult_values: 'Restore default values',
     navigate_to_home: 'Navigate to home',
-    manage_preferences: 'Manage preferences',
-    no_providers: 'No providers found',
+
+    /*editors*/
     leaderboard: {
       intro:
         'In this table we celebrate the contributions of our users, who make possible Ohana TV. THANK YOU for your hard work!',
@@ -148,12 +153,15 @@ const messages = {
     confidence: 'Fiabilidad',
     feedbackPopUp: 'Reportar un error',
     resultsBasedOn: ['Resultados en función de tus', 'ajustes', 'y', 'filtros'],
-
+    manage_preferences: 'Ajustar mis preferencias',
+    popup: {
+      no_providers: ['No se encontraron proveedores.', 'Buscar en TMDB'],
+      goToFullDetails: '+info',
+    },
     /*others */
     restore_deafult_values: 'Restaurar valores por defecto',
     navigate_to_home: 'Ir a la portada',
-    manage_preferences: 'Ajustar mis preferencias',
-    no_providers: 'No se encontraron proveedores',
+    /*editors */
     leaderboard: {
       intro:
         'En esta tabla celebramos las contribuciones de nuestros usuarios, que hacen posible Ohana TV. ¡GRACIAS por vuestro trabajo!',

@@ -103,7 +103,9 @@
                   <a
                     class="provider-link-rectangle"
                     target="_blank"
-                    :href="'https://www.themoviedb.org/' + item.tmdb"
+                    :href="
+                      'https://www.themoviedb.org/' + item.tmdb + '?locale=' + settings.country
+                    "
                   >
                     <img src="images/providers/tmdb-rectangle.png" />
                   </a>
@@ -114,8 +116,13 @@
             <!-- CONTENT -->
             <v-card-text>
               <!-- Rest of info -->
-
               <div :style="{ height: textHeight, overflowY: 'auto' }">
+                <!-- poster for mobile -->
+                <!-- TODO: for this to be nice we should start with the poster hidden by scroll, so user can scroll back to see it-->
+                <div v-if="isMobile && false" style="text-align: center">
+                  <img :src="poster" :alt="item.title" />
+                </div>
+
                 <!-- Genres -->
                 <div style="display: flex; justify-content: space-between">
                   <b>Overview </b>
@@ -151,8 +158,9 @@
                   </span>
 
                   <span
+                    v-if="this.settings.skip_tags.length"
                     @click="showDetails = !showDetails"
-                    style="cursor: pointer; font-size: 90%; color: #0070d7"
+                    style="cursor: pointer; font-size: 90%; color: #0070d7; white-space: nowrap"
                     >Details<v-icon
                       small
                       :class="['ml-0', 'pl-0', showDetails ? 'rotate' : '']"
@@ -196,7 +204,7 @@
                             tag +
                             ' (' +
                             getEditsCount3(tag) +
-                            (getEditsCount3(tag) == 0
+                            (getEditsCount3(tag) == 0 && getColor3(tag) == 'green'
                               ? ' scenes)'
                               : getEditsCount3(tag) == 1
                               ? ' filter)'
@@ -209,7 +217,7 @@
 
                   <!-- chips: movie values -->
 
-                  <div v-if="movieValues.length > 0">
+                  <div v-if="movieValues.length > 0" style="margin-top: 10px">
                     <b>Movie Values: </b> <i> {{ movieValues.map((x) => x.name).join(' - ') }}</i>
 
                     <div v-if="false">
@@ -283,7 +291,9 @@
             style="position: absolute; right: 0px"
             v-if="$router.currentRoute.path != '/item/' + item.imdb"
           >
-            <router-link :to="'/item/' + item.imdb" class="modern-link">See more</router-link>
+            <router-link :to="'/item/' + item.imdb" class="modern-link">{{
+              $t('popup.goToFullDetails')
+            }}</router-link>
           </div>
         </div>
       </v-card-text>
@@ -484,7 +494,7 @@ export default {
         text = `This ${type} contains scenes you consider unhealthy. But we don't have all the filters ready yet.`
       } else if (status == 'mixed') {
         if (nFilters == 0) {
-          text = `This ${type} might contain content you consider unhealthy. We are not sure. 🤷‍♂️`
+          text = `This ${type} might contain content you consider unhealthy. We are not sure.`
         } else {
           text = `Although we have ${nFilters} filters for this ${type}, it might still contain content you consider unhealthy.`
         }
