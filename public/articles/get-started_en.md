@@ -74,7 +74,8 @@ To mark the end of an unhealthy scene press "End filter" or "Alt + N". A popup a
 #### Step 4. Fine tune filters
 
 Follow the instrucctions on the popup to fine tune the created filter. This includes two main steps:
-1. Define
+1. Let us know why this scene is unhealthy, so that other users can decide whether to watch it or to skip it
+2. Fine tune the times. Remember it is always better to skip a few extra seconds around the unhealthy content, to make the edit more natural
 
 #### Step 5. Set filter status
 
