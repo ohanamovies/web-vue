@@ -41,93 +41,66 @@
       </v-card>
     </v-dialog>
 
-    <!-- Section title -->
-    <div v-if="bypass || is_clean || (is_done && hasApp)" style="display: flex">
-      <b>Watch options: </b>
-      <div v-if="displayProviders.length" style="font-size: 80%; margin-left: 8px">
-        {{ displayProviders.length ? 'Powered by' : 'You may search on ' }}
-        <a href="https://www.justwatch.com" target="_blank">
-          <img height="9" src="images/providers/justwatch-rectangle.png" alt="JustWatch" />
-        </a>
-      </div>
-      <div v-if="false">
-        <i v-if="is_missing || (is_done && !hasApp)" style="color: red"
-          >(beware unhealthy content)</i
+    <!-- WARNINGS -->
+
+    <div style="text-align: center" v-if="!bypass">
+      <!-- no settings -->
+      <div v-if="no_settings">
+        <a class="button special" @click="dialog_sensitivity = true"
+          >{{ $t('manage_preferences') }}<v-icon v-if="false">mdi-account-cog-outline</v-icon></a
         >
-        <i v-else-if="is_unknown" style="color: orange">(beware unknown content)</i>
-        <i v-else-if="is_mixed" style="color: orange">(beware mixed content)</i>
-        <i v-else-if="is_done && hasApp" style="color: green">(edited)</i>
-        <i v-else-if="no_settings" style="color: gray">(no settings)</i>
-        <i v-else-if="is_clean" style="color: green">(healthy)</i>
       </div>
-    </div>
 
-    <!-- WATCH OPTIONS -->
-    <!-- providers v2 -->
-    <div v-if="is_clean || (is_done && hasApp) || bypass">
-      <ProvidersStatus :item="selection" />
-    </div>
-
-    <!-- JustWatch -->
-
-    <div v-if="false && (is_clean || (is_done && hasApp) || bypass)">
-      <!-- providers -->
-      <div style="display: flex">
-        <div v-for="(provider, index) in displayProviders" :key="index">
-          <a
-            v-if="provider.provider != 'justwatch'"
-            class="provider-link"
-            target="_blank"
-            :href="getLink(provider.provider, provider.providerID)"
-          >
-            <img :src="getLogo(provider.provider)" :alt="provider.provider" />
+      <!--movie is edited but no app -->
+      <div v-else-if="is_done && !hasApp">
+        <div v-if="isChrome">
+          <i style="color: red">{{ $t('popup.installingOhanaIsRequired') }}</i>
+          <br />
+          <a class="button special" @click="dialog_install = !dialog_install"
+            >{{ $t('install') + ' Ohana' }}
           </a>
+        </div>
+        <div v-else>
+          <span style="color: red"> {{ $t('popup.invalidBrowser') }} <br /> </span>
+          <a class="button special" @click="dialog_install = true">{{ $t('learnMore') }}</a>
         </div>
       </div>
 
-      <span v-if="!displayProviders.length">
-        <span>Sorry, no known providers available. </span>
-        <a
-          class="modern-link"
-          v-if="selection.tmdb"
-          target="_blank"
-          :href="'https://www.themoviedb.org/' + selection.tmdb + '/watch'"
-          >Try tmdb.
-        </a>
-      </span>
-    </div>
+      <!-- movie is pending -->
+      <div v-if="is_missing || is_unknown || (is_done && !hasApp) || is_mixed" style="margin: auto">
+        <span v-if="!bypass">
+          <span class="modern-link" @click="bypass = true">
+            {{ $t('popup.showProvidersAnyway') }}
+          </span>
+          <v-icon v-if="false" small :class="['ml-0', 'pl-0']" color="#0070d7"
+            >mdi-chevron-down
+          </v-icon>
+        </span>
 
-    <!-- no settings -->
-    <div v-else-if="no_settings">
-      <a class="button special" @click="dialog_sensitivity = true"
-        >{{ $t('manage_preferences') }}<v-icon v-if="false">mdi-account-cog-outline</v-icon></a
-      >
-    </div>
-
-    <!--movie is edited -->
-    <div v-else-if="is_done && !hasApp">
-      <div v-if="isChrome">
-        <i>Installing Ohana is required to remove unhealthy scenes: </i>
-        <br />
-        <a class="button special" @click="dialog_install = !dialog_install"
-          >{{ $t('install') + ' Ohana' }}
-        </a>
-      </div>
-      <div v-else>
-        This browser is not compatible with Ohana. <br />
-        <a class="button special" @click="dialog_install = true">Learn more</a>
+        <!-- <span v-else class="modern-link" @click="bypass = false">Hide watch options</span> -->
       </div>
     </div>
 
-    <!-- movie is pending -->
-    <div v-if="is_missing || is_unknown || (is_done && !hasApp) || is_mixed" style="margin: auto">
-      <span v-if="!bypass">
-        <span class="modern-link" @click="bypass = true">See watch options anyway</span
-        ><v-icon small :class="['ml-0', 'pl-0']" color="#0070d7">mdi-chevron-down </v-icon>
-      </span>
+    <!-- WATCH OPTIONS (providers v2) -->
+    <!-- Section title -->
 
-      <!-- <span v-else class="modern-link" @click="bypass = false">Hide watch options</span> -->
-    </div>
+    <v-slide-y-transition>
+      <!-- Watch Options title -->
+      <div v-if="is_clean || (is_done && hasApp) || bypass">
+        <div style="display: flex; margin-top: 10px">
+          <b>{{ $t('popup.watchOptions') }}: </b>
+          <div v-if="displayProviders.length" style="font-size: 80%; margin-left: 8px">
+            {{ $t('popup.poweredBy') }}
+            <a href="https://www.justwatch.com" target="_blank">
+              <img height="9" src="images/providers/justwatch-rectangle.png" alt="JustWatch" />
+            </a>
+          </div>
+        </div>
+        <div>
+          <ProvidersStatus :item="selection" />
+        </div>
+      </div>
+    </v-slide-y-transition>
   </div>
 </template>
 

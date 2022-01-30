@@ -74,8 +74,32 @@ const messages = {
     resultsBasedOn: ['Results based on your', 'settings', 'and', 'filters'],
     manage_preferences: 'Manage preferences',
     popup: {
+      types: {
+        movie: 'Movie{s}',
+        show: 'Show{s}',
+      },
+      poweredBy: 'Powered by',
+      movieValues: 'Fostered values',
+      watchOptions: 'Watch options',
+      showProvidersAnyway: 'Ignore warning',
+      invalidBrowser: 'This browser is not compatible with Ohana.',
       no_providers: ['No providers found.', 'Try on TMDB'],
       goToFullDetails: '+info',
+      details: 'Details',
+      contributors: 'Contributors',
+      installingOhanaIsRequired: 'Installing Ohana is required to remove unhealthy scenes: ',
+      ohanaSummary: {
+        unset: 'To know if this {type} is healthy for you, let us know your preferences',
+        clean: 'This {type} is healthy for your settings. Nothing to filter here.',
+        done: "We've created {edits} filter{s} to make this {type} healthy for your settings",
+        missing:
+          "This {type} contains scenes you consider unhealthy. But we don't have all the filters ready yet.",
+        mixed_with_edits:
+          'Although we have ${edits} filter{s} for this {type}, it might still contain content you consider unhealthy.',
+        mixed_no_edits:
+          'This {type} might contain content you consider unhealthy. We are not sure.',
+        unknown: "Ouch! We don't know if this content is healthy for your settings!",
+      },
     },
     /*others */
     restore_deafult_values: 'Restore default values',
@@ -155,8 +179,32 @@ const messages = {
     resultsBasedOn: ['Resultados en función de tus', 'ajustes', 'y', 'filtros'],
     manage_preferences: 'Ajustar mis preferencias',
     popup: {
+      types: {
+        movie: 'Película{s}',
+        show: 'Serie{s}',
+      },
+      poweredBy: 'Gracias a',
+      watchOptions: 'Dónde ver',
+      showProvidersAnyway: 'Ignorar aviso',
+      invalidBrowser: 'Tu navegador no es compatible con Ohana.',
+      movieValues: 'Valores fomentados',
       no_providers: ['No se encontraron proveedores.', 'Buscar en TMDB'],
       goToFullDetails: '+info',
+      details: 'Detalles',
+      contributors: 'Colaboradores',
+      installingOhanaIsRequired: 'Es necesario instalar Ohana para ver esta película editada',
+      ohanaSummary: {
+        unset: 'Para saber si esta {type} es saludable para ti, configura tus preferencias',
+        clean: 'Esta {type} es saludable según tus ajustes. No hace falta filtrar nada.',
+        done: 'Hemos creado {edits} filtro{s}, haciendo esta {type} saludable para tus ajustes.',
+        missing:
+          'Esta {type} tiene escenas que consideras no saludables. Pero no tenemos todos los filtros todavía.',
+        mixed_with_edits:
+          'Aunque ya tenemos ${edits} filtro{s} para esta {type}, es posible que aun quede contenido no saludable sin editar.',
+        mixed_no_edits:
+          'Esta {type} puede tener cotenido que tú consideras no saludable. No estamos seguros.',
+        unknown: 'No sabemos si este contendio es saludable para tus ajustes o no.',
+      },
     },
     /*others */
     restore_deafult_values: 'Restaurar valores por defecto',

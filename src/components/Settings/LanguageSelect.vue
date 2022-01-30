@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-select
+      id="languageSelect"
       :dark="dark"
       hide-details
       outlined
@@ -45,13 +46,14 @@ export default {
       return this.settings.language
     },
     langLabel() {
-      const langLabels = { es: 'Idioma', en: 'Language' }
+      return this.$t('language')
+      /*const langLabels = { es: 'Idioma', en: 'Language' }
       console.log('aaaa', langLabels, this.lang)
       if (langLabels[this.lang]) {
         return langLabels[this.lang]
       } else {
         return 'en'
-      }
+      }*/
     },
   },
   data() {
@@ -75,6 +77,7 @@ export default {
 
 <style scoped>
 .v-select__selections > input {
-  visibility: hidden !important;
+  /*visibility: hidden !important;*/
+  display: none !important;
 }
 </style>

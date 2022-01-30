@@ -40,7 +40,10 @@
             ></span
           >
           <v-spacer></v-spacer>
-          <v-btn max-width="30" @click="dialog_lang = true" text>{{ settings.language }}</v-btn>
+          <span @click="dialog_lang = true" class="modern-link">
+            {{ $t('language') }}: {{ settings.language.toUpperCase() }}
+          </span>
+
           <!-- <LanguageSelect style="max-width: 250px" /> -->
         </v-card-actions>
       </v-card>

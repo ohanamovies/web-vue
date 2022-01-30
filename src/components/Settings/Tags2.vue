@@ -169,7 +169,8 @@ export default {
       console.log(tag)
       //return this.skipTags.includes(tag) ? 'mdi-leaf-off' : 'mdi-leaf'
       //return this.skipTags.includes(tag) ? 'mdi-close' : 'mdi-check'
-      return 'mdi-checkbox-blank-circle'
+      //return 'mdi-checkbox-blank-circle'
+      return this.skipTags.includes(tag) ? 'mdi-toggle-switch' : 'mdi-toggle-switch-off-outline'
     },
 
     getColor(tag) {

@@ -161,7 +161,8 @@
                     v-if="this.settings.skip_tags.length"
                     @click="showDetails = !showDetails"
                     style="cursor: pointer; font-size: 90%; color: #0070d7; white-space: nowrap"
-                    >Details<v-icon
+                    >{{ $t('popup.details') }}
+                    <v-icon
                       small
                       :class="['ml-0', 'pl-0', showDetails ? 'rotate' : '']"
                       color="#0070d7"
@@ -218,7 +219,9 @@
                   <!-- chips: movie values -->
 
                   <div v-if="movieValues.length > 0" style="margin-top: 10px">
-                    <b>Movie Values: </b> <i> {{ movieValues.map((x) => x.name).join(' - ') }}</i>
+                    <b>{{ $t('popup.movieValues') }}: </b>
+
+                    <i> {{ movieValues.map((x) => x.name).join(' - ') }}</i>
 
                     <div v-if="false">
                       <fc-tooltip
@@ -260,7 +263,7 @@
         <!-- Contributors / Feedbak buttons -->
         <div style="position: relative; height: 20px">
           <div style="position: absolute; left: 0px; display: flex">
-            <b v-if="contributors.length > 0">Contributors:</b>
+            <b v-if="contributors.length > 0">{{ $t('popup.contributors') }}:</b>
             <div v-for="(contributor, index) of contributors" :key="index">
               <v-chip
                 v-if="contributor != 'excel' && contributor != 'imdb' && contributor"
@@ -476,30 +479,33 @@ export default {
     ohanaSummary() {
       //TODO: Draft (shall we add here a link to watch, if healthy?)
       let status = this.item.join_status.status
-      let type = this.item.type
-      let nFilters = 0
+      let type = this.$t('popup.types.' + this.item.type, { s: '' }).toLowerCase()
+      let edits = 0
       for (const tag of this.skipTags) {
-        nFilters += this.item.filterStatus[tag] ? this.item.filterStatus[tag].scenes.length : 0
+        edits += this.item.filterStatus[tag] ? this.item.filterStatus[tag].scenes.length : 0
       }
+      let s = edits == 1 ? '' : 's'
       let text = ''
       if (status == 'unset') {
-        text = `To know if this ${type} is healthy for you, let us know your preferences.`
+        text = this.$t('popup.ohanaSummary.unset', { type, s })
       } else if (status == 'clean') {
-        text = `This ${type} is healthy for your settings. Nothing to filter here.`
+        text = this.$t('popup.ohanaSummary.clean', { type, s })
       } else if (status == 'done') {
-        text = `We've created ${nFilters} ${
-          nFilters == 1 ? ' filter' : ' filters'
-        } to make this ${type} healthy for your settings.`
+        text = this.$t('popup.ohanaSummary.done', { type, edits, s: edits > 1 ? 's' : '' })
       } else if (status == 'missing') {
-        text = `This ${type} contains scenes you consider unhealthy. But we don't have all the filters ready yet.`
+        text = text = this.$t('popup.ohanaSummary.missing', { type })
       } else if (status == 'mixed') {
-        if (nFilters == 0) {
-          text = `This ${type} might contain content you consider unhealthy. We are not sure.`
+        if (edits == 0) {
+          text = this.$t('popup.ohanaSummary.mixed_no_edits', { type })
         } else {
-          text = `Although we have ${nFilters} filters for this ${type}, it might still contain content you consider unhealthy.`
+          text = this.$t('popup.ohanaSummary.mixed_with_edits', {
+            type,
+            edits,
+            s: edits > 1 ? 's' : '',
+          })
         }
       } else {
-        text = `Ouch! We don't know if this content is healthy for your settings! `
+        text = this.$t('popup.ohanaSummary.unknown')
       }
 
       return text
