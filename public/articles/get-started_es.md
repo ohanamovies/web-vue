@@ -5,8 +5,7 @@ Aquí encontrarás una introducción sobre como usar Ohana:
 
 Para saber qué es Ohana, visita nuestro sección [Acerca de](/about). Para obtener una lista de las preguntas más frecuentes, visite nuestro [FAQs](/faqs).
 
-Cómo ver películas cortadas
----------------------------
+## Cómo ver películas cortadas
 
 #### Paso 1. Instalar Ohana
 
@@ -27,7 +26,7 @@ Puedes buscar por título, si estás interesado en una película concreta, o fil
 
 En Ohana usamos un sistema de colores (semáforo) para indicarte de forma visual si una película / serie es saludable (según tu configuración personal).
 
-<span style="color:green">Saludable: </span>  El contenido era originalmente saludable. No hizo falta editar. 
+<span style="color:green">Saludable: </span> El contenido era originalmente saludable. No hizo falta editar.
 <span style="color:green">Editado: </span> Había contenido no deseado, pero puedes evitarlo con nuestra extensión.  
 | **Ohana Limpio/Editado:** Los iconos azules indican que ha sido revisado por editores de confianza de Ohana.  
 **No saludable:** Sabemos que esta película tiene contenido como no deseado, pero aún no está editada.  
@@ -49,8 +48,7 @@ Mientras ves una película / serie, el logotipo de Ohana en la barra de herramie
 
 Si haces clic en el icono, verás una lista detallada de las escenas que se van a saltar. Aquí puedes definir manualmente qué escenas omitir y cuáles poder ver.
 
-Cómo crear nuevos filtros
--------------------------
+## Cómo crear nuevos filtros
 
 #### Paso 1. Preparación
 

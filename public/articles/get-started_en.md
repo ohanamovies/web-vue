@@ -1,5 +1,3 @@
-
-
 Here you'll find a quick guide about how to use Ohana. This is:
 
 1.  [How to watch clean movies](/get-started#how-to-watch)
@@ -7,8 +5,7 @@ Here you'll find a quick guide about how to use Ohana. This is:
 
 To learn what's Ohana visit our [About section](/about). For a list of the most frequency asked questions visit our [FAQs](/faqs).
 
-How to watch a healthy movie
---------------------------
+## How to watch a healthy movie
 
 #### Step 1. Install Ohana
 
@@ -48,10 +45,7 @@ While watching a movie/show, the Ohana logo on the Chrome toolbar will change to
 
 If you click on the icon, you will see a detailed list of scenes being skipped. Here you can manually define which scenes to skip and which ones to watch on a one to one basis
 
-
-
-How to create new filters
--------------------------
+## How to create new filters
 
 #### Step 1. Get ready
 
@@ -74,6 +68,7 @@ To mark the end of an unhealthy scene press "End filter" or "Alt + N". A popup a
 #### Step 4. Fine tune filters
 
 Follow the instrucctions on the popup to fine tune the created filter. This includes two main steps:
+
 1. Let us know why this scene is unhealthy, so that other users can decide whether to watch it or to skip it
 2. Fine tune the times. Remember it is always better to skip a few extra seconds around the unhealthy content, to make the edit more natural
 

@@ -1,6 +1,8 @@
 <template>
   <div class="subpage">
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
+      <div v-html="markdown(mdtext)"></div>
+
       <!--   SPANISH TEXT -->
       <div class="inner" v-if="$i18n.locale == 'es'">
         <div id="menu">
@@ -407,7 +409,25 @@
 
 <script>
 import sharedjs from '@/sharedjs'
+
+//----------------
+var MarkdownIt = require('markdown-it')
+var md = new MarkdownIt()
+md.use(require('markdown-it-anchor').default) // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
+//TODO: TOC links are not working, due to vue/netlify stuff...
+md.use(require('markdown-it-table-of-contents'), {
+  transformLink: (link) => {
+    console.log('LINK', link)
+    return link.replace(/#/, '###')
+  },
+})
+
+//----------------
+
+import { mapState } from 'vuex'
+
 const rawTags = require('../assets/raw_tags')
+
 export default {
   props: {
     isMobile: {
@@ -415,17 +435,48 @@ export default {
       default: false,
     },
   },
+  watch: {
+    settings(newValue, oldValue) {
+      if (newValue.language != oldValue.language) {
+        this.updateMarkdown()
+      }
+    },
+  },
   data() {
     return {
       key: 'value',
       tags: rawTags.content,
+      mdtext: 'Loading...',
     }
+  },
+  computed: {
+    ...mapState(['settings']),
   },
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
     let title = 'About us'
     let desc = 'Learn more about Ohana: why? what? how?'
     return sharedjs.headObject(title, desc)
+  },
+
+  methods: {
+    updateMarkdown() {
+      fetch('https://ohana.tv/articles/about_' + this.settings.language + '.md')
+        .then((response) => response.text())
+        .then((text) => {
+          this.mdtext = text
+        })
+        .catch(() => {
+          this.mdtext = '[[toc]]\n## Error fetching content\n - hello there\n - hello by'
+        })
+    },
+    markdown(a) {
+      return md.render(a)
+    },
+  },
+
+  mounted() {
+    this.updateMarkdown()
   },
 }
 </script>
