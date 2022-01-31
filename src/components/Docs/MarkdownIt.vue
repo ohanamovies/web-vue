@@ -4,9 +4,15 @@
 
 <script>
 import { mapState } from 'vuex'
-var MarkdownIt = require('markdown-it')
+var md = require('markdown-it')({
+  html: true,
+}).use(require('markdown-it-anchor').default)
+
+/*
 var md = new MarkdownIt()
 md.use(require('markdown-it-anchor').default)
+*/
+
 //TODO: TOC links are not working, due to vue/netlify stuff...
 /*md.use(require('markdown-it-table-of-contents'), {
   transformLink: (link) => {
@@ -48,7 +54,7 @@ export default {
         .catch(() => {
           this.mdtext =
             this.settings.language == 'es'
-              ? '## Error cargando contenido\n\nPrueba más tarde.'
+              ? '[[toc]] \n## Error cargando contenido\n\nPrueba más tarde.'
               : '## Error fetching content\n\nTry again later.'
         })
     },
@@ -62,8 +68,13 @@ export default {
 
       let h2s = x.getElementsByTagName('h2')
       for (const h2 of h2s) {
+        const link = this.file + '#' + h2.id
+        x.innerHTML = x.innerHTML.replace(
+          h2.outerHTML,
+          `<h2><a href="${link}">#</a> ${h2.innerHTML}</h2>`
+        )
         let li = document.createElement('li')
-        li.innerHTML = `<a href="${this.file}#${h2.id}">${h2.innerText}</a>`
+        li.innerHTML = `<a href="${link}">${h2.innerText}</a>`
         toc.appendChild(li)
       }
 

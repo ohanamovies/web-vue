@@ -22,7 +22,7 @@ Nuestra extensión de Chrome se integra en Netflix, HBO, etc., lo que permite a 
 
 Si te gustan las películas geniales, pero no te gusta ver escenas inapropiadas, te encantará conocer Ohana.
 
-![Salud mental](images/mental-health.jpeg)
+![Salud mental](images/mental-health.jpeg =10x)
 
 ### Salud mental
 
