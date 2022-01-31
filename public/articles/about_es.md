@@ -1,5 +1,7 @@
 En esta sección encontraras:
 
+[[toc]]
+
 1.  [¿Qué es Ohana?](#what-is-ohana)
 2.  [¿Por qué omitir contenido?](#why-skipping)
 3.  [¿Por qué estamos aquí? (Visión)](#vision-statement)

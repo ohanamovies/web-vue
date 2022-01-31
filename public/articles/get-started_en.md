@@ -1,7 +1,6 @@
 Here you'll find a quick guide about how to use Ohana. This is:
 
-1.  [How to watch clean movies](/get-started#how-to-watch)
-2.  [How to create filters](/get-started#how-to-create-filters)
+[[toc]]
 
 To learn what's Ohana visit our [About section](/about). For a list of the most frequency asked questions visit our [FAQs](/faqs).
 

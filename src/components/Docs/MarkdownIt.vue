@@ -57,13 +57,13 @@ export default {
       x.innerHTML = md.render(a)
 
       //manually create toc (we need to do this because of the vue/netlify stuff and # mess)
-      let toc = document.createElement('ul')
+      let toc = document.createElement('ol')
       toc.classList.add('toc')
 
       let h2s = x.getElementsByTagName('h2')
       for (const h2 of h2s) {
         let li = document.createElement('li')
-        li.innerHTML = `<a href="about#${h2.id}">${h2.innerText}</a>`
+        li.innerHTML = `<a href="${this.file}#${h2.id}">${h2.innerText}</a>`
         toc.appendChild(li)
       }
 
@@ -82,7 +82,7 @@ export default {
       return x.innerHTML.replace('[[toc]]', toc.outerHTML) + '<br>' + editGitHub.outerHTML
     },
   },
-  mounted() {
+  beforeMount() {
     this.updateMarkdown()
   },
 }

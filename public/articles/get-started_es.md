@@ -1,7 +1,6 @@
 Aquí encontrarás una introducción sobre como usar Ohana:
 
-1.  [Cómo ver películas cortadas](/get-started#how-to-watch)
-2.  [Cómo crear filtros](/get-started#how-to-create-filters)
+[[toc]]
 
 Para saber qué es Ohana, visita nuestro sección [Acerca de](/about). Para obtener una lista de las preguntas más frecuentes, visite nuestro [FAQs](/faqs).
 
