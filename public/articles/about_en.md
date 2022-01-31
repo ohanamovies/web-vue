@@ -1,10 +1,6 @@
 In this section you will find:
 
-1.  [What is Ohana?](/about#what-is-ohana)
-2.  [Why skipping content?](/about#why-skipping)
-3.  [Why are we here? (Vission)](/about#vision-statement)
-4.  [What do we do? (Mission)](/about#mission-statement)
-5.  [How can I help?](/about#how-can-i-help)
+[[toc]]
 
 To get started into how to use Ohana visit our [get started section](/get-started). For a list of the most frequency asked questions visit our [FAQs](/faqs).
 
