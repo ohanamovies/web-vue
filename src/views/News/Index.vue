@@ -14,13 +14,18 @@
 </template>
 
 <script>
-/*const files = require.context('./', true, /\.md$/)
+/*
 
+let x = require('articles/about.md')
+console.log('XXXXX', x)
+*/
+/*
 files.keys().forEach((key) => {
-  let u = require(key)
-  console.log(u)
+  var x = fs.readFileSync(key, 'utf8')
+  console.log('xxx0', x)
 })
 */
+
 export default {
   data() {
     return {

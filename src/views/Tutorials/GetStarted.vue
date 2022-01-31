@@ -3,27 +3,10 @@
     <!-- Header -->
 
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
-      <div v-if="false" id="Testing with dialog SkipTags settings... Soooo easy :)">
-        <v-btn @click="settings_dialog = !settings_dialog">settings</v-btn>
-        <v-dialog
-          v-model="settings_dialog"
-          width="400"
-          :fullscreen="isMobile"
-          style="z-index: 999999999"
-        >
-          <v-card style="max-width: 400px; margin: auto">
-            <v-card-title>Settings</v-card-title>
-            <v-card-text>
-              <Sensitivity />
+      <MarkdownIt file="get-started" class="inner" />
 
-              <v-btn flat text to="/settings">Más ajustes</v-btn>
-              <v-btn flat text @click="settings_dialog = !settings_dialog">Done</v-btn>
-            </v-card-text>
-          </v-card>
-        </v-dialog>
-      </div>
       <!--   SPANISH TEXT -->
-      <div class="inner" v-if="$i18n.locale == 'es'">
+      <div class="inner" v-if="$i18n.locale == 'es' && false">
         <div>
           Aquí encontrarás una introducción sobre como usar Ohana:
           <ol>
@@ -262,7 +245,7 @@
       </div>
 
       <!--   DEFAULT TEXT -->
-      <div class="inner" v-else>
+      <div class="inner" v-else-if="false">
         <div>
           Here you'll find a quick guide about how to use Ohana. This is:
           <ol>
@@ -505,11 +488,12 @@
 <script>
 import sharedjs from '@/sharedjs'
 import { mapState } from 'vuex'
-import Sensitivity from '@/components/Settings/Sensitivity.vue'
+
+import MarkdownIt from '@/components/Docs/MarkdownIt.vue'
 const rawTags = require('../../assets/raw_tags')
 
 export default {
-  components: { Sensitivity },
+  components: { MarkdownIt },
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
     let title = 'Get started'

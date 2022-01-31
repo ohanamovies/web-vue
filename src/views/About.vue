@@ -1,10 +1,10 @@
 <template>
   <div class="subpage">
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
-      <div v-html="markdown(mdtext)"></div>
+      <MarkdownIt file="about" class="inner" />
 
       <!--   SPANISH TEXT -->
-      <div class="inner" v-if="$i18n.locale == 'es'">
+      <div class="inner" v-if="$i18n.locale == 'es' && false">
         <div id="menu">
           En esta sección encontraras:
           <ol>
@@ -242,7 +242,7 @@
       </div>
 
       <!--   DEFAULT TEXT -->
-      <div class="inner" v-else>
+      <div v-else-if="false" class="inner">
         <div id="menu">
           In this section you will find:
           <ol>
@@ -411,42 +411,27 @@
 import sharedjs from '@/sharedjs'
 
 //----------------
-var MarkdownIt = require('markdown-it')
-var md = new MarkdownIt()
-md.use(require('markdown-it-anchor').default) // Optional, but makes sense as you really want to link to something, see info about recommended plugins below
-//TODO: TOC links are not working, due to vue/netlify stuff...
-md.use(require('markdown-it-table-of-contents'), {
-  transformLink: (link) => {
-    console.log('LINK', link)
-    return link.replace(/#/, '###')
-  },
-})
-
-//----------------
 
 import { mapState } from 'vuex'
+import MarkdownIt from '@/components/Docs/MarkdownIt.vue'
 
 const rawTags = require('../assets/raw_tags')
 
 export default {
+  components: {
+    MarkdownIt,
+  },
   props: {
     isMobile: {
       type: Boolean,
       default: false,
     },
   },
-  watch: {
-    settings(newValue, oldValue) {
-      if (newValue.language != oldValue.language) {
-        this.updateMarkdown()
-      }
-    },
-  },
+
   data() {
     return {
       key: 'value',
       tags: rawTags.content,
-      mdtext: 'Loading...',
     }
   },
   computed: {
@@ -457,26 +442,6 @@ export default {
     let title = 'About us'
     let desc = 'Learn more about Ohana: why? what? how?'
     return sharedjs.headObject(title, desc)
-  },
-
-  methods: {
-    updateMarkdown() {
-      fetch('https://ohana.tv/articles/about_' + this.settings.language + '.md')
-        .then((response) => response.text())
-        .then((text) => {
-          this.mdtext = text
-        })
-        .catch(() => {
-          this.mdtext = '[[toc]]\n## Error fetching content\n - hello there\n - hello by'
-        })
-    },
-    markdown(a) {
-      return md.render(a)
-    },
-  },
-
-  mounted() {
-    this.updateMarkdown()
   },
 }
 </script>
