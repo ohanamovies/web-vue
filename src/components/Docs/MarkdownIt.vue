@@ -71,7 +71,7 @@ export default {
         const link = this.file + '#' + h2.id
         x.innerHTML = x.innerHTML.replace(
           h2.outerHTML,
-          `<h2><a href="${link}">#</a> ${h2.innerHTML}</h2>`
+          `<h2 id="${h2.id}"><a href="${link}">#</a> ${h2.innerHTML}</h2>`
         )
         let li = document.createElement('li')
         li.innerHTML = `<a href="${link}">${h2.innerText}</a>`
