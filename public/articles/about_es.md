@@ -2,12 +2,6 @@ En esta sección encontraras:
 
 [[toc]]
 
-1.  [¿Qué es Ohana?](#what-is-ohana)
-2.  [¿Por qué omitir contenido?](#why-skipping)
-3.  [¿Por qué estamos aquí? (Visión)](#vision-statement)
-4.  [¿Qué hacemos? (Misión)](#mission-statement)
-5.  [¿Cómo puedo ayudar?](#how-can-i-help)
-
 Para comenzar a usar Ohana visita nuestra sección [empezar](/get-started). Para obtener una lista de las preguntas más frecuentes, visite nuestro [FAQs](/faqs).
 
 ## ¿Qué es Ohana?
@@ -21,44 +15,6 @@ Como comunidad, desarrollamos un conjunto de herramientas que ayudan a las perso
 Nuestra extensión de Chrome se integra en Netflix, HBO, etc., lo que permite a los usuarios omitir aquellas escenas que no quieren ver. ¡Con Ohana tú decides qué mirar y qué saltar!
 
 Si te gustan las películas geniales, pero no te gusta ver escenas inapropiadas, te encantará conocer Ohana.
-
-![Salud mental](images/mental-health.jpeg =10x)
-
-### Salud mental
-
-En un mundo con crecientes problemas de salud mental algunas escenas pueden dañar a los espectadores. Ohana permite la creación de espacios seguros, nadie se queda atrás.
-
-![Libertad](images/choice-square.png)
-
-### Libertad
-
-Nuestro objetivo es empoderarte como espectador, brindándote las herramientas para elegir qué ver y qué no. Con Ohana la elección es tuya.
-
-![Protección infantil](images/fam-square.jpg)
-
-### Protección infantil
-
-La infancia debe ser un momento en el que los niños puedan crecer, explorar y desarrollarse en un entorno seguro. Ohana ayuda a crear este entorno seguro para los niños.
-
-![Derechos de la mujer](images/womens-rights-square.png)
-
-### Derechos de la mujer
-
-No somos objetos para la satisfacción de los hombres. Ohana nos ayuda a tomar medidas y luchar contra la cultura de la violación que impregna demasiadas películas.
-
-![Fácil y sencillo, para toda la familia](images/providers-square.jpg)
-
-### Fácil y sencillo, para toda la familia
-
-Trabajamos directamente en sus proveedores favoritos, solo instale nuestra extensión de Chrome, díganos sus preferencias y siga viendo películas como de costumbre mientras trabajamos para usted en segundo plano.
-
-![Comunidad](images/keyboard-square.jpg)
-
-### Comunidad
-
-No somos una gran corporación, somos una comunidad de apasionados del cine, como tú. Ohana es una organización sin animo de lucro.
-
-[Empezar](/get-started)
 
 ## ¿Por qué decidir qué ver?
 
