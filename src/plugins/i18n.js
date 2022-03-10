@@ -73,6 +73,11 @@ const messages = {
     feedbackPopUp: 'Report an error',
     resultsBasedOn: ['Results based on your', 'settings', 'and', 'filters'],
     manage_preferences: 'Manage preferences',
+
+    settings_page: {
+      skip_intro:
+        'Select below what kind of content do you want to avoid. Ohana will skip it automatically while you watch movies.',
+    },
     popup: {
       types: {
         movie: 'Movie{s}',
@@ -178,6 +183,10 @@ const messages = {
     feedbackPopUp: 'Reportar un error',
     resultsBasedOn: ['Resultados en función de tus', 'ajustes', 'y', 'filtros'],
     manage_preferences: 'Ajustar mis preferencias',
+    settings_page: {
+      skip_intro:
+        'Selecciona abajo qué tipo de contenido quieres evitar. Ohana lo saltará automáticamente mientras ves la película.',
+    },
     popup: {
       types: {
         movie: 'Película{s}',

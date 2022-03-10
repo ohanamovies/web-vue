@@ -1,44 +1,49 @@
 <template>
   <div style="font-size: 90%">
-    <p>
-      Click on the options below to define what content you consider
-      <span style="color: red">unhealthy</span>. Ohana TV will help you avoiding it.
-    </p>
+    {{ $t('settings_page.skip_intro') }}
+    <br />
+    <br />
+    <div v-if="false">
+      <p>
+        Click on the options below to define what content you consider
+        <span style="color: red">unhealthy</span>. Ohana TV will help you avoiding it.
+      </p>
 
-    <!-- table explaining each color -->
-    <div>
-      <table style="margin-bottom: 0; padding: 0px">
-        <!-- RED -->
-        <tr>
-          <td style="width: 10px; padding: 0px; vertical-align: top">
-            <v-icon color="red">mdi-checkbox-blank-circle</v-icon>
-          </td>
-          <td style="text-align: left; padding: 0px 9px">
-            This content is <span style="color: red; font-weight: bold">unhealthy</span> to me:
-            please remove it.
-          </td>
-        </tr>
-        <!-- GREEN -->
-        <tr>
-          <td style="width: 10px; padding: 0px; vertical-align: top">
-            <v-icon color="green">mdi-checkbox-blank-circle</v-icon>
-          </td>
-          <td style="text-align: left; padding: 0px 9px">
-            This is content is <span style="color: green; font-weight: bold">healthy</span> to me:
-            do nothing.
-          </td>
-        </tr>
-        <!-- ORANGE -->
-        <tr>
-          <td style="width: 10px; padding: 0px; vertical-align: top">
-            <v-icon color="orange">mdi-checkbox-blank-circle</v-icon>
-          </td>
-          <td style="text-align: left; padding: 0px 9px">
-            <span style="color: orange; font-weight: bold">Edge case:</span> You will see this color
-            when content is not clear enough for us to make a call.
-          </td>
-        </tr>
-      </table>
+      <!-- table explaining each color -->
+      <div>
+        <table style="margin-bottom: 0; padding: 0px">
+          <!-- RED -->
+          <tr>
+            <td style="width: 10px; padding: 0px; vertical-align: top">
+              <v-icon color="red">mdi-checkbox-blank-circle</v-icon>
+            </td>
+            <td style="text-align: left; padding: 0px 9px">
+              This content is <span style="color: red; font-weight: bold">unhealthy</span> to me:
+              please remove it.
+            </td>
+          </tr>
+          <!-- GREEN -->
+          <tr>
+            <td style="width: 10px; padding: 0px; vertical-align: top">
+              <v-icon color="green">mdi-checkbox-blank-circle</v-icon>
+            </td>
+            <td style="text-align: left; padding: 0px 9px">
+              This is content is <span style="color: green; font-weight: bold">healthy</span> to me:
+              do nothing.
+            </td>
+          </tr>
+          <!-- ORANGE -->
+          <tr>
+            <td style="width: 10px; padding: 0px; vertical-align: top">
+              <v-icon color="orange">mdi-checkbox-blank-circle</v-icon>
+            </td>
+            <td style="text-align: left; padding: 0px 9px">
+              <span style="color: orange; font-weight: bold">Edge case:</span> You will see this
+              color when content is not clear enough for us to make a call.
+            </td>
+          </tr>
+        </table>
+      </div>
     </div>
 
     <!--default 
@@ -49,70 +54,77 @@
     -->
 
     <!-- OPTIONS -->
-    <div v-for="(category, c) in raw_tags.content" :key="c">
+    {{ visibleCats }}
+    <div v-for="(category, c) in raw_tags.content" :key="c" style="cursor: pointer">
       <!-- <p style="margin-top: 30px; font-size: 1.1rem">{{ category.title }}</p>-->
       <div v-if="category.value != 'Other'">
-        <h2>{{ localize(category.title) }}</h2>
+        <h2>
+          {{ localize(category.title) }}
+        </h2>
         <p v-if="category.description">
           {{ localize(category.description) }}
         </p>
+        <div v-if="true">
+          <div v-for="(sev, s) in raw_tags.content[c].severity" :key="s">
+            <table style="margin-bottom: 0; cursor: pointer">
+              <tr
+                :class="skipTags.includes(sev.value) ? 'unhealthy-row' : 'healthy-row'"
+                @click="toggleTag(sev.value)"
+              >
+                <td v-if="false" style="width: 50px; padding: 0px; text-align: center">
+                  <v-switch
+                    class="ma-0 pa-0 pl-2 mt-2"
+                    :color="skipTags.includes(sev.value) ? 'red' : 'lightgreen'"
+                    readonly
+                    inset
+                    dense
+                    :input-value="skipTags.includes(sev.value)"
+                    hide-details
+                  ></v-switch>
+                </td>
 
-        <div v-for="(sev, s) in raw_tags.content[c].severity" :key="s">
-          <table style="margin-bottom: 0; cursor: pointer">
-            <tr
-              :class="skipTags.includes(sev.value) ? 'unhealthy-row' : 'healthy-row'"
-              @click="toggleTag(sev.value)"
-            >
-              <td v-if="false" style="width: 50px; padding: 0px; text-align: center">
-                <v-switch
-                  class="ma-0 pa-0 pl-2 mt-2"
-                  :color="skipTags.includes(sev.value) ? 'red' : 'lightgreen'"
-                  readonly
-                  inset
-                  dense
-                  :input-value="skipTags.includes(sev.value)"
-                  hide-details
-                ></v-switch>
-              </td>
-
-              <td style="text-align: left">
-                <span :style="{ textAlign: 'left' }">
-                  <b>{{ localize(sev.title) }}</b
-                  >:
-                  {{ localize(sev.description) }}
-                </span>
-                <div style="margin-top: 5px" v-if="false">
-                  <b style="font-size: 80%">When:</b>
-                  <v-chip x-small class="mx-1">Always</v-chip>
-                  <v-chip
-                    x-small
-                    :class="['mx-1', Math.random() * 10 > 4 ? 'chipdown' : '']"
-                    v-for="(context, t) in raw_tags.content[c].context"
-                    :key="t"
-                    >{{ localize(context.title) }}</v-chip
+                <td style="text-align: left">
+                  <span :style="{ textAlign: 'left' }">
+                    <b>{{ localize(sev.title) }}</b
+                    >:
+                    {{ localize(sev.description) }}
+                  </span>
+                  <div style="margin-top: 5px" v-if="false">
+                    <b style="font-size: 80%">When:</b>
+                    <v-chip x-small class="mx-1">Always</v-chip>
+                    <v-chip
+                      x-small
+                      :class="['mx-1', Math.random() * 10 > 4 ? 'chipdown' : '']"
+                      v-for="(context, t) in raw_tags.content[c].context"
+                      :key="t"
+                      >{{ localize(context.title) }}</v-chip
+                    >
+                  </div>
+                </td>
+                <td style="width: 50px; padding: 0px; text-align: center">
+                  <fc-tooltip
+                    :text="
+                      skipTags.includes(sev.value)
+                        ? 'We will skip ' + localize(sev.title)
+                        : `We won't skip ` + localize(sev.title)
+                    "
                   >
-                </div>
-              </td>
-              <td style="width: 50px; padding: 0px; text-align: center">
-                <fc-tooltip
-                  :text="
-                    skipTags.includes(sev.value)
-                      ? 'We will skip ' + localize(sev.title)
-                      : `We won't skip ` + localize(sev.title)
-                  "
-                >
-                  <v-icon style="cursor: pointer" :color="getColor(sev.value)"
-                    >{{ getIcon(sev.value) }} <br />
-                  </v-icon>
-                  <br /><span style="font-size: 70%; font-weight: 800">
-                    {{ skipTags.includes(sev.value) ? 'Skip' : 'No Skip' }}</span
-                  >
-                </fc-tooltip>
-              </td>
-            </tr>
-          </table>
-          <hr class="ma-0" v-if="s + 1 < raw_tags.content[c].severity.length" />
+                    <v-icon large style="cursor: pointer" :color="getColor(sev.value)"
+                      >{{ getIcon(sev.value) }} <br />
+                    </v-icon>
+                    <br /><span style="font-size: 70%; font-weight: 800">
+                      {{ skipTags.includes(sev.value) ? 'Skip' : 'No Skip' }}</span
+                    >
+                  </fc-tooltip>
+                </td>
+              </tr>
+            </table>
+            <hr class="ma-0" v-if="s + 1 < raw_tags.content[c].severity.length" />
+          </div>
         </div>
+        <br />
+        <hr />
+        <br />
       </div>
     </div>
 
@@ -174,7 +186,7 @@ export default {
     },
 
     getColor(tag) {
-      return this.skipTags.includes(tag) ? 'red' : 'green'
+      return this.skipTags.includes(tag) ? 'primary' : 'gray'
     },
     toggleTag(tag) {
       //TODO: select/unselect the implied tags with this one.
@@ -233,23 +245,36 @@ export default {
 </script>
 
 <style scoped>
+h2 {
+  padding-top: 0px;
+  font-size: 1.4em;
+}
 .healthy-row {
   cursor: 'pointer';
-  background-color: rgba(100, 300, 100, 0.1);
+  /*background-color: rgba(100, 300, 100, 0.1);*/
+  /*background-color: rgba(200, 200, 200, 0.1);*/
 }
 
 .healthy-row:hover {
   cursor: 'pointer';
-  background-color: rgba(100, 300, 100, 0.2);
+  /*background-color: rgba(100, 300, 100, 0.2);*/
+  /* background-color: rgba(150, 150, 150, 0.3);*/
+  background-color: rgba(100, 200, 300, 0.1);
 }
 
 .unhealthy-row {
   cursor: 'pointer';
 
-  background-color: rgba(300, 100, 100, 0.1);
+  /*background-color: rgba(300, 100, 100, 0.1);*/
+  /*background-color: rgba(100, 200, 300, 0.1);*/
+}
+
+.unhealthy-row * {
 }
 
 .unhealthy-row:hover {
-  background-color: rgba(300, 100, 100, 0.15);
+  /*background-color: rgba(300, 100, 100, 0.15);*/
+  /* background-color: rgba(100, 200, 300, 0.3);*/
+  background-color: rgba(100, 200, 300, 0.1);
 }
 </style>
