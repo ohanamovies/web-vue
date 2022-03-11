@@ -142,7 +142,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(['isChrome', 'hasApp', 'isMobile']),
+    ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
     displayProviders() {
       //not offer options where content is not edited!!!
       if (this.is_done) {
@@ -151,26 +151,26 @@ export default {
         return this.selection.providers
       }
     },
+    joinStatus() {
+      return ohana.movies.addInfo(this.selection, this.settings.skip_tags).join_status
+    },
     no_settings() {
-      return this.selection.join_status.status == 'unset'
+      return this.joinStatus.status == 'unset'
     },
     is_clean() {
-      return this.selection.join_status.status == 'clean'
+      return this.joinStatus.status == 'clean'
     },
     is_done() {
-      return this.selection.join_status.status == 'done'
+      return this.joinStatus.status == 'done'
     },
     is_mixed() {
-      return this.selection.join_status.status == 'mixed'
+      return this.joinStatus.status == 'mixed'
     },
     is_unknown() {
-      return (
-        this.selection.join_status.status == 'unknown' ||
-        this.selection.join_status.status == 'unkown'
-      )
+      return this.joinStatus.status == 'unknown' || this.joinStatus.status == 'unkown'
     },
     is_missing() {
-      return this.selection.join_status.status == 'missing'
+      return this.joinStatus.status == 'missing'
     },
   },
   methods: {

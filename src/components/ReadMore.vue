@@ -3,11 +3,13 @@
   <div>
     <div class="overview" v-if="text.length < max || viewMore">
       {{ text }}
-      <a v-if="text.length >= max" @click="viewMore = false" style="font-size: 80%"> Read less</a>
+      <a v-if="text.length >= max" @click="viewMore = false" style="font-size: 80%">
+        {{ $t('utils.readless') }}</a
+      >
     </div>
     <div v-else>
       {{ text.slice(0, max - buffer) }}...
-      <a @click="viewMore = true" style="font-size: 80%">Read more</a>
+      <a @click="viewMore = true" style="font-size: 80%"> {{ $t('utils.readmore') }}</a>
     </div>
   </div>
 </template>

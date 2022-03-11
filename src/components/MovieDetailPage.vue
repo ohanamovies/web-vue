@@ -258,7 +258,7 @@
 const rawTags = require('@/assets/raw_tags')
 import ohana from '@/assets/ohana'
 
-import MovieWatchOptions from './MoviePopup/MovieWatchOptions.vue'
+import MovieWatchOptions from './MoviePopup/MovieWatchOptions2.vue'
 import { mapState } from 'vuex'
 
 export default {

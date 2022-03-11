@@ -414,7 +414,7 @@ export default {
       this.loading = true
       //item
       this.item = await ohana.api.getMovie(this.imdb)
-      this.item = ohana.movies.addInfo(this.item, this.skipTags)
+      this.item = ohana.movies.addInfo(this.item, this.settings.skip_tags)
 
       //episodes
       if (this.item.parent) {

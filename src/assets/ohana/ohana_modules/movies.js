@@ -106,7 +106,7 @@ const movies = {
     return ms
   },
 
-  addInfo(movie, skipTags) {
+  addInfo_old(movie, skipTags) {
     //TODO: somewhere we should remove the providers that are not edited, if we are going to say that the movie is edited.
     movie.join_status = movies.joinStatus3(movie.movieContent, movie.providers, skipTags)
 
@@ -144,6 +144,99 @@ const movies = {
     if (typeof movie.movieValues == 'string')
       movie.movieValues = movies.parse(movie.movieValues, {})
     return movie
+  },
+
+  addInfo(movie, skipTags) {
+    //This version now just looks at the movie.filterStatus section, regardless of the providers
+    let m = movie //JSON.parse(JSON.stringify(movie))
+
+    //-1: missing | 0: unknown | 1: done
+
+    let trustThreshold = 3
+
+    let status = skipTags.length ? 'done' : 'unset' //until proved otherwise below
+    let minTrust = Infinity
+    let minHealth = Infinity
+    let editsCount = 0
+
+    if (!m.filterStatus) m.filterStatus = {}
+
+    for (let i = 0; i < skipTags.length; i++) {
+      const t = skipTags[i]
+
+      if (!m.filterStatus[t]) {
+        if (status != 'missing') status = 'unknown'
+        continue
+      }
+
+      if (m.filterStatus[t].trust < minTrust) minTrust = m.filterStatus[t].trust
+      if (m.filterStatus[t].health < minHealth) minHealth = m.filterStatus[t].health
+      editsCount += m.filterStatus[t].scenes.length
+
+      if (m.filterStatus[t].trust < trustThreshold) {
+        if (status != 'missing') status = 'unknown'
+      }
+
+      if (Math.abs(m.filterStatus[t].health) < 0.5) {
+        if (status != 'missing' && status != 'unknown') status = 'mixed'
+        continue
+      } else if (m.filterStatus[t].health < -0.5) {
+        status = 'missing'
+        continue
+      }
+    }
+
+    if (status == 'done' && editsCount == 0) {
+      status = 'clean'
+    }
+
+    console.log('SSSSSSSSSSS', status)
+
+    const mapping = {
+      unknown: {
+        icon: 'mdi-help-circle',
+        color: 'lightgray',
+      },
+      missing: {
+        icon: 'mdi-heart-broken',
+        color: 'red',
+      },
+      mixed: {
+        icon: 'mdi-heart-broken',
+        color: 'orange',
+      },
+      done: {
+        icon: 'mdi-content-cut',
+        color: 'green',
+      },
+      clean: {
+        icon: 'none', //'mdi-shield-check',
+        color: 'green',
+      },
+      unset: {
+        icon: 'none',
+        color: 'none',
+      },
+    }
+
+    m.join_status = {
+      status: status,
+      health: minHealth,
+      cuts: editsCount,
+      trust: minTrust,
+      icon: mapping[status].icon,
+      color: mapping[status].color,
+    }
+
+    //other checks
+    m.brief_status = movies.getSummary(movie)
+    if (typeof m.movieValues == 'string') m.movieValues = movies.parse(m.movieValues, {})
+
+    //deprecated stuff (should get rid of this)
+    m.healthyProviders = []
+    m.unhealthyProviders = []
+
+    return m
   },
 
   parse(json, def) {

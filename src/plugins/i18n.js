@@ -132,6 +132,10 @@ const messages = {
     /*others */
     restore_deafult_values: 'Restore default values',
     navigate_to_home: 'Navigate to home',
+    utils: {
+      readmore: 'Read more',
+      readless: 'Read less',
+    },
 
     /*editors*/
     leaderboard: {
@@ -255,7 +259,7 @@ const messages = {
         missing:
           'Esta {type} tiene escenas que consideras no saludables. Pero no tenemos todos los filtros todavía.',
         mixed_with_edits:
-          'Aunque ya tenemos ${edits} filtro{s} para esta {type}, es posible que aun quede contenido no saludable sin editar.',
+          'Aunque ya tenemos {edits} filtro{s} para esta {type}, es posible que aun quede contenido no saludable sin editar.',
         mixed_no_edits:
           'Esta {type} puede tener cotenido que tú consideras no saludable. No estamos seguros.',
         unknown: 'No sabemos si este contendio es saludable para tus ajustes o no.',
@@ -264,6 +268,10 @@ const messages = {
     /*others */
     restore_deafult_values: 'Restaurar valores por defecto',
     navigate_to_home: 'Ir a la portada',
+    utils: {
+      readmore: 'Leer más',
+      readless: 'Leer menos',
+    },
     /*editors */
     leaderboard: {
       intro:

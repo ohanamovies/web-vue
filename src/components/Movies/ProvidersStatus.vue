@@ -44,6 +44,7 @@
     </div>
 
     <!-- notifiy for unhealthy movies -->
+    <v-overlay :value="dialog" :opacity="0.8"></v-overlay>
     <v-dialog v-model="dialog" persistent max-width="290">
       <v-card style="box-shadow: none">
         <v-card-title style="word-break: break-word" class="text-h5">
@@ -116,12 +117,12 @@ export default {
         for (const tag of this.settings.skip_tags) {
           //Unkown
           if (!filterStatus[tag]) {
-            pstatus[provider] = 'unknown'
+            if (pstatus[provider] != 'missing') pstatus[provider] = 'unknown'
             continue
           }
 
           if (Math.abs(filterStatus[tag].health) < 0.5 && pstatus[provider] == 'done') {
-            pstatus[provider] = 'unknown'
+            if (pstatus[provider] != 'missing') pstatus[provider] = 'unknown'
             continue
           } else if (filterStatus[tag].health < -0.5) {
             pstatus[provider] = 'missing'
