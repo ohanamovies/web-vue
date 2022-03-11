@@ -130,18 +130,7 @@
                 </div>
 
                 <!-- Overview -->
-                <div>
-                  <div class="overview" v-if="plot.length < 200 || viewMore">
-                    {{ plot }}
-                    <a v-if="plot.length >= 200" @click="viewMore = false" style="font-size: 80%">
-                      Read less</a
-                    >
-                  </div>
-                  <div v-else>
-                    {{ plot.slice(0, 200 - 50) }}...
-                    <a @click="viewMore = true" style="font-size: 80%">Read more</a>
-                  </div>
-                </div>
+                <ReadMore :text="plot" :max="200" />
 
                 <!-- Ohana summary -->
                 <div style="text-align: center; margin: 15px 0px 5px; font-weight: 500">
@@ -363,7 +352,6 @@ export default {
 
       categories: [],
       severities: [],
-      viewMore: false,
 
       dialog_login: false,
       blur_if_missing: true,
@@ -524,7 +512,6 @@ export default {
     },
     resetPopup() {
       console.log('reset popup')
-      this.viewMore = false
       this.blur_if_missing = true
     },
     getTooltip3(tag) {

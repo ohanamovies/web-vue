@@ -41,7 +41,8 @@
           >
           <v-spacer></v-spacer>
           <span @click="dialog_lang = true" class="modern-link">
-            {{ $t('language') }}: {{ settings.language.toUpperCase() }}
+            {{ $t('language') }}:
+            {{ settings.language ? settings.language.toUpperCase() : 'Loading' }}
           </span>
 
           <!-- <LanguageSelect style="max-width: 250px" /> -->
@@ -126,45 +127,49 @@
     </v-dialog>
 
     <!-- nav bar  -->
-    <div class="sticky2" style="z-index: 99999">
-      <div
-        v-if="!isMobile"
-        style="margin: auto auto auto 48%; font-size: 24px; white-space: nowrap"
-      >
-        Ohana TV
-      </div>
+    <div v-if="true" class="sticky1">
+      <div class="sticky2">
+        <!-- logo -->
+        <div style="font-size: 20px; cursor: pointer; white-space: nowrap">Ohana TV</div>
 
-      <div v-else style="margin: auto auto auto 5px; white-space: nowrap">Ohana TV</div>
-      <div>
-        <v-text-field
-          outlined
-          dark
-          id="searchBox"
-          dense
-          single-line
-          label="Search by title"
-          v-model="title"
-          autocomplete="off"
-          prepend-inner-icon="mdi-magnify"
-          hide-details
-          clearable
-          @focus="$event.target.select()"
-        >
-        </v-text-field>
-      </div>
-      <div>
-        <router-link to="/about" style="color: white; text-decoration: none">
-          <v-icon style="color: white" v-if="isMobile">mdi-information-outline</v-icon>
-          <span v-else>About </span>
-        </router-link>
-      </div>
-      <div>
-        <div
-          @click="show_settings = !show_settings"
-          style="color: white; text-decoration: none; cursor: pointer"
-        >
-          <v-icon style="color: white" v-if="isMobile">mdi-account-cog-outline</v-icon>
-          <span v-else>Settings</span>
+        <!--search-->
+        <div>
+          <v-text-field
+            outlined
+            dark
+            id="searchBox"
+            dense
+            single-line
+            label="Search by title"
+            v-model="title"
+            autocomplete="off"
+            prepend-inner-icon="mdi-magnify"
+            hide-details
+            clearable
+            @focus="$event.target.select()"
+          >
+          </v-text-field>
+        </div>
+
+        <!-- menu -->
+        <Navigation />
+
+        <div v-if="false">
+          <div>
+            <router-link to="/about" style="color: white; text-decoration: none">
+              <v-icon style="color: white" v-if="isMobile">mdi-information-outline</v-icon>
+              <span v-else>About </span>
+            </router-link>
+          </div>
+          <div>
+            <div
+              @click="show_settings = !show_settings"
+              style="color: white; text-decoration: none; cursor: pointer"
+            >
+              <v-icon style="color: white" v-if="isMobile">mdi-account-cog-outline</v-icon>
+              <span v-else>Settings</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -386,6 +391,7 @@ import Settings2 from '@/components/Settings/Settings2.vue'
 import LanguageSelect from '@/components/Settings/LanguageSelect.vue'
 //import Sensitivity from '@/components/Settings/Sensitivity.vue'
 import Tags2 from '@/components/Settings/Tags2.vue'
+import Navigation from '@/components/Navigation.vue'
 
 export default {
   components: {
@@ -395,6 +401,7 @@ export default {
     //Sensitivity,
     Tags2,
     LanguageSelect,
+    Navigation,
   },
 
   head: function () {
@@ -1048,16 +1055,27 @@ hr {
   border: none;
 }
 
+.sticky1 {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99999;
+  backdrop-filter: blur(10px);
+}
+
 .sticky2 {
   color: white !important;
   display: flex;
-  position: fixed;
-  top: 0;
+  justify-content: space-between;
+  max-width: 1200px;
+
   padding: 0 5px;
-  width: 100%;
+
   background-color: transparent;
-  z-index: 99999;
-  backdrop-filter: blur(10px);
+  z-index: 99998;
+
   /*background-color: rgba(0, 0, 0, 0.05);*/
 }
 

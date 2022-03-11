@@ -76,7 +76,30 @@ const messages = {
 
     settings_page: {
       skip_intro:
-        'Select below what kind of content do you want to avoid. Ohana will skip it automatically while you watch movies.',
+        'Select what kind of content do you want to avoid. Ohana will skip it automatically while you watch movies.',
+      warnings: {
+        not_in_chrome:
+          "You don't have our extension installed (or are using an old version). You will need it if you want to watch edited content.",
+        not_installed:
+          'To watch edited content, you need to switch to a compatible browser (Google Chrome in a Destkop machine), and install our Chrome Extension.',
+      },
+    },
+    community: {
+      title: 'Community',
+      subtitle: 'Our heart and engine',
+      intro1:
+        "A strong community is what makes the difference in a project like this. We need your help building the first open database of films' scenes.",
+      intro2: 'With your help, anyone in the world will be able to watch movies in a healthy way.',
+      join: 'Join the community',
+
+      contribute: {
+        install_html: 'Instala nuestra <b>extensión de Chrome</b> y empieza a usarla.',
+        edit_html:
+          'Empieza a <b>marcar contendio no saludable</b>. Los usarios que vengan después de ti podrán esquivarlo gracias a ti!',
+        donate_html: '<b>Dona</b> para apoyar el desarrollo y pagar los costes de servidor.',
+        code_html: '¿Sabes <b>programar</b>? ¡Buscamos voluntarios!',
+        spread_html: '<b>Difunde</b> Ohana, para que más gente lo pueda disfrutar y apoyar.',
+      },
     },
     popup: {
       types: {
@@ -185,7 +208,30 @@ const messages = {
     manage_preferences: 'Ajustar mis preferencias',
     settings_page: {
       skip_intro:
-        'Selecciona abajo qué tipo de contenido quieres evitar. Ohana lo saltará automáticamente mientras ves la película.',
+        'Selecciona qué tipo de contenido quieres evitar. Ohana lo saltará automáticamente mientras ves la película.',
+      warnings: {
+        not_in_chrome:
+          'No tienes nuestra extensión instalada (o estás usando una versión muy antigua). Necesitas la extensión para ver contenido editado',
+        not_installed:
+          'Para ver contenido editado, tienes que cambiar a un navegador compatible (Google Chrome en ordenador), e instalar nuestra extensión de Chrome.',
+      },
+    },
+    community: {
+      title: 'Comunidad',
+      subtitle: 'Nuestro motor',
+      intro1:
+        'Una comunidad fuerte es lo que marca la diferencia en un proyecto como este. Necesitamos tu ayuda para construir la primera base de datos compartida sobre escenas en películas.',
+      intro2:
+        'Con tu ayuda, cualquier persona en el mundo podrá ver cualquier película sin el contenido "no saludable".',
+      join: 'Únete a la comunidad',
+      contribute: {
+        install_html: 'Install our <b>Chrome extension</b> and start using it.',
+        edit_html:
+          'Go ahead and <b>flag unhealthy content</b>. Next users will be able to skip it thanks to you!',
+        donate_html: '<b>Donate</b> to support the development of Ohana and pay the bills.',
+        code_html: 'Do you know how to <b>code</b>? We are looking for volunteers!',
+        spread_html: '<b>Spread the word</b> about Ohana, so others can enjoy and support it',
+      },
     },
     popup: {
       types: {
@@ -200,7 +246,7 @@ const messages = {
       no_providers: ['No se encontraron proveedores.', 'Buscar en TMDB'],
       goToFullDetails: '+info',
       details: 'Detalles',
-      contributors: 'Colaboradores',
+      contributors: 'Contribuidores',
       installingOhanaIsRequired: 'Es necesario instalar Ohana para ver esta película editada',
       ohanaSummary: {
         unset: 'Para saber si esta {type} es saludable para ti, configura tus preferencias',

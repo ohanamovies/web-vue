@@ -3,7 +3,7 @@
     <div style="position: relative">
       <v-tabs
         v-model="tab"
-        style="margin-top: 0px; position: sticky; top: 0px; z-index: 99999"
+        style="margin-top: 0px; position: sticky; top: 0px; z-index: 6"
         :fixed-tabs="isMobile"
         center-active
       >

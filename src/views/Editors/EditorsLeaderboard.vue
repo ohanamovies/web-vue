@@ -66,6 +66,14 @@ export default {
   components: {
     EditorsIndex,
   },
+  watch: {
+    sortBy(newValue) {
+      localStorage.leaderboardSortBy = JSON.stringify(newValue)
+    },
+    sortDesc(newValue) {
+      localStorage.leaderboardSortDesc = JSON.stringify(newValue)
+    },
+  },
   data() {
     return {
       fetchError: false,
@@ -130,6 +138,8 @@ export default {
   },
   mounted() {
     this.getData()
+    this.sortBy = JSON.parse(localStorage.leaderboardSortBy || '["tagged"]')
+    this.sortDesc = JSON.parse(localStorage.leaderboardSortDesc || '["true"]')
   },
 }
 </script>

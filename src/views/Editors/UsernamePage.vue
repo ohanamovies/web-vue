@@ -7,7 +7,10 @@
           <EditorsIndex />
           <h1>{{ username }}</h1>
           <div v-if="page == 1">
-            <p>Here are {{ username }}'s last {{ items.length }} edited movies/shows:</p>
+            <p>
+              Here are <b>{{ username }}</b
+              >'s last {{ items.length }} edited movies/shows:
+            </p>
           </div>
           <div v-if="page > 1">
             <p>{{ page * pageSize + 1 + '-' + (page * pageSize + pageSize) }}</p>

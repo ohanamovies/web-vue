@@ -7,6 +7,7 @@
           target="_blank"
           :href="getLink(p.provider, p.providerID)"
           style="position: relative"
+          @click.prevent="prevent1(p)"
         >
           <img :src="getLogo(p.provider)" :alt="p.provider" />
           <div style="position: absolute; bottom: 0px; right: 0px">
@@ -41,6 +42,24 @@
         >{{ $t('popup.no_providers')[1] }}.
       </a>
     </div>
+
+    <!-- notifiy for unhealthy movies -->
+    <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card style="box-shadow: none">
+        <v-card-title style="word-break: break-word" class="text-h5">
+          <v-icon :color="dialog_data.color">{{ dialog_data.icon }}</v-icon> &nbsp;
+          {{ dialog_data.title }}
+        </v-card-title>
+        <v-card-text style="word-break: break-word">{{ dialog_data.text }}</v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn width="50%" color="green darken-1" text @click="dialog = false"> Cancel </v-btn>
+          <v-btn width="50%" color="green darken-1" text @click="openMovie(dialog_data.link)">
+            Continue
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -55,6 +74,18 @@ export default {
         return { filterStatus: {}, movieFilters: {}, providers: [] }
       },
     },
+  },
+  data() {
+    return {
+      dialog: false,
+      dialog_data: {
+        title: '',
+        text: '',
+        link: '',
+        color: 'red',
+        icon: '',
+      },
+    }
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
@@ -79,6 +110,7 @@ export default {
 
       let minTrust = Infinity
       console.log('this.settings.skip_tags', this.settings.skip_tags)
+
       for (const provider of providers) {
         pstatus[provider] = 'done' //until proven otherwise
         for (const tag of this.settings.skip_tags) {
@@ -106,14 +138,69 @@ export default {
         }
       }
 
+      //edits for user (how many scenes is the user supposed to skip with its settings)
+      let editsCount = 0 //how many edits the user will have
+      for (let i = 0; i < this.settings.skip_tags.length; i++) {
+        const t = this.settings.skip_tags[i]
+        if (this.item.filterStatus[t]) {
+          editsCount += this.item.filterStatus[t].scenes.length
+        }
+      }
+
       for (const p in pstatus) {
         const providerID = this.item.providers.find((x) => x.provider == p).providerID
-        output.push({ provider: p, status: pstatus[p], providerID: providerID, trust: minTrust })
+        output.push({
+          provider: p,
+          status: pstatus[p],
+          providerID: providerID,
+          trust: minTrust,
+          edits: editsCount,
+        })
       }
+
       return output
     },
   },
   methods: {
+    prevent1(provider) {
+      let link = this.getLink(provider.provider, provider.providerID)
+      if (provider.status == 'done' && (this.hasApp || provider.edits == 0)) {
+        return this.openMovie(link)
+      }
+
+      this.dialog_data.link = link
+
+      if (provider.status == 'done') {
+        this.dialog_data.title = 'Danger'
+        if (this.isChrome) {
+          this.dialog_data.text =
+            "You don't have Ohana installed in this broswer. If you continue now, you will encounter unhealthy content."
+        } else {
+          this.dialog_data.text =
+            'This browser is not compatible with Ohana. If you continue now, you will encounter unhealthy content.'
+        }
+        this.dialog_data.icon = 'mdi-alert'
+        this.dialog_data.color = 'red'
+      } else if (provider.status == 'missing') {
+        this.dialog_data.title = 'Danger'
+        this.dialog_data.text =
+          'This version of the movie has not been edited by our users. You will find unhealthy content if you continue.'
+        this.dialog_data.icon = 'mdi-shield-alert'
+        this.dialog_data.color = 'red'
+      } else {
+        this.dialog_data.title = 'Warning'
+        this.dialog_data.text =
+          "We don't have enough information about this movie. You may encounter unhealthy content if you continue."
+        this.dialog_data.icon = 'mdi-help-circle'
+        this.dialog_data.color = 'orange'
+      }
+
+      this.dialog = true
+    },
+    openMovie(link) {
+      this.dialog = false
+      window.open(link, '_blank').focus()
+    },
     getLogo(provider) {
       return ohana.providers.getLogo(provider)
     },
@@ -134,5 +221,9 @@ export default {
 
 .disabled {
   filter: grayscale(100%);
+}
+
+button {
+  box-shadow: none;
 }
 </style>

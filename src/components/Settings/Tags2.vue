@@ -3,66 +3,25 @@
     {{ $t('settings_page.skip_intro') }}
     <br />
     <br />
-    <div v-if="false">
-      <p>
-        Click on the options below to define what content you consider
-        <span style="color: red">unhealthy</span>. Ohana TV will help you avoiding it.
-      </p>
 
-      <!-- table explaining each color -->
-      <div>
-        <table style="margin-bottom: 0; padding: 0px">
-          <!-- RED -->
-          <tr>
-            <td style="width: 10px; padding: 0px; vertical-align: top">
-              <v-icon color="red">mdi-checkbox-blank-circle</v-icon>
-            </td>
-            <td style="text-align: left; padding: 0px 9px">
-              This content is <span style="color: red; font-weight: bold">unhealthy</span> to me:
-              please remove it.
-            </td>
-          </tr>
-          <!-- GREEN -->
-          <tr>
-            <td style="width: 10px; padding: 0px; vertical-align: top">
-              <v-icon color="green">mdi-checkbox-blank-circle</v-icon>
-            </td>
-            <td style="text-align: left; padding: 0px 9px">
-              This is content is <span style="color: green; font-weight: bold">healthy</span> to me:
-              do nothing.
-            </td>
-          </tr>
-          <!-- ORANGE -->
-          <tr>
-            <td style="width: 10px; padding: 0px; vertical-align: top">
-              <v-icon color="orange">mdi-checkbox-blank-circle</v-icon>
-            </td>
-            <td style="text-align: left; padding: 0px 9px">
-              <span style="color: orange; font-weight: bold">Edge case:</span> You will see this
-              color when content is not clear enough for us to make a call.
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-
-    <!--default 
-    <div style="margin-top: 10px" v-if="false">
+    <!-- default - ->
+    <div style="margin-top: 10px" v-if="true">
       Not sure?
       <span class="modern-link" @click="setDefaultSettings()">use the most used settings</span>.
     </div>
     -->
 
     <!-- OPTIONS -->
-    {{ visibleCats }}
+
     <div v-for="(category, c) in raw_tags.content" :key="c" style="cursor: pointer">
       <!-- <p style="margin-top: 30px; font-size: 1.1rem">{{ category.title }}</p>-->
       <div v-if="category.value != 'Other'">
         <h2>
           {{ localize(category.title) }}
         </h2>
+
         <p v-if="category.description">
-          {{ localize(category.description) }}
+          <ReadMore :text="localize(category.description)" :max="150" />
         </p>
         <div v-if="true">
           <div v-for="(sev, s) in raw_tags.content[c].severity" :key="s">
@@ -138,8 +97,10 @@
 
 <script>
 import { mapState } from 'vuex'
+
 const rawTags = require('@/assets/raw_tags2')
 export default {
+  components: {},
   data() {
     return {
       key: 'value',

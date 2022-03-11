@@ -4,7 +4,7 @@
       <div class="inner">
         <!-- IF USER JUST INSTALLED OHANA -->
         <div v-if="welcoming" style="padding: 10px; margin-bottom: 50px">
-          <h1 style="font-size: 18pt; font-weigth: 700">Thanks for installing Ohana!</h1>
+          <h1 style="font-size: 18pt; font-weight: 700">Thanks for installing Ohana!</h1>
           <p>Here some next steps you may find useful:</p>
           <ul>
             <li>Review your settings below</li>
@@ -35,15 +35,13 @@
         </div>
 
         <div v-else style="margin-bottom: 20px">
-          <p>
-            <b>Warning:</b>
+          <p style="color: red">
+            <b style="color: red">Warning:</b>
             <span v-if="isChrome">
-              You don't have our extension installed (or are using an old version). You will need it
-              if you want to watch edited content.
+              {{ $t('settings_page.warnings.not_in_chrome') }}
             </span>
             <span v-else>
-              To watch edited content, you need to switch to a compatible browser, and install our
-              Chrome Extension.
+              {{ $t('settings_page.warnings.not_installed') }}
             </span>
 
             <a

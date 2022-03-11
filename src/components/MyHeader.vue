@@ -14,65 +14,12 @@
           marginTop: isHome && !isMobile ? '40px' : '0px',
         }"
       >
-        <router-link to="/">Ohana</router-link>
+        <router-link to="/" style="font-size: 20px">Ohana TV</router-link>
 
         <v-spacer></v-spacer>
-
-        <div v-if="!isMobile">
-          <div>
-            <!-- Web routes -->
-            <router-link :to="route.to" v-for="(route, index) in routes" :key="index">{{
-              $t(route.key)
-            }}</router-link>
-
-            <!-- Other menu items -->
-            <a
-              style="text-transform: uppercase; cursor: pointer"
-              @click="$i18n.locale = nextLan($i18n.locale)"
-              >{{ $i18n.locale }}
-            </a>
-          </div>
-        </div>
-
-        <div v-if="isMobile">
-          <v-btn icon color="white" @click="showMenu = !showMenu"><v-icon>mdi-menu</v-icon></v-btn>
-        </div>
+        <Navigation />
       </v-app-bar>
     </div>
-
-    <!-- NAVIGATION DRAWER FOR MOBILE -->
-    <v-navigation-drawer
-      v-model="showMenu"
-      color="#6cc091"
-      temporary
-      right
-      app
-      style="z-index: 9999999"
-    >
-      <v-list dense nav>
-        <!-- Web routes -->
-        <v-list-item v-for="(route, index) in routes" :key="index" link :to="route.to">
-          <v-list-item-content>
-            <v-list-item-title>{{ $t(route.key) }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <!-- Other menu items -->
-        <v-divider></v-divider>
-
-        <v-list-item link to="">
-          <v-list-item-content>
-            <v-list-item-title
-              @click="$i18n.locale = nextLan($i18n.locale)"
-              style="color: white"
-              class="v-list-item__title"
-              >{{ $t('language') }}:
-              <span style="text-transform: uppercase"> {{ $i18n.locale }}</span>
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
   </div>
 </template>
 
@@ -94,30 +41,7 @@ export default {
     },
   },
   data() {
-    return {
-      showMenu: false,
-
-      routes: [
-        { to: '/', key: 'home' },
-        { to: '/get-started', key: 'getStarted' },
-
-        { to: '/settings', key: 'settings' },
-        { to: '/editors', key: 'editors' },
-
-        { to: '/community', key: 'support_ohana' },
-
-        { to: '/about', key: 'about' },
-
-        //{to: '/community', key: 'community'}
-      ],
-    }
-  },
-  methods: {
-    nextLan: function (current) {
-      console.log(current)
-      if (current == 'es') return 'en'
-      else return 'es'
-    },
+    return {}
   },
 }
 </script>
