@@ -259,7 +259,7 @@ const messages = {
         missing:
           'Esta {type} tiene escenas que consideras no saludables. Pero no tenemos todos los filtros todavía.',
         mixed_with_edits:
-          'Aunque ya tenemos {edits} filtro{s} para esta {type}, es posible que aun quede contenido no saludable sin editar.',
+          'Aunque ya tenemos {edits} filtro{s} para esta {type}, es posible que aún quede contenido no saludable sin editar.',
         mixed_no_edits:
           'Esta {type} puede tener cotenido que tú consideras no saludable. No estamos seguros.',
         unknown: 'No sabemos si este contendio es saludable para tus ajustes o no.',

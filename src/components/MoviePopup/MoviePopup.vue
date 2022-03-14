@@ -251,11 +251,19 @@
 
         <!-- Contributors / Feedbak buttons -->
         <div style="position: relative; height: 20px">
-          <div style="position: absolute; left: 0px; display: flex">
+          <div
+            style="
+              position: absolute;
+              left: 0px;
+              display: flex;
+              overflow-x: auto;
+              max-width: calc(100% - 40px);
+            "
+          >
             <b v-if="contributors.length > 0">{{ $t('popup.contributors') }}:</b>
             <div v-for="(contributor, index) of contributors" :key="index">
               <v-chip
-                v-if="contributor != 'excel' && contributor != 'imdb' && contributor"
+                v-if="contributor"
                 class="ml-1"
                 x-small
                 :to="'/editors/user/' + cleanContributor(contributor)"
@@ -387,7 +395,7 @@ export default {
     contributors() {
       if (!this.item.contributors) return []
       let c = this.item.contributors.split(' ')
-      let remove = ['excel', 'imdb']
+      let remove = [] // ['excel', 'imdb'] //let's put this back for now, otherwise hard to understand what's going on for f33
       c = c.filter((e) => !remove.includes(e))
       return c
     },

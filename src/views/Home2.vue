@@ -130,7 +130,10 @@
     <div v-if="true" class="sticky1">
       <div class="sticky2">
         <!-- logo -->
-        <div style="font-size: 20px; cursor: pointer; white-space: nowrap">Ohana TV</div>
+        <div v-if="!isMobile" style="font-size: 20px; cursor: pointer; white-space: nowrap">
+          Ohana TV
+        </div>
+        <div v-else style="font-size: 16px; cursor: pointer; white-space: nowrap">Ohana TV</div>
 
         <!--search-->
         <div>

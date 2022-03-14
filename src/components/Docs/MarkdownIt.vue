@@ -71,7 +71,7 @@ export default {
         const link = this.file + '#' + h2.id
         x.innerHTML = x.innerHTML.replace(
           h2.outerHTML,
-          `<h2 id="${h2.id}"><a href="${link}">#</a> ${h2.innerHTML}</h2>`
+          `<h2 id="${h2.id}"><a class="header-anchor" href="${link}">#</a> ${h2.innerHTML}</h2>`
         )
         let li = document.createElement('li')
         li.innerHTML = `<a href="${link}">${h2.innerText}</a>`
@@ -99,4 +99,19 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+/*https://stackoverflow.com/questions/34459841/show-child-element-on-parent-hover-in-css*/
+h2 * .header-anchor {
+  visibility: hidden;
+  display: none;
+}
+
+.header-anchor {
+  color: rgb(0, 192, 80);
+  text-decoration: none;
+}
+h2:hover * .header-anchor {
+  visibility: visible;
+  display: block;
+}
+</style>

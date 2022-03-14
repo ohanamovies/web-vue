@@ -76,3 +76,35 @@ a:hover {
 .v-label {
   font-weight: normal !important;
 }
+
+/* text */
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+h2 .header-anchor {
+  visibility: hidden;
+  display: none;
+}
+
+.header-anchor {
+  color: rgb(0, 192, 80);
+  text-decoration: none;
+  font-size: 0.85em;
+  float: left;
+  margin-left: -0.87em;
+
+  padding-right: 0.25em;
+  margin-top: 0.125em;
+}
+h2:hover .header-anchor {
+  visibility: visible;
+  display: block;
+}
