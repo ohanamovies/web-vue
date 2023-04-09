@@ -318,7 +318,7 @@ export default {
       return ohana.movies.addInfo(this.item, this.settings.skip_tags)
     },
     showEpisodes() {
-      return this.item.parent
+      return this.item.parent || this.episodes.length
     },
     tmdbAvailability() {
       if (!this.item.availability) return this.item.providers.map((p) => p.provider) //let's take the ones from our db

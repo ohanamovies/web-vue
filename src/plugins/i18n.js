@@ -105,6 +105,8 @@ const messages = {
       types: {
         movie: 'Movie{s}',
         show: 'Show{s}',
+        episode: 'Episode{s}',
+        series: 'Show{s}',
       },
       poweredBy: 'Powered by',
       movieValues: 'Fostered values',
@@ -123,7 +125,7 @@ const messages = {
         missing:
           "This {type} contains scenes you consider unhealthy. But we don't have all the filters ready yet.",
         mixed_with_edits:
-          'Although we have ${edits} filter{s} for this {type}, it might still contain content you consider unhealthy.',
+          'Although we have {edits} filter{s} for this {type}, it might still contain content you consider unhealthy.',
         mixed_no_edits:
           'This {type} might contain content you consider unhealthy. We are not sure.',
         unknown: "Ouch! We don't know if this content is healthy for your settings!",
@@ -241,6 +243,8 @@ const messages = {
       types: {
         movie: 'Película{s}',
         show: 'Serie{s}',
+        episode: 'Episodio{s}',
+        series: 'Serie',
       },
       poweredBy: 'Gracias a',
       watchOptions: 'Dónde ver',
