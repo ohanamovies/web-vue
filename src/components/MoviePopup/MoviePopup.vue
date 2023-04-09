@@ -129,9 +129,6 @@
                   <i style="font-size: 85%">{{ item.genres.join(' - ') }}</i>
                 </div>
 
-                <!-- Overview -->
-                <ReadMore :text="plot" :max="200" />
-
                 <!-- part of show -->
                 <div v-if="item.parent" style="font-size: 90%; margin-bottom: 10px">
                   Part of
@@ -141,6 +138,9 @@
                     }}</router-link></b
                   >
                 </div>
+
+                <!-- Overview -->
+                <ReadMore :text="plot" :max="200" />
 
                 <!-- Ohana summary -->
                 <div style="text-align: center; margin: 15px 0px 5px; font-weight: 500">
