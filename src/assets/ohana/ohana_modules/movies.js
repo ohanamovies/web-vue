@@ -29,14 +29,17 @@ const movies = {
   },
 
   joinStatus2(tagged, skipTags) {
-    if (!tagged) return { status: 'unknown', cuts: 0, trust: 0 }
-    if (!skipTags || !skipTags.length) return { status: 'unset', cuts: 0, trust: 0 }
+    if (!tagged) return { status: 'unknown', cuts: 0, trust: 0, icon2: 'mdi-help-circle' }
+    if (!skipTags || !skipTags.length) {
+      return { status: 'unset', cuts: 0, trust: 0, icon2: 'mdi-help-circle' }
+    }
     let health = 100
     let cuts = 0
     let trust = Infinity
     let status = 'unset'
     let color = 'red'
     let icon = ''
+    let icon2 = ''
 
     for (var tag of skipTags) {
       // Set default
@@ -52,24 +55,36 @@ const movies = {
       color = 'green'
       icon = 'none'
       //icon = 'mdi-shield-check'
+      icon2 = trust > 3 ? 'mdi-shield-check' : 'mdi-shield-check-outline'
     } else if (health < -0.5) {
       status = 'missing'
       color = 'red'
       icon = 'mdi-heart-broken'
       //icon = 'mdi-shield-alert'
+      icon2 = trust > 3 ? 'mdi-shield-alert' : 'mdi-shield-alert-outline'
     } else {
       status = 'mixed'
       color = 'orange'
       icon = 'mdi-heart-broken'
       //icon = 'mdi-help-circle'
+      icon2 = 'mdi-help-circle'
     }
     if (trust <= 1 || trust == Infinity) {
       status = 'unknown'
       color = 'lightgray'
       icon = 'mdi-progress-question'
+      icon2 = 'mdi-help-circle'
     }
 
-    return { status: status, health: health, cuts: cuts, trust: trust, icon: icon, color: color }
+    return {
+      status: status,
+      health: health,
+      cuts: cuts,
+      trust: trust,
+      icon: icon,
+      color: color,
+      icon2: icon2,
+    }
   },
 
   joinStatus3(movieContent, providers, skipTags) {

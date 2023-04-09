@@ -115,6 +115,7 @@
           <h4>Episodes are work in progress</h4>
           <div v-if="episodes">
             <router-link
+              class="no-link"
               :to="'./' + episode.tconst"
               v-for="episode of episodes"
               :key="episode.tconst"
@@ -123,18 +124,24 @@
                 class="episodeListItem"
                 :style="{ fontWeight: episode.tconst == imdb ? 'bold' : 'normal' }"
               >
-                {{
-                  'S' +
-                  episode.seasonNumber +
-                  'E' +
-                  episode.episodeNumber +
-                  ': ' +
-                  episode.primaryTitle +
-                  ' (' +
-                  episode.runtimeMinutes +
-                  ' min)'
-                }}
-                <br />
+                <div>
+                  {{
+                    'S' +
+                    episode.seasonNumber +
+                    'E' +
+                    episode.episodeNumber +
+                    ': ' +
+                    episode.primaryTitle +
+                    ' (' +
+                    episode.runtimeMinutes +
+                    ' min)'
+                  }}
+                </div>
+                <div>
+                  <v-icon :color="joinStatus(episode.filterStatus).color">{{
+                    joinStatus(episode.filterStatus).icon2
+                  }}</v-icon>
+                </div>
               </div>
             </router-link>
           </div>
@@ -443,6 +450,7 @@ h4 {
   margin-top: 40px;
   margin-bottom: 10px;
 }
+
 .episodeListItem {
   display: flex;
   flex-direction: row;
@@ -452,9 +460,11 @@ h4 {
   border-bottom: 1px solid #ccc;
   cursor: pointer;
 }
+
 .episodeListItem:hover {
   background-color: #eee;
 }
+
 .moviepage {
   margin-top: 80px !important;
   padding: 10px;
@@ -494,5 +504,9 @@ h4 {
   text-align: left;
   background-color: #04aa6d;
   color: white;
+}
+
+.no-link:hover {
+  text-decoration: none;
 }
 </style>

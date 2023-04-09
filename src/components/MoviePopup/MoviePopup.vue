@@ -132,6 +132,16 @@
                 <!-- Overview -->
                 <ReadMore :text="plot" :max="200" />
 
+                <!-- part of show -->
+                <div v-if="item.parent" style="font-size: 90%; margin-bottom: 10px">
+                  Part of
+                  <b>
+                    <router-link :to="'./' + item.parent" v-if="item.parent">{{
+                      item.parentData.title.primary
+                    }}</router-link></b
+                  >
+                </div>
+
                 <!-- Ohana summary -->
                 <div style="text-align: center; margin: 15px 0px 5px; font-weight: 500">
                   <v-icon
@@ -240,14 +250,6 @@
             </v-card-text>
           </v-col>
         </v-row>
-
-        <div v-if="item.parent" style="position: relative; height: 20px">
-          <div style="position: absolute; left: 10px">
-            <router-link :to="'./' + item.parent" v-if="item.parent"
-              >check the full serie</router-link
-            >
-          </div>
-        </div>
 
         <!-- Contributors / Feedbak buttons -->
         <div style="position: relative; height: 20px">
