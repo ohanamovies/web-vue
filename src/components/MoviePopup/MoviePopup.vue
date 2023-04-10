@@ -70,12 +70,23 @@
                 word-break: keep-all;
                 line-height: normal;
                 margin-bottom: 5px;
+                display: block;
               "
             >
-              <span style="max-width: calc(100% - 30px)">{{ finalTitle }}</span>
-              <span style="font-size: 60%; font-color: rgba(0, 0, 0, 0.6); margin-top: 3px">
-                ({{ item.released }})</span
-              >
+              <!-- part of show -->
+              <div v-if="item.parent" style="font-size: 70%; margin-bottom: 10px">
+                <b>
+                  <router-link :to="'./' + item.parent" v-if="item.parent">{{
+                    item.parentData.title.primary
+                  }}</router-link></b
+                >
+              </div>
+              <div>
+                <span style="max-width: calc(100% - 30px)">{{ finalTitle }}</span>
+                <span style="font-size: 60%; font-color: rgba(0, 0, 0, 0.6); margin-top: 3px">
+                  ({{ item.released }})</span
+                >
+              </div>
             </v-card-title>
 
             <!-- SUBTITLE -->
@@ -117,8 +128,9 @@
             <v-card-text>
               <!-- Rest of info -->
               <div :style="{ height: textHeight, overflowY: 'auto' }">
-                <!-- poster for mobile -->
-                <!-- TODO: for this to be nice we should start with the poster hidden by scroll, so user can scroll back to see it-->
+                <!-- TODO: poster for mobile - for this to be nice we should start with the poster hidden by scroll, so user can scroll back to see it-->
+
+                <!-- title -->
                 <div v-if="isMobile && false" style="text-align: center">
                   <img :src="poster" :alt="item.title" />
                 </div>
@@ -127,16 +139,6 @@
                 <div style="display: flex; justify-content: space-between">
                   <b>Overview </b>
                   <i style="font-size: 85%">{{ item.genres.join(' - ') }}</i>
-                </div>
-
-                <!-- part of show -->
-                <div v-if="item.parent" style="font-size: 90%; margin-bottom: 10px">
-                  Part of
-                  <b>
-                    <router-link :to="'./' + item.parent" v-if="item.parent">{{
-                      item.parentData.title.primary
-                    }}</router-link></b
-                  >
                 </div>
 
                 <!-- Overview -->
