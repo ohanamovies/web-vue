@@ -93,7 +93,7 @@
                   <a
                     class="provider-link-rectangle"
                     target="_blank"
-                    :href="'https://www.imdb.com/title/' + item.imdb"
+                    :href="'https://www.imdb.com/title/' + (item.imdb ? item.imdb : imdb)"
                   >
                     <img src="images/providers/imdb-rectangle.png" />
                   </a>
@@ -593,6 +593,28 @@ export default {
       if (this.imdb) {
         try {
           this.raw_item = await ohana.api.getMovie(this.imdb)
+
+          //workaround to get the info from the imdbTable for movies not yet found
+          try {
+            if (!this.raw_item.imdb) {
+              let tconst = await ohana.api.query({ action: 'getTconst', imdbID: this.imdb }, true)
+              tconst = tconst[0]
+              this.raw_item = {
+                tconst,
+                title: { en: tconst.originalTitle },
+                movieContent: {},
+                filterStatus: {},
+                movieFilters: {},
+                movieValues: {},
+                plot: { en: '' },
+                sceneFilters: {},
+                providers: [],
+                genres: [],
+              }
+            }
+          } catch (error) {
+            console.log(error)
+          }
           //this.item = ohana.movies.addInfo(this.item, this.skipTags)
         } catch (error) {
           console.log('error 10612 loading popup', error)
