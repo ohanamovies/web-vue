@@ -570,7 +570,7 @@ export default {
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
     sections() {
-      const sectionsAux = tags_excel.getTagsLocal('es').sections
+      const sectionsAux = tags_excel.getTagsLocal('en').sections
       let sections = []
       for (let i = 0; i < sectionsAux.length; i++) {
         const s = sectionsAux[i]
