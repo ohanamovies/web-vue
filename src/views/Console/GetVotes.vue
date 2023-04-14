@@ -114,6 +114,7 @@ export default {
         this.votes.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
         this.votes = [...this.votes]
       } else {
+        if (x.message) alert(x.message)
         this.votes = []
       }
     },
