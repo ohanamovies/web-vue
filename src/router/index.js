@@ -28,6 +28,7 @@ import PendingMapping from '@/views/Editors/PendingMapping.vue'
 import EditorsLeaderboard from '@/views/Editors/EditorsLeaderboard.vue'
 import RemoteControl from '@/views/Extension/RemoteControl.vue'
 import News from '@/views/News/Index.vue'
+import OhanaConsole from '@/views/Console/OhanaConsole.vue'
 
 Vue.use(VueRouter)
 
@@ -123,6 +124,11 @@ const routes = [
     path: '/stats',
     name: 'Stats',
     component: Stats,
+  },
+  {
+    path: '/console',
+    name: 'OhanaConsole',
+    component: OhanaConsole,
   },
   {
     path: '/get-started',

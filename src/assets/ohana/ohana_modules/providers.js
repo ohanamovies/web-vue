@@ -44,6 +44,7 @@ const providers = {
     if (provider == 'primevideo') return 'https://primevideo.com/watch?gti=' + providerID
     if (provider == 'movistarplus') return 'https://ver.movistarplus.es/ficha?id=' + providerID
     if (provider == 'imdb') return 'https://www.imdb.com/title/' + providerID
+    if (provider == 'hbomax') return 'https://play.hbomax.com/player/urn:hbo:feature:' + providerID //alex-20230414
   },
   parseURL(url) {
     this.fromApi.parseURL(url)

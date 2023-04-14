@@ -694,7 +694,7 @@ export default {
       }
 
       //remove series for now:
-      query.type = 'movie' //TODO: Remove this once we clarify series!
+      if (!query.type) query.type = 'movie' //TODO: Remove this once we clarify series!
 
       //Preapare request a bit (stringify stuff)
       for (const key in query) {
@@ -716,9 +716,12 @@ export default {
           if (data == 'retry') {
             section.loading = false
             console.log('retrying index ' + index)
-            this.getData(index) //retry, no forcing
+            setTimeout(() => {
+              this.getData(index) //retry, no forcing
+            }, (Math.floor(Math.random() * index) + 1) * 1000)
             return
           }
+
           // Ignore results from deprecated search queries
           if (index == 0 && query.title != this.title)
             return console.log('ignoring results', query.title, this.title)

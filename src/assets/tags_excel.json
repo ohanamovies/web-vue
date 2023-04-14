@@ -1149,11 +1149,22 @@
       "type": "section",
       "notes": "",
       "parents": "",
-      "name_en": "Recently reviewed",
+      "name_en": "Movies reviewed recently",
       "name_es": "Revisadas recientemente",
       "tip_en": "",
       "tip_es": "",
       "mappings": "{ \"sort_by\": \"last_edited\" }"
+    },
+    {
+      "key": "reviewed_shows",
+      "type": "section-deprecated",
+      "notes": "",
+      "parents": "",
+      "name_en": "TV Shows reviewed recently",
+      "name_es": "Revisadas recientemente (shows)",
+      "tip_en": "",
+      "tip_es": "",
+      "mappings": "{ \"sort_by\": \"last_edited\", \"type\":\"series\", \"imdb\": \"tt4786824\" }"
     },
     {
       "key": "family",
