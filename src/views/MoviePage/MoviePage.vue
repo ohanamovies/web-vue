@@ -33,6 +33,7 @@
             <h4>Movie Content</h4>
             <p>{{ movieContentSummary }}</p>
 
+            <MovieRating :item="item" />
             <FilterStatusChips small :item="item" />
 
             <EditTags v-if="false" :imdb="imdb" :original="item.filterStatus" />
@@ -152,6 +153,12 @@
         <v-tab-item>
           <br />
           <p>This is data at {{ item.type }} level</p>
+
+          <!-- some quick dev actions-->
+          <div>
+            <v-btn depressed @click="refreshMovieData">refresh movie data</v-btn>
+          </div>
+
           <v-tabs v-model="movieDataTab">
             <v-tab>Raw data</v-tab>
             <v-tab>Raw data + AddInfo</v-tab>
@@ -230,6 +237,7 @@ import ScenesList from '@/views/MoviePage/ScenesList.vue'
 import sharedjs from '@/sharedjs'
 import FilterStatusChips from '@/components/Movies/FilterStatusChips.vue'
 import ProvidersStatus from '@/components/Movies/ProvidersStatus.vue'
+import MovieRating from '@/components/Movies/MovieRating.vue'
 
 export default {
   head: function () {
@@ -249,6 +257,8 @@ export default {
     ScenesList,
     FilterStatusChips,
     ProvidersStatus,
+
+    MovieRating,
   },
   props: {
     imdb: {
@@ -308,7 +318,7 @@ export default {
       if (minHealth > 0.5 && minTrust > 1) {
         //TODO: Confirm minTrust threshold
         if (nFilters == 0) {
-          return 'No need to filter this movie: it is healthy for your settings as it is.'
+          return 'No need to filter this movie: the original is healthy for your as it is.'
         } else {
           return 'It takes ' + nFilters + ' filters to make this movie healthy for your settings.'
         }
@@ -368,6 +378,13 @@ export default {
     },
   },
   methods: {
+    async refreshMovieData() {
+      let x = await ohana.api.query({
+        action: 'refreshData',
+        imdb: this.imdb,
+      })
+      alert(JSON.stringify(x))
+    },
     includesAny(arr1, arr2) {
       return ohana.utils.includesAny(arr1, arr2)
     },

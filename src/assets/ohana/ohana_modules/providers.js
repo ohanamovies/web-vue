@@ -18,6 +18,7 @@ const providers = {
     if (provider == 'movistarplus') return 'images/providers/movistarplus.png'
     if (provider == 'hboespana') return 'images/providers/hbomax.png'
     if (provider == 'hbomax') return 'images/providers/hbomax.png'
+    if (provider == 'apple') return 'images/providers/apple.png'
   },
   getLink(provider, providerID) {
     providerID = providerID.split('_')[1]

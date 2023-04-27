@@ -93,12 +93,12 @@ const messages = {
       join: 'Join the community',
 
       contribute: {
-        install_html: 'Instala nuestra <b>extensión de Chrome</b> y empieza a usarla.',
+        install_html: 'Install our <b>Chrome extension</b> and start using it.',
         edit_html:
-          'Empieza a <b>marcar contendio no saludable</b>. Los usarios que vengan después de ti podrán esquivarlo gracias a ti!',
-        donate_html: '<b>Dona</b> para apoyar el desarrollo y pagar los costes de servidor.',
-        code_html: '¿Sabes <b>programar</b>? ¡Buscamos voluntarios!',
-        spread_html: '<b>Difunde</b> Ohana, para que más gente lo pueda disfrutar y apoyar.',
+          'Go ahead and <b>flag unhealthy content</b>. Next users will be able to skip it thanks to you!',
+        donate_html: '<b>Donate</b> to support the development of Ohana and pay the bills.',
+        code_html: 'Do you know how to <b>code</b>? We are looking for volunteers!',
+        spread_html: '<b>Spread the word</b> about Ohana, so others can enjoy and support it',
       },
     },
     popup: {
@@ -231,12 +231,12 @@ const messages = {
         'Con tu ayuda, cualquier persona en el mundo podrá ver cualquier película sin el contenido "no saludable".',
       join: 'Únete a la comunidad',
       contribute: {
-        install_html: 'Install our <b>Chrome extension</b> and start using it.',
+        install_html: 'Instala nuestra <b>extensión de Chrome</b> y empieza a usarla.',
         edit_html:
-          'Go ahead and <b>flag unhealthy content</b>. Next users will be able to skip it thanks to you!',
-        donate_html: '<b>Donate</b> to support the development of Ohana and pay the bills.',
-        code_html: 'Do you know how to <b>code</b>? We are looking for volunteers!',
-        spread_html: '<b>Spread the word</b> about Ohana, so others can enjoy and support it',
+          'Empieza a <b>marcar contendio no saludable</b>. Los usarios que vengan después de ti podrán esquivarlo gracias a ti!',
+        donate_html: '<b>Dona</b> para apoyar el desarrollo y pagar los costes de servidor.',
+        code_html: '¿Sabes <b>programar</b>? ¡Buscamos voluntarios!',
+        spread_html: '<b>Difunde</b> Ohana, para que más gente lo pueda disfrutar y apoyar.',
       },
     },
     popup: {
