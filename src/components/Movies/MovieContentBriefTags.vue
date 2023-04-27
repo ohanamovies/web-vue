@@ -32,7 +32,7 @@ export default {
     ...mapState(['settings']),
     categories() {
       let x = rawTags.categories
-      if (x[3] == 'Other') x.splice(3, 1)
+      if (x.length > 2 && x[3] == 'Other') x.splice(3, 1)
       return x
     },
     severities() {
@@ -48,6 +48,7 @@ export default {
         Mildly: 'Mild',
         Slightly: 'Slight',
         Slighty: 'Slight',
+        None: 'None',
       }
       for (const k in dict) {
         if (String(tag).startsWith(k)) {
@@ -57,18 +58,26 @@ export default {
       return this.tag
     },
     movieContentSummary(catIndex) {
-      let output
+      let output = { tag: '', health: 0, trust: 0 }
       //return ohana.movies.getSummary(this.item)
-      let sevs = rawTags.severitiesR[catIndex]
+
+      let sevs = this.severities[catIndex]
       for (let i = 0; i < sevs.length; i++) {
         const sev = sevs[i]
-        let mc = this.item.movieContent[sev]
-        if (!mc) mc = { health: 0, trust: 0 }
+        let mc = this.item.movieContent
+
+        if (!mc || !mc[sev]) {
+          mc = { health: 0, trust: 0 }
+        } else {
+          mc = mc[sev]
+        }
         mc.tag = sev
         if (mc.health > 0.5 && mc.trust > 1) continue
         output = mc
         break
       }
+
+      if (!output.tag) output.tag = 'None'
 
       return output
     },

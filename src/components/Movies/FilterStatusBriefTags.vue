@@ -52,6 +52,7 @@ export default {
         Mildly: 'Mild',
         Slightly: 'Slight',
         Slighty: 'Slight',
+        None: 'None',
       }
       for (const k in dict) {
         if (String(tag).startsWith(k)) {
