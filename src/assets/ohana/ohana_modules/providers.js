@@ -53,7 +53,7 @@ const providers = {
     if (provider == 'movistarplus') return 'https://ver.movistarplus.es/ficha?id=' + providerID
     if (provider == 'imdb') return 'https://www.imdb.com/title/' + providerID
     if (provider == 'hbomax') return 'https://play.hbomax.com/player/urn:hbo:feature:' + providerID //alex-20230414
-    if (provider == 'apple') return this.getLink('apple', providerID, 'movie', settings) //TODO: this is not correct, it does not work for episodes
+    if (provider == 'apple') return this.getLink('apple', providerID, 'movie', settings) //FIXME: this is not correct, it does not work for episodes
   },
   parseURL(url) {
     this.fromApi.parseURL(url)
