@@ -220,7 +220,7 @@ export default {
       return ohana.providers.getLogo(provider)
     },
     getLink(provider, providerID) {
-      return ohana.providers.getLink(provider, providerID)
+      return ohana.providers.getLink(provider, providerID, this.item.type, this.settings)
     },
   },
 }

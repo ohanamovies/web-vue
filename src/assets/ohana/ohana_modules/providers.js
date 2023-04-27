@@ -20,7 +20,7 @@ const providers = {
     if (provider == 'hbomax') return 'images/providers/hbomax.png'
     if (provider == 'apple') return 'images/providers/apple.png'
   },
-  getLink(provider, providerID) {
+  getLink(provider, providerID, type = '', settings = {}) {
     providerID = providerID.split('_')[1]
     if (provider == 'netflix') return 'https://www.netflix.com/watch/' + providerID
     if (provider == 'hboespana') return 'https://es.hboespana.com/movies/-/' + providerID + '/play'
@@ -28,6 +28,11 @@ const providers = {
     if (provider == 'primevideo') return 'https://app.primevideo.com/watch?gti=' + providerID
     if (provider == 'movistarplus') return 'https://ver.movistarplus.es/ficha?id=' + providerID
     if (provider == 'imdb') return 'https://www.imdb.com/title/' + providerID
+    //Apple
+    if (provider == 'apple')
+      return `https://tv.apple.com/${settings.country ? settings.country.toLowerCase() : 'us'}/${
+        type == 'episode' ? 'show' : type //TODO: do they have a link to the series? (in ohana we use movie, episode, series)
+      }/-/umc.cmc.${providerID}`
   },
   getLink2(id) {
     let provider = id.split('_')[0]

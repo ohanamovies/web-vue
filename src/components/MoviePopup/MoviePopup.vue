@@ -243,7 +243,6 @@
 
                 <div>
                   <!-- Chips: movie values -->
-
                   <div v-if="movieValues.length > 0" style="margin-top: 0px">
                     <b>{{ $t('popup.movieValues') }}: </b>
 

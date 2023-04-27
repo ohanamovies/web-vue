@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- Sensitivity dialog -->
-
     <v-dialog
       v-model="dialog_sensitivity"
       max-width="500"
@@ -42,7 +41,6 @@
     </v-dialog>
 
     <!-- WARNINGS -->
-
     <div style="text-align: center" v-if="!bypass">
       <!-- no settings -->
       <div v-if="no_settings">
@@ -83,7 +81,6 @@
 
     <!-- WATCH OPTIONS (providers v2) -->
     <!-- Section title -->
-
     <v-slide-y-transition>
       <!-- Watch Options title -->
       <div v-if="is_clean || (is_done && hasApp) || bypass">
