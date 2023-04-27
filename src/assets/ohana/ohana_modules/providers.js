@@ -38,6 +38,8 @@ const providers = {
     let provider = id.split('_')[0]
     let providerID = id.split('_')[1]
 
+    let settings = localStorage.settings ? JSON.parse(localStorage.settings) : { country: 'US' }
+
     //imdb fallback
     if (provider == id && /tt\d+/g.test(id)) {
       provider = 'imdb'
@@ -51,6 +53,7 @@ const providers = {
     if (provider == 'movistarplus') return 'https://ver.movistarplus.es/ficha?id=' + providerID
     if (provider == 'imdb') return 'https://www.imdb.com/title/' + providerID
     if (provider == 'hbomax') return 'https://play.hbomax.com/player/urn:hbo:feature:' + providerID //alex-20230414
+    if (provider == 'apple') return this.getLink('apple', providerID, 'movie', settings) //TODO: this is not correct, it does not work for episodes
   },
   parseURL(url) {
     this.fromApi.parseURL(url)
