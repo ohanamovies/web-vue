@@ -632,7 +632,7 @@ export default {
       this.showMovieDialog = true
       this.selectedItemInfo = item
     },
-    getAllData(resetSections = false) {
+    async getAllData(resetSections = false) {
       console.log('[getAllData] ')
       for (var i = 1; i < this.sections.length; i++) {
         this.getData(i, resetSections)
@@ -703,52 +703,40 @@ export default {
       }
       // Fetch data
       var url = ohana.utils.buildURL(query)
-      fetch(url)
-        .then((r) => {
-          if (r.ok) {
-            return r.json()
-          } else {
-            console.log('[alex] error loading section ' + index)
-            return 'retry'
-          }
-        })
-        .then((data) => {
-          if (data == 'retry') {
-            section.loading = false
-            console.log('retrying index ' + index)
-            setTimeout(() => {
-              this.getData(index) //retry, no forcing
-            }, (Math.floor(Math.random() * index) + 1) * 1000)
-            return
-          }
+      let res = await fetch(url)
+      if (!res.ok) {
+        console.log('[alex] error loading section ' + index)
+        section.loading = false
+        console.log('retrying index ' + index)
+        setTimeout(() => {
+          this.getData(index) //retry, no forcing
+        }, (Math.floor(Math.random() * index) + 3) * 1000)
+        return
+      }
+      let data = await res.json()
 
-          // Ignore results from deprecated search queries
-          if (index == 0 && query.title != this.title)
-            return console.log('ignoring results', query.title, this.title)
+      // Ignore results from deprecated search queries
+      if (index == 0 && query.title != this.title)
+        return console.log('ignoring results', query.title, this.title)
 
-          // Mark loading as finished (when result length is shorter than page size)
-          if (data.length < this.pageSize) section.finishLoading = true
+      // Mark loading as finished (when result length is shorter than page size)
+      if (data.length < this.pageSize) section.finishLoading = true
 
-          // Do some data formatting and push to data array
-          for (var i = 0; i < data.length; i++) {
-            ohana.movies.addInfo(data[i], this.skipTags)
-          }
+      // Do some data formatting and push to data array
+      for (var i = 0; i < data.length; i++) {
+        ohana.movies.addInfo(data[i], this.skipTags)
+      }
 
-          const excludeFromHome = ['tt0314331'] //imdb ids of movies to explicitely hide from home (so only show when searched)
-          data = data.filter((x) => {
-            return index == 0 || !excludeFromHome.includes(x.imdb)
-          })
-          section.data = [...section.data, ...data]
+      const excludeFromHome = ['tt0314331'] //imdb ids of movies to explicitely hide from home (so only show when searched)
+      data = data.filter((x) => {
+        return index == 0 || !excludeFromHome.includes(x.imdb)
+      })
+      section.data = [...section.data, ...data]
 
-          console.log(section.data)
-          this.$forceUpdate()
-          section.loading = false
-          section.tries = 0
-        })
-        .catch((e) => {
-          console.log('[alex] fetch error with ' + url, e)
-          //TODO: retry?
-        })
+      console.log(section.data)
+      this.$forceUpdate()
+      section.loading = false
+      section.tries = 0
     },
   },
   created() {

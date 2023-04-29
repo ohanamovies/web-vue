@@ -1142,7 +1142,7 @@
       "name_es": "Resultados búsqueda",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ }"
+      "mappings": "{ \"ttl\": 0 }"
     },
     {
       "key": "reviewed",
@@ -1153,7 +1153,7 @@
       "name_es": "Revisadas recientemente",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"sort_by\": \"last_edited\" }"
+      "mappings": "{ \"sort_by\": \"last_edited\", \"ttl\": 10 }"
     },
     {
       "key": "reviewed_shows",
@@ -1164,7 +1164,7 @@
       "name_es": "Revisadas recientemente (shows)",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"sort_by\": \"last_edited\", \"type\":\"series\", \"imdb\": \"tt4786824\" }"
+      "mappings": "{ \"sort_by\": \"last_edited\", \"type\":\"series\", \"imdb\": \"tt4786824\", \"ttl\": 10 }"
     },
     {
       "key": "family",
@@ -1175,7 +1175,7 @@
       "name_es": "Ver con los peques",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"genres\": [\"Animation\"] }"
+      "mappings": "{ \"genres\": [\"Animation\"], \"ttl\": 60 }"
     },
     {
       "key": "best-rated",
@@ -1186,7 +1186,7 @@
       "name_es": "Mejor valoradas",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"imdbRating\": 8 }"
+      "mappings": "{ \"imdbRating\": 8, \"ttl\": 30 }"
     },
     {
       "key": "classics",
@@ -1197,7 +1197,7 @@
       "name_es": "Clásicas",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"releasedBefore\": 1970 }"
+      "mappings": "{ \"releasedBefore\": 1970, \"ttl\": 120 }"
     },
     {
       "key": "family-love",
@@ -1208,7 +1208,7 @@
       "name_es": "Familia",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"values\": [\"family-love\"] }"
+      "mappings": "{ \"values\": [\"family-love\"] , \"ttl\": 120}"
     },
     {
       "key": "romantic-love",
@@ -1219,7 +1219,7 @@
       "name_es": "Amor romántico",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"values\": [\"romantic-love\"] }"
+      "mappings": "{ \"values\": [\"romantic-love\"], \"ttl\": 120 }"
     },
     {
       "key": "womens-rights",
@@ -1230,7 +1230,7 @@
       "name_es": "Derechos de la mujer",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"values\": [\"womens-rights\"] }"
+      "mappings": "{ \"values\": [\"womens-rights\"], \"ttl\": 120 }"
     },
     {
       "key": "transcendence",
@@ -1241,7 +1241,7 @@
       "name_es": "Trascendencia",
       "tip_en": "",
       "tip_es": "Apertura a la transcendencia, a la belleza, la verdad, el sentido...",
-      "mappings": "{ \"values\": [\"transcendence\"] }"
+      "mappings": "{ \"values\": [\"transcendence\"], \"ttl\": 120 }"
     },
     {
       "key": "justice",
@@ -1252,7 +1252,7 @@
       "name_es": "Justicia social",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"values\": [\"justice\"] }"
+      "mappings": "{ \"values\": [\"justice\"], \"ttl\": 120 }"
     },
     {
       "key": "self-giving",
@@ -1263,7 +1263,7 @@
       "name_es": "Entrega y generosidad",
       "tip_en": "",
       "tip_es": "Visión de la vida orientada al servicio, generosidad y entrega a los demás",
-      "mappings": "{ \"values\": [\"self-giving\"] }"
+      "mappings": "{ \"values\": [\"self-giving\"], \"ttl\": 120 }"
     },
     {
       "key": "reconciliation",
@@ -1274,7 +1274,7 @@
       "name_es": "Reconciliación",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"values\": [\"reconciliation\"] }"
+      "mappings": "{ \"values\": [\"reconciliation\"], \"ttl\": 120 }"
     },
     {
       "key": "other",
@@ -1285,7 +1285,7 @@
       "name_es": "Otros valores",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"values\": [\"other\"] }"
+      "mappings": "{ \"values\": [\"other\"], \"ttl\": 120 }"
     },
     {
       "key": "romance",
@@ -1296,7 +1296,7 @@
       "name_es": "Romántica",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"genres\": [\"romance\"] }"
+      "mappings": "{ \"genres\": [\"romance\"], \"ttl\": 120 }"
     },
     {
       "key": "comedy",
@@ -1307,7 +1307,7 @@
       "name_es": "Comedia",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"genres\": [\"comedy\"] }"
+      "mappings": "{ \"genres\": [\"comedy\"], \"ttl\": 120 }"
     },
     {
       "key": "documentary",
@@ -1318,7 +1318,7 @@
       "name_es": "Documental",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"genres\": [\"documentary\"] }"
+      "mappings": "{ \"genres\": [\"documentary\"], \"ttl\": 120 }"
     },
     {
       "key": "fantasy_sci-fi",
@@ -1329,7 +1329,7 @@
       "name_es": "Fantasia y Ciencia Ficción",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"genres\": [\"fantasy\",\"sci-fi\"] }"
+      "mappings": "{ \"genres\": [\"fantasy\",\"sci-fi\"], \"ttl\": 120 }"
     },
     {
       "key": "history",
@@ -1340,7 +1340,7 @@
       "name_es": "Historia",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"genres\": [\"history\"] }"
+      "mappings": "{ \"genres\": [\"history\"] , \"ttl\": 120}"
     },
     {
       "key": "thriller",
@@ -1351,7 +1351,7 @@
       "name_es": "Suspense",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"genres\": [\"thriller\"] }"
+      "mappings": "{ \"genres\": [\"thriller\"], \"ttl\": 120 }"
     },
     {
       "key": "musical",
@@ -1362,7 +1362,7 @@
       "name_es": "Musical",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"genres\": [\"musical\"] }"
+      "mappings": "{ \"genres\": [\"musical\"] , \"ttl\": 120}"
     },
     {
       "key": "war",
@@ -1373,7 +1373,7 @@
       "name_es": "Bélico",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"genres\": [\"war\"] }"
+      "mappings": "{ \"genres\": [\"war\"], \"ttl\": 120 }"
     },
     {
       "key": "action_adventure",
@@ -1384,7 +1384,7 @@
       "name_es": "Acción y Aventura",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"genres\": [\"action\",\"adventure\"] }"
+      "mappings": "{ \"genres\": [\"action\",\"adventure\"], \"ttl\": 120 }"
     }
   ]
 }
