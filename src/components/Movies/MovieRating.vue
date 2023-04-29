@@ -68,7 +68,23 @@
                   </v-btn>
                 </td>
                 <td>
-                  {{ sev }}
+                  <v-menu offset-y>
+                    <template v-slot:activator="{ on }">
+                      <div v-on="on" style="cursor: pointer">
+                        {{ sev }}
+
+                        <v-icon v-if="false" style="cursor: pointer" small color="primary"
+                          >mdi-chevron-down</v-icon
+                        >
+                      </div>
+                    </template>
+
+                    <v-card>
+                      <v-card-text>
+                        {{ description(c, s) }}
+                      </v-card-text>
+                    </v-card>
+                  </v-menu>
                 </td>
                 <td>
                   <StatusIconVue :item="item" :tag="sev" />
@@ -160,6 +176,9 @@ export default {
     },
   },
   methods: {
+    description(c, s) {
+      return rawTags.descriptionsR[c][s]
+    },
     async getMyVote() {
       if (!this.item.imdb) return false
 

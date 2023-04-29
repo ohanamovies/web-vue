@@ -33,6 +33,11 @@
       </router-link>
 
       <tr>
+        <div>
+          <FilterStatusBriefTags x-small :item="item" />
+        </div>
+      </tr>
+      <tr>
         <td colspan="2">
           <span style="font-size: 80%"
             >Edited by:
@@ -47,12 +52,7 @@
           </span>
 
           <br />
-          <!-- skip tags -->
-          <div>
-            <FilterStatusChips x-small :item="item" />
-          </div>
 
-          <br />
           <span style="font-size: 75%; color: black">
             Last edited: {{ new Date(item.lastEdited).toLocaleString() }}
           </span>
@@ -65,12 +65,12 @@
 
 <script>
 import ohana from '@/assets/ohana/index'
-import FilterStatusChips from '@/components/Movies/FilterStatusChips'
+import FilterStatusBriefTags from '@/components/Movies/FilterStatusBriefTags.vue'
 import ProvidersStatus from '@/components/Movies/ProvidersStatus'
 import { mapState } from 'vuex'
 export default {
   components: {
-    FilterStatusChips,
+    FilterStatusBriefTags,
     ProvidersStatus,
   },
   props: {
