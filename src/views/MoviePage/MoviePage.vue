@@ -325,7 +325,7 @@ export default {
       } else {
         if (nFilters == 0) {
           //TODO
-          return 'This movie contains unhealthy content for your settings. But no one has created filters yet to make it healthy.'
+          return 'This movie contains unhealthy scenes for your settings. But no one has created filters yet to make it healthy.'
         } else {
           return `We have ${nFilters} filters, but we are not sure if that's enough to make this ${type} healthy for your settings.`
         }

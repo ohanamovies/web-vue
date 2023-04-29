@@ -91,12 +91,12 @@
 
             <div>
               <p>
-                <v-icon color="green">mdi-emoticon-happy</v-icon><b>Limpio:</b> El contenido era
+                <v-icon color="green">mdi-emoticon-happy</v-icon><b>Saludable:</b> El contenido era
                 originalmente saludable. No hizo falta editar.<br />
                 <v-icon color="green">mdi-content-cut</v-icon><b>Editado:</b> Había contenido no
                 deseado, pero puedes evitarlo con nuestra extensión.<br />
                 <v-icon color="blue">mdi-emoticon-happy</v-icon> |
-                <v-icon color="blue">mdi-content-cut</v-icon><b>Ohana Limpio/Editado:</b> Los iconos
+                <v-icon color="blue">mdi-content-cut</v-icon><b>Ohana Saludable/Editado:</b> Los iconos
                 azules indican que ha sido revisado por editores de confianza de Ohana.<br />
                 <v-icon color="red">mdi-flag-variant</v-icon><b>No saludable:</b> Sabemos que esta
                 película tiene contenido como no deseado, pero aún no está editada.<br />
@@ -249,7 +249,7 @@
         <div>
           Here you'll find a quick guide about how to use Ohana. This is:
           <ol>
-            <li><a href="/get-started#how-to-watch">How to watch clean movies</a></li>
+            <li><a href="/get-started#how-to-watch">How to watch healthy movies</a></li>
             <li><a href="/get-started#how-to-create-filters">How to create filters</a></li>
           </ol>
           <p>
@@ -261,7 +261,7 @@
 
         <div id="main-tutorial-content">
           <div id="how-to-watch">
-            <h2>How to watch a clean movie</h2>
+            <h2>How to watch a healthy movie</h2>
 
             <h4>Step 1. Install Ohana</h4>
             <ol>
@@ -309,7 +309,7 @@
             </p>
             -->
 
-            <h4>Step 3. Find a good clean movie to watch</h4>
+            <h4>Step 3. Find a good healthy movie to watch</h4>
             <p>
               Check our catalog to discover healthy movies. You can search for any specific movie by
               title, or narrow the list to only action movies, for instance.
@@ -321,12 +321,12 @@
               }}</router-link>
             </p>
             <p>
-              To help you find a good clean movie we use a set of icons to let you known if (based
+              To help you find a good healthy movie we use a set of icons to let you known if (based
               on your personal settings) a movie / show can be watched safely.
             </p>
             <div>
               <p>
-                <v-icon color="green" class="mb-1">mdi-emoticon-happy</v-icon><b>Clean:</b> Content
+                <v-icon color="green" class="mb-1">mdi-emoticon-happy</v-icon><b>Healthy:</b> Content
                 was originally safe, it didn't need to be edited.<br />
 
                 <v-icon color="green" class="mb-1">mdi-content-cut</v-icon><b>Edited:</b> There was
@@ -334,7 +334,7 @@
 
                 <v-icon color="blue" class="mb-1">mdi-emoticon-happy</v-icon> |
                 <v-icon color="blue" class="mb-1">mdi-content-cut</v-icon
-                ><b>Ohana Clean/Edited:</b> Blue icons indicate it has been reviewed by Ohana
+                ><b>Ohana Healthy/Edited:</b> Blue icons indicate it has been reviewed by Ohana
                 trusted editors.<br />
 
                 <v-icon color="red" class="mb-1">mdi-flag-variant</v-icon><b>Unsafe:</b> Unwanted
@@ -435,7 +435,7 @@
             <p>
               Click the "Set filter status" button and select, for each category &amp; tag, the
               right status. Click on save and you are done! Now everyone in the world can enjoy a
-              clean movie/episode! In the name of everyone: thank you, you are a hero!
+              healthy movie/episode! In the name of everyone: thank you, you are a hero!
             </p>
           </div>
 
@@ -443,7 +443,7 @@
             <h2>How to install Ohana</h2>
             <p>
               As a basic, you can use <router-link to="/find-movies">this section</router-link> of the
-              Ohana website to find, among others, content that was originally clean and therefore
+              Ohana website to find, among others, content that was originally healthy and therefore
               ready for you to watch out of the box.
             </p>
             <p>
@@ -497,7 +497,7 @@ export default {
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
     let title = 'Get started'
-    let desc = 'Learn how to watch clean content'
+    let desc = 'Learn how to watch healthy content'
     return sharedjs.headObject(title, desc)
   },
 

@@ -21,9 +21,9 @@ Check our catalog to discover healthy movies. You can search for any specific mo
 
 [Find movies](/find-movies)
 
-To help you find a good clean movie we use a set of icons to let you known if (based on your personal settings) a movie / show can be watched safely.
+To help you find a good healthy movie we use a set of icons to let you known if (based on your personal settings) a movie / show can be watched safely.
 
-**Clean:** Content was originally safe, it didn't need to be edited.  
+**Healthy:** Content was originally safe, it didn't need to be edited.  
 **Edited:** There was unwanted content, but we will skip it all for you.  
 **Unsafe:** Unwanted content was flagged, but movie hasn't been edited yet.  
 **Unknown:** We can't help as we don't have information yet.

@@ -84,7 +84,7 @@
 
           <div class="fakeUL">
             <p>
-              <v-icon color="green">mdi-emoticon-happy</v-icon><b>Clean:</b> Content was originally
+              <v-icon color="green">mdi-emoticon-happy</v-icon><b>Healthy:</b> Content was originally
               safe, it didn't need to be cut. When the icon is blue
               <v-icon color="blue">mdi-emoticon-happy</v-icon>, it means it has been reviewed by
               Ohana trusted editors.

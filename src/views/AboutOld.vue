@@ -191,7 +191,7 @@
           </div>
           <p>
             Ohana is a community of families and movie fans like you that share a passion for good
-            clean movies.
+            healthy movies.
           </p>
           <p>
             As a community, we develop a set of tools help people watch movies without having to

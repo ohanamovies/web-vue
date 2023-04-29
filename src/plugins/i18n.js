@@ -62,7 +62,7 @@ const messages = {
     shows: 'Shows',
     providers: 'Providers',
     genre: 'Genre | Genres',
-    showOnlyClean: 'Show only clean movies',
+    showOnlyClean: 'Show only healthy movies',
     showOnlyCertified: 'Show only Ohana certified movies',
     severe: 'Severe',
     moderate: 'Moderate',
@@ -123,11 +123,10 @@ const messages = {
         clean: 'This {type} is healthy for your settings. Nothing to filter here.',
         done: "We've created {edits} filter{s} to make this {type} healthy for your settings",
         missing:
-          "This {type} contains scenes you consider unhealthy. But we don't have all the filters ready yet.",
+          "This {type} contains unhealthy scenes you've marked to skip. But we don't have all the filters ready yet.",
         mixed_with_edits:
           'Although we have {edits} filter{s} for this {type}, it might still contain content you consider unhealthy.',
-        mixed_no_edits:
-          'This {type} might contain content you consider unhealthy. We are not sure.',
+        mixed_no_edits: 'This {type} might contain unhealthy scenes. We are not sure.',
         unknown: "Ouch! We don't know if this content is healthy for your settings!",
       },
     },

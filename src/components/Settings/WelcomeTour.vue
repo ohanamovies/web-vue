@@ -47,7 +47,7 @@
               </p>
               <br />
               <p>
-                <b>You define what's healthy and what's not.</b> <br />
+                <b>You define what to skip and what not.</b> <br />
                 Let's do that now.
               </p>
             </div>

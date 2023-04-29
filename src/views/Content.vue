@@ -522,7 +522,7 @@ export default {
 
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
-    let title = 'Find something clean to watch'
+    let title = 'Find something healthy to watch'
     let desc =
       'Browse throught hundreds of safe movies and tv shows, edited with love by our community'
     return sharedjs.headObject(title, desc)
@@ -627,7 +627,7 @@ export default {
     safety_icons() {
       return [
         {
-          label: 'Certified clean',
+          label: 'Certified healthy',
           icon: 'mdi-emoticon-happy',
           color: 'blue',
         },
@@ -637,7 +637,7 @@ export default {
           color: 'blue',
         },
         {
-          label: 'Clean',
+          label: 'Healthy',
 
           icon: 'mdi-emoticon-happy',
           color: 'green',
