@@ -105,8 +105,8 @@ export default {
         }
 
         if (fs.health > -0.5 && fs.health < 0.5) {
-          icon = 'mdi-progress-question'
-          color = 'grey'
+          icon = 'mdi-flag-variant'
+          color = 'orange'
           break
         }
 

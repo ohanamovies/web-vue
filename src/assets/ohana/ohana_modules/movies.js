@@ -213,11 +213,11 @@ const movies = {
         color: 'lightgray',
       },
       missing: {
-        icon: 'mdi-heart-broken',
+        icon: 'none', //mdi-heart-broken
         color: 'red',
       },
       mixed: {
-        icon: 'mdi-heart-broken',
+        icon: 'none', //mdi-heart-broken
         color: 'orange',
       },
       done: {
