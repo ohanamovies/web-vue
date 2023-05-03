@@ -32,12 +32,12 @@
           <router-link to="/community" class="modern-link">Discover other ways to help</router-link>
         </article>
 
-        <div style="margin-top: 90px">
+        <div v-if="false" style="margin-top: 90px">
           <h3 style="font-size: 16pt; color: white; font-weight: 500; margin-top: 30px">
             Sponsors
           </h3>
 
-          <div class="flex flex-3" v-if="false">
+          <div class="flex flex-3">
             <a href="https://methos.media/" target="_blank" style="margin: auto">
               <div class="image">
                 <img
