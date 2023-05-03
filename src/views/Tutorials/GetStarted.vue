@@ -327,8 +327,7 @@
             <div>
               <p>
                 <v-icon color="green" class="mb-1">mdi-emoticon-happy</v-icon
-                ><b>Healthy:</b> Content
-                was originally safe, it didn't need to be edited.<br />
+                ><b>Healthy:</b> Content was originally safe, it didn't need to be edited.<br />
 
                 <v-icon color="green" class="mb-1">mdi-content-cut</v-icon><b>Edited:</b> There was
                 unwanted content, but we will skip it all for you.<br />
