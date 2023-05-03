@@ -37,7 +37,7 @@
             Sponsors
           </h3>
 
-          <div class="flex flex-3">
+          <div class="flex flex-3" v-if="false">
             <a href="https://methos.media/" target="_blank" style="margin: auto">
               <div class="image">
                 <img
