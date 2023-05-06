@@ -81,11 +81,13 @@
 
     <!-- WATCH OPTIONS (providers v2) -->
     <!-- Section title -->
+
     <v-slide-y-transition>
       <!-- Watch Options title -->
       <div v-if="is_clean || (is_done && hasApp) || bypass">
-        <div style="display: flex; margin-top: 10px">
+        <div style="display: flex; align-items: center; margin-top: 10px">
           <b>{{ $t('popup.watchOptions') }}: </b>
+          <CountrySelect v-if="selection.availability" :size="25" style="margin-left: 8px" />
           <div v-if="displayProviders.length" style="font-size: 80%; margin-left: 8px">
             {{ $t('popup.poweredBy') }}
             <a href="https://www.justwatch.com" target="_blank">
@@ -93,6 +95,7 @@
             </a>
           </div>
         </div>
+
         <div>
           <ProvidersStatus :item="selection" />
         </div>
@@ -106,6 +109,7 @@ import CheckExtension from '@/components/Settings/CheckExtension.vue'
 import Settings2 from '@/components/Settings/Settings2.vue'
 import ohana from '@/assets/ohana'
 import ProvidersStatus from '@/components/Movies/ProvidersStatus.vue'
+import CountrySelect from '../Settings/CountrySelect2.vue'
 import { mapState } from 'vuex'
 
 export default {
@@ -113,6 +117,7 @@ export default {
     CheckExtension,
     Settings2,
     ProvidersStatus,
+    CountrySelect,
   },
   props: {
     selection: {

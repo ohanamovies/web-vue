@@ -12,6 +12,7 @@
       <p>We will prioritize content available in your providers.</p>
 
       <CountrySelect />
+
       <p style="margin-top: 10px; font-size: 80%; line-height: normal">
         <b>Note: </b>Content providers (Netflix, etc.) don't offer the same movies/shows in all
         countries. This setting is used to show you watch options available in your country.
@@ -53,7 +54,7 @@
 </template>
 
 <script>
-import CountrySelect from '@/components/Settings/CountrySelect.vue'
+import CountrySelect from '@/components/Settings/CountrySelect2.vue'
 import { mapState } from 'vuex'
 
 export default {

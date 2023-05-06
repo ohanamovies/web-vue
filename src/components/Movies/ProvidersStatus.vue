@@ -67,7 +67,11 @@
 <script>
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
+//import CountrySelect from '../Settings/CountrySelect2.vue'
 export default {
+  components: {
+    //CountrySelect,
+  },
   props: {
     item: {
       type: Object,
@@ -157,7 +161,9 @@ export default {
       }
 
       for (const p in pstatus) {
-        const providerID = this.item.providers.find((x) => x.provider == p).providerID
+        const providerObject = this.item.providers.find((x) => x.provider == p)
+        const providerID =
+          providerObject && providerObject.providerID ? providerObject.providerID : ''
         output.push({
           provider: p,
           status: pstatus[p],
