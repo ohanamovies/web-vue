@@ -96,8 +96,8 @@
                 <v-icon color="green">mdi-content-cut</v-icon><b>Editado:</b> Había contenido no
                 deseado, pero puedes evitarlo con nuestra extensión.<br />
                 <v-icon color="blue">mdi-emoticon-happy</v-icon> |
-                <v-icon color="blue">mdi-content-cut</v-icon><b>Ohana Saludable/Editado:</b> Los iconos
-                azules indican que ha sido revisado por editores de confianza de Ohana.<br />
+                <v-icon color="blue">mdi-content-cut</v-icon><b>Ohana Saludable/Editado:</b> Los
+                iconos azules indican que ha sido revisado por editores de confianza de Ohana.<br />
                 <v-icon color="red">mdi-flag-variant</v-icon><b>No saludable:</b> Sabemos que esta
                 película tiene contenido como no deseado, pero aún no está editada.<br />
                 <v-icon color="gray">mdi-progress-question</v-icon><b>Desconocido:</b> No tenemos
@@ -326,8 +326,8 @@
             </p>
             <div>
               <p>
-                <v-icon color="green" class="mb-1">mdi-emoticon-happy</v-icon><b>Healthy:</b> Content
-                was originally safe, it didn't need to be edited.<br />
+                <v-icon color="green" class="mb-1">mdi-emoticon-happy</v-icon
+                ><b>Healthy:</b> Content was originally safe, it didn't need to be edited.<br />
 
                 <v-icon color="green" class="mb-1">mdi-content-cut</v-icon><b>Edited:</b> There was
                 unwanted content, but we will skip it all for you.<br />
