@@ -109,7 +109,7 @@ import CheckExtension from '@/components/Settings/CheckExtension.vue'
 import Settings2 from '@/components/Settings/Settings2.vue'
 import ohana from '@/assets/ohana'
 import ProvidersStatus from '@/components/Movies/ProvidersStatus.vue'
-import CountrySelect from '../Settings/CountrySelect2.vue'
+import CountrySelect from '../Settings/CountrySelect.vue'
 import { mapState } from 'vuex'
 
 export default {

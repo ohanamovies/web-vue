@@ -180,18 +180,15 @@ export default {
       }
       ohana.api.query(query, true, true)
     },
-    getAllTags() {
+    async getAllTags() {
       this.loading = true
       const url =
         'https://script.googleusercontent.com/macros/echo?user_content_key=WX7_CkVcDYYG8ckrWmqPw73gVMxYKW6Bpusx02u2QBVvPbffqcTLaXsTvv1Np-4aeu2ZOC6UwOVc4RJZZKSTrWfeRitZ17NpOJmA1Yb3SEsKFZqtv3DaNYcMrmhZHmUMWojr9NvTBuBLhyHCd5hHa5V7SzAZj2xBfFDRtNxpfsmuqfjnOYLBpWrI3G8IWJh29l4LSossvEa_fiNHZ0znxEBErwHi9mmiH5-9NQj1Fcu3hpOOhlyi7z3asNxrX_-RehUT3gRYzxpsMTuA4xoUQNlesTh-p4pFwqJbeTowOR_fVIgxkfofiQ&lib=M7OO09pfGNQD9igEAo4bouJoiE_6Oxspk'
-      fetch(url)
-        .then((response) => {
-          return response.json()
-        })
-        .then((data) => {
-          this.alltags = tags_excel.adaptTags(data.records, this.settings.language)
-          this.loading = false
-        })
+      let x = await fetch(url)
+      let data = await x.json()
+      this.alltags = tags_excel.adaptTags(data.records, this.settings.language)
+      this.loading = false
+
       //this.alltags = tags_excel.getTagsLocal(this.settings.language)
     },
   },

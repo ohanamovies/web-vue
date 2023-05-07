@@ -1,92 +1,134 @@
 <template>
+  <!-- todo: use https://ipinfo.io/json to guess the country of the user (tbc: not sure if the other api also works returning your country in the first position...)-->
   <div>
-    <v-autocomplete
-      :value="selectedCountry"
-      @change="changeCountry($event)"
-      :loading="loading"
-      :items="countriesDropdown"
-      outlined
-      dense
-      chips
-      hide-details
-      small-chips
-      label="Country"
+    <v-menu
+      offset-y
+      :close-on-content-click="false"
+      v-model="showDropdown"
+      min-width="250"
+      max-width="250"
+      transition="slide-y-transition"
     >
-      <template v-slot:selection="data">
-        <v-chip small v-bind="data.attrs" :input-value="data.selected" @click="data.select">
-          <v-avatar left>
-            <v-img :src="data.item.flag"></v-img>
-          </v-avatar>
-          {{ data.item.name }}
-        </v-chip>
+      <template v-slot:activator="{ on, attrs }">
+        <div v-bind="attrs" v-on="on" style="cursor: pointer; display: flex; align-items: center">
+          <img
+            :src="
+              'https://flagcdn.com/w320/' +
+              (settings.country ? settings.country.toLowerCase() : 'us') +
+              '.png'
+            "
+            height="213"
+            width="320"
+            :style="{
+              width: size + 'px',
+              maxWidth: size + 'px',
+              height: (size * 213) / 320 + 'px',
+              maxHeight: (size * 213) / 320 + 'px',
+            }"
+          />
+
+          <v-icon style="cursor: pointer" small>
+            {{ showDropdown ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+          </v-icon>
+        </div>
       </template>
-      <template slot="item" slot-scope="{ item }">
-        <v-list-item-avatar height="25" width="25">
-          <img :src="item.flag" />
-        </v-list-item-avatar>
-        <v-list-item-content>
-          <v-list-item-title v-html="item.name"></v-list-item-title>
-          <v-list-item-subtitle v-html="item.region"></v-list-item-subtitle>
-        </v-list-item-content>
-      </template>
-    </v-autocomplete>
+      <v-card :loading="loading">
+        <v-card-text>
+          <v-text-field
+            v-model="searchText"
+            label="Search"
+            hide-details
+            outlined
+            clearable
+            dense
+          ></v-text-field>
+
+          <div style="max-height: 250px; overflow-y: auto">
+            <v-list dense>
+              <v-list-item
+                class="pa-0"
+                v-for="(option, index) in filteredOptions"
+                :key="index"
+                @click="selectOption(option)"
+              >
+                <v-list-item-avatar height="25" width="25">
+                  <img :src="option.flags.png" :alt="option.flags.alt" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title
+                    >{{ option.name.common }} ({{ option.cca2 }})</v-list-item-title
+                  >
+                  <v-list-item-subtitle>{{ option.region }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item v-if="filteredOptions.length === 0">
+                <v-list-item-title>No options found</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-menu>
   </div>
 </template>
 
 <script>
-//import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
+
+//import ohana from '@/assets/ohana'
 export default {
+  props: {
+    size: {
+      type: Number,
+      default: 40,
+    },
+  },
   data() {
     return {
-      country: '',
-      countries: [],
+      showDropdown: false,
+      searchText: '',
       loading: false,
+      loaded: false,
+      options: [],
     }
+  },
+  watch: {
+    showDropdown(newValue) {
+      console.log('showDropdown', newValue)
+      if (newValue && !this.loaded) {
+        this.fetchCountries()
+      }
+    },
   },
   computed: {
     ...mapState(['settings']),
-    selectedCountry() {
-      if (this.settings.country) return this.settings.country
-
-      //fallback (shouldn't be used, as vuex offers directly this same default value)
-      if (this.settings.language == 'es') {
-        this.changeCountry('ES')
-        return 'ES'
-      } else {
-        this.changeCountry('US')
-        return 'US'
+    filteredOptions() {
+      let x = []
+      for (let i = 0; i < this.options.length; i++) {
+        const e = this.options[i]
+        const text = [
+          e.name.common,
+          e.name.official,
+          e.region,
+          e.cca2,
+          e.altSpellings.join(' '),
+        ].join(' ')
+        if (!this.searchText || text.toLowerCase().includes(this.searchText.toLowerCase())) {
+          x.push(e)
+        }
       }
-    },
-    countriesDropdown() {
-      let output = []
-      for (let i = 0; i < this.countries.length; i++) {
-        let search_text = Object.keys(this.countries[i].translations)
-          .map((x) => this.countries[i].translations[x].common)
-          .join(' ')
-        output.push({
-          text:
-            this.getNameTranslation(this.countries[i]) +
-            ' ' +
-            this.countries[i].cca2 +
-            ' ' +
-            this.countries[i].region +
-            ' ' +
-            search_text, //used for filter
-
-          value: this.countries[i].cca2,
-          name: this.getNameTranslation(this.countries[i]) + ' (' + this.countries[i].cca2 + ')',
-          cca2: this.countries[i].cca2,
-          flag: this.countries[i].flags.png || '',
-          region: this.countries[i].region || '',
-        })
-      }
-      output.sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
-      return output
+      return x
     },
   },
-
   methods: {
+    selectOption(option) {
+      // Do something with the selected option
+      console.log(`Selected option: ${option}`)
+      let settings = { ...this.settings }
+      settings.country = option.cca2
+      this.$store.dispatch('updateSettings', settings)
+      this.showDropdown = false
+    },
     async fetchCountryFromIP() {
       try {
         //TODO: review we want to do it this way... (maybe get an API key and add this to our own api.)
@@ -103,39 +145,38 @@ export default {
       settings.country = v
       this.$store.dispatch('updateSettings', settings)
     },
-    getNameTranslation(country) {
-      let x = this.settings.language
-      if (x == 'en') return country.name.common //eng is here
-      if (x == 'es') return country.translations.spa.common //translations are here
-    },
-    fetchCountries() {
-      const url = 'https://restcountries.com/v3.1/all'
+    async fetchCountries() {
+      console.log('fetch countries')
+      const url =
+        'https://restcountries.com/v3.1/all?fields=name,flags,cca2,region,altSpellings,translations'
       const useLocal = true
       this.loading = true
+      this.loaded = true
 
       if (useLocal) {
-        this.countries = require('@/assets/countries.json')
+        this.options = require('@/assets/countries2.json')
+        //this.options = this.options.sort((a, b) => b.population - a.population)
         this.loading = false
       } else {
         console.log('fetching countries...')
-        fetch(url)
-          .then((r) => {
-            this.loading = false
-            return r.json()
-          })
-          .then((countries) => {
-            this.countries = [...countries]
-          })
+        let x = await fetch(url)
+
+        if (x.ok) {
+          let data = await x.json()
+          this.options = data
+        }
+        this.loading = false
       }
     },
   },
   mounted() {
-    this.fetchCountries()
-    if (!this.settings.welcomed) {
-      this.fetchCountryFromIP()
-    }
+    //this.fetchCountries()
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.chip-with-dropdown {
+  cursor: pointer;
+}
+</style>

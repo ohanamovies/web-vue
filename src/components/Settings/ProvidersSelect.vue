@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import CountrySelect from '@/components/Settings/CountrySelect2.vue'
+import CountrySelect from '@/components/Settings/CountrySelect.vue'
 import { mapState } from 'vuex'
 
 export default {

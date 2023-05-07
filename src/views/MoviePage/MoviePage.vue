@@ -71,12 +71,7 @@
 
         <!-- movie values -->
         <v-tab-item>
-          <EditValues :imdb="imdb" :original="item.movieValues" />
-          <br />
-          Current data:
-          <code>
-            {{ item.movieValues }}
-          </code>
+          <EditValues3 :imdb="imdb" :original="item.movieValues" />
         </v-tab-item>
 
         <!-- PROVIDERS -->
@@ -230,6 +225,7 @@ import { mapState } from 'vuex'
 import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 
 import EditValues from '@/views/MoviePage/EditValues2.vue'
+import EditValues3 from '@/views/MoviePage/EditValues3.vue'
 import EditTags from '@/views/MoviePage/EditTags.vue'
 
 import ScenesList from '@/views/MoviePage/ScenesList.vue'
@@ -250,15 +246,13 @@ export default {
   },
   components: {
     MoviePopup,
-
     EditValues,
     EditTags,
-
     ScenesList,
     FilterStatusChips,
     ProvidersStatus,
-
     MovieRating,
+    EditValues3,
   },
   props: {
     imdb: {

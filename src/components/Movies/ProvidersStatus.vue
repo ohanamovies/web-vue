@@ -32,7 +32,7 @@
         </a>
       </div>
     </div>
-    <div v-else>
+    <div v-else style="padding-bottom: 5px">
       {{ $t('popup.no_providers')[0] }}
       <a
         class="modern-link"
@@ -67,7 +67,7 @@
 <script>
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'
-//import CountrySelect from '../Settings/CountrySelect2.vue'
+//import CountrySelect from '../Settings/CountrySelect.vue'
 export default {
   components: {
     //CountrySelect,

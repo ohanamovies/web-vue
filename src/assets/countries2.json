@@ -216,6 +216,1630 @@
   },
   {
     "name": {
+      "common": "United Kingdom",
+      "official": "United Kingdom of Great Britain and Northern Ireland",
+      "nativeName": {
+        "eng": {
+          "official": "United Kingdom of Great Britain and Northern Ireland",
+          "common": "United Kingdom"
+        }
+      }
+    },
+    "tld": [
+      ".uk"
+    ],
+    "cca2": "GB",
+    "ccn3": "826",
+    "cca3": "GBR",
+    "cioc": "GBR",
+    "independent": true,
+    "status": "officially-assigned",
+    "unMember": true,
+    "currencies": {
+      "GBP": {
+        "name": "British pound",
+        "symbol": "£"
+      }
+    },
+    "idd": {
+      "root": "+4",
+      "suffixes": [
+        "4"
+      ]
+    },
+    "capital": [
+      "London"
+    ],
+    "altSpellings": [
+      "GB",
+      "UK",
+      "Great Britain"
+    ],
+    "region": "Europe",
+    "subregion": "Northern Europe",
+    "languages": {
+      "eng": "English"
+    },
+    "translations": {
+      "ara": {
+        "official": "المملكة المتحدة لبريطانيا العظمى وايرلندا الشمالية",
+        "common": "المملكة المتحدة"
+      },
+      "bre": {
+        "official": "Rouantelezh-Unanet Breizh-Veur ha Norzhiwerzhon",
+        "common": "Rouantelezh-Unanet"
+      },
+      "ces": {
+        "official": "Spojené království Velké Británie a Severního Irska",
+        "common": "Spojené království"
+      },
+      "cym": {
+        "official": "United Kingdom of Great Britain and Northern Ireland",
+        "common": "United Kingdom"
+      },
+      "deu": {
+        "official": "Vereinigtes Königreich Großbritannien und Nordirland",
+        "common": "Vereinigtes Königreich"
+      },
+      "est": {
+        "official": "Suurbritannia ja Põhja-Iiri Ühendkuningriik",
+        "common": "Suurbritannia"
+      },
+      "fin": {
+        "official": "Ison-Britannian ja Pohjois-Irlannin yhdistynyt kuningaskunta",
+        "common": "Yhdistynyt kuningaskunta"
+      },
+      "fra": {
+        "official": "Royaume-Uni de Grande-Bretagne et d'Irlande du Nord",
+        "common": "Royaume-Uni"
+      },
+      "hrv": {
+        "official": "Ujedinjeno Kraljevstvo Velike Britanije i Sjeverne Irske",
+        "common": "Ujedinjeno Kraljevstvo"
+      },
+      "hun": {
+        "official": "Nagy-Britannia és Észak-Írország Egyesült Királysága",
+        "common": "Egyesült Királyság"
+      },
+      "ita": {
+        "official": "Regno Unito di Gran Bretagna e Irlanda del Nord",
+        "common": "Regno Unito"
+      },
+      "jpn": {
+        "official": "グレート·ブリテンおよび北アイルランド連合王国",
+        "common": "イギリス"
+      },
+      "kor": {
+        "official": "그레이트브리튼 북아일랜드 연합 왕국",
+        "common": "영국"
+      },
+      "nld": {
+        "official": "Verenigd Koninkrijk van Groot-Brittannië en Noord-Ierland",
+        "common": "Verenigd Koninkrijk"
+      },
+      "per": {
+        "official": "پادشاهی متحد بریتانیای کبیر و ایرلند شمالی",
+        "common": "انگلیس"
+      },
+      "pol": {
+        "official": "Zjednoczone Królestwo Wielkiej Brytanii i Irlandii Północnej",
+        "common": "Zjednoczone Królestwo"
+      },
+      "por": {
+        "official": "Reino Unido da Grã-Bretanha e Irlanda do Norte",
+        "common": "Reino Unido"
+      },
+      "rus": {
+        "official": "Соединенное Королевство Великобритании и Северной Ирландии",
+        "common": "Великобритания"
+      },
+      "slk": {
+        "official": "Spojené kráľovstvo Veľkej Británie a SevernéhoÌrska",
+        "common": "Veľká Británia (Spojené kráľovstvo)"
+      },
+      "spa": {
+        "official": "Reino Unido de Gran Bretaña e Irlanda del Norte",
+        "common": "Reino Unido"
+      },
+      "srp": {
+        "official": "Уједињено Краљевство Велике Британије и Северне Ирске",
+        "common": "Уједињено Краљевство"
+      },
+      "swe": {
+        "official": "Förenade konungariket Storbritannien och Nordirland",
+        "common": "Storbritannien"
+      },
+      "tur": {
+        "official": "Büyük Britanya ve Kuzey İrlanda Birleşik Krallığı",
+        "common": "Birleşik Krallık"
+      },
+      "urd": {
+        "official": "مملکتِ متحدہ برطانیہ عظمی و شمالی آئرلینڈ",
+        "common": "مملکتِ متحدہ"
+      },
+      "zho": {
+        "official": "大不列颠及北爱尔兰联合王国",
+        "common": "英国"
+      }
+    },
+    "latlng": [
+      54.0,
+      -2.0
+    ],
+    "landlocked": false,
+    "borders": [
+      "IRL"
+    ],
+    "area": 242900.0,
+    "demonyms": {
+      "eng": {
+        "f": "British",
+        "m": "British"
+      },
+      "fra": {
+        "f": "Britannique",
+        "m": "Britannique"
+      }
+    },
+    "flag": "\uD83C\uDDEC\uD83C\uDDE7",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/FoDtc3UKMkFsXAjHA",
+      "openStreetMaps": "https://www.openstreetmap.org/relation/62149"
+    },
+    "population": 67215293,
+    "gini": {
+      "2017": 35.1
+    },
+    "car": {
+      "signs": [
+        "GB"
+      ],
+      "side": "left"
+    },
+    "timezones": [
+      "UTC-08:00",
+      "UTC-05:00",
+      "UTC-04:00",
+      "UTC-03:00",
+      "UTC-02:00",
+      "UTC",
+      "UTC+01:00",
+      "UTC+02:00",
+      "UTC+06:00"
+    ],
+    "continents": [
+      "Europe"
+    ],
+    "flags": {
+      "png": "https://flagcdn.com/w320/gb.png",
+      "svg": "https://flagcdn.com/gb.svg",
+      "alt": "The flag of the United Kingdom — the Union Jack — has a blue field. It features the white-edged red cross of Saint George superimposed on the diagonal red cross of Saint Patrick which is superimposed on the diagonal white cross of Saint Andrew."
+    },
+    "coatOfArms": {
+      "png": "https://mainfacts.com/media/images/coats_of_arms/gb.png",
+      "svg": "https://mainfacts.com/media/images/coats_of_arms/gb.svg"
+    },
+    "startOfWeek": "monday",
+    "capitalInfo": {
+      "latlng": [
+        51.5,
+        -0.08
+      ]
+    },
+    "postalCode": {
+      "format": "@# #@@|@## #@@|@@# #@@|@@## #@@|@#@ #@@|@@#@ #@@|GIR0AA",
+      "regex": "^(([A-Z]\\d{2}[A-Z]{2})|([A-Z]\\d{3}[A-Z]{2})|([A-Z]{2}\\d{2}[A-Z]{2})|([A-Z]{2}\\d{3}[A-Z]{2})|([A-Z]\\d[A-Z]\\d[A-Z]{2})|([A-Z]{2}\\d[A-Z]\\d[A-Z]{2})|(GIR0AA))$"
+    }
+  },
+  {
+    "name": {
+      "common": "United States",
+      "official": "United States of America",
+      "nativeName": {
+        "eng": {
+          "official": "United States of America",
+          "common": "United States"
+        }
+      }
+    },
+    "tld": [
+      ".us"
+    ],
+    "cca2": "US",
+    "ccn3": "840",
+    "cca3": "USA",
+    "cioc": "USA",
+    "independent": true,
+    "status": "officially-assigned",
+    "unMember": true,
+    "currencies": {
+      "USD": {
+        "name": "United States dollar",
+        "symbol": "$"
+      }
+    },
+    "idd": {
+      "root": "+1",
+      "suffixes": [
+        "201",
+        "202",
+        "203",
+        "205",
+        "206",
+        "207",
+        "208",
+        "209",
+        "210",
+        "212",
+        "213",
+        "214",
+        "215",
+        "216",
+        "217",
+        "218",
+        "219",
+        "220",
+        "224",
+        "225",
+        "227",
+        "228",
+        "229",
+        "231",
+        "234",
+        "239",
+        "240",
+        "248",
+        "251",
+        "252",
+        "253",
+        "254",
+        "256",
+        "260",
+        "262",
+        "267",
+        "269",
+        "270",
+        "272",
+        "274",
+        "276",
+        "281",
+        "283",
+        "301",
+        "302",
+        "303",
+        "304",
+        "305",
+        "307",
+        "308",
+        "309",
+        "310",
+        "312",
+        "313",
+        "314",
+        "315",
+        "316",
+        "317",
+        "318",
+        "319",
+        "320",
+        "321",
+        "323",
+        "325",
+        "327",
+        "330",
+        "331",
+        "334",
+        "336",
+        "337",
+        "339",
+        "346",
+        "347",
+        "351",
+        "352",
+        "360",
+        "361",
+        "364",
+        "380",
+        "385",
+        "386",
+        "401",
+        "402",
+        "404",
+        "405",
+        "406",
+        "407",
+        "408",
+        "409",
+        "410",
+        "412",
+        "413",
+        "414",
+        "415",
+        "417",
+        "419",
+        "423",
+        "424",
+        "425",
+        "430",
+        "432",
+        "434",
+        "435",
+        "440",
+        "442",
+        "443",
+        "447",
+        "458",
+        "463",
+        "464",
+        "469",
+        "470",
+        "475",
+        "478",
+        "479",
+        "480",
+        "484",
+        "501",
+        "502",
+        "503",
+        "504",
+        "505",
+        "507",
+        "508",
+        "509",
+        "510",
+        "512",
+        "513",
+        "515",
+        "516",
+        "517",
+        "518",
+        "520",
+        "530",
+        "531",
+        "534",
+        "539",
+        "540",
+        "541",
+        "551",
+        "559",
+        "561",
+        "562",
+        "563",
+        "564",
+        "567",
+        "570",
+        "571",
+        "573",
+        "574",
+        "575",
+        "580",
+        "585",
+        "586",
+        "601",
+        "602",
+        "603",
+        "605",
+        "606",
+        "607",
+        "608",
+        "609",
+        "610",
+        "612",
+        "614",
+        "615",
+        "616",
+        "617",
+        "618",
+        "619",
+        "620",
+        "623",
+        "626",
+        "628",
+        "629",
+        "630",
+        "631",
+        "636",
+        "641",
+        "646",
+        "650",
+        "651",
+        "657",
+        "660",
+        "661",
+        "662",
+        "667",
+        "669",
+        "678",
+        "681",
+        "682",
+        "701",
+        "702",
+        "703",
+        "704",
+        "706",
+        "707",
+        "708",
+        "712",
+        "713",
+        "714",
+        "715",
+        "716",
+        "717",
+        "718",
+        "719",
+        "720",
+        "724",
+        "725",
+        "727",
+        "730",
+        "731",
+        "732",
+        "734",
+        "737",
+        "740",
+        "743",
+        "747",
+        "754",
+        "757",
+        "760",
+        "762",
+        "763",
+        "765",
+        "769",
+        "770",
+        "772",
+        "773",
+        "774",
+        "775",
+        "779",
+        "781",
+        "785",
+        "786",
+        "801",
+        "802",
+        "803",
+        "804",
+        "805",
+        "806",
+        "808",
+        "810",
+        "812",
+        "813",
+        "814",
+        "815",
+        "816",
+        "817",
+        "818",
+        "828",
+        "830",
+        "831",
+        "832",
+        "843",
+        "845",
+        "847",
+        "848",
+        "850",
+        "854",
+        "856",
+        "857",
+        "858",
+        "859",
+        "860",
+        "862",
+        "863",
+        "864",
+        "865",
+        "870",
+        "872",
+        "878",
+        "901",
+        "903",
+        "904",
+        "906",
+        "907",
+        "908",
+        "909",
+        "910",
+        "912",
+        "913",
+        "914",
+        "915",
+        "916",
+        "917",
+        "918",
+        "919",
+        "920",
+        "925",
+        "928",
+        "929",
+        "930",
+        "931",
+        "934",
+        "936",
+        "937",
+        "938",
+        "940",
+        "941",
+        "947",
+        "949",
+        "951",
+        "952",
+        "954",
+        "956",
+        "959",
+        "970",
+        "971",
+        "972",
+        "973",
+        "975",
+        "978",
+        "979",
+        "980",
+        "984",
+        "985",
+        "989"
+      ]
+    },
+    "capital": [
+      "Washington, D.C."
+    ],
+    "altSpellings": [
+      "US",
+      "USA",
+      "United States of America"
+    ],
+    "region": "Americas",
+    "subregion": "North America",
+    "languages": {
+      "eng": "English"
+    },
+    "translations": {
+      "ara": {
+        "official": "الولايات المتحدة الامريكية",
+        "common": "الولايات المتحدة"
+      },
+      "bre": {
+        "official": "Stadoù-Unanet Amerika",
+        "common": "Stadoù-Unanet"
+      },
+      "ces": {
+        "official": "Spojené státy americké",
+        "common": "Spojené státy"
+      },
+      "cym": {
+        "official": "United States of America",
+        "common": "United States"
+      },
+      "deu": {
+        "official": "Vereinigte Staaten von Amerika",
+        "common": "Vereinigte Staaten"
+      },
+      "est": {
+        "official": "Ameerika Ühendriigid",
+        "common": "Ameerika Ühendriigid"
+      },
+      "fin": {
+        "official": "Amerikan yhdysvallat",
+        "common": "Yhdysvallat"
+      },
+      "fra": {
+        "official": "Les états-unis d'Amérique",
+        "common": "États-Unis"
+      },
+      "hrv": {
+        "official": "Sjedinjene Države Amerike",
+        "common": "Sjedinjene Američke Države"
+      },
+      "hun": {
+        "official": "Amerikai Egyesült Államok",
+        "common": "Amerikai Egyesült Államok"
+      },
+      "ita": {
+        "official": "Stati Uniti d'America",
+        "common": "Stati Uniti d'America"
+      },
+      "jpn": {
+        "official": "アメリカ合衆国",
+        "common": "アメリカ合衆国"
+      },
+      "kor": {
+        "official": "아메리카 합중국",
+        "common": "미국"
+      },
+      "nld": {
+        "official": "Verenigde Staten van Amerika",
+        "common": "Verenigde Staten"
+      },
+      "per": {
+        "official": "ایالات متحده آمریکا",
+        "common": "ایالات متحده آمریکا"
+      },
+      "pol": {
+        "official": "Stany Zjednoczone Ameryki",
+        "common": "Stany Zjednoczone"
+      },
+      "por": {
+        "official": "Estados Unidos da América",
+        "common": "Estados Unidos"
+      },
+      "rus": {
+        "official": "Соединенные Штаты Америки",
+        "common": "Соединённые Штаты Америки"
+      },
+      "slk": {
+        "official": "Spojené štáty Americké",
+        "common": "Spojené štáty americké"
+      },
+      "spa": {
+        "official": "Estados Unidos de América",
+        "common": "Estados Unidos"
+      },
+      "srp": {
+        "official": "Сједињене Америчке Државе",
+        "common": "Сједињене Америчке Државе"
+      },
+      "swe": {
+        "official": "Amerikas förenta stater",
+        "common": "USA"
+      },
+      "tur": {
+        "official": "Amerika Birleşik Devletleri",
+        "common": "Amerika Birleşik Devletleri"
+      },
+      "urd": {
+        "official": "ریاستہائے متحدہ امریکا",
+        "common": "ریاستہائے متحدہ"
+      },
+      "zho": {
+        "official": "美利坚合众国",
+        "common": "美国"
+      }
+    },
+    "latlng": [
+      38.0,
+      -97.0
+    ],
+    "landlocked": false,
+    "borders": [
+      "CAN",
+      "MEX"
+    ],
+    "area": 9372610.0,
+    "demonyms": {
+      "eng": {
+        "f": "American",
+        "m": "American"
+      },
+      "fra": {
+        "f": "Américaine",
+        "m": "Américain"
+      }
+    },
+    "flag": "\uD83C\uDDFA\uD83C\uDDF8",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/e8M246zY4BSjkjAv6",
+      "openStreetMaps": "https://www.openstreetmap.org/relation/148838#map=2/20.6/-85.8"
+    },
+    "population": 329484123,
+    "gini": {
+      "2018": 41.4
+    },
+    "fifa": "USA",
+    "car": {
+      "signs": [
+        "USA"
+      ],
+      "side": "right"
+    },
+    "timezones": [
+      "UTC-12:00",
+      "UTC-11:00",
+      "UTC-10:00",
+      "UTC-09:00",
+      "UTC-08:00",
+      "UTC-07:00",
+      "UTC-06:00",
+      "UTC-05:00",
+      "UTC-04:00",
+      "UTC+10:00",
+      "UTC+12:00"
+    ],
+    "continents": [
+      "North America"
+    ],
+    "flags": {
+      "png": "https://flagcdn.com/w320/us.png",
+      "svg": "https://flagcdn.com/us.svg",
+      "alt": "The flag of the United States of America is composed of thirteen equal horizontal bands of red alternating with white. A blue rectangle, bearing fifty small five-pointed white stars arranged in nine rows where rows of six stars alternate with rows of five stars, is superimposed in the canton."
+    },
+    "coatOfArms": {
+      "png": "https://mainfacts.com/media/images/coats_of_arms/us.png",
+      "svg": "https://mainfacts.com/media/images/coats_of_arms/us.svg"
+    },
+    "startOfWeek": "sunday",
+    "capitalInfo": {
+      "latlng": [
+        38.89,
+        -77.05
+      ]
+    },
+    "postalCode": {
+      "format": "#####-####",
+      "regex": "^\\d{5}(-\\d{4})?$"
+    }
+  },
+  {
+    "name": {
+      "common": "Australia",
+      "official": "Commonwealth of Australia",
+      "nativeName": {
+        "eng": {
+          "official": "Commonwealth of Australia",
+          "common": "Australia"
+        }
+      }
+    },
+    "tld": [
+      ".au"
+    ],
+    "cca2": "AU",
+    "ccn3": "036",
+    "cca3": "AUS",
+    "cioc": "AUS",
+    "independent": true,
+    "status": "officially-assigned",
+    "unMember": true,
+    "currencies": {
+      "AUD": {
+        "name": "Australian dollar",
+        "symbol": "$"
+      }
+    },
+    "idd": {
+      "root": "+6",
+      "suffixes": [
+        "1"
+      ]
+    },
+    "capital": [
+      "Canberra"
+    ],
+    "altSpellings": [
+      "AU"
+    ],
+    "region": "Oceania",
+    "subregion": "Australia and New Zealand",
+    "languages": {
+      "eng": "English"
+    },
+    "translations": {
+      "ara": {
+        "official": "كومونولث أستراليا",
+        "common": "أستراليا"
+      },
+      "bre": {
+        "official": "Kenglad Aostralia",
+        "common": "Aostralia"
+      },
+      "ces": {
+        "official": "Australské společenství",
+        "common": "Austrálie"
+      },
+      "cym": {
+        "official": "Cymanwlad Awstralia",
+        "common": "Awstralia"
+      },
+      "deu": {
+        "official": "Commonwealth Australien",
+        "common": "Australien"
+      },
+      "est": {
+        "official": "Austraalia Ühendus",
+        "common": "Austraalia"
+      },
+      "fin": {
+        "official": "Australian liittovaltio",
+        "common": "Australia"
+      },
+      "fra": {
+        "official": "Australie",
+        "common": "Australie"
+      },
+      "hrv": {
+        "official": "Commonwealth of Australia",
+        "common": "Australija"
+      },
+      "hun": {
+        "official": "Ausztrál Államszövetség",
+        "common": "Ausztrália"
+      },
+      "ita": {
+        "official": "Commonwealth dell'Australia",
+        "common": "Australia"
+      },
+      "jpn": {
+        "official": "オーストラリア連邦",
+        "common": "オーストラリア"
+      },
+      "kor": {
+        "official": "오스트레일리아 연방",
+        "common": "호주"
+      },
+      "nld": {
+        "official": "Gemenebest van Australië",
+        "common": "Australië"
+      },
+      "per": {
+        "official": "قلمرو همسود استرالیا",
+        "common": "استرالیا"
+      },
+      "pol": {
+        "official": "Związek Australijski",
+        "common": "Australia"
+      },
+      "por": {
+        "official": "Comunidade da Austrália",
+        "common": "Austrália"
+      },
+      "rus": {
+        "official": "Содружество Австралии",
+        "common": "Австралия"
+      },
+      "slk": {
+        "official": "Austrálsky zväz",
+        "common": "Austrália"
+      },
+      "spa": {
+        "official": "Mancomunidad de Australia",
+        "common": "Australia"
+      },
+      "srp": {
+        "official": "Комонвелт Аустралија",
+        "common": "Аустралија"
+      },
+      "swe": {
+        "official": "Australiska statsförbundet",
+        "common": "Australien"
+      },
+      "tur": {
+        "official": "Avustralya Federal Devleti",
+        "common": "Avustralya"
+      },
+      "urd": {
+        "official": "دولتِ مشترکہ آسٹریلیا",
+        "common": "آسٹریلیا"
+      },
+      "zho": {
+        "official": "澳大利亚联邦",
+        "common": "澳大利亚"
+      }
+    },
+    "latlng": [
+      -27.0,
+      133.0
+    ],
+    "landlocked": false,
+    "area": 7692024.0,
+    "demonyms": {
+      "eng": {
+        "f": "Australian",
+        "m": "Australian"
+      },
+      "fra": {
+        "f": "Australienne",
+        "m": "Australien"
+      }
+    },
+    "flag": "\uD83C\uDDE6\uD83C\uDDFA",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/DcjaDa7UbhnZTndH6",
+      "openStreetMaps": "https://www.openstreetmap.org/relation/80500"
+    },
+    "population": 25687041,
+    "gini": {
+      "2014": 34.4
+    },
+    "fifa": "AUS",
+    "car": {
+      "signs": [
+        "AUS"
+      ],
+      "side": "left"
+    },
+    "timezones": [
+      "UTC+05:00",
+      "UTC+06:30",
+      "UTC+07:00",
+      "UTC+08:00",
+      "UTC+09:30",
+      "UTC+10:00",
+      "UTC+10:30",
+      "UTC+11:30"
+    ],
+    "continents": [
+      "Oceania"
+    ],
+    "flags": {
+      "png": "https://flagcdn.com/w320/au.png",
+      "svg": "https://flagcdn.com/au.svg",
+      "alt": "The flag of Australia has a dark blue field. It features the flag of the United Kingdom — the Union Jack — in the canton, beneath which is a large white seven-pointed star. A representation of the Southern Cross constellation, made up of one small five-pointed and four larger seven-pointed white stars, is situated on the fly side of the field."
+    },
+    "coatOfArms": {
+      "png": "https://mainfacts.com/media/images/coats_of_arms/au.png",
+      "svg": "https://mainfacts.com/media/images/coats_of_arms/au.svg"
+    },
+    "startOfWeek": "monday",
+    "capitalInfo": {
+      "latlng": [
+        -35.27,
+        149.13
+      ]
+    },
+    "postalCode": {
+      "format": "####",
+      "regex": "^(\\d{4})$"
+    }
+  },
+  {
+    "name": {
+      "common": "Germany",
+      "official": "Federal Republic of Germany",
+      "nativeName": {
+        "deu": {
+          "official": "Bundesrepublik Deutschland",
+          "common": "Deutschland"
+        }
+      }
+    },
+    "tld": [
+      ".de"
+    ],
+    "cca2": "DE",
+    "ccn3": "276",
+    "cca3": "DEU",
+    "cioc": "GER",
+    "independent": true,
+    "status": "officially-assigned",
+    "unMember": true,
+    "currencies": {
+      "EUR": {
+        "name": "Euro",
+        "symbol": "€"
+      }
+    },
+    "idd": {
+      "root": "+4",
+      "suffixes": [
+        "9"
+      ]
+    },
+    "capital": [
+      "Berlin"
+    ],
+    "altSpellings": [
+      "DE",
+      "Federal Republic of Germany",
+      "Bundesrepublik Deutschland"
+    ],
+    "region": "Europe",
+    "subregion": "Western Europe",
+    "languages": {
+      "deu": "German"
+    },
+    "translations": {
+      "ara": {
+        "official": "جمهورية ألمانيا الاتحادية",
+        "common": "ألمانيا"
+      },
+      "bre": {
+        "official": "Republik Kevreadel Alamagn",
+        "common": "Alamagn"
+      },
+      "ces": {
+        "official": "Spolková republika Německo",
+        "common": "Německo"
+      },
+      "cym": {
+        "official": "Federal Republic of Germany",
+        "common": "Germany"
+      },
+      "deu": {
+        "official": "Bundesrepublik Deutschland",
+        "common": "Deutschland"
+      },
+      "est": {
+        "official": "Saksamaa Liitvabariik",
+        "common": "Saksamaa"
+      },
+      "fin": {
+        "official": "Saksan liittotasavalta",
+        "common": "Saksa"
+      },
+      "fra": {
+        "official": "République fédérale d'Allemagne",
+        "common": "Allemagne"
+      },
+      "hrv": {
+        "official": "Njemačka Federativna Republika",
+        "common": "Njemačka"
+      },
+      "hun": {
+        "official": "Német Szövetségi Köztársaság",
+        "common": "Németország"
+      },
+      "ita": {
+        "official": "Repubblica federale di Germania",
+        "common": "Germania"
+      },
+      "jpn": {
+        "official": "ドイツ連邦共和国",
+        "common": "ドイツ"
+      },
+      "kor": {
+        "official": "독일 연방 공화국",
+        "common": "독일"
+      },
+      "nld": {
+        "official": "Bondsrepubliek Duitsland",
+        "common": "Duitsland"
+      },
+      "per": {
+        "official": "جمهوری فدرال آلمان",
+        "common": "آلمان"
+      },
+      "pol": {
+        "official": "Republika Federalna Niemiec",
+        "common": "Niemcy"
+      },
+      "por": {
+        "official": "República Federal da Alemanha",
+        "common": "Alemanha"
+      },
+      "rus": {
+        "official": "Федеративная Республика Германия",
+        "common": "Германия"
+      },
+      "slk": {
+        "official": "Nemecká spolková republika",
+        "common": "Nemecko"
+      },
+      "spa": {
+        "official": "República Federal de Alemania",
+        "common": "Alemania"
+      },
+      "srp": {
+        "official": "Савезна Република Немачка",
+        "common": "Немачка"
+      },
+      "swe": {
+        "official": "Förbundsrepubliken Tyskland",
+        "common": "Tyskland"
+      },
+      "tur": {
+        "official": "Almanya Federal Cumhuriyeti",
+        "common": "Almanya"
+      },
+      "urd": {
+        "official": "وفاقی جمہوریہ جرمنی",
+        "common": "جرمنی"
+      },
+      "zho": {
+        "official": "德意志联邦共和国",
+        "common": "德国"
+      }
+    },
+    "latlng": [
+      51.0,
+      9.0
+    ],
+    "landlocked": false,
+    "borders": [
+      "AUT",
+      "BEL",
+      "CZE",
+      "DNK",
+      "FRA",
+      "LUX",
+      "NLD",
+      "POL",
+      "CHE"
+    ],
+    "area": 357114.0,
+    "demonyms": {
+      "eng": {
+        "f": "German",
+        "m": "German"
+      },
+      "fra": {
+        "f": "Allemande",
+        "m": "Allemand"
+      }
+    },
+    "flag": "\uD83C\uDDE9\uD83C\uDDEA",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/mD9FBMq1nvXUBrkv6",
+      "openStreetMaps": "https://www.openstreetmap.org/relation/51477"
+    },
+    "population": 83240525,
+    "gini": {
+      "2016": 31.9
+    },
+    "fifa": "GER",
+    "car": {
+      "signs": [
+        "DY"
+      ],
+      "side": "right"
+    },
+    "timezones": [
+      "UTC+01:00"
+    ],
+    "continents": [
+      "Europe"
+    ],
+    "flags": {
+      "png": "https://flagcdn.com/w320/de.png",
+      "svg": "https://flagcdn.com/de.svg",
+      "alt": "The flag of Germany is composed of three equal horizontal bands of black, red and gold."
+    },
+    "coatOfArms": {
+      "png": "https://mainfacts.com/media/images/coats_of_arms/de.png",
+      "svg": "https://mainfacts.com/media/images/coats_of_arms/de.svg"
+    },
+    "startOfWeek": "monday",
+    "capitalInfo": {
+      "latlng": [
+        52.52,
+        13.4
+      ]
+    },
+    "postalCode": {
+      "format": "#####",
+      "regex": "^(\\d{5})$"
+    }
+  },
+  {
+    "name": {
+      "common": "France",
+      "official": "French Republic",
+      "nativeName": {
+        "fra": {
+          "official": "République française",
+          "common": "France"
+        }
+      }
+    },
+    "tld": [
+      ".fr"
+    ],
+    "cca2": "FR",
+    "ccn3": "250",
+    "cca3": "FRA",
+    "cioc": "FRA",
+    "independent": true,
+    "status": "officially-assigned",
+    "unMember": true,
+    "currencies": {
+      "EUR": {
+        "name": "Euro",
+        "symbol": "€"
+      }
+    },
+    "idd": {
+      "root": "+3",
+      "suffixes": [
+        "3"
+      ]
+    },
+    "capital": [
+      "Paris"
+    ],
+    "altSpellings": [
+      "FR",
+      "French Republic",
+      "République française"
+    ],
+    "region": "Europe",
+    "subregion": "Western Europe",
+    "languages": {
+      "fra": "French"
+    },
+    "translations": {
+      "ara": {
+        "official": "الجمهورية الفرنسية",
+        "common": "فرنسا"
+      },
+      "bre": {
+        "official": "Republik Frañs",
+        "common": "Frañs"
+      },
+      "ces": {
+        "official": "Francouzská republika",
+        "common": "Francie"
+      },
+      "cym": {
+        "official": "French Republic",
+        "common": "France"
+      },
+      "deu": {
+        "official": "Französische Republik",
+        "common": "Frankreich"
+      },
+      "est": {
+        "official": "Prantsuse Vabariik",
+        "common": "Prantsusmaa"
+      },
+      "fin": {
+        "official": "Ranskan tasavalta",
+        "common": "Ranska"
+      },
+      "fra": {
+        "official": "République française",
+        "common": "France"
+      },
+      "hrv": {
+        "official": "Francuska Republika",
+        "common": "Francuska"
+      },
+      "hun": {
+        "official": "Francia Köztársaság",
+        "common": "Franciaország"
+      },
+      "ita": {
+        "official": "Repubblica francese",
+        "common": "Francia"
+      },
+      "jpn": {
+        "official": "フランス共和国",
+        "common": "フランス"
+      },
+      "kor": {
+        "official": "프랑스 공화국",
+        "common": "프랑스"
+      },
+      "nld": {
+        "official": "Franse Republiek",
+        "common": "Frankrijk"
+      },
+      "per": {
+        "official": "جمهوری فرانسه",
+        "common": "فرانسه"
+      },
+      "pol": {
+        "official": "Republika Francuska",
+        "common": "Francja"
+      },
+      "por": {
+        "official": "República Francesa",
+        "common": "França"
+      },
+      "rus": {
+        "official": "Французская Республика",
+        "common": "Франция"
+      },
+      "slk": {
+        "official": "Francúzska republika",
+        "common": "Francúzsko"
+      },
+      "spa": {
+        "official": "República francés",
+        "common": "Francia"
+      },
+      "srp": {
+        "official": "Француска Република",
+        "common": "Француска"
+      },
+      "swe": {
+        "official": "Republiken Frankrike",
+        "common": "Frankrike"
+      },
+      "tur": {
+        "official": "Fransa Cumhuriyeti",
+        "common": "Fransa"
+      },
+      "urd": {
+        "official": "جمہوریہ فرانس",
+        "common": "فرانس"
+      },
+      "zho": {
+        "official": "法兰西共和国",
+        "common": "法国"
+      }
+    },
+    "latlng": [
+      46.0,
+      2.0
+    ],
+    "landlocked": false,
+    "borders": [
+      "AND",
+      "BEL",
+      "DEU",
+      "ITA",
+      "LUX",
+      "MCO",
+      "ESP",
+      "CHE"
+    ],
+    "area": 551695.0,
+    "demonyms": {
+      "eng": {
+        "f": "French",
+        "m": "French"
+      },
+      "fra": {
+        "f": "Française",
+        "m": "Français"
+      }
+    },
+    "flag": "\uD83C\uDDEB\uD83C\uDDF7",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/g7QxxSFsWyTPKuzd7",
+      "openStreetMaps": "https://www.openstreetmap.org/relation/1403916"
+    },
+    "population": 67391582,
+    "gini": {
+      "2018": 32.4
+    },
+    "fifa": "FRA",
+    "car": {
+      "signs": [
+        "F"
+      ],
+      "side": "right"
+    },
+    "timezones": [
+      "UTC-10:00",
+      "UTC-09:30",
+      "UTC-09:00",
+      "UTC-08:00",
+      "UTC-04:00",
+      "UTC-03:00",
+      "UTC+01:00",
+      "UTC+02:00",
+      "UTC+03:00",
+      "UTC+04:00",
+      "UTC+05:00",
+      "UTC+10:00",
+      "UTC+11:00",
+      "UTC+12:00"
+    ],
+    "continents": [
+      "Europe"
+    ],
+    "flags": {
+      "png": "https://flagcdn.com/w320/fr.png",
+      "svg": "https://flagcdn.com/fr.svg",
+      "alt": "The flag of France is composed of three equal vertical bands of blue, white and red."
+    },
+    "coatOfArms": {
+      "png": "https://mainfacts.com/media/images/coats_of_arms/fr.png",
+      "svg": "https://mainfacts.com/media/images/coats_of_arms/fr.svg"
+    },
+    "startOfWeek": "monday",
+    "capitalInfo": {
+      "latlng": [
+        48.87,
+        2.33
+      ]
+    },
+    "postalCode": {
+      "format": "#####",
+      "regex": "^(\\d{5})$"
+    }
+  },
+  {
+    "name": {
+      "common": "Colombia",
+      "official": "Republic of Colombia",
+      "nativeName": {
+        "spa": {
+          "official": "República de Colombia",
+          "common": "Colombia"
+        }
+      }
+    },
+    "tld": [
+      ".co"
+    ],
+    "cca2": "CO",
+    "ccn3": "170",
+    "cca3": "COL",
+    "cioc": "COL",
+    "independent": true,
+    "status": "officially-assigned",
+    "unMember": true,
+    "currencies": {
+      "COP": {
+        "name": "Colombian peso",
+        "symbol": "$"
+      }
+    },
+    "idd": {
+      "root": "+5",
+      "suffixes": [
+        "7"
+      ]
+    },
+    "capital": [
+      "Bogotá"
+    ],
+    "altSpellings": [
+      "CO",
+      "Republic of Colombia",
+      "República de Colombia"
+    ],
+    "region": "Americas",
+    "subregion": "South America",
+    "languages": {
+      "spa": "Spanish"
+    },
+    "translations": {
+      "ara": {
+        "official": "جمهورية كولومبيا",
+        "common": "كولومبيا"
+      },
+      "bre": {
+        "official": "Republik Kolombia",
+        "common": "Kolombia"
+      },
+      "ces": {
+        "official": "Kolumbijská republika",
+        "common": "Kolumbie"
+      },
+      "cym": {
+        "official": "Gweriniaeth Colombia",
+        "common": "Colombia"
+      },
+      "deu": {
+        "official": "Republik Kolumbien",
+        "common": "Kolumbien"
+      },
+      "est": {
+        "official": "Colombia Vabariik",
+        "common": "Colombia"
+      },
+      "fin": {
+        "official": "Kolumbian tasavalta",
+        "common": "Kolumbia"
+      },
+      "fra": {
+        "official": "République de Colombie",
+        "common": "Colombie"
+      },
+      "hrv": {
+        "official": "Republika Kolumbija",
+        "common": "Kolumbija"
+      },
+      "hun": {
+        "official": "Kolumbiai Köztársaság",
+        "common": "Kolumbia"
+      },
+      "ita": {
+        "official": "Repubblica di Colombia",
+        "common": "Colombia"
+      },
+      "jpn": {
+        "official": "コロンビア共和国",
+        "common": "コロンビア"
+      },
+      "kor": {
+        "official": "콜롬비아 공화국",
+        "common": "콜롬비아"
+      },
+      "nld": {
+        "official": "Republiek Colombia",
+        "common": "Colombia"
+      },
+      "per": {
+        "official": "جمهوری کلمبیا",
+        "common": "کلمبیا"
+      },
+      "pol": {
+        "official": "Republika Kolumbii",
+        "common": "Kolumbia"
+      },
+      "por": {
+        "official": "República da Colômbia",
+        "common": "Colômbia"
+      },
+      "rus": {
+        "official": "Республика Колумбия",
+        "common": "Колумбия"
+      },
+      "slk": {
+        "official": "Kolumbijská republika",
+        "common": "Kolumbia"
+      },
+      "spa": {
+        "official": "República de Colombia",
+        "common": "Colombia"
+      },
+      "srp": {
+        "official": "Република Колумбија",
+        "common": "Колумбија"
+      },
+      "swe": {
+        "official": "Republiken Colombia",
+        "common": "Colombia"
+      },
+      "tur": {
+        "official": "Kolombiya Cumhuriyeti",
+        "common": "Kolombiya"
+      },
+      "urd": {
+        "official": "جمہوریہ کولمبیا",
+        "common": "کولمبیا"
+      },
+      "zho": {
+        "official": "哥伦比亚共和国",
+        "common": "哥伦比亚"
+      }
+    },
+    "latlng": [
+      4.0,
+      -72.0
+    ],
+    "landlocked": false,
+    "borders": [
+      "BRA",
+      "ECU",
+      "PAN",
+      "PER",
+      "VEN"
+    ],
+    "area": 1141748.0,
+    "demonyms": {
+      "eng": {
+        "f": "Colombian",
+        "m": "Colombian"
+      },
+      "fra": {
+        "f": "Colombienne",
+        "m": "Colombien"
+      }
+    },
+    "flag": "\uD83C\uDDE8\uD83C\uDDF4",
+    "maps": {
+      "googleMaps": "https://goo.gl/maps/RdwTG8e7gPwS62oR6",
+      "openStreetMaps": "https://www.openstreetmap.org/relation/120027"
+    },
+    "population": 50882884,
+    "gini": {
+      "2019": 51.3
+    },
+    "fifa": "COL",
+    "car": {
+      "signs": [
+        "CO"
+      ],
+      "side": "right"
+    },
+    "timezones": [
+      "UTC-05:00"
+    ],
+    "continents": [
+      "South America"
+    ],
+    "flags": {
+      "png": "https://flagcdn.com/w320/co.png",
+      "svg": "https://flagcdn.com/co.svg",
+      "alt": "The flag of Colombia is composed of three horizontal bands of yellow, blue and red, with the yellow band twice the height of the other two bands."
+    },
+    "coatOfArms": {
+      "png": "https://mainfacts.com/media/images/coats_of_arms/co.png",
+      "svg": "https://mainfacts.com/media/images/coats_of_arms/co.svg"
+    },
+    "startOfWeek": "monday",
+    "capitalInfo": {
+      "latlng": [
+        4.71,
+        -74.07
+      ]
+    }
+  },
+  {
+    "name": {
       "common": "Afghanistan",
       "official": "Islamic Republic of Afghanistan",
       "nativeName": {
@@ -865,224 +2489,7 @@
       "regex": "^(\\d{4})$"
     }
   },
-  {
-    "name": {
-      "common": "Germany",
-      "official": "Federal Republic of Germany",
-      "nativeName": {
-        "deu": {
-          "official": "Bundesrepublik Deutschland",
-          "common": "Deutschland"
-        }
-      }
-    },
-    "tld": [
-      ".de"
-    ],
-    "cca2": "DE",
-    "ccn3": "276",
-    "cca3": "DEU",
-    "cioc": "GER",
-    "independent": true,
-    "status": "officially-assigned",
-    "unMember": true,
-    "currencies": {
-      "EUR": {
-        "name": "Euro",
-        "symbol": "€"
-      }
-    },
-    "idd": {
-      "root": "+4",
-      "suffixes": [
-        "9"
-      ]
-    },
-    "capital": [
-      "Berlin"
-    ],
-    "altSpellings": [
-      "DE",
-      "Federal Republic of Germany",
-      "Bundesrepublik Deutschland"
-    ],
-    "region": "Europe",
-    "subregion": "Western Europe",
-    "languages": {
-      "deu": "German"
-    },
-    "translations": {
-      "ara": {
-        "official": "جمهورية ألمانيا الاتحادية",
-        "common": "ألمانيا"
-      },
-      "bre": {
-        "official": "Republik Kevreadel Alamagn",
-        "common": "Alamagn"
-      },
-      "ces": {
-        "official": "Spolková republika Německo",
-        "common": "Německo"
-      },
-      "cym": {
-        "official": "Federal Republic of Germany",
-        "common": "Germany"
-      },
-      "deu": {
-        "official": "Bundesrepublik Deutschland",
-        "common": "Deutschland"
-      },
-      "est": {
-        "official": "Saksamaa Liitvabariik",
-        "common": "Saksamaa"
-      },
-      "fin": {
-        "official": "Saksan liittotasavalta",
-        "common": "Saksa"
-      },
-      "fra": {
-        "official": "République fédérale d'Allemagne",
-        "common": "Allemagne"
-      },
-      "hrv": {
-        "official": "Njemačka Federativna Republika",
-        "common": "Njemačka"
-      },
-      "hun": {
-        "official": "Német Szövetségi Köztársaság",
-        "common": "Németország"
-      },
-      "ita": {
-        "official": "Repubblica federale di Germania",
-        "common": "Germania"
-      },
-      "jpn": {
-        "official": "ドイツ連邦共和国",
-        "common": "ドイツ"
-      },
-      "kor": {
-        "official": "독일 연방 공화국",
-        "common": "독일"
-      },
-      "nld": {
-        "official": "Bondsrepubliek Duitsland",
-        "common": "Duitsland"
-      },
-      "per": {
-        "official": "جمهوری فدرال آلمان",
-        "common": "آلمان"
-      },
-      "pol": {
-        "official": "Republika Federalna Niemiec",
-        "common": "Niemcy"
-      },
-      "por": {
-        "official": "República Federal da Alemanha",
-        "common": "Alemanha"
-      },
-      "rus": {
-        "official": "Федеративная Республика Германия",
-        "common": "Германия"
-      },
-      "slk": {
-        "official": "Nemecká spolková republika",
-        "common": "Nemecko"
-      },
-      "spa": {
-        "official": "República Federal de Alemania",
-        "common": "Alemania"
-      },
-      "srp": {
-        "official": "Савезна Република Немачка",
-        "common": "Немачка"
-      },
-      "swe": {
-        "official": "Förbundsrepubliken Tyskland",
-        "common": "Tyskland"
-      },
-      "tur": {
-        "official": "Almanya Federal Cumhuriyeti",
-        "common": "Almanya"
-      },
-      "urd": {
-        "official": "وفاقی جمہوریہ جرمنی",
-        "common": "جرمنی"
-      },
-      "zho": {
-        "official": "德意志联邦共和国",
-        "common": "德国"
-      }
-    },
-    "latlng": [
-      51.0,
-      9.0
-    ],
-    "landlocked": false,
-    "borders": [
-      "AUT",
-      "BEL",
-      "CZE",
-      "DNK",
-      "FRA",
-      "LUX",
-      "NLD",
-      "POL",
-      "CHE"
-    ],
-    "area": 357114.0,
-    "demonyms": {
-      "eng": {
-        "f": "German",
-        "m": "German"
-      },
-      "fra": {
-        "f": "Allemande",
-        "m": "Allemand"
-      }
-    },
-    "flag": "\uD83C\uDDE9\uD83C\uDDEA",
-    "maps": {
-      "googleMaps": "https://goo.gl/maps/mD9FBMq1nvXUBrkv6",
-      "openStreetMaps": "https://www.openstreetmap.org/relation/51477"
-    },
-    "population": 83240525,
-    "gini": {
-      "2016": 31.9
-    },
-    "fifa": "GER",
-    "car": {
-      "signs": [
-        "DY"
-      ],
-      "side": "right"
-    },
-    "timezones": [
-      "UTC+01:00"
-    ],
-    "continents": [
-      "Europe"
-    ],
-    "flags": {
-      "png": "https://flagcdn.com/w320/de.png",
-      "svg": "https://flagcdn.com/de.svg",
-      "alt": "The flag of Germany is composed of three equal horizontal bands of black, red and gold."
-    },
-    "coatOfArms": {
-      "png": "https://mainfacts.com/media/images/coats_of_arms/de.png",
-      "svg": "https://mainfacts.com/media/images/coats_of_arms/de.svg"
-    },
-    "startOfWeek": "monday",
-    "capitalInfo": {
-      "latlng": [
-        52.52,
-        13.4
-      ]
-    },
-    "postalCode": {
-      "format": "#####",
-      "regex": "^(\\d{5})$"
-    }
-  },
+
   {
     "name": {
       "common": "Lithuania",
@@ -7604,543 +9011,7 @@
       ]
     }
   },
-  {
-    "name": {
-      "common": "United States",
-      "official": "United States of America",
-      "nativeName": {
-        "eng": {
-          "official": "United States of America",
-          "common": "United States"
-        }
-      }
-    },
-    "tld": [
-      ".us"
-    ],
-    "cca2": "US",
-    "ccn3": "840",
-    "cca3": "USA",
-    "cioc": "USA",
-    "independent": true,
-    "status": "officially-assigned",
-    "unMember": true,
-    "currencies": {
-      "USD": {
-        "name": "United States dollar",
-        "symbol": "$"
-      }
-    },
-    "idd": {
-      "root": "+1",
-      "suffixes": [
-        "201",
-        "202",
-        "203",
-        "205",
-        "206",
-        "207",
-        "208",
-        "209",
-        "210",
-        "212",
-        "213",
-        "214",
-        "215",
-        "216",
-        "217",
-        "218",
-        "219",
-        "220",
-        "224",
-        "225",
-        "227",
-        "228",
-        "229",
-        "231",
-        "234",
-        "239",
-        "240",
-        "248",
-        "251",
-        "252",
-        "253",
-        "254",
-        "256",
-        "260",
-        "262",
-        "267",
-        "269",
-        "270",
-        "272",
-        "274",
-        "276",
-        "281",
-        "283",
-        "301",
-        "302",
-        "303",
-        "304",
-        "305",
-        "307",
-        "308",
-        "309",
-        "310",
-        "312",
-        "313",
-        "314",
-        "315",
-        "316",
-        "317",
-        "318",
-        "319",
-        "320",
-        "321",
-        "323",
-        "325",
-        "327",
-        "330",
-        "331",
-        "334",
-        "336",
-        "337",
-        "339",
-        "346",
-        "347",
-        "351",
-        "352",
-        "360",
-        "361",
-        "364",
-        "380",
-        "385",
-        "386",
-        "401",
-        "402",
-        "404",
-        "405",
-        "406",
-        "407",
-        "408",
-        "409",
-        "410",
-        "412",
-        "413",
-        "414",
-        "415",
-        "417",
-        "419",
-        "423",
-        "424",
-        "425",
-        "430",
-        "432",
-        "434",
-        "435",
-        "440",
-        "442",
-        "443",
-        "447",
-        "458",
-        "463",
-        "464",
-        "469",
-        "470",
-        "475",
-        "478",
-        "479",
-        "480",
-        "484",
-        "501",
-        "502",
-        "503",
-        "504",
-        "505",
-        "507",
-        "508",
-        "509",
-        "510",
-        "512",
-        "513",
-        "515",
-        "516",
-        "517",
-        "518",
-        "520",
-        "530",
-        "531",
-        "534",
-        "539",
-        "540",
-        "541",
-        "551",
-        "559",
-        "561",
-        "562",
-        "563",
-        "564",
-        "567",
-        "570",
-        "571",
-        "573",
-        "574",
-        "575",
-        "580",
-        "585",
-        "586",
-        "601",
-        "602",
-        "603",
-        "605",
-        "606",
-        "607",
-        "608",
-        "609",
-        "610",
-        "612",
-        "614",
-        "615",
-        "616",
-        "617",
-        "618",
-        "619",
-        "620",
-        "623",
-        "626",
-        "628",
-        "629",
-        "630",
-        "631",
-        "636",
-        "641",
-        "646",
-        "650",
-        "651",
-        "657",
-        "660",
-        "661",
-        "662",
-        "667",
-        "669",
-        "678",
-        "681",
-        "682",
-        "701",
-        "702",
-        "703",
-        "704",
-        "706",
-        "707",
-        "708",
-        "712",
-        "713",
-        "714",
-        "715",
-        "716",
-        "717",
-        "718",
-        "719",
-        "720",
-        "724",
-        "725",
-        "727",
-        "730",
-        "731",
-        "732",
-        "734",
-        "737",
-        "740",
-        "743",
-        "747",
-        "754",
-        "757",
-        "760",
-        "762",
-        "763",
-        "765",
-        "769",
-        "770",
-        "772",
-        "773",
-        "774",
-        "775",
-        "779",
-        "781",
-        "785",
-        "786",
-        "801",
-        "802",
-        "803",
-        "804",
-        "805",
-        "806",
-        "808",
-        "810",
-        "812",
-        "813",
-        "814",
-        "815",
-        "816",
-        "817",
-        "818",
-        "828",
-        "830",
-        "831",
-        "832",
-        "843",
-        "845",
-        "847",
-        "848",
-        "850",
-        "854",
-        "856",
-        "857",
-        "858",
-        "859",
-        "860",
-        "862",
-        "863",
-        "864",
-        "865",
-        "870",
-        "872",
-        "878",
-        "901",
-        "903",
-        "904",
-        "906",
-        "907",
-        "908",
-        "909",
-        "910",
-        "912",
-        "913",
-        "914",
-        "915",
-        "916",
-        "917",
-        "918",
-        "919",
-        "920",
-        "925",
-        "928",
-        "929",
-        "930",
-        "931",
-        "934",
-        "936",
-        "937",
-        "938",
-        "940",
-        "941",
-        "947",
-        "949",
-        "951",
-        "952",
-        "954",
-        "956",
-        "959",
-        "970",
-        "971",
-        "972",
-        "973",
-        "975",
-        "978",
-        "979",
-        "980",
-        "984",
-        "985",
-        "989"
-      ]
-    },
-    "capital": [
-      "Washington, D.C."
-    ],
-    "altSpellings": [
-      "US",
-      "USA",
-      "United States of America"
-    ],
-    "region": "Americas",
-    "subregion": "North America",
-    "languages": {
-      "eng": "English"
-    },
-    "translations": {
-      "ara": {
-        "official": "الولايات المتحدة الامريكية",
-        "common": "الولايات المتحدة"
-      },
-      "bre": {
-        "official": "Stadoù-Unanet Amerika",
-        "common": "Stadoù-Unanet"
-      },
-      "ces": {
-        "official": "Spojené státy americké",
-        "common": "Spojené státy"
-      },
-      "cym": {
-        "official": "United States of America",
-        "common": "United States"
-      },
-      "deu": {
-        "official": "Vereinigte Staaten von Amerika",
-        "common": "Vereinigte Staaten"
-      },
-      "est": {
-        "official": "Ameerika Ühendriigid",
-        "common": "Ameerika Ühendriigid"
-      },
-      "fin": {
-        "official": "Amerikan yhdysvallat",
-        "common": "Yhdysvallat"
-      },
-      "fra": {
-        "official": "Les états-unis d'Amérique",
-        "common": "États-Unis"
-      },
-      "hrv": {
-        "official": "Sjedinjene Države Amerike",
-        "common": "Sjedinjene Američke Države"
-      },
-      "hun": {
-        "official": "Amerikai Egyesült Államok",
-        "common": "Amerikai Egyesült Államok"
-      },
-      "ita": {
-        "official": "Stati Uniti d'America",
-        "common": "Stati Uniti d'America"
-      },
-      "jpn": {
-        "official": "アメリカ合衆国",
-        "common": "アメリカ合衆国"
-      },
-      "kor": {
-        "official": "아메리카 합중국",
-        "common": "미국"
-      },
-      "nld": {
-        "official": "Verenigde Staten van Amerika",
-        "common": "Verenigde Staten"
-      },
-      "per": {
-        "official": "ایالات متحده آمریکا",
-        "common": "ایالات متحده آمریکا"
-      },
-      "pol": {
-        "official": "Stany Zjednoczone Ameryki",
-        "common": "Stany Zjednoczone"
-      },
-      "por": {
-        "official": "Estados Unidos da América",
-        "common": "Estados Unidos"
-      },
-      "rus": {
-        "official": "Соединенные Штаты Америки",
-        "common": "Соединённые Штаты Америки"
-      },
-      "slk": {
-        "official": "Spojené štáty Americké",
-        "common": "Spojené štáty americké"
-      },
-      "spa": {
-        "official": "Estados Unidos de América",
-        "common": "Estados Unidos"
-      },
-      "srp": {
-        "official": "Сједињене Америчке Државе",
-        "common": "Сједињене Америчке Државе"
-      },
-      "swe": {
-        "official": "Amerikas förenta stater",
-        "common": "USA"
-      },
-      "tur": {
-        "official": "Amerika Birleşik Devletleri",
-        "common": "Amerika Birleşik Devletleri"
-      },
-      "urd": {
-        "official": "ریاستہائے متحدہ امریکا",
-        "common": "ریاستہائے متحدہ"
-      },
-      "zho": {
-        "official": "美利坚合众国",
-        "common": "美国"
-      }
-    },
-    "latlng": [
-      38.0,
-      -97.0
-    ],
-    "landlocked": false,
-    "borders": [
-      "CAN",
-      "MEX"
-    ],
-    "area": 9372610.0,
-    "demonyms": {
-      "eng": {
-        "f": "American",
-        "m": "American"
-      },
-      "fra": {
-        "f": "Américaine",
-        "m": "Américain"
-      }
-    },
-    "flag": "\uD83C\uDDFA\uD83C\uDDF8",
-    "maps": {
-      "googleMaps": "https://goo.gl/maps/e8M246zY4BSjkjAv6",
-      "openStreetMaps": "https://www.openstreetmap.org/relation/148838#map=2/20.6/-85.8"
-    },
-    "population": 329484123,
-    "gini": {
-      "2018": 41.4
-    },
-    "fifa": "USA",
-    "car": {
-      "signs": [
-        "USA"
-      ],
-      "side": "right"
-    },
-    "timezones": [
-      "UTC-12:00",
-      "UTC-11:00",
-      "UTC-10:00",
-      "UTC-09:00",
-      "UTC-08:00",
-      "UTC-07:00",
-      "UTC-06:00",
-      "UTC-05:00",
-      "UTC-04:00",
-      "UTC+10:00",
-      "UTC+12:00"
-    ],
-    "continents": [
-      "North America"
-    ],
-    "flags": {
-      "png": "https://flagcdn.com/w320/us.png",
-      "svg": "https://flagcdn.com/us.svg",
-      "alt": "The flag of the United States of America is composed of thirteen equal horizontal bands of red alternating with white. A blue rectangle, bearing fifty small five-pointed white stars arranged in nine rows where rows of six stars alternate with rows of five stars, is superimposed in the canton."
-    },
-    "coatOfArms": {
-      "png": "https://mainfacts.com/media/images/coats_of_arms/us.png",
-      "svg": "https://mainfacts.com/media/images/coats_of_arms/us.svg"
-    },
-    "startOfWeek": "sunday",
-    "capitalInfo": {
-      "latlng": [
-        38.89,
-        -77.05
-      ]
-    },
-    "postalCode": {
-      "format": "#####-####",
-      "regex": "^\\d{5}(-\\d{4})?$"
-    }
-  },
+
   {
     "name": {
       "common": "Cayman Islands",
@@ -25931,218 +26802,7 @@
       "regex": "^([A-Z]{2}\\d{2})$"
     }
   },
-  {
-    "name": {
-      "common": "Australia",
-      "official": "Commonwealth of Australia",
-      "nativeName": {
-        "eng": {
-          "official": "Commonwealth of Australia",
-          "common": "Australia"
-        }
-      }
-    },
-    "tld": [
-      ".au"
-    ],
-    "cca2": "AU",
-    "ccn3": "036",
-    "cca3": "AUS",
-    "cioc": "AUS",
-    "independent": true,
-    "status": "officially-assigned",
-    "unMember": true,
-    "currencies": {
-      "AUD": {
-        "name": "Australian dollar",
-        "symbol": "$"
-      }
-    },
-    "idd": {
-      "root": "+6",
-      "suffixes": [
-        "1"
-      ]
-    },
-    "capital": [
-      "Canberra"
-    ],
-    "altSpellings": [
-      "AU"
-    ],
-    "region": "Oceania",
-    "subregion": "Australia and New Zealand",
-    "languages": {
-      "eng": "English"
-    },
-    "translations": {
-      "ara": {
-        "official": "كومونولث أستراليا",
-        "common": "أستراليا"
-      },
-      "bre": {
-        "official": "Kenglad Aostralia",
-        "common": "Aostralia"
-      },
-      "ces": {
-        "official": "Australské společenství",
-        "common": "Austrálie"
-      },
-      "cym": {
-        "official": "Cymanwlad Awstralia",
-        "common": "Awstralia"
-      },
-      "deu": {
-        "official": "Commonwealth Australien",
-        "common": "Australien"
-      },
-      "est": {
-        "official": "Austraalia Ühendus",
-        "common": "Austraalia"
-      },
-      "fin": {
-        "official": "Australian liittovaltio",
-        "common": "Australia"
-      },
-      "fra": {
-        "official": "Australie",
-        "common": "Australie"
-      },
-      "hrv": {
-        "official": "Commonwealth of Australia",
-        "common": "Australija"
-      },
-      "hun": {
-        "official": "Ausztrál Államszövetség",
-        "common": "Ausztrália"
-      },
-      "ita": {
-        "official": "Commonwealth dell'Australia",
-        "common": "Australia"
-      },
-      "jpn": {
-        "official": "オーストラリア連邦",
-        "common": "オーストラリア"
-      },
-      "kor": {
-        "official": "오스트레일리아 연방",
-        "common": "호주"
-      },
-      "nld": {
-        "official": "Gemenebest van Australië",
-        "common": "Australië"
-      },
-      "per": {
-        "official": "قلمرو همسود استرالیا",
-        "common": "استرالیا"
-      },
-      "pol": {
-        "official": "Związek Australijski",
-        "common": "Australia"
-      },
-      "por": {
-        "official": "Comunidade da Austrália",
-        "common": "Austrália"
-      },
-      "rus": {
-        "official": "Содружество Австралии",
-        "common": "Австралия"
-      },
-      "slk": {
-        "official": "Austrálsky zväz",
-        "common": "Austrália"
-      },
-      "spa": {
-        "official": "Mancomunidad de Australia",
-        "common": "Australia"
-      },
-      "srp": {
-        "official": "Комонвелт Аустралија",
-        "common": "Аустралија"
-      },
-      "swe": {
-        "official": "Australiska statsförbundet",
-        "common": "Australien"
-      },
-      "tur": {
-        "official": "Avustralya Federal Devleti",
-        "common": "Avustralya"
-      },
-      "urd": {
-        "official": "دولتِ مشترکہ آسٹریلیا",
-        "common": "آسٹریلیا"
-      },
-      "zho": {
-        "official": "澳大利亚联邦",
-        "common": "澳大利亚"
-      }
-    },
-    "latlng": [
-      -27.0,
-      133.0
-    ],
-    "landlocked": false,
-    "area": 7692024.0,
-    "demonyms": {
-      "eng": {
-        "f": "Australian",
-        "m": "Australian"
-      },
-      "fra": {
-        "f": "Australienne",
-        "m": "Australien"
-      }
-    },
-    "flag": "\uD83C\uDDE6\uD83C\uDDFA",
-    "maps": {
-      "googleMaps": "https://goo.gl/maps/DcjaDa7UbhnZTndH6",
-      "openStreetMaps": "https://www.openstreetmap.org/relation/80500"
-    },
-    "population": 25687041,
-    "gini": {
-      "2014": 34.4
-    },
-    "fifa": "AUS",
-    "car": {
-      "signs": [
-        "AUS"
-      ],
-      "side": "left"
-    },
-    "timezones": [
-      "UTC+05:00",
-      "UTC+06:30",
-      "UTC+07:00",
-      "UTC+08:00",
-      "UTC+09:30",
-      "UTC+10:00",
-      "UTC+10:30",
-      "UTC+11:30"
-    ],
-    "continents": [
-      "Oceania"
-    ],
-    "flags": {
-      "png": "https://flagcdn.com/w320/au.png",
-      "svg": "https://flagcdn.com/au.svg",
-      "alt": "The flag of Australia has a dark blue field. It features the flag of the United Kingdom — the Union Jack — in the canton, beneath which is a large white seven-pointed star. A representation of the Southern Cross constellation, made up of one small five-pointed and four larger seven-pointed white stars, is situated on the fly side of the field."
-    },
-    "coatOfArms": {
-      "png": "https://mainfacts.com/media/images/coats_of_arms/au.png",
-      "svg": "https://mainfacts.com/media/images/coats_of_arms/au.svg"
-    },
-    "startOfWeek": "monday",
-    "capitalInfo": {
-      "latlng": [
-        -35.27,
-        149.13
-      ]
-    },
-    "postalCode": {
-      "format": "####",
-      "regex": "^(\\d{4})$"
-    }
-  },
+
   {
     "name": {
       "common": "Bangladesh",
@@ -33318,236 +33978,7 @@
       ]
     }
   },
-  {
-    "name": {
-      "common": "France",
-      "official": "French Republic",
-      "nativeName": {
-        "fra": {
-          "official": "République française",
-          "common": "France"
-        }
-      }
-    },
-    "tld": [
-      ".fr"
-    ],
-    "cca2": "FR",
-    "ccn3": "250",
-    "cca3": "FRA",
-    "cioc": "FRA",
-    "independent": true,
-    "status": "officially-assigned",
-    "unMember": true,
-    "currencies": {
-      "EUR": {
-        "name": "Euro",
-        "symbol": "€"
-      }
-    },
-    "idd": {
-      "root": "+3",
-      "suffixes": [
-        "3"
-      ]
-    },
-    "capital": [
-      "Paris"
-    ],
-    "altSpellings": [
-      "FR",
-      "French Republic",
-      "République française"
-    ],
-    "region": "Europe",
-    "subregion": "Western Europe",
-    "languages": {
-      "fra": "French"
-    },
-    "translations": {
-      "ara": {
-        "official": "الجمهورية الفرنسية",
-        "common": "فرنسا"
-      },
-      "bre": {
-        "official": "Republik Frañs",
-        "common": "Frañs"
-      },
-      "ces": {
-        "official": "Francouzská republika",
-        "common": "Francie"
-      },
-      "cym": {
-        "official": "French Republic",
-        "common": "France"
-      },
-      "deu": {
-        "official": "Französische Republik",
-        "common": "Frankreich"
-      },
-      "est": {
-        "official": "Prantsuse Vabariik",
-        "common": "Prantsusmaa"
-      },
-      "fin": {
-        "official": "Ranskan tasavalta",
-        "common": "Ranska"
-      },
-      "fra": {
-        "official": "République française",
-        "common": "France"
-      },
-      "hrv": {
-        "official": "Francuska Republika",
-        "common": "Francuska"
-      },
-      "hun": {
-        "official": "Francia Köztársaság",
-        "common": "Franciaország"
-      },
-      "ita": {
-        "official": "Repubblica francese",
-        "common": "Francia"
-      },
-      "jpn": {
-        "official": "フランス共和国",
-        "common": "フランス"
-      },
-      "kor": {
-        "official": "프랑스 공화국",
-        "common": "프랑스"
-      },
-      "nld": {
-        "official": "Franse Republiek",
-        "common": "Frankrijk"
-      },
-      "per": {
-        "official": "جمهوری فرانسه",
-        "common": "فرانسه"
-      },
-      "pol": {
-        "official": "Republika Francuska",
-        "common": "Francja"
-      },
-      "por": {
-        "official": "República Francesa",
-        "common": "França"
-      },
-      "rus": {
-        "official": "Французская Республика",
-        "common": "Франция"
-      },
-      "slk": {
-        "official": "Francúzska republika",
-        "common": "Francúzsko"
-      },
-      "spa": {
-        "official": "República francés",
-        "common": "Francia"
-      },
-      "srp": {
-        "official": "Француска Република",
-        "common": "Француска"
-      },
-      "swe": {
-        "official": "Republiken Frankrike",
-        "common": "Frankrike"
-      },
-      "tur": {
-        "official": "Fransa Cumhuriyeti",
-        "common": "Fransa"
-      },
-      "urd": {
-        "official": "جمہوریہ فرانس",
-        "common": "فرانس"
-      },
-      "zho": {
-        "official": "法兰西共和国",
-        "common": "法国"
-      }
-    },
-    "latlng": [
-      46.0,
-      2.0
-    ],
-    "landlocked": false,
-    "borders": [
-      "AND",
-      "BEL",
-      "DEU",
-      "ITA",
-      "LUX",
-      "MCO",
-      "ESP",
-      "CHE"
-    ],
-    "area": 551695.0,
-    "demonyms": {
-      "eng": {
-        "f": "French",
-        "m": "French"
-      },
-      "fra": {
-        "f": "Française",
-        "m": "Français"
-      }
-    },
-    "flag": "\uD83C\uDDEB\uD83C\uDDF7",
-    "maps": {
-      "googleMaps": "https://goo.gl/maps/g7QxxSFsWyTPKuzd7",
-      "openStreetMaps": "https://www.openstreetmap.org/relation/1403916"
-    },
-    "population": 67391582,
-    "gini": {
-      "2018": 32.4
-    },
-    "fifa": "FRA",
-    "car": {
-      "signs": [
-        "F"
-      ],
-      "side": "right"
-    },
-    "timezones": [
-      "UTC-10:00",
-      "UTC-09:30",
-      "UTC-09:00",
-      "UTC-08:00",
-      "UTC-04:00",
-      "UTC-03:00",
-      "UTC+01:00",
-      "UTC+02:00",
-      "UTC+03:00",
-      "UTC+04:00",
-      "UTC+05:00",
-      "UTC+10:00",
-      "UTC+11:00",
-      "UTC+12:00"
-    ],
-    "continents": [
-      "Europe"
-    ],
-    "flags": {
-      "png": "https://flagcdn.com/w320/fr.png",
-      "svg": "https://flagcdn.com/fr.svg",
-      "alt": "The flag of France is composed of three equal vertical bands of blue, white and red."
-    },
-    "coatOfArms": {
-      "png": "https://mainfacts.com/media/images/coats_of_arms/fr.png",
-      "svg": "https://mainfacts.com/media/images/coats_of_arms/fr.svg"
-    },
-    "startOfWeek": "monday",
-    "capitalInfo": {
-      "latlng": [
-        48.87,
-        2.33
-      ]
-    },
-    "postalCode": {
-      "format": "#####",
-      "regex": "^(\\d{5})$"
-    }
-  },
+
   {
     "name": {
       "common": "Rwanda",
@@ -38139,216 +38570,7 @@
       ]
     }
   },
-  {
-    "name": {
-      "common": "Colombia",
-      "official": "Republic of Colombia",
-      "nativeName": {
-        "spa": {
-          "official": "República de Colombia",
-          "common": "Colombia"
-        }
-      }
-    },
-    "tld": [
-      ".co"
-    ],
-    "cca2": "CO",
-    "ccn3": "170",
-    "cca3": "COL",
-    "cioc": "COL",
-    "independent": true,
-    "status": "officially-assigned",
-    "unMember": true,
-    "currencies": {
-      "COP": {
-        "name": "Colombian peso",
-        "symbol": "$"
-      }
-    },
-    "idd": {
-      "root": "+5",
-      "suffixes": [
-        "7"
-      ]
-    },
-    "capital": [
-      "Bogotá"
-    ],
-    "altSpellings": [
-      "CO",
-      "Republic of Colombia",
-      "República de Colombia"
-    ],
-    "region": "Americas",
-    "subregion": "South America",
-    "languages": {
-      "spa": "Spanish"
-    },
-    "translations": {
-      "ara": {
-        "official": "جمهورية كولومبيا",
-        "common": "كولومبيا"
-      },
-      "bre": {
-        "official": "Republik Kolombia",
-        "common": "Kolombia"
-      },
-      "ces": {
-        "official": "Kolumbijská republika",
-        "common": "Kolumbie"
-      },
-      "cym": {
-        "official": "Gweriniaeth Colombia",
-        "common": "Colombia"
-      },
-      "deu": {
-        "official": "Republik Kolumbien",
-        "common": "Kolumbien"
-      },
-      "est": {
-        "official": "Colombia Vabariik",
-        "common": "Colombia"
-      },
-      "fin": {
-        "official": "Kolumbian tasavalta",
-        "common": "Kolumbia"
-      },
-      "fra": {
-        "official": "République de Colombie",
-        "common": "Colombie"
-      },
-      "hrv": {
-        "official": "Republika Kolumbija",
-        "common": "Kolumbija"
-      },
-      "hun": {
-        "official": "Kolumbiai Köztársaság",
-        "common": "Kolumbia"
-      },
-      "ita": {
-        "official": "Repubblica di Colombia",
-        "common": "Colombia"
-      },
-      "jpn": {
-        "official": "コロンビア共和国",
-        "common": "コロンビア"
-      },
-      "kor": {
-        "official": "콜롬비아 공화국",
-        "common": "콜롬비아"
-      },
-      "nld": {
-        "official": "Republiek Colombia",
-        "common": "Colombia"
-      },
-      "per": {
-        "official": "جمهوری کلمبیا",
-        "common": "کلمبیا"
-      },
-      "pol": {
-        "official": "Republika Kolumbii",
-        "common": "Kolumbia"
-      },
-      "por": {
-        "official": "República da Colômbia",
-        "common": "Colômbia"
-      },
-      "rus": {
-        "official": "Республика Колумбия",
-        "common": "Колумбия"
-      },
-      "slk": {
-        "official": "Kolumbijská republika",
-        "common": "Kolumbia"
-      },
-      "spa": {
-        "official": "República de Colombia",
-        "common": "Colombia"
-      },
-      "srp": {
-        "official": "Република Колумбија",
-        "common": "Колумбија"
-      },
-      "swe": {
-        "official": "Republiken Colombia",
-        "common": "Colombia"
-      },
-      "tur": {
-        "official": "Kolombiya Cumhuriyeti",
-        "common": "Kolombiya"
-      },
-      "urd": {
-        "official": "جمہوریہ کولمبیا",
-        "common": "کولمبیا"
-      },
-      "zho": {
-        "official": "哥伦比亚共和国",
-        "common": "哥伦比亚"
-      }
-    },
-    "latlng": [
-      4.0,
-      -72.0
-    ],
-    "landlocked": false,
-    "borders": [
-      "BRA",
-      "ECU",
-      "PAN",
-      "PER",
-      "VEN"
-    ],
-    "area": 1141748.0,
-    "demonyms": {
-      "eng": {
-        "f": "Colombian",
-        "m": "Colombian"
-      },
-      "fra": {
-        "f": "Colombienne",
-        "m": "Colombien"
-      }
-    },
-    "flag": "\uD83C\uDDE8\uD83C\uDDF4",
-    "maps": {
-      "googleMaps": "https://goo.gl/maps/RdwTG8e7gPwS62oR6",
-      "openStreetMaps": "https://www.openstreetmap.org/relation/120027"
-    },
-    "population": 50882884,
-    "gini": {
-      "2019": 51.3
-    },
-    "fifa": "COL",
-    "car": {
-      "signs": [
-        "CO"
-      ],
-      "side": "right"
-    },
-    "timezones": [
-      "UTC-05:00"
-    ],
-    "continents": [
-      "South America"
-    ],
-    "flags": {
-      "png": "https://flagcdn.com/w320/co.png",
-      "svg": "https://flagcdn.com/co.svg",
-      "alt": "The flag of Colombia is composed of three horizontal bands of yellow, blue and red, with the yellow band twice the height of the other two bands."
-    },
-    "coatOfArms": {
-      "png": "https://mainfacts.com/media/images/coats_of_arms/co.png",
-      "svg": "https://mainfacts.com/media/images/coats_of_arms/co.svg"
-    },
-    "startOfWeek": "monday",
-    "capitalInfo": {
-      "latlng": [
-        4.71,
-        -74.07
-      ]
-    }
-  },
+
   {
     "name": {
       "common": "Micronesia",
@@ -41086,223 +41308,7 @@
       ]
     }
   },
-  {
-    "name": {
-      "common": "United Kingdom",
-      "official": "United Kingdom of Great Britain and Northern Ireland",
-      "nativeName": {
-        "eng": {
-          "official": "United Kingdom of Great Britain and Northern Ireland",
-          "common": "United Kingdom"
-        }
-      }
-    },
-    "tld": [
-      ".uk"
-    ],
-    "cca2": "GB",
-    "ccn3": "826",
-    "cca3": "GBR",
-    "cioc": "GBR",
-    "independent": true,
-    "status": "officially-assigned",
-    "unMember": true,
-    "currencies": {
-      "GBP": {
-        "name": "British pound",
-        "symbol": "£"
-      }
-    },
-    "idd": {
-      "root": "+4",
-      "suffixes": [
-        "4"
-      ]
-    },
-    "capital": [
-      "London"
-    ],
-    "altSpellings": [
-      "GB",
-      "UK",
-      "Great Britain"
-    ],
-    "region": "Europe",
-    "subregion": "Northern Europe",
-    "languages": {
-      "eng": "English"
-    },
-    "translations": {
-      "ara": {
-        "official": "المملكة المتحدة لبريطانيا العظمى وايرلندا الشمالية",
-        "common": "المملكة المتحدة"
-      },
-      "bre": {
-        "official": "Rouantelezh-Unanet Breizh-Veur ha Norzhiwerzhon",
-        "common": "Rouantelezh-Unanet"
-      },
-      "ces": {
-        "official": "Spojené království Velké Británie a Severního Irska",
-        "common": "Spojené království"
-      },
-      "cym": {
-        "official": "United Kingdom of Great Britain and Northern Ireland",
-        "common": "United Kingdom"
-      },
-      "deu": {
-        "official": "Vereinigtes Königreich Großbritannien und Nordirland",
-        "common": "Vereinigtes Königreich"
-      },
-      "est": {
-        "official": "Suurbritannia ja Põhja-Iiri Ühendkuningriik",
-        "common": "Suurbritannia"
-      },
-      "fin": {
-        "official": "Ison-Britannian ja Pohjois-Irlannin yhdistynyt kuningaskunta",
-        "common": "Yhdistynyt kuningaskunta"
-      },
-      "fra": {
-        "official": "Royaume-Uni de Grande-Bretagne et d'Irlande du Nord",
-        "common": "Royaume-Uni"
-      },
-      "hrv": {
-        "official": "Ujedinjeno Kraljevstvo Velike Britanije i Sjeverne Irske",
-        "common": "Ujedinjeno Kraljevstvo"
-      },
-      "hun": {
-        "official": "Nagy-Britannia és Észak-Írország Egyesült Királysága",
-        "common": "Egyesült Királyság"
-      },
-      "ita": {
-        "official": "Regno Unito di Gran Bretagna e Irlanda del Nord",
-        "common": "Regno Unito"
-      },
-      "jpn": {
-        "official": "グレート·ブリテンおよび北アイルランド連合王国",
-        "common": "イギリス"
-      },
-      "kor": {
-        "official": "그레이트브리튼 북아일랜드 연합 왕국",
-        "common": "영국"
-      },
-      "nld": {
-        "official": "Verenigd Koninkrijk van Groot-Brittannië en Noord-Ierland",
-        "common": "Verenigd Koninkrijk"
-      },
-      "per": {
-        "official": "پادشاهی متحد بریتانیای کبیر و ایرلند شمالی",
-        "common": "انگلیس"
-      },
-      "pol": {
-        "official": "Zjednoczone Królestwo Wielkiej Brytanii i Irlandii Północnej",
-        "common": "Zjednoczone Królestwo"
-      },
-      "por": {
-        "official": "Reino Unido da Grã-Bretanha e Irlanda do Norte",
-        "common": "Reino Unido"
-      },
-      "rus": {
-        "official": "Соединенное Королевство Великобритании и Северной Ирландии",
-        "common": "Великобритания"
-      },
-      "slk": {
-        "official": "Spojené kráľovstvo Veľkej Británie a SevernéhoÌrska",
-        "common": "Veľká Británia (Spojené kráľovstvo)"
-      },
-      "spa": {
-        "official": "Reino Unido de Gran Bretaña e Irlanda del Norte",
-        "common": "Reino Unido"
-      },
-      "srp": {
-        "official": "Уједињено Краљевство Велике Британије и Северне Ирске",
-        "common": "Уједињено Краљевство"
-      },
-      "swe": {
-        "official": "Förenade konungariket Storbritannien och Nordirland",
-        "common": "Storbritannien"
-      },
-      "tur": {
-        "official": "Büyük Britanya ve Kuzey İrlanda Birleşik Krallığı",
-        "common": "Birleşik Krallık"
-      },
-      "urd": {
-        "official": "مملکتِ متحدہ برطانیہ عظمی و شمالی آئرلینڈ",
-        "common": "مملکتِ متحدہ"
-      },
-      "zho": {
-        "official": "大不列颠及北爱尔兰联合王国",
-        "common": "英国"
-      }
-    },
-    "latlng": [
-      54.0,
-      -2.0
-    ],
-    "landlocked": false,
-    "borders": [
-      "IRL"
-    ],
-    "area": 242900.0,
-    "demonyms": {
-      "eng": {
-        "f": "British",
-        "m": "British"
-      },
-      "fra": {
-        "f": "Britannique",
-        "m": "Britannique"
-      }
-    },
-    "flag": "\uD83C\uDDEC\uD83C\uDDE7",
-    "maps": {
-      "googleMaps": "https://goo.gl/maps/FoDtc3UKMkFsXAjHA",
-      "openStreetMaps": "https://www.openstreetmap.org/relation/62149"
-    },
-    "population": 67215293,
-    "gini": {
-      "2017": 35.1
-    },
-    "car": {
-      "signs": [
-        "GB"
-      ],
-      "side": "left"
-    },
-    "timezones": [
-      "UTC-08:00",
-      "UTC-05:00",
-      "UTC-04:00",
-      "UTC-03:00",
-      "UTC-02:00",
-      "UTC",
-      "UTC+01:00",
-      "UTC+02:00",
-      "UTC+06:00"
-    ],
-    "continents": [
-      "Europe"
-    ],
-    "flags": {
-      "png": "https://flagcdn.com/w320/gb.png",
-      "svg": "https://flagcdn.com/gb.svg",
-      "alt": "The flag of the United Kingdom — the Union Jack — has a blue field. It features the white-edged red cross of Saint George superimposed on the diagonal red cross of Saint Patrick which is superimposed on the diagonal white cross of Saint Andrew."
-    },
-    "coatOfArms": {
-      "png": "https://mainfacts.com/media/images/coats_of_arms/gb.png",
-      "svg": "https://mainfacts.com/media/images/coats_of_arms/gb.svg"
-    },
-    "startOfWeek": "monday",
-    "capitalInfo": {
-      "latlng": [
-        51.5,
-        -0.08
-      ]
-    },
-    "postalCode": {
-      "format": "@# #@@|@## #@@|@@# #@@|@@## #@@|@#@ #@@|@@#@ #@@|GIR0AA",
-      "regex": "^(([A-Z]\\d{2}[A-Z]{2})|([A-Z]\\d{3}[A-Z]{2})|([A-Z]{2}\\d{2}[A-Z]{2})|([A-Z]{2}\\d{3}[A-Z]{2})|([A-Z]\\d[A-Z]\\d[A-Z]{2})|([A-Z]{2}\\d[A-Z]\\d[A-Z]{2})|(GIR0AA))$"
-    }
-  },
+
   {
     "name": {
       "common": "Bouvet Island",
