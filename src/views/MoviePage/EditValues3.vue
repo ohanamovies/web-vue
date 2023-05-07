@@ -175,10 +175,10 @@ export default {
       let v = this.vote[k]
       if (v === undefined) return 'orange'
 
-      if (v === 0) return 'gray'
+      if (v === 0) return 'primary'
       if (v > 0) return 'green'
       if (v < 0) return 'red'
-      return 'primary'
+      return 'orange'
     },
     //Fetch the data from the spreadsheet, and map to a more usable json
     async fetchData() {
