@@ -638,7 +638,6 @@ export default {
       for (var i = 1; i < this.sections.length; i++) {
         this.getData(i, resetSections, true)
       }
-      setTimeout(this.fetchPool, 500)
     },
     sleep(time) {
       console.log('sleeping here for ' + time + ' ms')
@@ -646,8 +645,9 @@ export default {
     },
 
     async addToPool(query) {
-      console.log('adding to pool ', query, this.pool)
+      console.log('[addToPool] ', query, this.pool)
       let item = { query: query }
+      setTimeout(this.fetchPool, 50) // Wait a bit, so others can join, before fetchingPool
       return new Promise((resolve, reject) => {
         item.resolve = resolve
         item.reject = reject
@@ -656,18 +656,29 @@ export default {
     },
 
     async fetchPool() {
-      let query = this.pool.map((x) => x.query)
+      // Return on empty pools
+      if (!this.pool || !this.pool.length) return
+      // Copy pool locally and empty global variable (so more request can get added)
+      let pool = this.pool
+      this.pool = []
+      // Map all queries to a single request and fetch
+      let query = pool.map((x) => x.query)
       console.log('fetch pool...', query)
       query = query[0] // TODO:  fetchs only the first one
       let url = ohana.utils.buildURL(query)
       let res = await fetch(url)
-      let data = await res.json()
-      for (var i = 0; i < this.pool.length; i++) {
+      let data = res.ok ? await res.json() : {}
+      // Now, resolve/reject each individual item on the pool
+      for (var i = 0; i < pool.length; i++) {
         //TODO: resolve each promise with its corresponding data ~~ data[pool[i].query]
-        console.log(data, this.pool[i])
-        this.pool[i].resolve(data)
+        console.log(data, pool[i])
+        pool[i].resolve({
+          ok: res.ok,
+          json() {
+            return data
+          },
+        })
       }
-      this.pool = []
     },
 
     async getData(index, resetSection = false, pooled = false) {
@@ -729,16 +740,15 @@ export default {
         if (typeof query[key] == 'object') query[key] = JSON.stringify(query[key])
       }
       // Fetch data
-      let url, res, data
+      let res
       if (pooled) {
-        data = await this.addToPool(query)
-        res = {}
+        res = await this.addToPool(query)
       } else {
-        url = ohana.utils.buildURL(query)
+        let url = ohana.utils.buildURL(query)
         res = await fetch(url)
       }
 
-      if (!data && !res.ok) {
+      if (!res.ok) {
         console.log('[alex] error loading section ' + index)
         section.loading = false
         console.log('retrying index ' + index)
@@ -747,7 +757,7 @@ export default {
         }, (Math.floor(Math.random() * index) + 3) * 1000)
         return
       }
-      if (!data) data = await res.json()
+      let data = await res.json()
 
       // Ignore results from deprecated search queries
       if (index == 0 && query.title != this.title)
