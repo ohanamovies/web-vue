@@ -28,6 +28,11 @@ export default {
       default: 'mdi-chevron-down',
     },
   },
+  data() {
+    return {
+      showDropdown: false,
+    }
+  },
 }
 </script>
 

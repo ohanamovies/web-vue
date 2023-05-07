@@ -8,9 +8,9 @@
       quasi officiis assumenda, voluptatem dicta cupiditate similique praesentium suscipit, aperiam
       reprehenderit magni? Ducimus nemo quae quibusdam.
     </div>
-    {{ vote }}
+    vote: {{ vote }}
     <div>
-      <div v-for="item in items" :key="item.key">
+      <div v-for="(item, index) in items" :key="index">
         <!--group -->
         <div v-if="item.type == 'group'">
           <h2>{{ item.title.es }}</h2>
@@ -26,9 +26,11 @@
               </v-card>
             </MenuTooltip>
           </div>
+
           <!-- slider -->
           <div style="width: 100%">
             <v-slider
+              v-if="vote[item.key] !== undefined"
               hide-details
               class="mb-0 pb-0"
               ticks="always"
@@ -37,10 +39,25 @@
               :max="1"
               :tick-labels-bah="['Unhealthy', 'Mild', 'None', 'Positive', 'Healthy']"
               step="0.5"
-              :track-color="vote[item.key] > 0 ? 'green' : vote[item.key] == 0 ? 'gray' : 'red'"
-              :color="vote[item.key] > 0 ? 'green' : vote[item.key] == 0 ? 'gray' : 'red'"
+              :track-color="getColor(item.key)"
+              :color="getColor(item.key)"
               v-model="vote[item.key]"
             ></v-slider>
+            <v-slider
+              v-else
+              :min="-1"
+              :max="1"
+              step="0.5"
+              :tick-size="4"
+              ticks="always"
+              class="mb-0 pb-0"
+              hide-details
+              track-color="gray"
+              color="gray"
+              :value="0"
+              @change="voteIt(item.key, $event)"
+            >
+            </v-slider>
           </div>
           <!-- text -->
           <div
@@ -149,6 +166,20 @@ export default {
     }
   },
   methods: {
+    voteIt(k, v) {
+      console.log('change vote', k, v)
+      this.vote[k] = v
+      this.vote = JSON.parse(JSON.stringify(this.vote))
+    },
+    getColor(k) {
+      let v = this.vote[k]
+      if (v === undefined) return 'orange'
+
+      if (v === 0) return 'gray'
+      if (v > 0) return 'green'
+      if (v < 0) return 'red'
+      return 'primary'
+    },
     //Fetch the data from the spreadsheet, and map to a more usable json
     async fetchData() {
       let x = await fetch(
@@ -183,7 +214,6 @@ export default {
             }
           }
         }
-        this.vote[item.key] = 0
         items.push(item2)
       }
 
