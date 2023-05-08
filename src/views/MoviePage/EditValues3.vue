@@ -259,7 +259,7 @@ export default {
       let x = await ohana.api.query({
         action: 'getUserVote',
         about: 'setValues',
-        user: 'miguel', //this.settings.username,
+        user: this.settings.username,
         id: this.imdb,
       })
       let myVote = JSON.parse(JSON.stringify(x))
