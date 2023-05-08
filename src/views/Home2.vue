@@ -181,7 +181,7 @@
     <section
       v-show="!title"
       class="banner home-background"
-      style="min-height: 10vh !important; z-index: 99998; padding: 10em 0 3em 0 !important"
+      style="min-height: 10vh !important; z-index: 99998; padding: 7em 0 3em 0 !important"
     >
       <div class="inner" style="border: none; padding: 0px !important">
         <h1 class="fadeInUp" style="margin-bottom: 5px">

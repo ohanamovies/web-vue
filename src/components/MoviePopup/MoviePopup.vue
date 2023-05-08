@@ -425,7 +425,7 @@ export default {
     contributors() {
       if (!this.item.contributors) return []
       let c = this.item.contributors.split(' ')
-      let remove = [] // ['excel', 'imdb'] //let's put this back for now, otherwise hard to understand what's going on for f33
+      let remove = ['excel', 'imdb'] // ['excel', 'imdb'] //let's put this back for now, otherwise hard to understand what's going on for f33 // mae: put it back
       c = c.filter((e) => !remove.includes(e))
       return c
     },

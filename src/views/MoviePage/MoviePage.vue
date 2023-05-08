@@ -6,10 +6,6 @@
       <v-progress-linear indeterminate color="green"></v-progress-linear>
     </div>
 
-    <v-alert type="warning" outlined
-      >Hey! please notice we are still working on this page, and things don't work.</v-alert
-    >
-
     <MoviePopup :imdb="imdb" :hideCloseButton="true" />
 
     <br />
