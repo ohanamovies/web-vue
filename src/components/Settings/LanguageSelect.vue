@@ -43,7 +43,7 @@ export default {
   computed: {
     ...mapState(['settings']),
     lang() {
-      return this.settings.language
+      return this.settings.language || 'en'
     },
     langLabel() {
       return this.$t('language')
@@ -75,9 +75,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.v-select__selections > input {
-  /*visibility: hidden !important;*/
-  display: none !important;
+<style>
+input#languageSelect {
+  max-height: 0px !important;
 }
 </style>

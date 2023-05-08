@@ -55,41 +55,41 @@
         </v-tab-item>
 
         <v-tab-item class="outerr">
-          <div style="max-width: 400px; margin: auto">
+          <div style="max-width: 500px; margin: auto">
             <h4>What do you want to skip?</h4>
             <Tags2 />
           </div>
         </v-tab-item>
-        <v-tab-item class="outerr">
+        <!--<v-tab-item class="outerr">
           <ProvidersSelect />
-        </v-tab-item>
+        </v-tab-item>-->
         <!-- <v-tab-item class="outerr"> <OtherSettings /> </v-tab-item> -->
-        <v-tab-item class="outerr">
-          <div style="max-width: 400px; margin: auto">
+        <!--<v-tab-item class="outerr">
+          <div style="max-width: 500px; margin: auto">
             <Login />
           </div>
-        </v-tab-item>
+        </v-tab-item>-->
         <v-tab-item class="outerr">
-          <div style="max-width: 400px; margin: auto">
+          <div style="max-width: 500px; margin: auto">
             <CheckExtension />
           </div>
         </v-tab-item>
-        <v-tab-item class="outerr">
+        <!--<v-tab-item class="outerr">
           <div class="middlee">
             <div class="innerr" style="text-align: center">
               <h2>You are all set</h2>
               <p>We think you are going to love Ohana TV!</p>
-              <!-- <p class="modern-link" @click="slide++">Let's go</p> -->
+              <!- - <p class="modern-link" @click="slide++">Let's go</p> - ->
             </div>
           </div>
-        </v-tab-item>
+        </v-tab-item>-->
       </v-tabs-items>
     </v-card-text>
 
     <v-card-actions style="display: flex; justify-content: space-between">
       <div>
         <v-btn v-if="slide > 0" text style="box-shadow: none" @click="slide--">Back</v-btn>
-        <v-btn v-if="slide == 0" text style="box-shadow: none" @click="slide = nSlides + 1"
+        <v-btn v-else text style="box-shadow: none; visibility: hidden" @click="slide = nSlides + 1"
           >Skip</v-btn
         >
       </div>
@@ -112,19 +112,19 @@
 
 <script>
 //import Sensitivity from '@/components/Settings/Sensitivity.vue'
-import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
+//import ProvidersSelect from '@/components/Settings/ProvidersSelect.vue'
 import CheckExtension from '@/components/Settings/CheckExtension.vue'
 import WelcomeSheet from '@/components/Settings/WelcomeSheet.vue'
 //import OtherSettings from '@/components/Settings/OtherSettings.vue'
 import LanguageSelect from '@/components/Settings/LanguageSelect.vue'
-import Login from '@/components/Settings/Login.vue'
+//import Login from '@/components/Settings/Login.vue'
 import Tags2 from './Tags2.vue'
 import { mapState } from 'vuex'
 
 export default {
   components: {
-    Login,
-    ProvidersSelect,
+    //Login,
+    //ProvidersSelect,
     CheckExtension,
     WelcomeSheet,
     Tags2,
@@ -141,7 +141,7 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'extension_version']),
 
     nextSteps() {
-      return ['Start', 'Next', 'Next', 'Next', this.loggedIn ? 'Next' : 'Skip', 'Next', 'Done']
+      return ['Start', 'Next', 'Next', this.hasApp ? 'Go to catalog' : 'Skip to catalog']
     },
     nextStepText() {
       return this.nextSteps[this.slide]

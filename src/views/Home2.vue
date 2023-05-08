@@ -88,7 +88,7 @@
       eager
       transition="dialog-bottom-transition"
       v-model="show_welcomeTour"
-      max-width="600"
+      max-width="650"
       min-width="0"
       style="z-index: 999999"
       overlay-color="#141414"
@@ -181,7 +181,7 @@
     <section
       v-show="!title"
       class="banner home-background"
-      style="min-height: 20vh !important; z-index: 99998"
+      style="min-height: 10vh !important; z-index: 99998; padding: 10em 0 3em 0 !important"
     >
       <div class="inner" style="border: none; padding: 0px !important">
         <h1 class="fadeInUp" style="margin-bottom: 5px">
@@ -191,7 +191,7 @@
           {{ $t('homeHeroText2') }}
         </p>
 
-        <div class="fadeInDown">
+        <!--<div class="fadeInDown">
           <div v-if="isChrome && !hasApp">
             <a
               href="https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf"
@@ -205,7 +205,7 @@
             <router-link to="community" class="btn">{{ $t('support_ohana') }}</router-link>
             <router-link to="about" class="btn">{{ $t('learnMore') }}</router-link>
           </div>
-        </div>
+        </div>-->
       </div>
     </section>
 
