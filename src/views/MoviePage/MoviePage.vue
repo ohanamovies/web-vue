@@ -10,7 +10,10 @@
 
     <br />
 
-    <div v-if="!item.type">Hmm, something seems off.</div>
+    <div v-if="!item.type">
+      <div v-if="loading"></div>
+      <div v-else>Hmm, something seems off.</div>
+    </div>
     <div v-else>
       <v-tabs v-model="tab" class="mb-4">
         <v-tab>Content</v-tab>

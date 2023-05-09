@@ -693,8 +693,10 @@ export default {
         query.clean = JSON.stringify(homeSkipTags)
       }
 
-      //remove series for now:
+      /*
+      //remove series for now, unless specified otherwise:
       if (!query.type) query.type = 'movie' //TODO: Remove this once we clarify series!
+      */
 
       //Preapare request a bit (stringify stuff)
       for (const key in query) {

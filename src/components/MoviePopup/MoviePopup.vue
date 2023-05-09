@@ -156,69 +156,10 @@
                   </v-icon>
 
                   <!-- summary text -->
+
                   <span :style="'color: ' + item.join_status.color || 'orange'">
                     {{ ohanaSummary }}
                   </span>
-
-                  <!-- expand details-->
-                  <div v-if="false">
-                    <span
-                      v-if="this.settings.skip_tags.length"
-                      @click="showDetails = !showDetails"
-                      style="cursor: pointer; font-size: 90%; color: #0070d7; white-space: nowrap"
-                      >{{ $t('popup.details') }}
-                      <v-icon
-                        small
-                        :class="['ml-0', 'pl-0', showDetails ? 'rotate' : '']"
-                        color="#0070d7"
-                        >mdi-chevron-down
-                      </v-icon>
-                    </span>
-                    <!-- Chips: Parent Guide -->
-                    <div>
-                      <v-slide-y-transition>
-                        <!-- chips: scenes for your skipTags -->
-                        <div
-                          v-if="showDetails"
-                          style="
-                            padding-bottom: 5px;
-                            display: flex;
-                            justify-content: center;
-                            flex-wrap: wrap;
-                          "
-                        >
-                          <fc-tooltip
-                            v-for="(tag, index) in skipTags"
-                            :key="index"
-                            :text="getTooltip3(tag, index)"
-                          >
-                            <v-chip
-                              :color="getColor3(tag)"
-                              :x-small="isMobile"
-                              :small="!isMobile"
-                              class="ml-1"
-                              :style="{
-                                color: ['red', 'green', 'orange'].includes(getColor3(tag))
-                                  ? 'white'
-                                  : 'default',
-                              }"
-                            >
-                              {{
-                                tag +
-                                ' (' +
-                                getEditsCount3(tag) +
-                                (getEditsCount3(tag) == 0 && getColor3(tag) == 'green'
-                                  ? ' scenes)'
-                                  : getEditsCount3(tag) == 1
-                                  ? ' filter)'
-                                  : ' filters)')
-                              }}
-                            </v-chip>
-                          </fc-tooltip>
-                        </div>
-                      </v-slide-y-transition>
-                    </div>
-                  </div>
 
                   <!-- brief tags -->
                   <div style="margin-top: 5px; margin-bottom: 0px">
@@ -233,11 +174,25 @@
                         "
                       />
                     </div>
-                    <div>
+
+                    <div
+                      v-if="item.type == 'series'"
+                      style="color: orange; padding: 5px 0px; text-align: center"
+                    >
+                      <span v-if="isDetailPage"
+                        >Check the list of episodes below to see more granular details</span
+                      >
+                      <span v-else>Go to the series page to see more granular details</span>
+                    </div>
+
+                    <!-- +info link (not visible if alraedy in detail page)-->
+                    <div v-if="!isDetailPage">
                       <router-link :to="'/item/' + item.imdb" class="modern-link">{{
                         $t('popup.goToFullDetails')
                       }}</router-link>
                     </div>
+                    <!-- some space buffer if not shwoing the +info -->
+                    <div v-else style="height: 10px"></div>
                   </div>
                 </div>
 
@@ -403,6 +358,9 @@ export default {
   },
 
   computed: {
+    isDetailPage() {
+      return this.$route.path.includes('/item/')
+    },
     movieValues() {
       let output = []
       const values = tags_excel.getTagsLocal(this.settings.language).values
@@ -555,33 +513,7 @@ export default {
       console.log('reset popup')
       this.blur_if_missing = true
     },
-    getTooltip3(tag) {
-      const edits = this.getEditsCount3(tag)
-      const color = this.getColor3(tag)
 
-      let text = ''
-
-      if (color == 'green' && edits == 0) text = 'No need to filter this tag'
-      else if (color == 'green' && edits > 0)
-        text = `All ${edits} edits to filter this tag are created`
-      else if (color == 'red' && edits == 0)
-        text =
-          'There is content of this type not yet filtered' +
-          (edits > 0 ? ', although we have filters' : '')
-      else if (color == 'orange') text = 'We are not 100% sure all this content is filtered'
-      else text = `We don't have enough information about this tag.`
-      return text
-    },
-    getColor3(tag) {
-      if (!this.item.filterStatus[tag]) return 'lightgrey'
-      else if (this.item.filterStatus[tag].health > 0.5) return 'green'
-      else if (this.item.filterStatus[tag].health < -0.5) return 'red'
-      else return 'orange'
-    },
-    getEditsCount3(tag) {
-      if (!this.item.filterStatus[tag]) return 0
-      else return this.item.filterStatus[tag].scenes.length
-    },
     getColor(key, value) {
       console.log(value)
       if (this.skipTags.includes(key)) {

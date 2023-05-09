@@ -1142,7 +1142,7 @@
       "name_es": "Resultados búsqueda",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"ttl\": 0 }"
+      "mappings": "{ \"ttl\": 0, \"type\": [\"movie\",\"series\"] }"
     },
     {
       "key": "reviewed",
@@ -1157,7 +1157,7 @@
     },
     {
       "key": "reviewed_shows",
-      "type": "section-deprecated",
+      "type": "section-disabled",
       "notes": "",
       "parents": "",
       "name_en": "TV Shows reviewed recently",
