@@ -2,7 +2,7 @@
   <div>
     <div style="display: flex; flex-wrap: wrap; margin-bottom: 0px; justify-content: center">
       <div v-for="(cat, c) in categories" :key="c">
-        <v-chip outlined class="ml-1 mb-1">
+        <v-chip small outlined class="ml-1 mb-1">
           <b>{{ cat }}:&nbsp; </b> {{ severity(movieContentSummary(c).tag) }}
         </v-chip>
       </div>
