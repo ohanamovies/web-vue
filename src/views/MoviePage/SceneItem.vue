@@ -1,12 +1,20 @@
 <template>
-  <div style="border: 1px solid grey; border-radius: 5px; padding: 10px; margin-bottom: 10px">
+  <div
+    style="
+      border: 1px solid grey;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 0.8rem;
+    "
+  >
     <div v-if="scene">
       <div v-if="scene.times">
         <b>Duration: {{ formatTime(averageDuration(scene.times)) }}</b>
         <span v-if="Object.keys(scene.times).length > 1" style="font-size: 80%">
           (average between providers)
         </span>
-        <ul>
+        <ul style="margin-bottom: 5px">
           <li v-for="(time, provider) in scene.times" :key="provider">
             <b>{{ provider }}</b>
             {{ formatTime(time.end - time.start) }}
@@ -17,25 +25,27 @@
         </ul>
       </div>
       <div>
-        <b>Filter Tags</b>
-        <v-chip x-small class="ml-1" v-for="(t, it) in scene.tags" :key="it">{{ t }}</v-chip>
+        <!-- filter tags -->
+        <v-chip x-small class="mr-1" v-for="(t, it) in scene.tags" :key="it">{{ t }}</v-chip>
       </div>
-      <div>
+      <div style="margin-top: 4px">
+        <!-- what you need to konw -->
         <p :style="{ color: scene.plot_description ? 'default' : 'grey' }">
-          <b>What you need to know:</b>
           <i>
             {{ scene.plot_description || 'No replacing text provided.' }}
           </i>
         </p>
       </div>
 
-      <div style="margin-top: 5px">
-        <b>Contributors:</b>
-        <v-chip x-small class="ml-1" v-for="(contributor, c) of scene.contributors" :key="c">{{
-          contributor
-        }}</v-chip>
+      <div style="font-size: 80%; margin-top: 5px">
+        <div style="margin-top: 5px">
+          <b>Contributors:</b>
+          <v-chip x-small class="ml-1" v-for="(contributor, c) of scene.contributors" :key="c">{{
+            contributor
+          }}</v-chip>
+        </div>
+        <div><b>Last edited:</b> {{ new Date(scene.updatedAt).toISOString() }}</div>
       </div>
-      <div><b>Last edited:</b> {{ new Date(scene.updatedAt).toISOString() }}</div>
 
       <div v-if="scene.draft">
         <b style="color: red">DRAFT</b>

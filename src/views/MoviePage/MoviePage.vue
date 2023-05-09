@@ -12,13 +12,13 @@
 
     <div v-if="!item.type">Hmm, something seems off.</div>
     <div v-else>
-      <v-tabs v-model="tab">
+      <v-tabs v-model="tab" class="mb-4">
         <v-tab>Content</v-tab>
         <v-tab>Filters</v-tab>
         <v-tab>Values</v-tab>
-        <v-tab>Providers</v-tab>
+        <v-tab v-if="isAdmin">Providers</v-tab>
         <v-tab v-if="showEpisodes">Episodes</v-tab>
-        <v-tab>dev</v-tab>
+        <v-tab v-if="isAdmin">dev</v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
@@ -26,7 +26,6 @@
         <v-tab-item>
           <!-- filterStatus -->
           <div style="margin-top: 5px">
-            <h4>Movie Content</h4>
             <p>{{ movieContentSummary }}</p>
 
             <MovieRating :item="item" />
@@ -34,18 +33,6 @@
 
             <EditTags v-if="false" :imdb="imdb" :original="item.filterStatus" />
           </div>
-
-          <!-- values -->
-          <h4>Values</h4>
-          <EditValues :imdb="imdb" :original="item.movieValues" />
-
-          <!-- Scenes -->
-          <h4>All filters ({{ Object.keys(item.movieFilters).length }})</h4>
-          <ScenesList :items="item.movieFilters" />
-
-          <!-- providers -->
-          <h4>Where to watch</h4>
-          <ProvidersStatus :item="item" />
 
           <!-- Feedback -->
           <div>
@@ -59,19 +46,15 @@
         <!--movieFilters-->
         <v-tab-item>
           <ScenesList :items="item.movieFilters" />
-
-          <code>
-            {{ item.movieFilters }}
-          </code>
         </v-tab-item>
 
         <!-- movie values -->
         <v-tab-item>
-          <EditValues3 :imdb="imdb" :original="item.movieValues" />
+          <EditValues :imdb="imdb" :original="item.movieValues" />
         </v-tab-item>
 
         <!-- PROVIDERS -->
-        <v-tab-item>
+        <v-tab-item v-if="isAdmin">
           <br />
 
           <div v-if="tmdbAvailability.lenght">
@@ -141,7 +124,7 @@
         </v-tab-item>
 
         <!-- DEV DATA -->
-        <v-tab-item>
+        <v-tab-item v-if="isAdmin">
           <br />
           <p>This is data at {{ item.type }} level</p>
 
@@ -220,8 +203,7 @@ import ohana from '@/assets/ohana/index'
 import { mapState } from 'vuex'
 import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 
-import EditValues from '@/views/MoviePage/EditValues2.vue'
-import EditValues3 from '@/views/MoviePage/EditValues3.vue'
+import EditValues from '@/views/MoviePage/EditValues3.vue'
 import EditTags from '@/views/MoviePage/EditTags.vue'
 
 import ScenesList from '@/views/MoviePage/ScenesList.vue'
@@ -248,7 +230,6 @@ export default {
     FilterStatusChips,
     ProvidersStatus,
     MovieRating,
-    EditValues3,
   },
   props: {
     imdb: {
@@ -283,6 +264,9 @@ export default {
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
+    isAdmin() {
+      return ['sope', 'miguel', 'miguel2'].includes(this.settings.username)
+    },
     feedback_link() {
       return (
         'https://docs.google.com/forms/d/e/1FAIpQLScnTNbXu79Sbinmlw6QhBIa5T76T0QCEMFLt4OIiSN08aHQKw/viewform?usp=pp_url&entry.2077317668=' +

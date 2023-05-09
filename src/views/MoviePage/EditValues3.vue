@@ -1,16 +1,27 @@
 <template>
   <div>
     <!-- intro about values-->
-    <div style="margin-top: 8px">Let's dive deeper on the movie content</div>
+    <div>Let's dive deeper on the movie content</div>
 
-    <div v-if="loading">
+    <div v-if="loading" style="display: flex; justify-content: center">
       <v-progress-circular indeterminate></v-progress-circular>
     </div>
 
     <div v-else>
-      <div>
-        <span class="modern-link" @click="current = 'community'">Community Vote</span> |
-        <span class="modern-link" @click="current = 'myvote'">My vote</span>
+      <div style="margin-bottom: 5px">
+        <span
+          :style="{ fontWeight: current == 'community' ? 'bold' : 400 }"
+          class="modern-link"
+          @click="current = 'community'"
+          >Community Vote</span
+        >
+        |
+        <span
+          :style="{ fontWeight: current == 'myvote' ? 'bold' : 400 }"
+          class="modern-link"
+          @click="current = 'myvote'"
+          >My vote</span
+        >
       </div>
 
       <div
@@ -27,9 +38,11 @@
         <v-expansion-panels>
           <v-expansion-panel v-for="group in items" :key="group.key">
             <v-expansion-panel-header>
-              {{ group.title.es }} ({{
-                group.items.filter((x) => vote[x.key] !== undefined).length
-              }})
+              <v-card-title class="pa-0" style="font-size: 14pt">
+                {{ group.title.es }} ({{
+                  group.items.filter((x) => vote[x.key] !== undefined).length
+                }})
+              </v-card-title>
             </v-expansion-panel-header>
             <v-expansion-panel-content class="pa-0">
               <div style="margin-top: 5px">
