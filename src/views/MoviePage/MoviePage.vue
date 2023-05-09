@@ -29,7 +29,7 @@
             <p>{{ movieContentSummary }}</p>
 
             <MovieRating :item="item" />
-            <FilterStatusChips small :item="item" />
+            <FilterStatusChips v-if="false" small :item="item" />
 
             <EditTags v-if="false" :imdb="imdb" :original="item.filterStatus" />
           </div>

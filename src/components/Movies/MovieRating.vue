@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- without ohana -->
-    <div style="margin-top: 30px">
+    <div style="margin-top: 15px">
       <div style="margin-bottom: 10px">
         <b>Without Ohana</b>
       </div>
@@ -11,7 +11,7 @@
     <!-- with ohana -->
     <div
       v-if="settings && settings.skip_tags && settings.skip_tags.length"
-      style="margin-top: 30px"
+      style="margin-top: 15px"
     >
       <div style="margin-bottom: 10px">
         <b>With Ohana</b>
