@@ -90,7 +90,6 @@
 
         <!-- EPISODES -->
         <v-tab-item v-if="showEpisodes">
-          <h4>Episodes are work in progress</h4>
           <div v-if="episodes">
             <router-link
               class="no-link"
