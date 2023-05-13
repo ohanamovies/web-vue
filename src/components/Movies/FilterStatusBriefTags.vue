@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div style="display: flex; flex-wrap: wrap; margin-bottom: 0px; justify-content: left">
+    <div
+      :style="{ display: 'flex', flexWrap: ' wrap', marginBottom: '0px', justifyContent: align }"
+    >
       <div v-for="(cat, c) in categories" :key="c">
         <v-chip small outlined class="mr-1 mb-1">
           <b>{{ cat }}</b
@@ -30,6 +32,10 @@ export default {
       default() {
         return {}
       },
+    },
+    align: {
+      type: String,
+      default: 'center',
     },
   },
   computed: {

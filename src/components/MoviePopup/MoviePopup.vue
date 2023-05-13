@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- Login dialog -->
+    <!-- Log-in dialog -->
     <v-dialog v-model="dialog_login" max-width="500" style="z-index: 999999">
       <v-card>
         <v-card-title></v-card-title>
@@ -11,10 +11,18 @@
     </v-dialog>
 
     <!-- A: if we have valid data  -->
-    <v-card v-if="loading" style="background-color: white" min-height="300">
+    <v-card v-if="loading" style="background-color: white">
       <v-card-text>
-        <div style="margin: auto; text-align: center">
-          <v-progress-circular indeterminate color="cyan"></v-progress-circular>
+        <div
+          style="
+            margin: auto;
+            justify-content: center;
+            display: flex;
+            align-items: center;
+            min-height: 350px;
+          "
+        >
+          <v-progress-circular indeterminate color="cyan" :size="60"></v-progress-circular>
         </div>
       </v-card-text>
     </v-card>
@@ -162,7 +170,7 @@
                   </span>
 
                   <!-- brief tags -->
-                  <div style="margin-top: 5px; margin-bottom: 0px">
+                  <div style="margin-top: 5px; margin-bottom: 0px; text-align: center">
                     <div>
                       <FilterStatusBriefTags
                         :item="item"

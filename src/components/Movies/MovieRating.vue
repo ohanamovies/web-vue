@@ -19,7 +19,7 @@
         <span style="color: grey; font-size: 90%; font-weight: 400">Applying your settings</span>
       </div>
 
-      <FilterStatusBriefTags :item="item" />
+      <FilterStatusBriefTags :item="item" :align="'left'" />
     </div>
 
     <!-- expansion panels -->
