@@ -19,7 +19,7 @@
             justify-content: center;
             display: flex;
             align-items: center;
-            min-height: 350px;
+            min-height: 360px;
           "
         >
           <v-progress-circular indeterminate color="cyan" :size="60"></v-progress-circular>
@@ -135,7 +135,7 @@
             <!-- CONTENT -->
             <v-card-text>
               <!-- Rest of info -->
-              <div :style="{ height: textHeight, overflowY: 'auto' }">
+              <div :style="{ maxHeight: textHeight, overflowY: 'auto' }">
                 <!-- TODO: poster for mobile - for this to be nice we should start with the poster hidden by scroll, so user can scroll back to see it-->
 
                 <!-- title -->
@@ -410,7 +410,7 @@ export default {
       return this.$store.state.settings.skip_tags || []
     },
     textHeight() {
-      return this.isMobile ? '350px' : '300px'
+      return this.isMobile ? '400px' : '300px'
     },
 
     feedback_link() {
