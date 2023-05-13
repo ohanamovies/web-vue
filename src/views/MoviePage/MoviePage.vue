@@ -17,8 +17,8 @@
     <div v-else>
       <v-tabs v-model="tab" class="mb-4">
         <v-tab>Content</v-tab>
-        <v-tab>Filters</v-tab>
         <v-tab>Values</v-tab>
+        <v-tab>Filters</v-tab>
         <v-tab v-if="isAdmin">Providers</v-tab>
         <v-tab v-if="showEpisodes">Episodes</v-tab>
         <v-tab v-if="isAdmin">dev</v-tab>
@@ -46,14 +46,14 @@
           </div>
         </v-tab-item>
 
-        <!--movieFilters-->
-        <v-tab-item>
-          <ScenesList :items="item.movieFilters" />
-        </v-tab-item>
-
         <!-- movie values -->
         <v-tab-item>
           <EditValues :imdb="imdb" :original="item.movieValues" />
+        </v-tab-item>
+
+        <!--movieFilters-->
+        <v-tab-item>
+          <ScenesList :items="item.movieFilters" />
         </v-tab-item>
 
         <!-- PROVIDERS -->
@@ -122,6 +122,7 @@
               </div>
             </router-link>
           </div>
+
           <div v-else>Hmmm. No data?</div>
         </v-tab-item>
 

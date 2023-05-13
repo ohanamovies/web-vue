@@ -39,7 +39,7 @@
           <v-expansion-panel v-for="group in items" :key="group.key">
             <v-expansion-panel-header>
               <v-card-title class="pa-0" style="font-size: 14pt">
-                {{ group.title.es }} ({{
+                {{ group.title[lang] }} ({{
                   group.items.filter((x) => vote[x.key] !== undefined).length
                 }})
               </v-card-title>
@@ -49,10 +49,10 @@
                 <div v-for="item in group.items" :key="item.key">
                   <div v-if="item.type == 'value'" style="margin-bottom: 30px">
                     <div>
-                      <b>{{ item.title.es || item.key }}</b>
-                      <MenuTooltip v-if="item.tooltip.es" icon="mdi-information-outline">
+                      <b>{{ item.title[lang] || item.key }}</b>
+                      <MenuTooltip v-if="item.tooltip[lang]" icon="mdi-information-outline">
                         <v-card>
-                          <v-card-text>{{ item.tooltip.es }}</v-card-text>
+                          <v-card-text>{{ item.tooltip[lang] }}</v-card-text>
                         </v-card>
                       </MenuTooltip>
                     </div>
@@ -215,6 +215,9 @@ export default {
   },
   computed: {
     ...mapState(['settings']),
+    lang() {
+      return this.settings.language
+    },
     values() {
       let keys = []
       let output = []
