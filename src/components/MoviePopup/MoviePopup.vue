@@ -11,7 +11,7 @@
     </v-dialog>
 
     <!-- A: if we have valid data  -->
-    <v-card v-if="loading" style="background-color: white">
+    <v-card v-if="loading" style="background-color: white" min-height="300">
       <v-card-text>
         <div style="margin: auto; text-align: center">
           <v-progress-circular indeterminate color="cyan"></v-progress-circular>

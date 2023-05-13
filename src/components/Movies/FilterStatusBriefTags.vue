@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="display: flex; flex-wrap: wrap; margin-bottom: 0px; justify-content: center">
+    <div style="display: flex; flex-wrap: wrap; margin-bottom: 0px; justify-content: left">
       <div v-for="(cat, c) in categories" :key="c">
         <v-chip small outlined class="mr-1 mb-1">
           <b>{{ cat }}</b

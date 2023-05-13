@@ -2,10 +2,6 @@
   <div class="moviepage">
     <!-- overview -->
 
-    <div v-if="loading">
-      <v-progress-linear indeterminate color="green"></v-progress-linear>
-    </div>
-
     <MoviePopup :imdb="imdb" :hideCloseButton="true" />
 
     <br />
@@ -15,12 +11,12 @@
       <div v-else>Hmm, something seems off.</div>
     </div>
     <div v-else>
-      <v-tabs v-model="tab" class="mb-4">
+      <v-tabs v-model="tab" class="mb-4" style="min-height: 50px">
         <v-tab>Content</v-tab>
         <v-tab>Values</v-tab>
-        <v-tab>Filters</v-tab>
-        <v-tab v-if="isAdmin">Providers</v-tab>
         <v-tab v-if="showEpisodes">Episodes</v-tab>
+        <v-tab v-if="item.type != 'series'">Filters</v-tab>
+        <v-tab v-if="isAdmin">Providers</v-tab>
         <v-tab v-if="isAdmin">dev</v-tab>
       </v-tabs>
 
@@ -29,7 +25,7 @@
         <v-tab-item>
           <!-- filterStatus -->
           <div style="margin-top: 5px">
-            <p>{{ movieContentSummary }}</p>
+            <p v-if="false">{{ movieContentSummary }}</p>
 
             <MovieRating :item="item" />
             <FilterStatusChips v-if="false" small :item="item" />
@@ -51,16 +47,22 @@
           <EditValues :imdb="imdb" :original="item.movieValues" />
         </v-tab-item>
 
+        <!-- EPISODES -->
+        <v-tab-item v-if="showEpisodes">
+          <EpisodesView :item="item" />
+        </v-tab-item>
+
         <!--movieFilters-->
-        <v-tab-item>
+        <v-tab-item v-if="item.type != 'series'">
           <ScenesList :items="item.movieFilters" />
         </v-tab-item>
 
         <!-- PROVIDERS -->
         <v-tab-item v-if="isAdmin">
+          <p>Providers where ohana was used (kind of)</p>
           <br />
 
-          <div v-if="tmdbAvailability.lenght">
+          <div v-if="tmdbAvailability.length">
             <div v-for="(p, i) in tmdbAvailability" :key="i">
               {{ p }}
             </div>
@@ -78,52 +80,8 @@
                   >{{ getLink(p.provider, p.providerID) }}</a
                 >
               </p>
-              Countries available:
-              <v-chip small v-for="(a, ai) in p.availability" :key="ai">{{ a }}</v-chip>
-              <br />
-              <br />
-              <div>FilterStatus joinStatus: {{ joinStatus(p.filterStatus) }}</div>
-              <code>{{ p.filterStatus }}</code>
             </div>
           </div>
-        </v-tab-item>
-
-        <!-- EPISODES -->
-        <v-tab-item v-if="showEpisodes">
-          <div v-if="episodes">
-            <router-link
-              class="no-link"
-              :to="'./' + episode.tconst"
-              v-for="episode of episodes"
-              :key="episode.tconst"
-            >
-              <div
-                class="episodeListItem"
-                :style="{ fontWeight: episode.tconst == imdb ? 'bold' : 'normal' }"
-              >
-                <div>
-                  {{
-                    'S' +
-                    episode.seasonNumber +
-                    'E' +
-                    episode.episodeNumber +
-                    ': ' +
-                    episode.primaryTitle +
-                    ' (' +
-                    episode.runtimeMinutes +
-                    ' min)'
-                  }}
-                </div>
-                <div>
-                  <v-icon :color="joinStatus(episode.filterStatus).color">{{
-                    joinStatus(episode.filterStatus).icon2
-                  }}</v-icon>
-                </div>
-              </div>
-            </router-link>
-          </div>
-
-          <div v-else>Hmmm. No data?</div>
         </v-tab-item>
 
         <!-- DEV DATA -->
@@ -216,6 +174,8 @@ import FilterStatusChips from '@/components/Movies/FilterStatusChips.vue'
 import ProvidersStatus from '@/components/Movies/ProvidersStatus.vue'
 import MovieRating from '@/components/Movies/MovieRating.vue'
 
+import EpisodesView from './EpisodesView.vue'
+
 export default {
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.
@@ -233,6 +193,7 @@ export default {
     FilterStatusChips,
     ProvidersStatus,
     MovieRating,
+    EpisodesView,
   },
   props: {
     imdb: {
@@ -261,8 +222,6 @@ export default {
         genres: [],
         join_status: { color: '', icon: '', status: '', cuts: -1 },
       },
-
-      episodes: false,
     }
   },
   computed: {
@@ -312,7 +271,7 @@ export default {
       return ohana.movies.addInfo(this.item, this.settings.skip_tags)
     },
     showEpisodes() {
-      return this.item.parent || this.episodes.length
+      return this.item.parent || this.item.type == 'series' || this.item.type == 'episode'
     },
     tmdbAvailability() {
       if (!this.item.availability) return this.item.providers.map((p) => p.provider) //let's take the ones from our db
@@ -416,14 +375,6 @@ export default {
       //item
       this.item = await ohana.api.getMovie(this.imdb)
       this.item = ohana.movies.addInfo(this.item, this.settings.skip_tags)
-
-      //episodes
-      if (this.item.parent) {
-        // this.parent_item = await ohana.api.getMovie(this.item.parent)
-        this.episodes = await ohana.api.getEpisodes(this.item.parent)
-      } else if (this.item.type == 'series') {
-        this.episodes = await ohana.api.getEpisodes(this.imdb) //TODO: may not need to do await...
-      }
 
       this.loading = false
 
