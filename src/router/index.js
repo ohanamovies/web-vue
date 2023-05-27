@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
+import ExtensionPopup from '@/views/Extension/ExtensionPopup'
 
 import Home from '@/views/Home.vue'
 import AboutOld from '@/views/AboutOld.vue'
@@ -152,9 +152,9 @@ const routes = [
   },
   {
     path: '/extension/popup/:imdb',
-    name: 'MoviePopup',
+    name: 'ExtensionPopup',
     props: true,
-    component: MoviePopup,
+    component: ExtensionPopup,
   },
   {
     path: '/bye',

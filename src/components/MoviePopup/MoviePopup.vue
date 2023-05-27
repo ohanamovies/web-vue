@@ -39,7 +39,7 @@
       <!-- TITLE -->
       <v-card-text class="pb-3">
         <v-row>
-          <v-col cols="4" v-if="!isMobile" class="pa-0" style="position: relative">
+          <v-col cols="4" v-if="!isMobile2" class="pa-0" style="position: relative">
             <img
               :src="poster"
               :alt="item.title"
@@ -139,7 +139,7 @@
                 <!-- TODO: poster for mobile - for this to be nice we should start with the poster hidden by scroll, so user can scroll back to see it-->
 
                 <!-- title -->
-                <div v-if="isMobile && false" style="text-align: center">
+                <div v-if="isMobile2 && false" style="text-align: center">
                   <img :src="poster" :alt="item.title" />
                 </div>
 
@@ -219,8 +219,8 @@
                       >
                         <v-chip
                           :color="getValueColor(value.health)"
-                          :x-small="isMobile"
-                          :small="!isMobile"
+                          :x-small="isMobile2"
+                          :small="!isMobile2"
                           outlined
                           dark
                           class="ml-1"
@@ -366,6 +366,9 @@ export default {
   },
 
   computed: {
+    isMobile2() {
+      return this.screen_width <= 700
+    },
     isDetailPage() {
       return this.$route.path.includes('/item/')
     },
@@ -405,7 +408,7 @@ export default {
     briefStatus() {
       return ohana.movies.getSummary(this.raw_item)
     },
-    ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
+    ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'screen_width']),
     skipTags() {
       return this.$store.state.settings.skip_tags || []
     },

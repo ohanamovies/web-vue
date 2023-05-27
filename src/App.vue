@@ -102,6 +102,7 @@ export default {
         is_mobile = true
       }
       this.$store.commit(mutations.SET_IS_MOBILE, is_mobile)
+      this.$store.commit(mutations.SET_SCREEN_WIDTH, window.innerWidth)
       //TODO: we should also re-evaluate the isChrome... as mobiles are not valid browsers
     },
     checkExtension() {

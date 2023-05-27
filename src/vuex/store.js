@@ -59,6 +59,7 @@ const store = new Vuex.Store({
 
     isChrome: false,
     isMobile: false,
+    screen_width: 0,
   },
   getters: {
     //getters are like computed properties for the store. Use store.getters.testPlus1 to access
@@ -92,6 +93,9 @@ const store = new Vuex.Store({
     },
     [mutations.SET_IS_MOBILE](state, value) {
       state.isMobile = value
+    },
+    [mutations.SET_SCREEN_WIDTH](state, value) {
+      state.screen_width = value
     },
   },
   actions: {

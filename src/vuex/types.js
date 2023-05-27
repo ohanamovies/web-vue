@@ -5,6 +5,7 @@ const mutations = {
 
   IS_GOOGLE_CHROME: 'IS_GOOGLE_CHROME',
   SET_IS_MOBILE: 'SET_IS_MOBILE',
+  SET_SCREEN_WIDTH: 'SET_SCREEN_WIDTH',
 }
 
 export { mutations }
