@@ -25,7 +25,14 @@ const providers = {
     if (provider == 'netflix') return 'https://www.netflix.com/watch/' + providerID
     if (provider == 'hboespana') return 'https://es.hboespana.com/movies/-/' + providerID + '/play'
     if (provider == 'disneyplus') return 'https://www.disneyplus.com/en-gb/video/' + providerID
-    if (provider == 'primevideo') return 'https://app.primevideo.com/watch?gti=' + providerID
+
+    if (provider == 'primevideo') {
+      if (settings.country == 'GB') {
+        return 'https://watch.amazon.co.uk/detail?gti=' + providerID
+      } else {
+        return 'https://app.primevideo.com/watch?gti=' + providerID
+      }
+    }
     if (provider == 'movistarplus') return 'https://ver.movistarplus.es/ficha?id=' + providerID
     if (provider == 'imdb') return 'https://www.imdb.com/title/' + providerID
     //Apple
