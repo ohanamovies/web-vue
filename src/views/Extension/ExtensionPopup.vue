@@ -21,8 +21,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-/*$material-light: (
-  'background': #d54545,
-);*/
+<style scoped>
+body,
+.v-application {
+  background: transparent !important;
+}
 </style>
