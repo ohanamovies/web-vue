@@ -251,7 +251,7 @@ export default {
         if (!minTrust || t <= minTrust) minTrust = t
       }
 
-      if (minHealth > 0.5 && minTrust > 1) {
+      if (minHealth > ohana.movies.th.healthy && minTrust > ohana.movies.th.trust) {
         //TODO: Confirm minTrust threshold
         if (nFilters == 0) {
           return 'No need to filter this movie: the original is healthy for your as it is.'
@@ -340,22 +340,6 @@ export default {
 
     joinStatus(filterStatus) {
       return ohana.movies.joinStatus2(filterStatus, this.settings.skip_tags)
-    },
-    getColor(tagStatus) {
-      //TODO: use ohana.movies.xxx function instead of copy-pasting here...
-      let color = ''
-
-      if (tagStatus.health > 0.5) {
-        color = 'green'
-      } else if (tagStatus.health < -0.5) {
-        color = 'red'
-      } else {
-        color = 'orange'
-      }
-      if (tagStatus.trust <= 1 || tagStatus.trust == Infinity) {
-        color = 'lightgray'
-      }
-      return color
     },
     getLink(provider, providerID) {
       return ohana.providers.getLink(provider, providerID)

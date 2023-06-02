@@ -528,15 +528,15 @@ export default {
     getColor(key, value) {
       console.log(value)
       if (this.skipTags.includes(key)) {
-        if (value.health < -0.5) return 'red'
+        if (ohana.movies.isUnhealthy(value)) return 'red'
         return 'orange'
       }
       return 'lightgray'
     },
     getValueColor(health) {
-      //if (value.trust < 2) return 'orange'
-      if (health < -0.5) return 'red'
-      if (health > 0.5) return 'green'
+      //if (value.trust < ohana.movies.th.trust) return 'orange'
+      if (ohana.movies.isUnhealthy(health)) return 'red'
+      if (ohana.movies.isHealthy(health)) return 'green'
       return 'lightgray'
     },
     getText(key, value) {
@@ -611,6 +611,10 @@ export default {
 <style>
 .v-slide-group__prev {
   display: none !important;
+}
+
+.row {
+  margin-bottom: 0px !important;
 }
 
 /*.ohana-summary {

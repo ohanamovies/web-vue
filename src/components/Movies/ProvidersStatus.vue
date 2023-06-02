@@ -125,10 +125,13 @@ export default {
             continue
           }
 
-          if (Math.abs(filterStatus[tag].health) < 0.5 && pstatus[provider] == 'done') {
+          if (
+            Math.abs(filterStatus[tag].health) < ohana.movies.th.healthy &&
+            pstatus[provider] == 'done'
+          ) {
             if (pstatus[provider] != 'missing') pstatus[provider] = 'unknown'
             continue
-          } else if (filterStatus[tag].health < -0.5) {
+          } else if (filterStatus[tag].health < ohana.movies.th.unhealthy) {
             pstatus[provider] = 'missing'
             continue
           }

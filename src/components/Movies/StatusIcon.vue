@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import ohana from '@/assets/ohana/'
 export default {
   props: {
     item: {
@@ -85,7 +86,7 @@ export default {
     status() {
       let fs = this.filterStatus
 
-      if (fs.health >= 0.5) {
+      if (fs.health >= ohana.movies.th.healthy) {
         fs.icon = fs.scenes.length == 0 ? 'mdi-emoticon-happy' : 'mdi-content-cut'
         fs.color = 'green'
         fs.title = fs.scenes.length == 0 ? 'Healthy' : 'Healthy with Ohana'
@@ -97,7 +98,7 @@ export default {
               ' "' +
               this.tag +
               '" scenes have been identified. You can watch the healthy version of this movie with Ohana.'
-      } else if (fs.health <= -0.5) {
+      } else if (fs.health < ohana.movies.th.uhealthy) {
         fs.icon = 'mdi-flag-variant'
         fs.color = 'red'
         fs.title = 'Unhealthy'

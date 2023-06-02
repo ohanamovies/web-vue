@@ -1,4 +1,126 @@
+let rawTags = require('./../../raw_tags.js')
+
 const movies = {
+  sevText: [
+    'None',
+    'None-Slight',
+    'Slight',
+    'Slight-Mild',
+    'Mild',
+    'Mild-Moderate',
+    'Moderate',
+    'Moderate-Severe',
+    'Severe',
+  ],
+  severities: ['Very', 'Moderately', 'Mildly', 'Slightly'],
+  categories: ['gory', 'erotic', 'profane'],
+  th: { trust: 0.15, unhealthy: -0.35, healthy: 0.35, trustWarning: 1 },
+  isHealthy(h) {
+    if (h && h.health) h = h.health
+    return !!(h >= this.th.healthy)
+  },
+
+  isUnhealthy(h) {
+    if (h && h.health) h = h.health
+    return !!(h < this.th.unhealthy)
+  },
+
+  isTrusted(t) {
+    if (!t) return false
+    if (t && t.trust) t = t.trust
+    return !!(t >= this.th.trust)
+  },
+
+  getFS(filterStatus, tag) {
+    let fs = filterStatus[tag] || {}
+    fs.health = fs.health || 0
+    fs.trust = fs.trust || 0
+    fs.scenes = fs.scenes || []
+    return fs
+  },
+
+  getTagsHealth(filterStatus, skip_tags) {
+    let status = { trust: Infinity, health: Infinity, cuts: 0 }
+    for (var i = 0; i < skip_tags.length; i++) {
+      let fs = this.getFS(filterStatus, skip_tags[i])
+      status.trust = Math.min(status.trust, fs.trust)
+      status.health = Math.min(status.health, fs.health)
+      status.cuts += fs.scenes.length
+    }
+    // If there are no scenes to skip, trust & health are Infinity (This is intended behaviour)
+    return this.addColors(status)
+  },
+
+  addColors(status) {
+    let props = {}
+    if (status.trust < this.th.trust) {
+      props = { color: 'orange', icon: 'mdi-progress-question' }
+    } else if (this.isHealthy(status)) {
+      props = { color: 'green', icon: 'mdi-emoticon-happy' }
+    } else if (this.isUnhealthy(status)) {
+      props = { color: 'red', icon: 'mdi-flag-variant' }
+    } else {
+      props = { color: 'orange', icon: 'mdi-flag-variant' }
+    }
+    if (status.trust < this.th.trustWarning) {
+      props.icon = 'mdi-progress-question'
+    }
+    props.use_icon = props.icon != 'mdi-emoticon-happy'
+    return { ...status, ...props }
+  },
+
+  getMySev(catIndex, filterStatus, skip_tags) {
+    //Note: this returns the "visible" severity based on original movie content, filters available, and user settings.
+    let sevs = rawTags.severitiesR[catIndex]
+    let tag = 'Unknown'
+    let healthyTags = 0
+    let sevTrust = Infinity
+
+    for (let i = 0; i < sevs.length; i++) {
+      const sev = sevs[i]
+      let cares = skip_tags.includes(sev)
+
+      let fs = this.getFS(filterStatus, sev)
+
+      if (this.isHealthy(fs) && fs.scenes.length && !cares) {
+        // It's clean && original was not && user does not care about filtering => Stop here
+        break
+      } else if (this.isHealthy(fs)) {
+        // Healthy
+        healthyTags += 1
+        sevTrust = Math.min(sevTrust, fs.trust)
+        continue
+      } else if (this.isUnhealthy(fs)) {
+        // Unhealthy
+        sevTrust = Math.min(sevTrust, fs.trust)
+        break
+      } else {
+        // Mixed
+        healthyTags += 0.5
+        sevTrust = Math.min(sevTrust, fs.trust)
+        break
+      }
+    }
+    if (sevTrust == Infinity) sevTrust = 0
+
+    const skip_sevs = skip_tags.filter((tag) => sevs.includes(tag))
+    let myHealth = this.getTagsHealth(filterStatus, skip_sevs)
+
+    if (this.isTrusted(sevTrust)) {
+      let sevsR = [...this.sevText].reverse()
+      tag = sevsR[parseInt(2 * healthyTags)]
+      if (myHealth.cuts == 1) tag += ' (' + myHealth.cuts + ' edit)'
+      if (myHealth.cuts > 1) tag += ' (' + myHealth.cuts + ' edits)'
+    }
+
+    return { tag, sevTrust, ...myHealth }
+  },
+
+  movieSev(catIndex, filterStatus) {
+    // No need to reinvent the wheel
+    return this.getMySev(catIndex, filterStatus, [])
+  },
+
   /**
    *
    * @param {*} tagged
@@ -50,13 +172,13 @@ const movies = {
       health = Math.min(health, s.health || 0)
     }
 
-    if (health > 0.5) {
+    if (health > this.th.healthy) {
       status = cuts ? 'done' : 'clean'
       color = 'green'
       icon = 'none'
       //icon = 'mdi-shield-check'
       icon2 = trust > 3 ? 'mdi-shield-check' : 'mdi-shield-check-outline'
-    } else if (health < -0.5) {
+    } else if (health < this.th.unhealthy) {
       status = 'missing'
       color = 'red'
       icon = 'mdi-heart-broken'
@@ -69,7 +191,7 @@ const movies = {
       //icon = 'mdi-help-circle'
       icon2 = 'mdi-help-circle'
     }
-    if (trust <= 1 || trust == Infinity) {
+    if (trust <= this.th.trust || trust == Infinity) {
       status = 'unknown'
       color = 'lightgray'
       icon = 'mdi-progress-question'
@@ -192,10 +314,10 @@ const movies = {
         if (status != 'missing') status = 'unknown'
       }
 
-      if (Math.abs(m.filterStatus[t].health) < 0.5) {
+      if (Math.abs(m.filterStatus[t].health) < this.th.healthy) {
         if (status != 'missing' && status != 'unknown') status = 'mixed'
         continue
-      } else if (m.filterStatus[t].health < -0.5) {
+      } else if (m.filterStatus[t].health < this.th.unhealthy) {
         status = 'missing'
         continue
       }
@@ -205,7 +327,7 @@ const movies = {
       status = 'clean'
     }
 
-    console.log('SSSSSSSSSSS', status)
+    //console.log('SSSSSSSSSSS', status)
 
     const mapping = {
       unknown: {
@@ -282,7 +404,7 @@ const movies = {
           let tag = sev + ' ' + cat
           let s = content[tag]
           if (!s) continue // TODO: this continues if there is no info...
-          if (s.health > 0.5 && s.trust > 1) continue
+          if (s.health > this.th.healthy && s.trust > this.th.trust) continue
           brief_status[tag] = s
           break
         }
