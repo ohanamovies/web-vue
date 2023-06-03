@@ -512,12 +512,12 @@ import sharedjs from '@/sharedjs'
 
 import ohana from '@/assets/ohana'
 
-import MovieDetailPage from '../components/MovieDetailPage'
+//import MovieDetailPage from '../components/MovieDetailPage' MAE: deprecate
 import { mapState } from 'vuex'
 //const { searchMatch } = require('../sharedjs')
 export default {
   components: {
-    MovieDetailPage,
+    //MovieDetailPage,  MAE: deprecate
   },
 
   head: function () {
@@ -838,7 +838,7 @@ export default {
           }
 
           //merge items with same IMDb Id
-          this.data = this.mergeItemsByImdbId_sameStatus(this.data)
+          // this.data = this.mergeItemsByImdbId_sameStatus(this.data) MAE: Deprecate?
 
           this.loading = false
         })

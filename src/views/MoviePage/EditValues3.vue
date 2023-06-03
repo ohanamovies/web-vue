@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- intro about values-->
-    <div>Let's dive deeper on the movie content</div>
+    <div>Let's dive deeper into the movie values</div>
 
     <div v-if="loading" style="display: flex; justify-content: center">
       <v-progress-circular indeterminate></v-progress-circular>

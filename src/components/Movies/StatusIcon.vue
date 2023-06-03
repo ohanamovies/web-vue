@@ -69,48 +69,15 @@ export default {
   },
   computed: {
     movieContent() {
-      let mc = { health: 0, trust: 0 } //default
-      if (this.item.movieContent && this.item.movieContent[this.tag]) {
-        mc = this.item.movieContent[this.tag]
-      }
-
-      return mc
+      return ohana.movies.getFS(this.item.movieContent, this.tag)
     },
     filterStatus() {
-      let fs = { health: 0, trust: 0, scenes: [], icon: 'mdi-progress-question' } //default empty
-      if (this.item.filterStatus && this.item.filterStatus[this.tag]) {
-        fs = this.item.filterStatus[this.tag]
-      }
-      return fs
+      return ohana.movies.getFS(this.item.filterStatus, this.tag)
     },
     status() {
       let fs = this.filterStatus
-
-      if (fs.health >= ohana.movies.th.healthy) {
-        fs.icon = fs.scenes.length == 0 ? 'mdi-emoticon-happy' : 'mdi-content-cut'
-        fs.color = 'green'
-        fs.title = fs.scenes.length == 0 ? 'Healthy' : 'Healthy with Ohana'
-        fs.subtitle =
-          fs.scenes.length == 0
-            ? 'There are no "' + this.tag + '" scenes in this movie. '
-            : 'All ' +
-              fs.scenes.length +
-              ' "' +
-              this.tag +
-              '" scenes have been identified. You can watch the healthy version of this movie with Ohana.'
-      } else if (fs.health < ohana.movies.th.uhealthy) {
-        fs.icon = 'mdi-flag-variant'
-        fs.color = 'red'
-        fs.title = 'Unhealthy'
-        fs.subtitle =
-          'There is "' + this.tag + '" content in this movie for which we don\'t have filters yet'
-      } else {
-        fs.icon = 'mdi-progress-question'
-        fs.color = 'grey'
-        fs.title = 'Unknown'
-        fs.subtitle = 'We are not sure'
-      }
-
+      fs = ohana.movies.addColors(fs)
+      fs = ohana.movies.addText(fs, this.tag)
       return fs
     },
   },

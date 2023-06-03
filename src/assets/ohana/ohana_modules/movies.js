@@ -39,7 +39,7 @@ const movies = {
     return fs
   },
 
-  getTagsHealth(filterStatus, skip_tags) {
+  getTagsHealth(filterStatus, skip_tags = []) {
     let status = { trust: Infinity, health: Infinity, cuts: 0 }
     for (var i = 0; i < skip_tags.length; i++) {
       let fs = this.getFS(filterStatus, skip_tags[i])
@@ -48,25 +48,74 @@ const movies = {
       status.cuts += fs.scenes.length
     }
     // If there are no scenes to skip, trust & health are Infinity (This is intended behaviour)
-    return this.addColors(status)
+    return this.addColors(status, !skip_tags.length)
   },
 
-  addColors(status) {
+  addColors(fs, unset) {
     let props = {}
-    if (status.trust < this.th.trust) {
-      props = { color: 'orange', icon: 'mdi-progress-question' }
-    } else if (this.isHealthy(status)) {
-      props = { color: 'green', icon: 'mdi-emoticon-happy' }
-    } else if (this.isUnhealthy(status)) {
-      props = { color: 'red', icon: 'mdi-flag-variant' }
+    if (!this.isTrusted(fs)) {
+      props = { color: 'orange', icon: 'mdi-progress-question', status: 'unknown' }
+    } else if (this.isHealthy(fs) && !fs.cuts) {
+      props = { color: 'green', icon: 'mdi-emoticon-happy', status: 'clean' }
+    } else if (this.isHealthy(fs)) {
+      props = { color: 'green', icon: 'mdi-emoticon-happy', status: 'done' }
+    } else if (this.isUnhealthy(fs)) {
+      props = { color: 'red', icon: 'mdi-flag-variant', status: 'missing' }
     } else {
-      props = { color: 'orange', icon: 'mdi-flag-variant' }
+      props = { color: 'orange', icon: 'mdi-flag-variant', status: 'mixed' }
     }
-    if (status.trust < this.th.trustWarning) {
+    if (fs.trust < this.th.trustWarning) {
       props.icon = 'mdi-progress-question'
     }
-    props.use_icon = props.icon != 'mdi-emoticon-happy'
-    return { ...status, ...props }
+    if (unset) {
+      props = { color: 'gray', icon: '', status: 'unset' }
+    }
+    props.use_icon = props.icon && props.icon != 'mdi-emoticon-happy'
+    return { ...fs, ...props }
+  },
+
+  addSummary(fs, type = 'movie') {
+    if (this.isHealthy(fs) && this.isTrusted(fs)) {
+      //TODO: Confirm minTrust threshold
+      if (fs.cuts == 0) {
+        fs.summary = `No need to filter this ${type}: the original is healthy for your as it is.`
+      } else {
+        fs.summary = `It takes ${fs.cuts} filters to make this ${type} healthy for your settings.`
+      }
+    } else {
+      if (fs.cuts == 0) {
+        //TODO
+        fs.summary = `This ${type} contains unhealthy scenes for your settings. But no one has created filters yet to make it healthy.`
+      } else {
+        fs.summary = `We have ${fs.cuts} filters, but we are not sure if that's enough to make this ${type} healthy for your settings.`
+      }
+    }
+    return fs
+  },
+
+  addText(fs, tag = '', type = 'movie') {
+    if (this.isHealthy(fs)) {
+      fs.title = fs.scenes.length == 0 ? 'Healthy' : 'Healthy with Ohana'
+      fs.subtitle =
+        fs.scenes.length == 0
+          ? 'There are no "' + tag + '" scenes in this ' + type + '. '
+          : 'All ' +
+            fs.scenes.length +
+            ' "' +
+            tag +
+            '" scenes have been identified. You can watch the healthy version of this ' +
+            type +
+            ' with Ohana.'
+    } else if (this.isUnhealthy(fs)) {
+      fs.title = 'Unhealthy'
+      fs.subtitle =
+        'There is "' + tag + '" content in this ' + type + " for which we don't have filters yet"
+    } else {
+      fs.title = 'Unknown'
+      fs.subtitle = 'We are not sure'
+    }
+    fs = this.addSummary(fs, type)
+    return fs
   },
 
   getMySev(catIndex, filterStatus, skip_tags) {
@@ -114,11 +163,6 @@ const movies = {
     }
 
     return { tag, sevTrust, ...myHealth }
-  },
-
-  movieSev(catIndex, filterStatus) {
-    // No need to reinvent the wheel
-    return this.getMySev(catIndex, filterStatus, [])
   },
 
   /**
@@ -241,46 +285,6 @@ const movies = {
     }
 
     return ms
-  },
-
-  addInfo_old(movie, skipTags) {
-    //TODO: somewhere we should remove the providers that are not edited, if we are going to say that the movie is edited.
-    movie.join_status = movies.joinStatus3(movie.movieContent, movie.providers, skipTags)
-
-    //clarify which providers are done and which ones not!
-    movie.healthyProviders = []
-    movie.unhealthyProviders = []
-
-    if (movie.providers && skipTags) {
-      for (let i = 0; i < movie.providers.length; i++) {
-        const p = movie.providers[i]
-
-        if (!p.cleanTags) {
-          movie.unhealthyProviders.push(p)
-          continue
-        }
-
-        const cleanTags = p.cleanTags.split(' ')
-
-        let clean = true
-        for (let j = 0; j < skipTags.length; j++) {
-          const tag = skipTags[j].toLowerCase().replace(/\s/g, '_')
-          if (!cleanTags.includes(tag)) clean = false
-        }
-
-        if (clean) {
-          movie.healthyProviders.push(p)
-        } else {
-          movie.unhealthyProviders.push(p)
-        }
-      }
-    }
-    //------------------
-
-    movie.brief_status = movies.getSummary(movie)
-    if (typeof movie.movieValues == 'string')
-      movie.movieValues = movies.parse(movie.movieValues, {})
-    return movie
   },
 
   addInfo(movie, skipTags) {

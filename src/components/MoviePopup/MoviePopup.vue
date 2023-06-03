@@ -517,31 +517,15 @@ export default {
       newtext = newtext.toLowerCase()
       return newtext
     },
-    joinStatus(item) {
-      return ohana.movies.joinStatus3(item.movieContent, item.providers, this.settings.skipTags)
-    },
     resetPopup() {
       console.log('reset popup')
       this.blur_if_missing = true
-    },
-
-    getColor(key, value) {
-      console.log(value)
-      if (this.skipTags.includes(key)) {
-        if (ohana.movies.isUnhealthy(value)) return 'red'
-        return 'orange'
-      }
-      return 'lightgray'
     },
     getValueColor(health) {
       //if (value.trust < ohana.movies.th.trust) return 'orange'
       if (ohana.movies.isUnhealthy(health)) return 'red'
       if (ohana.movies.isHealthy(health)) return 'green'
       return 'lightgray'
-    },
-    getText(key, value) {
-      console.log(value)
-      return 'this a tooltip explaining the tag underneath... ' + JSON.stringify(key)
     },
     closeMe() {
       //TODO: This doesn't apply if ESC or click outside, as dialog closes itself
@@ -589,7 +573,6 @@ export default {
           } catch (error) {
             console.log(error)
           }
-          //this.item = ohana.movies.addInfo(this.item, this.skipTags)
         } catch (error) {
           console.log('error 10612 loading popup', error)
         }

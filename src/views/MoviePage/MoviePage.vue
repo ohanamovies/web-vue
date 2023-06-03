@@ -25,12 +25,12 @@
         <v-tab-item>
           <!-- filterStatus -->
           <div style="margin-top: 5px">
-            <p v-if="false">{{ movieContentSummary }}</p>
+            <!--<p v-if="false">{{ movieContentSummary }}</p> MAE: Deprecate -->
 
             <MovieRating :item="item" />
-            <FilterStatusChips v-if="false" small :item="item" />
+            <!--<FilterStatusChips v-if="false" small :item="item" /> MAE: Deprecate -->
 
-            <EditTags v-if="false" :imdb="imdb" :original="item.filterStatus" />
+            <!-- <EditTags v-if="false" :imdb="imdb" :original="item.filterStatus" /> MAE: Deprecate -->
           </div>
 
           <!-- Feedback -->
@@ -96,7 +96,6 @@
 
           <v-tabs v-model="movieDataTab">
             <v-tab>Raw data</v-tab>
-            <v-tab>Raw data + AddInfo</v-tab>
             <v-tab>join status</v-tab>
             <v-tab>brief status</v-tab>
             <v-tab>providers status v2</v-tab>
@@ -114,21 +113,6 @@
                     white-space: pre-wrap;
                   "
                   >{{ item }}</pre
-                >
-              </div>
-            </v-tab-item>
-
-            <!-- RAW DATA + AddInfo -->
-            <v-tab-item>
-              <div>
-                <b>raw data</b>
-                <pre
-                  style="
-                    background-color: rgba(200, 200, 200, 0.4);
-                    padding: 10px;
-                    white-space: pre-wrap;
-                  "
-                  >{{ item_with_add_data }}</pre
                 >
               </div>
             </v-tab-item>
@@ -165,12 +149,12 @@ import { mapState } from 'vuex'
 import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 
 import EditValues from '@/views/MoviePage/EditValues3.vue'
-import EditTags from '@/views/MoviePage/EditTags.vue'
+//import EditTags from '@/views/MoviePage/EditTags.vue' MAE: deprecate
 
 import ScenesList from '@/views/MoviePage/ScenesList.vue'
 
 import sharedjs from '@/sharedjs'
-import FilterStatusChips from '@/components/Movies/FilterStatusChips.vue'
+//import FilterStatusChips from '@/components/Movies/FilterStatusChips.vue' MAE: Deprecate
 import ProvidersStatus from '@/components/Movies/ProvidersStatus.vue'
 import MovieRating from '@/components/Movies/MovieRating.vue'
 
@@ -188,9 +172,9 @@ export default {
   components: {
     MoviePopup,
     EditValues,
-    EditTags,
+    //EditTags,  MAE: deprecate
     ScenesList,
-    FilterStatusChips,
+    //FilterStatusChips, MAE: Deprecate
     ProvidersStatus,
     MovieRating,
     EpisodesView,
@@ -239,36 +223,9 @@ export default {
       )
     },
     movieContentSummary() {
-      let nFilters = 0
-      const type = this.item.type
-      let minHealth = null
-      let minTrust = null
-      for (const tag of this.settings.skip_tags) {
-        nFilters += this.item.filterStatus[tag] ? this.item.filterStatus[tag].scenes.length : 0
-        let h = this.item.filterStatus[tag] ? this.item.filterStatus[tag].health : 0
-        let t = this.item.filterStatus[tag] ? this.item.filterStatus[tag].trust : 0
-        if (!minHealth || h <= minHealth) minHealth = h
-        if (!minTrust || t <= minTrust) minTrust = t
-      }
-
-      if (minHealth > ohana.movies.th.healthy && minTrust > ohana.movies.th.trust) {
-        //TODO: Confirm minTrust threshold
-        if (nFilters == 0) {
-          return 'No need to filter this movie: the original is healthy for your as it is.'
-        } else {
-          return 'It takes ' + nFilters + ' filters to make this movie healthy for your settings.'
-        }
-      } else {
-        if (nFilters == 0) {
-          //TODO
-          return 'This movie contains unhealthy scenes for your settings. But no one has created filters yet to make it healthy.'
-        } else {
-          return `We have ${nFilters} filters, but we are not sure if that's enough to make this ${type} healthy for your settings.`
-        }
-      }
-    },
-    item_with_add_data() {
-      return ohana.movies.addInfo(this.item, this.settings.skip_tags)
+      let fs = ohana.movies.getTagsHealth(this.item.filterStatus, this.settings.skip_tags)
+      fs = ohana.movies.addText(fs, this.item.type)
+      return fs.summary
     },
     showEpisodes() {
       return this.item.parent || this.item.type == 'series' || this.item.type == 'episode'
@@ -324,23 +281,6 @@ export default {
     includesAny(arr1, arr2) {
       return ohana.utils.includesAny(arr1, arr2)
     },
-    getCuts(tag, providerData) {
-      let cuts = 0
-
-      for (const key in providerData.sceneFilters) {
-        if (Object.hasOwnProperty.call(providerData.sceneFilters, key)) {
-          const scene = providerData.sceneFilters[key]
-          if (scene && scene.tags && scene.tags.includes(tag)) {
-            cuts++
-          }
-        }
-      }
-      return cuts
-    },
-
-    joinStatus(filterStatus) {
-      return ohana.movies.joinStatus2(filterStatus, this.settings.skip_tags)
-    },
     getLink(provider, providerID) {
       return ohana.providers.getLink(provider, providerID)
     },
@@ -350,7 +290,6 @@ export default {
     language() {
       return this.settings.language
     },
-
     parsedURL() {
       return ohana.providers.parseURL(this.item.watch_url) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
     },

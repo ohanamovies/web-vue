@@ -129,7 +129,6 @@ import ohana from '@/assets/ohana/'
 import StatusIconVue from './StatusIcon.vue'
 import VoteIcon from './VoteIcon.vue'
 import FilterStatusBriefTags from './FilterStatusBriefTags.vue'
-//import MovieContentBriefTags from './MovieContentBriefTags.vue'
 
 const rawTags = require('@/assets/raw_tags')
 export default {
@@ -137,7 +136,6 @@ export default {
     StatusIconVue,
     VoteIcon,
     FilterStatusBriefTags,
-    //MovieContentBriefTags,
   },
   props: {
     item: {
