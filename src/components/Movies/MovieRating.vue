@@ -5,7 +5,7 @@
       <div style="margin-bottom: 10px">
         <b>Without Ohana</b>
       </div>
-      <MovieContentBriefTags :item="item" />
+      <FilterStatusBriefTags :filterStatus="item.movieContent" :align="'left'" />
     </div>
 
     <!-- with ohana -->
@@ -18,8 +18,7 @@
         <br />
         <span style="color: grey; font-size: 90%; font-weight: 400">Applying your settings</span>
       </div>
-
-      <FilterStatusBriefTags :item="item" :align="'left'" />
+      <FilterStatusBriefTags :filterStatus="item.filterStatus" :align="'left'" />
     </div>
 
     <!-- expansion panels -->
@@ -130,7 +129,7 @@ import ohana from '@/assets/ohana/'
 import StatusIconVue from './StatusIcon.vue'
 import VoteIcon from './VoteIcon.vue'
 import FilterStatusBriefTags from './FilterStatusBriefTags.vue'
-import MovieContentBriefTags from './MovieContentBriefTags.vue'
+//import MovieContentBriefTags from './MovieContentBriefTags.vue'
 
 const rawTags = require('@/assets/raw_tags')
 export default {
@@ -138,7 +137,7 @@ export default {
     StatusIconVue,
     VoteIcon,
     FilterStatusBriefTags,
-    MovieContentBriefTags,
+    //MovieContentBriefTags,
   },
   props: {
     item: {

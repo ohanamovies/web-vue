@@ -28,7 +28,7 @@ export default {
     //VoteIcon,
   },
   props: {
-    item: {
+    filterStatus: {
       type: Object,
       default() {
         return {}
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     getMySev(catIndex) {
-      return ohana.movies.getMySev(catIndex, this.item.filterStatus, this.settings.skip_tags)
+      return ohana.movies.getMySev(catIndex, this.filterStatus, this.settings.skip_tags)
     },
   },
 }

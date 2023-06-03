@@ -173,7 +173,7 @@
                   <div style="margin-top: 5px; margin-bottom: 0px; text-align: center">
                     <div>
                       <FilterStatusBriefTags
-                        :item="item"
+                        :filterStatus="item.filterStatus"
                         style="
                           padding-bottom: 0px;
                           display: flex;

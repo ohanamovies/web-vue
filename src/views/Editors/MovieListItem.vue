@@ -34,7 +34,7 @@
 
       <tr>
         <div>
-          <FilterStatusBriefTags x-small :item="item" />
+          <FilterStatusBriefTags x-small :filterStatus="item.filterStatus" />
         </div>
       </tr>
       <tr>
