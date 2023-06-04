@@ -1178,39 +1178,6 @@
       "mappings": "{ \"sort_by\": \"last_edited\", \"type\":\"series\", \"imdb\": \"tt4786824\", \"ttl\": 10 }"
     },
     {
-      "key": "family",
-      "type": "section",
-      "notes": "",
-      "parents": "",
-      "name_en": "Watch with kids",
-      "name_es": "Ver con los peques",
-      "tip_en": "",
-      "tip_es": "",
-      "mappings": "{ \"genres\": [\"Animation\"], \"ttl\": 60 }"
-    },
-    {
-      "key": "best-rated",
-      "type": "section",
-      "notes": "",
-      "parents": "",
-      "name_en": "Best rated",
-      "name_es": "Mejor valoradas",
-      "tip_en": "",
-      "tip_es": "",
-      "mappings": "{ \"imdbRating\": 8, \"ttl\": 30 }"
-    },
-    {
-      "key": "classics",
-      "type": "section",
-      "notes": "",
-      "parents": "",
-      "name_en": "Classics",
-      "name_es": "Clásicas",
-      "tip_en": "",
-      "tip_es": "",
-      "mappings": "{ \"releasedBefore\": 1970, \"ttl\": 120 }"
-    },
-    {
       "key": "family-love",
       "type": "section",
       "notes": "",
@@ -1233,6 +1200,17 @@
       "mappings": "{ \"values\": [\"romantic-love\"], \"ttl\": 120 }"
     },
     {
+      "key": "transcendence",
+      "type": "section",
+      "notes": "",
+      "parents": "",
+      "name_en": "Transcendence",
+      "name_es": "Trascendencia",
+      "tip_en": "",
+      "tip_es": "Apertura a la transcendencia, a la belleza, la verdad, el sentido...",
+      "mappings": "{ \"values\": [\"transcendence\"], \"ttl\": 120 }"
+    },
+    {
       "key": "womens-rights",
       "type": "section",
       "notes": "",
@@ -1244,15 +1222,26 @@
       "mappings": "{ \"values\": [\"womens-rights\"], \"ttl\": 120 }"
     },
     {
-      "key": "transcendence",
+      "key": "best-rated",
       "type": "section",
       "notes": "",
       "parents": "",
-      "name_en": "Transcendence",
-      "name_es": "Trascendencia",
+      "name_en": "Best rated",
+      "name_es": "Mejor valoradas",
       "tip_en": "",
-      "tip_es": "Apertura a la transcendencia, a la belleza, la verdad, el sentido...",
-      "mappings": "{ \"values\": [\"transcendence\"], \"ttl\": 120 }"
+      "tip_es": "",
+      "mappings": "{ \"imdbRating\": 8, \"ttl\": 30 }"
+    },
+    {
+      "key": "family",
+      "type": "section",
+      "notes": "",
+      "parents": "",
+      "name_en": "Watch with kids",
+      "name_es": "Ver con los peques",
+      "tip_en": "",
+      "tip_es": "",
+      "mappings": "{ \"genres\": [\"Animation\"], \"ttl\": 60 }"
     },
     {
       "key": "justice",
@@ -1275,6 +1264,17 @@
       "tip_en": "",
       "tip_es": "Visión de la vida orientada al servicio, generosidad y entrega a los demás",
       "mappings": "{ \"values\": [\"self-giving\"], \"ttl\": 120 }"
+    },
+    {
+      "key": "classics",
+      "type": "section",
+      "notes": "",
+      "parents": "",
+      "name_en": "Classics",
+      "name_es": "Clásicas",
+      "tip_en": "",
+      "tip_es": "",
+      "mappings": "{ \"releasedBefore\": 1970, \"ttl\": 120 }"
     },
     {
       "key": "reconciliation",
