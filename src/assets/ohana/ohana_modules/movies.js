@@ -58,7 +58,7 @@ const movies = {
     } else if (this.isHealthy(fs) && !fs.cuts) {
       props = { color: 'green', icon: 'mdi-emoticon-happy', status: 'clean' }
     } else if (this.isHealthy(fs)) {
-      props = { color: 'green', icon: 'mdi-emoticon-happy', status: 'done' }
+      props = { color: 'green', icon: 'mdi-content-cut', status: 'done' }
     } else if (this.isUnhealthy(fs)) {
       props = { color: 'red', icon: 'mdi-flag-variant', status: 'missing' }
     } else {
@@ -70,7 +70,7 @@ const movies = {
     if (unset) {
       props = { color: 'gray', icon: '', status: 'unset' }
     }
-    props.use_icon = props.icon && props.icon != 'mdi-emoticon-happy'
+    props.use_icon = props.icon && props.status != 'clean'
     return { ...fs, ...props }
   },
 

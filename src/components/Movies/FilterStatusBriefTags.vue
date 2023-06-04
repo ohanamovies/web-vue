@@ -9,7 +9,7 @@
           >:
 
           {{ getMySev(c).tag }}
-          <v-icon class="mr-1" right v-if="getMySev(c).use_icon" :color="getMySev(c).color">{{
+          <v-icon size="17" right v-if="getMySev(c).use_icon" :color="getMySev(c).color">{{
             getMySev(c).icon
           }}</v-icon>
         </v-chip>

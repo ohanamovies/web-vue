@@ -291,7 +291,7 @@
                   :key="index2"
                   @click="openMovieDialog(item)"
                   :style="{
-                    borderBottom: '4px solid ' + item.join_status.color,
+                    borderBottom: '4px solid ' + item.status.color,
                   }"
                 >
                   <!-- image-->
@@ -299,19 +299,22 @@
                     <img
                       :src="poster(item)"
                       :alt="getTitle(item)"
-                      :class="[item.join_status.status == 'missing' ? 'blur_image' : '']"
+                      :class="[item.status.status == 'missing' ? 'blur_image' : '']"
                     />
-                    <div
-                      class="shield"
-                      v-if="item.join_status.icon && item.join_status.icon != 'none'"
-                    >
-                      <v-icon :color="item.join_status.color" size="18">
-                        {{ item.join_status.icon }}
+                    <div class="shield" v-if="item.status.use_icon">
+                      <v-icon :color="item.status.color" size="18">
+                        {{ item.status.icon }}
                       </v-icon>
                     </div>
                   </div>
                   <!-- text -->
-                  <div class="placeholder-title" v-if="item.join_status.status == 'missing'">
+                  <div
+                    class="placeholder-title"
+                    v-if="
+                      item.status.status == 'missing' ||
+                      poster(item) == 'https://ohana.tv/images/empty-poster.png'
+                    "
+                  >
                     <span>{{ getTitle(item) }}</span>
                   </div>
                 </div>
@@ -445,58 +448,6 @@ export default {
         { text: 'Youtube', value: 'youtube' },*/
       ],
 
-      sections_old: [
-        {
-          title: 'Search results',
-          data: [],
-          query: {},
-        },
-        {
-          title: 'Recently reviewed',
-          data: [],
-          query: { sort_by: 'last_edited' },
-        },
-
-        {
-          title: 'Watch with kids',
-          data: [],
-          query: { genres: JSON.stringify(['Animation']) },
-        },
-        {
-          title: 'Forgiveness',
-          data: [],
-          query: { values: JSON.stringify(['Forgiveness']) },
-        },
-        {
-          title: 'Caring',
-          data: [],
-          query: { values: JSON.stringify(['Caring']) },
-        },
-        {
-          title: 'Best rated',
-          data: [],
-          query: { imdbRating: 8 }, // sort is done by number of votes
-        },
-        /*
-        {
-          title: 'Healthy TV Shows (for your settings) ',
-          data: [],
-          query: { type: 'series', clean: JSON.stringify(this.skipTags) },
-        },
-        */
-        {
-          title: 'Documentaries',
-          data: [],
-          query: { genres: JSON.stringify(['Documentary']) },
-        },
-
-        {
-          title: 'Classic movies',
-          data: [],
-          query: { releasedBefore: 1970 },
-        },
-      ],
-
       title: '',
       titleTimeout: null,
 
@@ -592,12 +543,10 @@ export default {
     },
   },
   methods: {
-    joinStatus(item) {
-      //TODO: we can use something like this instead of item.join_status to ensure things are reactive, but maybe too much computing cost...
-      let i = { ...item }
-      delete i.join_status
-      i = ohana.movies.addInfo(i, this.skipTags)
-      return i.join_status
+    status(item) {
+      //TODO: we can use something like this instead of item.status to ensure things are reactive, but maybe too much computing cost...
+      console.log('getting status: ', item)
+      item.status = ohana.movies.getTagsHealth(item.filterStatus, this.skipTags)
     },
     scrollLeft(e) {
       e.scrollLeft -= e.offsetWidth - 140
@@ -726,7 +675,7 @@ export default {
 
       // Do some data formatting and push to data array
       for (var i = 0; i < data.length; i++) {
-        ohana.movies.addInfo(data[i], this.skipTags)
+        data[i].status = ohana.movies.getTagsHealth(data[i].filterStatus, this.skipTags)
       }
 
       const excludeFromHome = ['tt0314331'] //imdb ids of movies to explicitely hide from home (so only show when searched)

@@ -1156,6 +1156,17 @@
       "mappings": "{ \"sort_by\": \"last_edited\", \"ttl\": 10 }"
     },
     {
+      "key": "popular",
+      "type": "section-disabled",
+      "notes": "",
+      "parents": "",
+      "name_en": "Trending now",
+      "name_es": "Lo más visto",
+      "tip_en": "",
+      "tip_es": "",
+      "mappings": "{ \"sort_by\": \"popularity\", \"ttl\": 10 }"
+    },
+    {
       "key": "reviewed_shows",
       "type": "section-disabled",
       "notes": "",

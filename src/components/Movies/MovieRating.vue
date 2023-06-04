@@ -40,7 +40,7 @@
                   {{ getMySev(c).tag }}
 
                   <!-- icon: we only show the icon if red flag, or grey question mark (otherwise it seems we are saying this severity is good)-->
-                  <v-icon v-if="getMySev(c).use_icon" :color="getMySev(c).color">{{
+                  <v-icon v-if="getMySev(c).use_icon" size="17" :color="getMySev(c).color">{{
                     getMySev(c).icon
                   }}</v-icon>
                 </v-card-subtitle>
