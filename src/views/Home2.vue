@@ -681,9 +681,14 @@ export default {
         data[i].status = ohana.movies.getMovieHealth(data[i], this.skipTags)
       }
 
-      const excludeFromHome = ['tt0314331', 'tt8097030', 'tt4593126'] //imdb ids of movies to explicitely hide from home (so only show when searched)
+      const excludeFromHome = ['tt0314331', 'tt4593126'] //imdb ids of movies to explicitely hide from home (so only show when searched)
       data = data.filter((x) => {
-        return index == 0 || !excludeFromHome.includes(x.imdb)
+        return (
+          index == 0 ||
+          (!excludeFromHome.includes(x.imdb) &&
+            !ohana.movies.isUgly(x) &&
+            x.status.status != 'missing')
+        )
       })
       section.data = [...section.data, ...data]
 

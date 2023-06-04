@@ -39,10 +39,36 @@ const movies = {
     return fs
   },
 
+  isUgly(movie) {
+    if (movie.imdb == 'tt13345606') console.log(movie)
+    try {
+      if (this.isAdult(movie)) return true
+      if (movie.genres.includes('Horror')) return true
+      if (movie.tmdbGenres && movie.tmdbGenres.includes('Horror')) return true
+    } catch (e) {
+      console.error('catched error on isUgly ', e)
+    }
+  },
+
+  isAdult(movie) {
+    try {
+      if (movie.isAdult || movie.genres.includes('Adult')) return true
+      if (movie.tmdbGenres && movie.tmdbGenres.includes('Adult')) return true
+    } catch (e) {
+      console.error('catched error on isAdult ', e)
+    }
+  },
+
   getMovieHealth(movie, skip_tags, ignored_values = []) {
+    // Adult movies are always unhealthy
+    if (this.isAdult(movie)) return this.addColors({ health: -1, trust: 10 }) // !skip_tags.length)
+
+    // Get values health...
     let vs = this.getValuesHealth(this.parse(movie.movieValues), ignored_values)
     vs.health = vs.minHealth
     movie.filterStatus.values = vs
+
+    //
     let fs = this.getTagsHealth(movie.filterStatus, [...skip_tags, 'values'])
     return { ...vs, ...fs }
   },

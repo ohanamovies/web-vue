@@ -1157,14 +1157,14 @@
     },
     {
       "key": "popular",
-      "type": "section-disabled",
+      "type": "section",
       "notes": "",
       "parents": "",
       "name_en": "Trending now",
       "name_es": "Lo más visto",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"sort_by\": \"popularity\", \"ttl\": 10 }"
+      "mappings": "{ \"sort_by\": \"popularity\", \"ttl\": 60 }"
     },
     {
       "key": "reviewed_shows",
