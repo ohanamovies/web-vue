@@ -39,6 +39,34 @@ const movies = {
     return fs
   },
 
+  getMovieHealth(movie, skip_tags, ignored_values = []) {
+    let vs = this.getValuesHealth(this.parse(movie.movieValues), ignored_values)
+    vs.health = vs.minHealth
+    movie.filterStatus.values = vs
+    let fs = this.getTagsHealth(movie.filterStatus, [...skip_tags, 'values'])
+    return { ...vs, ...fs }
+  },
+
+  getValuesHealth(values, ignored_values = []) {
+    let status = { trust: Infinity, avgHealth: 0, maxHealth: -Infinity, minHealth: Infinity }
+    for (let value in values) {
+      if (ignored_values.includes(value)) continue
+      let vs = this.getFS(values, value)
+      status.avgHealth += vs.health / values.length
+      status.trust = Math.min(status.trust, vs.trust)
+      status.minHealth = Math.min(status.minHealth, vs.health)
+      status.maxHealth = Math.max(status.maxHealth, vs.health)
+    }
+    if (this.isUnhealthy(status.minHealth) && this.isHealthy(status.maxHealth)) {
+      return { ...status, vColor: 'orange', vIcon: 'mdi-heart-half-full' }
+    } else if (this.isUnhealthy(status.minHealth)) {
+      return { ...status, vColor: 'red', vIcon: 'mdi-heart-broken' }
+    } else if (this.isHealthy(status.maxHealth)) {
+      return { ...status, vColor: 'green', vIcon: 'mdi-heart' }
+    }
+    return status
+  },
+
   getTagsHealth(filterStatus, skip_tags = []) {
     let status = { trust: Infinity, health: Infinity, cuts: 0 }
     for (var i = 0; i < skip_tags.length; i++) {
@@ -382,6 +410,7 @@ const movies = {
 
   parse(json, def) {
     try {
+      if (typeof json === 'object' && json !== null) return json
       let data = JSON.parse(json)
       if (data) return data
     } catch (e) {

@@ -301,8 +301,11 @@
                       :alt="getTitle(item)"
                       :class="[item.status.status == 'missing' ? 'blur_image' : '']"
                     />
-                    <div class="shield" v-if="item.status.use_icon">
-                      <v-icon :color="item.status.color" size="18">
+                    <div class="shield">
+                      <v-icon v-if="item.status.vIcon" :color="item.status.vColor" size="18">
+                        {{ item.status.vIcon }}
+                      </v-icon>
+                      <v-icon v-if="item.status.use_icon" :color="item.status.color" size="18">
                         {{ item.status.icon }}
                       </v-icon>
                     </div>
@@ -546,7 +549,7 @@ export default {
     status(item) {
       //TODO: we can use something like this instead of item.status to ensure things are reactive, but maybe too much computing cost...
       console.log('getting status: ', item)
-      item.status = ohana.movies.getTagsHealth(item.filterStatus, this.skipTags)
+      item.status = ohana.movies.getMovieHealth(item, this.skipTags)
     },
     scrollLeft(e) {
       e.scrollLeft -= e.offsetWidth - 140
@@ -675,10 +678,10 @@ export default {
 
       // Do some data formatting and push to data array
       for (var i = 0; i < data.length; i++) {
-        data[i].status = ohana.movies.getTagsHealth(data[i].filterStatus, this.skipTags)
+        data[i].status = ohana.movies.getMovieHealth(data[i], this.skipTags)
       }
 
-      const excludeFromHome = ['tt0314331'] //imdb ids of movies to explicitely hide from home (so only show when searched)
+      const excludeFromHome = ['tt0314331', 'tt8097030', 'tt4593126'] //imdb ids of movies to explicitely hide from home (so only show when searched)
       data = data.filter((x) => {
         return index == 0 || !excludeFromHome.includes(x.imdb)
       })

@@ -101,10 +101,10 @@
                       "
                     >
                       <div style="margin-right: 15px">
-                        {{ item.vice.es || 'Unhealthy' }}
+                        {{ item.vice[lang] || 'Unhealthy' }}
                       </div>
                       <div style="margin-left: 15px; text-align: right">
-                        {{ item.value.es || 'Healthy' }}
+                        {{ item.value[lang] || 'Healthy' }}
                       </div>
                     </div>
                   </div>
@@ -120,16 +120,16 @@
         <div v-for="(item, index) in items" :key="index">
           <!--group -->
           <div v-if="item.type == 'group'">
-            <h2>{{ item.title.es }}</h2>
+            <h2>{{ item.title[lang] }}</h2>
           </div>
 
           <!-- value -->
           <div v-if="item.type == 'value'" style="margin-bottom: 30px">
             <div>
-              <b>{{ item.title.es || item.key }}</b>
-              <MenuTooltip v-if="item.tooltip.es" icon="mdi-information-outline">
+              <b>{{ item.title[lang] || item.key }}</b>
+              <MenuTooltip v-if="item.tooltip[lang]" icon="mdi-information-outline">
                 <v-card>
-                  <v-card-text>{{ item.tooltip.es }}</v-card-text>
+                  <v-card-text>{{ item.tooltip[lang] }}</v-card-text>
                 </v-card>
               </MenuTooltip>
             </div>
@@ -178,10 +178,10 @@
               "
             >
               <div style="margin-right: 15px">
-                {{ item.vice.es || 'Unhealthy' }}
+                {{ item.vice[lang] || 'Unhealthy' }}
               </div>
               <div style="margin-left: 15px; text-align: right">
-                {{ item.value.es || 'Healthy' }}
+                {{ item.value[lang] || 'Healthy' }}
               </div>
             </div>
           </div>
