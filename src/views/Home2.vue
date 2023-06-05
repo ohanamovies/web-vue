@@ -519,7 +519,7 @@ export default {
         this.sections[0].finishLoading = false
         this.sections[0].loading = false
         this.getData(0)
-      }, 800)
+      }, 200)
     },
   },
   computed: {
