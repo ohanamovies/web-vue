@@ -15,6 +15,7 @@ const movies = {
   severities: ['Very', 'Moderately', 'Mildly', 'Slightly'],
   categories: ['gory', 'erotic', 'profane'],
   th: { trust: 0.15, unhealthy: -0.35, healthy: 0.35, trustWarning: 1 },
+
   isHealthy(h) {
     if (h && h.health) h = h.health
     return !!(h >= this.th.healthy)
@@ -40,7 +41,6 @@ const movies = {
   },
 
   isUgly(movie) {
-    if (movie.imdb == 'tt13345606') console.log(movie)
     try {
       if (this.isAdult(movie)) return true
       if (movie.genres.includes('Horror')) return true
@@ -54,6 +54,11 @@ const movies = {
     try {
       if (movie.isAdult || movie.genres.includes('Adult')) return true
       if (movie.tmdbGenres && movie.tmdbGenres.includes('Adult')) return true
+
+      if (movie.status && !this.isHealthy(movie.status)) {
+        let title = JSON.stringify(movie.title).toLowerCase()
+        return /porn|sex|nude|naked/.test(title)
+      }
     } catch (e) {
       console.error('catched error on isAdult ', e)
     }
@@ -61,15 +66,16 @@ const movies = {
 
   getMovieHealth(movie, skip_tags, ignored_values = []) {
     // Adult movies are always unhealthy
-    if (this.isAdult(movie)) return this.addColors({ health: -1, trust: 10 }) // !skip_tags.length)
+    if (this.isAdult(movie)) return this.addColors({ health: -1, trust: 10 })
 
     // Get values health...
     let vs = this.getValuesHealth(this.parse(movie.movieValues), ignored_values)
-    vs.health = vs.minHealth
-    movie.filterStatus.values = vs
 
     //
+    movie.filterStatus.values = { health: vs.minHealth, trust: Infinity }
     let fs = this.getTagsHealth(movie.filterStatus, [...skip_tags, 'values'])
+
+    //
     return { ...vs, ...fs }
   },
 
@@ -108,7 +114,7 @@ const movies = {
   addColors(fs, unset) {
     let props = {}
     if (!this.isTrusted(fs)) {
-      props = { color: 'orange', icon: 'mdi-progress-question', status: 'unknown' }
+      props = { color: 'lightgray', icon: 'mdi-progress-question', status: 'unknown' }
     } else if (this.isHealthy(fs) && !fs.cuts) {
       props = { color: 'green', icon: 'mdi-emoticon-happy', status: 'clean' }
     } else if (this.isHealthy(fs)) {

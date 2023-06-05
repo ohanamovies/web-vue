@@ -288,6 +288,7 @@
                 <div
                   class="poster"
                   v-for="(item, index2) in section.data"
+                  v-show="!item.hidden"
                   :key="index2"
                   @click="openMovieDialog(item)"
                   :style="{
@@ -437,7 +438,7 @@ export default {
 
       seeAllGenreChips: false,
       showSidebarFilters: true,
-      pageSize: 50,
+      pageSize: 25,
 
       statusFilter: [],
 
@@ -588,6 +589,7 @@ export default {
       console.log('[getAllData] ')
       for (var i = 1; i < this.sections.length; i++) {
         this.getData(i, resetSections)
+        await this.sleep(500)
       }
     },
     sleep(time) {
@@ -679,17 +681,16 @@ export default {
       // Do some data formatting and push to data array
       for (var i = 0; i < data.length; i++) {
         data[i].status = ohana.movies.getMovieHealth(data[i], this.skipTags)
-      }
 
-      const excludeFromHome = ['tt0314331', 'tt4593126'] //imdb ids of movies to explicitely hide from home (so only show when searched)
-      data = data.filter((x) => {
-        return (
-          index == 0 ||
-          (!excludeFromHome.includes(x.imdb) &&
-            !ohana.movies.isUgly(x) &&
-            x.status.status != 'missing')
-        )
-      })
+        if (index == 0) {
+          data[i].hidden = ohana.movies.isAdult(data[i])
+        } else {
+          data[i].hidden =
+            ['tt0314331', 'tt4593126'].includes(data[i].imdb) ||
+            ohana.movies.isUgly(data[i]) ||
+            data[i].status.status == 'missing'
+        }
+      }
       section.data = [...section.data, ...data]
 
       console.log(section.data)
