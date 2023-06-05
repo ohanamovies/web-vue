@@ -261,7 +261,7 @@
           <div
             v-show="
               (title && index == 0) ||
-              (!title && index != 0 && (section.data.length > 0 || section.loading))
+              (!title && index != 0 && (visibleLength(section) > 0 || section.loading))
             "
             :data-id="index"
           >
@@ -270,11 +270,11 @@
             <!-- POSTERS -->
             <div
               style="position: relative"
-              v-show="section.data.length > 0 || section.finishLoading"
+              v-show="visibleLength(section) > 0 || section.finishLoading"
             >
               <!-- arrow left -->
               <div
-                v-show="section.data.length > 1 && !isMobile"
+                v-show="visibleLength(section) > 1 && !isMobile"
                 class="arrow-box left"
                 @click="scrollLeft($event.target.nextSibling)"
               >
@@ -284,7 +284,7 @@
                 ></div>
               </div>
               <!-- posters -->
-              <div v-show="section.data.length > 0" class="posters_wrapper2">
+              <div v-show="visibleLength(section) > 0" class="posters_wrapper2">
                 <div
                   class="poster"
                   v-for="(item, index2) in section.data"
@@ -326,7 +326,7 @@
 
               <!-- arrow right -->
               <div
-                v-show="section.data.length > 1 && !isMobile"
+                v-show="visibleLength(section) > 1 && !isMobile"
                 class="arrow-box right"
                 @click="scrollRight($event.target.previousSibling)"
               >
@@ -341,7 +341,7 @@
             <div
               v-show="
                 (section.loading == false ? false : true) &&
-                (section.data ? section.data.length == 0 : true)
+                (section.data ? visibleLength(section) == 0 : true)
               "
               class="posters_wrapper2"
             >
@@ -361,7 +361,7 @@
                 >
                 to see this section.
               </div>
-              <div v-else-if="section.finishLoading && section.data.length == 0">
+              <div v-else-if="index == 1 && section.finishLoading && visibleLength(section) == 0">
                 <div style="color: white; margin: auto">
                   No titles found matching your settings.
                 </div>
@@ -369,7 +369,7 @@
             </div>
             <!-- POSTERS (loading placeholder) -->
 
-            <div v-show="index == 0 && !section.loading && !section.data.length">
+            <div v-show="index == 0 && !section.loading && !visibleLength(section)">
               <div style="color: white; margin: auto">No titles found matching your search.</div>
             </div>
           </div>
@@ -547,6 +547,9 @@ export default {
     },
   },
   methods: {
+    visibleLength(section) {
+      return section.data.filter((x) => !x.hidden).length
+    },
     status(item) {
       //TODO: we can use something like this instead of item.status to ensure things are reactive, but maybe too much computing cost...
       console.log('getting status: ', item)

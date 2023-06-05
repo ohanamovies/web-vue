@@ -56,8 +56,9 @@ const movies = {
       if (movie.tmdbGenres && movie.tmdbGenres.includes('Adult')) return true
 
       if (movie.status && !this.isHealthy(movie.status)) {
-        let title = JSON.stringify(movie.title).toLowerCase()
-        return /porn|sex|nude|naked/.test(title)
+        let text = JSON.stringify(movie.title).toLowerCase()
+        text += JSON.stringify(movie.plot).toLowerCase()
+        return /porn|sex|nude|naked|nudity|erotic/.test(text)
       }
     } catch (e) {
       console.error('catched error on isAdult ', e)
@@ -66,7 +67,7 @@ const movies = {
 
   getMovieHealth(movie, skip_tags, ignored_values = []) {
     // Adult movies are always unhealthy
-    if (this.isAdult(movie)) return this.addColors({ health: -1, trust: 10 })
+    if (this.isAdult(movie)) return this.addColors({ health: -1, trust: 10, isAdult: true })
 
     // Get values health...
     let vs = this.getValuesHealth(this.parse(movie.movieValues), ignored_values)
