@@ -1,29 +1,28 @@
 <template>
   <div>
     <!-- intro about values-->
-    <div>Let's dive deeper into the movie values</div>
+    <div style="margin-bottom: 10px">
+      <span v-if="!movieValues || !movieValues.length">
+        No values known for this movies. Be the first one to add one!
+      </span>
+      <span v-else> Let's dive deeper into the movie values - </span>
 
-    <div v-if="loading" style="display: flex; justify-content: center">
-      <v-progress-circular indeterminate></v-progress-circular>
+      <span v-if="current == 'myvote'" class="modern-link" @click="current = 'community'"
+        >Stop editing</span
+      >
+      <span
+        v-else-if="current == 'community'"
+        class="modern-link"
+        @click="current = loggedIn ? 'myvote' : 'needLogIn'"
+        >Edit</span
+      >
+      <div v-else style="font-style: italic; font-size: smaller">
+        You need to have an account and log in if you want to share your vote about this content
+        <router-link to="/settings">Log in</router-link>
+      </div>
     </div>
 
-    <div v-else>
-      <div style="margin-bottom: 5px">
-        <span
-          :style="{ fontWeight: current == 'community' ? 'bold' : 400 }"
-          class="modern-link"
-          @click="current = 'community'"
-          >Community Vote</span
-        >
-        |
-        <span
-          :style="{ fontWeight: current == 'myvote' ? 'bold' : 400 }"
-          class="modern-link"
-          @click="current = 'myvote'"
-          >My vote</span
-        >
-      </div>
-
+    <div>
       <div
         style="position: fixed; top: 60px; right: 20px; z-index: 99999"
         v-if="current == 'myvote'"
@@ -33,8 +32,70 @@
           cast values vote
         </v-btn>
       </div>
+
+      <div v-if="current != 'myvote'">
+        <v-card
+          v-for="value in movieValues"
+          :key="value.key"
+          variant="outlined"
+          style="margin: 15px"
+        >
+          <v-card-title style="display: block"
+            >{{ value.title[lang] }}
+
+            <span v-if="value.parent"> ({{ value.parent.title[lang] }}) </span>
+
+            <span style="float: right; font-size: 14px; font-weight: normal">
+              <span v-if="!value.isHealthy">Unhealthy view: </span>
+              <span v-else>Healthy view: </span>
+              {{ Math.round(value.health * 10) }} / 10
+            </span>
+          </v-card-title>
+          <!--<v-card-subtitle v-if="value.parent && value.parent.title"
+            >
+
+            <!- -
+            <img :src="'images/values/thumbsdown.png'" style="float: left; width: 15px" />
+            <img :src="'images/values/thumbsdown.png'" style="float: left; width: 15px" />
+            <img :src="'images/values/thumbsup.png'" style="float: left; width: 15px" />
+            <img :src="'images/values/thumbsup.png'" style="float: left; width: 15px" />- ->
+          </v-card-subtitle>-->
+
+          <v-card-text>
+            <v-row>
+              <v-col
+                :style="[
+                  !value.isHealthy
+                    ? { margin: 5 + 'px', border: 3 + 'px solid ' + value.color }
+                    : { opacity: 0.4 },
+                ]"
+              >
+                <img
+                  :src="'images/values/' + value.vice.icon + '.png'"
+                  style="float: left; max-width: 25%; padding: 5px"
+                />
+                {{ value.vice[lang] }}
+              </v-col>
+              <v-col
+                :style="[
+                  value.isHealthy
+                    ? { margin: 5 + 'px', border: 3 + 'px solid ' + value.color }
+                    : { opacity: 0.4 },
+                ]"
+              >
+                <img
+                  :src="'images/values/' + value.value.icon + '.png'"
+                  style="float: right; max-width: 25%; padding: 5px"
+                />
+                {{ value.value[lang] }}
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </div>
+
       <!-- with expansion panels and slider -->
-      <div>
+      <div v-else>
         <v-expansion-panels>
           <v-expansion-panel v-for="group in items" :key="group.key">
             <v-expansion-panel-header>
@@ -193,6 +254,7 @@
 
 <script>
 import MenuTooltip from '@/components/MenuTooltip.vue'
+import values_list from '@/assets/values'
 import { mapState } from 'vuex'
 
 import ohana from '@/assets/ohana/'
@@ -217,6 +279,9 @@ export default {
     ...mapState(['settings']),
     lang() {
       return this.settings.language
+    },
+    loggedIn() {
+      return this.settings.username ? true : false
     },
     values() {
       let keys = []
@@ -244,6 +309,33 @@ export default {
       }
       return JSON.parse(JSON.stringify(vote))
     },
+    movieValues() {
+      let values = values_list.flat
+      let output = []
+      let def = { vice: {}, title: {}, value: {}, tooltip: {} }
+
+      //for (const key in values) {
+      for (const key in this.original) {
+        if (!this.original[key].health) continue
+        if (!values[key]) continue
+        if (values[key].items) continue // ignore parent elements
+        const value = { ...def, ...values[key] }
+        //        value = ohana.movies.addColors(value)
+        value.health = this.original[key].health
+        value.trust = this.original[key].trust
+        /*value.health = (Math.random() - 0.5) * 2
+        value.trust = 10*/
+
+        if (!value.vice.icon) value.vice.icon = 'vice'
+        if (!value.value.icon) value.value.icon = 'value'
+
+        value.isHealthy = ohana.movies.isHealthy(value)
+        value.color = ohana.movies.addColors(value).color
+
+        output.push(value)
+      }
+      return output
+    },
   },
   watch: {
     vote() {
@@ -270,7 +362,7 @@ export default {
   },
   methods: {
     async getMyVote() {
-      if (!this.imdb) return false
+      if (!this.imdb || !this.settings.username) return false
 
       let x = await ohana.api.query({
         action: 'getUserVote',
@@ -300,7 +392,6 @@ export default {
       for (const key in object) {
         if (Object.hasOwnProperty.call(object, key)) {
           const v = object[key]
-
           output[key] = { health: v }
         }
       }
@@ -328,52 +419,9 @@ export default {
     },
     //Fetch the data from the spreadsheet, and map to a more usable json
     async fetchData() {
-      this.loading = true
-      let x = await fetch(
-        'https://script.google.com/macros/s/AKfycbzGvKKUIaqsMuCj7-A2YRhR-f7GZjl4kSxSN1YyLkS01_CfiyE/exec?id=1ozyTmKWEz-srfpRT_EMsohM2BYOjm2LFFP07hJ59O2I&sheet=values'
-      )
-      if (!x.ok) return
-      let data = await x.json()
-      this.raw_data = data
-
-      //const lang = this.settings.language || 'es'
-
-      //map data (groups language keys from `title_es="x"` into `title: {es: "x"}`)
-      let items = []
-      let validKeys = ['key', 'type', 'title', 'vice', 'value', 'tooltip'] //ignore others
-
-      for (let i = 0; i < data.records.length; i++) {
-        const item = data.records[i]
-        const item2 = {}
-        if (!item.type) continue
-
-        for (const key in item) {
-          if (Object.hasOwnProperty.call(item, key)) {
-            const v = item[key]
-            const k = key.split('_')[0]
-            if (validKeys.includes(k)) {
-              if (key.split('_').length > 1) {
-                if (!item2[k]) item2[k] = {}
-                item2[k][key.split('_')[1]] = v
-              } else {
-                item2[k] = v
-              }
-            }
-          }
-        }
-        if (item2.type == 'group') {
-          item2.items = []
-          items.push(item2)
-        } else {
-          items[items.length - 1].items.push(item2)
-        }
-      }
-
-      this.items = items
-
+      this.items = values_list.values
       //update vote when fetched data
       this.vote = this.communityVote
-      this.loading = false
     },
   },
   mounted() {

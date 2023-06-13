@@ -20,7 +20,7 @@
         lineHeight: '1.1',
       }"
     >
-      Nota: La mayor parte de la web está aún en inglés, pero estamos trabajando en ello.
+      Nota: Algunas partes de la web están aún en inglés, pero estamos trabajando en ello.
       <router-link v-if="!dark" to="/community" target="_blank">Ayudar</router-link>
       <!-- FIXME: using dark here is an ugly workaround -->
     </div>

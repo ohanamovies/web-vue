@@ -37,8 +37,8 @@
           <p>
             <b>Warning:</b>
             <span v-if="isChrome">
-              You don't have our extension installed (or are using an old version). You will need it
-              if you want to watch edited content.
+              You don't have our extension installed. You will need it if you want to watch edited
+              content.
             </span>
             <span v-else>
               To watch edited content, you need to switch to a compatible browser, and install our

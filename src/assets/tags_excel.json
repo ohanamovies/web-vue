@@ -1149,11 +1149,11 @@
       "type": "section",
       "notes": "",
       "parents": "",
-      "name_en": "Recently reviewed movies",
+      "name_en": "Recently reviewed",
       "name_es": "Revisadas recientemente",
       "tip_en": "",
       "tip_es": "",
-      "mappings": "{ \"sort_by\": \"last_edited\", \"ttl\": 10 }"
+      "mappings": "{ \"sort_by\": \"last_edited\", \"ttl\": 10, \"type\": [\"movie\",\"series\"] }"
     },
     {
       "key": "popular",

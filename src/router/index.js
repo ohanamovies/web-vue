@@ -4,11 +4,11 @@ import VueRouter from 'vue-router'
 import ExtensionPopup from '@/views/Extension/ExtensionPopup'
 
 import Home from '@/views/Home.vue'
-import AboutOld from '@/views/AboutOld.vue'
+//import AboutOld from '@/views/AboutOld.vue'
 import Home2 from '@/views/Home2.vue'
 import About2 from '@/views/About.vue'
 import Community from '@/views/Community.vue'
-import Content from '@/views/Content.vue'
+//import Content from '@/views/Content.vue'
 import Elements from '@/views/Elements.vue'
 import Stats from '@/views/Stats.vue'
 import GetStarted from '@/views/Tutorials/GetStarted.vue'
@@ -100,17 +100,17 @@ const routes = [
     name: 'About2',
     component: About2,
   },
-  {
+  /*{
     path: '/about_old',
     name: 'AboutOld',
     component: AboutOld,
-  },
+  },*/
   {
     path: '/community',
     name: 'Community',
     component: Community,
   },
-  {
+  /*{
     path: '/content',
     name: 'Content',
     component: Content,
@@ -119,7 +119,7 @@ const routes = [
     path: '/find-movies-old',
     name: 'find-movies-old',
     component: Content,
-  },
+  },*/
   {
     path: '/stats',
     name: 'Stats',

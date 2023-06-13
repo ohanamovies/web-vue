@@ -192,15 +192,6 @@
                       >
                       <span v-else>Go to the series page to see more granular details</span>
                     </div>
-
-                    <!-- +info link (not visible if alraedy in detail page)-->
-                    <div v-if="!isDetailPage">
-                      <router-link :to="'/item/' + item.imdb" class="modern-link">{{
-                        $t('popup.goToFullDetails')
-                      }}</router-link>
-                    </div>
-                    <!-- some space buffer if not shwoing the +info -->
-                    <div v-else style="height: 10px"></div>
                   </div>
                 </div>
 
@@ -209,23 +200,16 @@
                   <div v-if="movieValues.length > 0" style="margin-top: 0px">
                     <b>{{ $t('popup.movieValues') }}: </b>
 
-                    <i> {{ movieValues.map((x) => x.name).join(' - ') }}</i>
+                    <!--<i> {{ movieValues.map((x) => x.name).join(' - ') }}</i>-->
 
-                    <div v-if="false">
+                    <div v-if="true">
                       <fc-tooltip
                         v-for="(value, index) in movieValues"
                         :key="index"
-                        :text="value.description"
+                        :text="value.tip"
                       >
-                        <v-chip
-                          :color="getValueColor(value.health)"
-                          :x-small="isMobile2"
-                          :small="!isMobile2"
-                          outlined
-                          dark
-                          class="ml-1"
-                          >{{ value.name }}</v-chip
-                        >
+                        <span :style="{ color: valueColor(value) }">{{ value.name }}</span>
+                        <span v-if="index < movieValues.length - 1"> - </span>
                       </fc-tooltip>
                     </div>
                   </div>
@@ -263,28 +247,24 @@
               </v-chip>
             </div>
           </div>
-          <!--
           <div style="position: absolute; right: 0px">
-            <a
+            <!--<a
               v-if="is_unknown || is_missing"
               class="modern-link"
               :href="feedback_link"
               target="_blank"
               >Request review
-            </a>
+            </a>-->
+
+            <!-- +info link (not visible if alraedy in detail page)-->
+            <span v-if="!isDetailPage">
+              <router-link :to="'/item/' + item.imdb" class="modern-link">{{
+                $t('popup.goToFullDetails')
+              }}</router-link>
+            </span>
             <a v-else class="modern-link" :href="feedback_link" target="_blank">{{
               $t('feedbackPopUp')
             }}</a>
-          </div>
-          -->
-
-          <div
-            style="position: absolute; right: 0px"
-            v-if="false && $router.currentRoute.path != '/item/' + item.imdb"
-          >
-            <router-link :to="'/item/' + item.imdb" class="modern-link">{{
-              $t('popup.goToFullDetails')
-            }}</router-link>
           </div>
         </div>
       </v-card-text>
@@ -318,7 +298,7 @@
 <script>
 const rawTags = require('@/assets/raw_tags')
 import ohana from '@/assets/ohana/index'
-import tags_excel from '@/assets/tags_excel'
+import values_list from '@/assets/values'
 import FilterStatusBriefTags from '../Movies/FilterStatusBriefTags.vue'
 
 import MovieWatchOptions from '@/components/MoviePopup/MovieWatchOptions2.vue'
@@ -373,21 +353,23 @@ export default {
       return this.$route.path.includes('/item/')
     },
     movieValues() {
+      let values = values_list.flat
       let output = []
-      const values = tags_excel.getTagsLocal(this.settings.language).values
 
       for (const key in this.item.movieValues) {
-        const value = values.find((v) => v.key == key)
-        if (!value) continue
-
-        if (value.parents && value.parents.length == 0) {
-          output.push({
-            health: this.item.movieValues[key].health,
-            trust: this.item.movieValues[key].trust,
-            description: value.tip ? value.tip : '',
-            name: value.name,
-          })
+        if (!this.item.movieValues[key].health) continue
+        if (!values[key]) {
+          console.error('Missing value!! ', key)
+          continue
         }
+        if (values[key].items) continue // ignore parent elements
+        const value = values[key] || { tooltip: {}, title: {} }
+        output.push({
+          health: this.item.movieValues[key].health,
+          trust: this.item.movieValues[key].trust,
+          //tip: value.tooltip[this.lang] || '',
+          name: value.title[this.lang] || key,
+        })
       }
       return output
     },
@@ -432,7 +414,7 @@ export default {
       return this.item.join_status.status == 'missing'
     },
 
-    language() {
+    lang() {
       return this.settings.language
     },
 
@@ -444,7 +426,7 @@ export default {
       if (!item || !item.poster) return emptyPoster
 
       let path = ''
-      if (item.poster[this.language]) path = item.poster[this.language]
+      if (item.poster[this.lang]) path = item.poster[this.lang]
       else if (item.poster['en']) path = item.poster['en']
       if (path) return 'https://image.tmdb.org/t/p/w200' + path
       else return emptyPoster
@@ -459,13 +441,13 @@ export default {
     },
 
     title() {
-      if (this.item.title[this.language]) return this.item.title[this.language]
+      if (this.item.title[this.lang]) return this.item.title[this.lang]
       if (this.item.title['primary']) return this.item.title['primary']
       return ''
     },
 
     plot() {
-      if (this.item.plot[this.language]) return this.item.plot[this.language]
+      if (this.item.plot[this.lang]) return this.item.plot[this.lang]
       if (this.item.plot['primary']) return this.item.plot['primary']
       return ''
     },
@@ -521,7 +503,7 @@ export default {
       console.log('reset popup')
       this.blur_if_missing = true
     },
-    getValueColor(health) {
+    valueColor(health) {
       //if (value.trust < ohana.movies.th.trust) return 'orange'
       if (ohana.movies.isUnhealthy(health)) return 'red'
       if (ohana.movies.isHealthy(health)) return 'green'

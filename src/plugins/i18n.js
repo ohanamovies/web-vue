@@ -71,7 +71,7 @@ const messages = {
     /*movie popup */
     confidence: 'Confidence',
     feedbackPopUp: 'Report an error',
-    resultsBasedOn: ['Results based on your', 'settings', 'and', 'filters'],
+    resultsBasedOn: ['Healthy movies and shows based on your', 'settings', 'and', 'filters'],
     manage_preferences: 'Manage preferences',
 
     settings_page: {
@@ -79,7 +79,7 @@ const messages = {
         'Select what kind of content do you want to avoid. Ohana will skip it automatically while you watch movies.',
       warnings: {
         not_in_chrome:
-          "You don't have our extension installed (or are using an old version). You will need it if you want to watch edited content.",
+          "You don't have our extension installed. You will need it if you want to watch edited content.",
         not_installed:
           'To watch edited content, you need to switch to a compatible browser (Google Chrome in a Destkop machine), and install our Chrome Extension.',
       },
@@ -209,7 +209,7 @@ const messages = {
     /*movie popup */
     confidence: 'Fiabilidad',
     feedbackPopUp: 'Reportar un error',
-    resultsBasedOn: ['Resultados en función de tus', 'ajustes', 'y', 'filtros'],
+    resultsBasedOn: ['Películas y series saludables para tus ', 'ajustes', 'y', 'filtros'],
     manage_preferences: 'Ajustar mis preferencias',
     settings_page: {
       skip_intro:

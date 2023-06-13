@@ -58,10 +58,11 @@ const movies = {
       if (movie.status && !this.isHealthy(movie.status)) {
         let text = JSON.stringify(movie.title).toLowerCase()
         text += JSON.stringify(movie.plot).toLowerCase()
-        return /porn|sex|nude|naked|nudity|erotic/.test(text)
+        // This test all languages, so there should be no need to translate the filters
+        return /porn|sex|nude|naked|nudity|erotic|gay/.test(text)
       }
     } catch (e) {
-      console.error('catched error on isAdult ', e)
+      console.error('catched error on isAdult ', e, movie)
     }
   },
 

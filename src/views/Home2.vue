@@ -320,6 +320,7 @@
                     "
                   >
                     <span>{{ getTitle(item) }}</span>
+                    <span class="subtitle">{{ getYear(item) }}</span>
                   </div>
                 </div>
               </div>
@@ -452,6 +453,58 @@ export default {
         { text: 'Youtube', value: 'youtube' },*/
       ],
 
+      sections_old: [
+        {
+          title: 'Search results',
+          data: [],
+          query: {},
+        },
+        {
+          title: 'Recently reviewed',
+          data: [],
+          query: { sort_by: 'last_edited' },
+        },
+
+        {
+          title: 'Watch with kids',
+          data: [],
+          query: { genres: JSON.stringify(['Animation']) },
+        },
+        {
+          title: 'Forgiveness',
+          data: [],
+          query: { values: JSON.stringify(['Forgiveness']) },
+        },
+        {
+          title: 'Caring',
+          data: [],
+          query: { values: JSON.stringify(['Caring']) },
+        },
+        {
+          title: 'Best rated',
+          data: [],
+          query: { imdbRating: 8 }, // sort is done by number of votes
+        },
+        /*
+        {
+          title: 'Healthy TV Shows (for your settings) ',
+          data: [],
+          query: { type: 'series', clean: JSON.stringify(this.skipTags) },
+        },
+        */
+        {
+          title: 'Documentaries',
+          data: [],
+          query: { genres: JSON.stringify(['Documentary']) },
+        },
+
+        {
+          title: 'Classic movies',
+          data: [],
+          query: { releasedBefore: 1970 },
+        },
+      ],
+
       title: '',
       titleTimeout: null,
 
@@ -578,6 +631,10 @@ export default {
       if (!item || !item.title) return
       return item.title[this.language] || item.title['en'] || item.title['primary']
     },
+    getYear(item) {
+      if (!item || !item.released) return
+      return '(' + item.released + ')'
+    },
     onClickOutsideNavDrawer() {
       if (this.isMobile && !this.mini) {
         this.mini = !this.mini
@@ -682,6 +739,7 @@ export default {
       if (data.length < this.pageSize) section.finishLoading = true
 
       // Do some data formatting and push to data array
+      let ids = section.data.map((x) => x.imdb)
       for (var i = 0; i < data.length; i++) {
         data[i].status = ohana.movies.getMovieHealth(data[i], this.skipTags)
 
@@ -693,6 +751,8 @@ export default {
             ohana.movies.isUgly(data[i]) ||
             data[i].status.status == 'missing'
         }
+
+        if (ids.includes(data[i].imdb)) data[i].hidden = true
       }
       section.data = [...section.data, ...data]
 
@@ -744,6 +804,11 @@ body {
   /* We need to limit the height and show a scrollbar
   height: 300px;*/
   overflow: auto;
+}
+
+.subtitle {
+  display: block;
+  font-size: smaller;
 }
 
 #searchBox {

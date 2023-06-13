@@ -32,14 +32,6 @@
 
             <!-- <EditTags v-if="false" :imdb="imdb" :original="item.filterStatus" /> MAE: Deprecate -->
           </div>
-
-          <!-- Feedback -->
-          <div>
-            <hr />
-            <a class="modern-link" :href="feedback_link" target="_blank">{{
-              $t('feedbackPopUp')
-            }}</a>
-          </div>
         </v-tab-item>
 
         <!-- movie values -->
@@ -212,15 +204,6 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
     isAdmin() {
       return ['sope', 'miguel', 'miguel2'].includes(this.settings.username)
-    },
-    feedback_link() {
-      return (
-        'https://docs.google.com/forms/d/e/1FAIpQLScnTNbXu79Sbinmlw6QhBIa5T76T0QCEMFLt4OIiSN08aHQKw/viewform?usp=pp_url&entry.2077317668=' +
-        '[request]: ' +
-        this.item.title.primary +
-        ' - imdb:' +
-        this.item.imdb
-      )
     },
     movieContentSummary() {
       let fs = ohana.movies.getTagsHealth(this.item.filterStatus, this.settings.skip_tags)
