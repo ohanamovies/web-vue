@@ -40,14 +40,15 @@
           variant="outlined"
           style="margin: 15px"
         >
-          <v-card-title style="display: block"
-            >{{ value.title[lang] }}
+          <v-card-title style="display: flex; justify-content: space-between">
+            <span
+              >{{ value.title[lang] }}
+              <span v-if="value.parent"> ({{ value.parent.title[lang] }}) </span>
+            </span>
 
-            <span v-if="value.parent"> ({{ value.parent.title[lang] }}) </span>
-
-            <span style="float: right; font-size: 14px; font-weight: normal">
-              <span v-if="!value.isHealthy">Unhealthy view: </span>
-              <span v-else>Healthy view: </span>
+            <span :style="{ color: value.color, fontSize: 13 + 'px', fontWeight: 'normal' }">
+              <span v-if="!value.isHealthy" :style="{ color: value.color }">Unhealthy: </span>
+              <span v-else>Healthy: </span>
               {{ Math.round(value.health * 10) }} / 10
             </span>
           </v-card-title>
@@ -72,7 +73,7 @@
               >
                 <img
                   :src="'images/values/' + value.vice.icon + '.png'"
-                  style="float: left; max-width: 25%; padding: 5px"
+                  style="float: left; width: 25%; min-width: 70px; padding: 5px"
                 />
                 {{ value.vice[lang] }}
               </v-col>
@@ -85,7 +86,7 @@
               >
                 <img
                   :src="'images/values/' + value.value.icon + '.png'"
-                  style="float: right; max-width: 25%; padding: 5px"
+                  style="float: right; width: 25%; min-width: 70px; padding: 5px"
                 />
                 {{ value.value[lang] }}
               </v-col>
