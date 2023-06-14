@@ -145,7 +145,7 @@
 
                 <!-- Genres -->
                 <div style="display: flex; justify-content: space-between">
-                  <b>Overview </b>
+                  <b>{{ $t('overview') }} </b>
                   <i style="font-size: 85%">{{ item.genres.join(' - ') }}</i>
                 </div>
 
@@ -187,10 +187,8 @@
                       v-if="item.type == 'series'"
                       style="color: orange; padding: 5px 0px; text-align: center"
                     >
-                      <span v-if="isDetailPage"
-                        >Check the list of episodes below to see more granular details</span
-                      >
-                      <span v-else>Go to the series page to see more granular details</span>
+                      <span v-if="isDetailPage">{{ $t('check_the_list_of') }}</span>
+                      <span v-else>{{ $t('go_to_the_series') }}</span>
                     </div>
                   </div>
                 </div>
@@ -253,7 +251,7 @@
               class="modern-link"
               :href="feedback_link"
               target="_blank"
-              >Request review
+              >{{ $t('request_review') }}
             </a>-->
 
             <!-- +info link (not visible if alraedy in detail page)-->
@@ -275,18 +273,18 @@
       <v-card-text style="height: 310px">
         {{ item }}
         <div>
-          <span> Error! Please try again.</span>
+          <span> {{ $t('error_please_try_again') }}</span>
           <br />
-          <v-btn depressed text @click="getData()">Try again</v-btn>
+          <v-btn depressed text @click="getData()">{{ $t('try_again') }}</v-btn>
           <span
-            ><br /><br />You may check
+            ><br /><br />{{ $t('you_may_check') }}
             <a
               :href="'https://www.imdb.com/title/' + imdb"
               target="_blank"
               rel="noopener noreferrer"
               >IMDb</a
             >
-            as fallback</span
+            {{ $t('you_may_check_2') }}</span
           >
           <!-- <span>{{ item }}</span>-->
         </div>

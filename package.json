@@ -14,6 +14,7 @@
     "markdown-it": "^12.3.2",
     "markdown-it-anchor": "^8.4.1",
     "markdown-it-table-of-contents": "^0.6.0",
+    "prompt-sync": "^4.2.0",
     "roboto-fontface": "*",
     "vue": "^2.6.14",
     "vue-head": "^2.2.0",

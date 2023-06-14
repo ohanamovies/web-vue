@@ -3,18 +3,17 @@
     <section id="main" class="wrapper">
       <div class="inner">
         <header>
-          <h1>Ohana Stats</h1>
+          <h1>{{ $t('ohana_stats') }}</h1>
           <p>
-            Below you will find some real time data about how our filtering creation is going.
-            Please notice this page is work in progress, and might change a lot.
+            {{ $t('below_you_will_find') }}
           </p>
         </header>
 
         <!-- BIG NUMBERS -->
 
         <!-- DETAILED TABLES-->
-        <h2>Overview</h2>
-        <p class="subtitle">Number of movies worked by the user that reviewed the content</p>
+        <h2>{{ $t('overview') }}</h2>
+        <p class="subtitle">{{ $t('number_of_movies_worked') }}</p>
 
         <div style="max-width: 700px">
           <v-text-field
@@ -40,9 +39,9 @@
         </div>
         <br />
         <br />
-        <h2>By content filtered</h2>
+        <h2>{{ $t('by_content_filtered') }}</h2>
         <p class="subtitle">
-          What kind of content are the users filtering (categories marked as "done")
+          {{ $t('what_kind_of_content') }}
         </p>
         <div style="max-width: 900px">
           <v-text-field

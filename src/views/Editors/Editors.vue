@@ -13,16 +13,20 @@
             <p>{{ page * pageSize + 1 + '-' + (page * pageSize + pageSize) }}</p>
           </div>
           <!-- {{ items }} -->
-          <div v-if="error">Error. <button @click="getData()">try again</button></div>
-          <div v-else-if="loading">Loading...</div>
+          <div v-if="error">
+            {{ $t('error') }} <button @click="getData()">{{ $t('try_again_l') }}</button>
+          </div>
+          <div v-else-if="loading">{{ $t('loading') }}</div>
           <div v-else style="max-width: 600px; margin: auto; padding: 5px">
             <div v-for="(item, index) in items" :key="index">
               <MovieListItem :item="item" />
             </div>
             <!-- pages -->
 
-            <button v-if="page > 1" @click="nextPage(-1)">previous page</button>
-            <button v-if="items.length >= pageSize" @click="nextPage(1)">next page</button>
+            <button v-if="page > 1" @click="nextPage(-1)">{{ $t('previous_page') }}</button>
+            <button v-if="items.length >= pageSize" @click="nextPage(1)">
+              {{ $t('next_page') }}
+            </button>
           </div>
         </div>
       </section>

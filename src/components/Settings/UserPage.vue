@@ -4,11 +4,13 @@
     You are level {{ settings.level }}
 
     <p>
-      <router-link :to="'/editors/user/' + this.settings.username">my edits</router-link>
+      <router-link :to="'/editors/user/' + this.settings.username">{{
+        $t('my_edits')
+      }}</router-link>
     </p>
 
     <br />
-    <span class="modern-link" @click="logout()" style="font-size: 70%">Logout</span>
+    <span class="modern-link" @click="logout()" style="font-size: 70%">{{ $t('logout') }}</span>
 
     <p></p>
   </div>

@@ -7,12 +7,14 @@
         :fixed-tabs="isMobile"
         center-active
       >
-        <v-tab><v-icon class="mr-2" small>mdi-movie-open</v-icon>Filters</v-tab>
-        <v-tab><v-icon class="mr-2" small>mdi-television</v-icon>Platforms</v-tab>
-        <v-tab><v-icon class="mr-2" small>mdi-account</v-icon>Account</v-tab>
-        <v-tab><v-icon class="mr-2" small>mdi-cog</v-icon>Settings</v-tab>
-        <v-tab><v-icon class="mr-2" small>mdi-download</v-icon>Install</v-tab>
-        <v-tab v-if="false"><v-icon class="mr-2" small>mdi-cog</v-icon>Settings old</v-tab>
+        <v-tab><v-icon class="mr-2" small>mdi-movie-open</v-icon>{{ $t('filters') }}</v-tab>
+        <v-tab><v-icon class="mr-2" small>mdi-television</v-icon>{{ $t('platforms') }}</v-tab>
+        <v-tab><v-icon class="mr-2" small>mdi-account</v-icon>{{ $t('account') }}</v-tab>
+        <v-tab><v-icon class="mr-2" small>mdi-cog</v-icon>{{ $t('settings') }}</v-tab>
+        <v-tab><v-icon class="mr-2" small>mdi-download</v-icon>{{ $t('install') }}</v-tab>
+        <v-tab v-if="false"
+          ><v-icon class="mr-2" small>mdi-cog</v-icon>{{ $t('settings_old') }}</v-tab
+        >
       </v-tabs>
 
       <div
@@ -37,7 +39,7 @@
 
           <!-- Log-in / out -->
           <v-tab-item>
-            <!-- <h2>3. Login</h2>-->
+            <!-- <h2>{{ $t('login') }}</h2>-->
             <!-- Already signed in -->
             <div v-if="loggedIn">
               <UserPage />

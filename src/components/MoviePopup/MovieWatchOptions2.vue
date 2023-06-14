@@ -15,7 +15,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn depressed @click="dialog_sensitivity = false">Done</v-btn>
+          <v-btn depressed @click="dialog_sensitivity = false">{{ $t('done') }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -35,7 +35,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn depressed @click="dialog_install = false">Close</v-btn>
+          <v-btn depressed @click="dialog_install = false">{{ $t('close') }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -75,7 +75,7 @@
           </v-icon>
         </span>
 
-        <!-- <span v-else class="modern-link" @click="bypass = false">Hide watch options</span> -->
+        <!-- <span v-else class="modern-link" @click="bypass = false">{{ $t('hide_watch_options') }}</span> -->
       </div>
     </div>
 

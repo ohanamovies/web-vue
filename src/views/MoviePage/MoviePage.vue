@@ -8,15 +8,15 @@
 
     <div v-if="!item.type">
       <div v-if="loading"></div>
-      <div v-else>Hmm, something seems off.</div>
+      <div v-else>{{ $t('hmm_something_seems_off') }}</div>
     </div>
     <div v-else>
       <v-tabs v-model="tab" class="mb-4" style="min-height: 50px">
-        <v-tab>Content</v-tab>
-        <v-tab>Values</v-tab>
-        <v-tab v-if="showEpisodes">Episodes</v-tab>
-        <v-tab v-if="item.type != 'series'">Filters</v-tab>
-        <v-tab v-if="isAdmin">Providers</v-tab>
+        <v-tab>{{ $t('content') }}</v-tab>
+        <v-tab>{{ $t('values') }}</v-tab>
+        <v-tab v-if="showEpisodes">{{ $t('episodes') }}</v-tab>
+        <v-tab v-if="item.type != 'series'">{{ $t('filters') }}</v-tab>
+        <v-tab v-if="isAdmin">{{ $t('providers') }}</v-tab>
         <v-tab v-if="isAdmin">dev</v-tab>
       </v-tabs>
 
@@ -51,7 +51,7 @@
 
         <!-- PROVIDERS -->
         <v-tab-item v-if="isAdmin">
-          <p>Providers where ohana was used (kind of)</p>
+          <p>{{ $t('providers_where_ohana_was') }}</p>
           <br />
 
           <div v-if="tmdbAvailability.length">
@@ -64,7 +64,7 @@
             <b>{{ p.provider }}</b>
             <div>
               <p>
-                Link:
+                {{ $t('link') }}
                 <a
                   :href="getLink(p.provider, p.providerID)"
                   target="_blank"

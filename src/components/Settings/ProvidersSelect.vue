@@ -3,19 +3,17 @@
     <!-- Providers -->
 
     <div>
-      <h4>What platforms do you use?</h4>
+      <h4>{{ $t('what_platforms_do_you') }}</h4>
 
       <p>
-        Ohana TV redirects you to the providers that offer the content. We don't offer content
-        ourselves.
+        {{ $t('ohana_tv_redirects_you') }}
       </p>
-      <p>We will prioritize content available in your providers.</p>
+      <p>{{ $t('we_will_prioritize_content') }}</p>
 
       <CountrySelect />
 
       <p style="margin-top: 10px; font-size: 80%; line-height: normal">
-        <b>Note: </b>Content providers (Netflix, etc.) don't offer the same movies/shows in all
-        countries. This setting is used to show you watch options available in your country.
+        <b>{{ $t('note') }} </b>{{ $t('content_providers_netflix_etc') }}
       </p>
 
       <v-list>

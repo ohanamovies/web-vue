@@ -2,9 +2,9 @@
   <div class="subpage">
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
       <div class="inner">
-        <h1>Error 404. Page not found</h1>
+        <h1>{{ $t('error_page_not_found') }}</h1>
 
-        <p>Fear not! You can use the site menu to find the content you are looking for.</p>
+        <p>{{ $t('fear_not_you_can') }}</p>
 
         <router-link to="/" class="button">{{ $t('navigate_to_home') }}</router-link>
       </div>

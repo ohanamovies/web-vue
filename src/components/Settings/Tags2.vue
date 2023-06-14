@@ -6,8 +6,8 @@
 
     <!-- default - ->
     <div style="margin-top: 10px" v-if="true">
-      Not sure?
-      <span class="modern-link" @click="setDefaultSettings()">use the most used settings</span>.
+      {{ $t('not_sure') }}
+      <span class="modern-link" @click="setDefaultSettings()">{{ $t('use_the_most_used') }}</span>.
     </div>
     -->
 
@@ -49,8 +49,8 @@
                     {{ localize(sev.description) }}
                   </span>
                   <div style="margin-top: 5px" v-if="false">
-                    <b style="font-size: 80%">When:</b>
-                    <v-chip x-small class="mx-1">Always</v-chip>
+                    <b style="font-size: 80%">{{ $t('when') }}</b>
+                    <v-chip x-small class="mx-1">{{ $t('always') }}</v-chip>
                     <v-chip
                       x-small
                       :class="['mx-1', Math.random() * 10 > 4 ? 'chipdown' : '']"
@@ -88,9 +88,10 @@
     </div>
 
     <div style="margin-top: 15px" v-if="skipTags.length">
-      <b>Recap:</b> we will help you avoiding any content matching: {{ skipTags.join(', ') }}.
+      <b>{{ $t('recap') }}</b> we will help you avoiding any content matching:
+      {{ skipTags.join(', ') }}.
 
-      <span class="modern-link" @click="resetTags()">Reset</span>
+      <span class="modern-link" @click="resetTags()">{{ $t('reset') }}</span>
     </div>
   </div>
 </template>

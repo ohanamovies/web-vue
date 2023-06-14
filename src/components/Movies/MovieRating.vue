@@ -3,7 +3,7 @@
     <!-- without ohana -->
     <div style="margin-top: 15px">
       <div style="margin-bottom: 10px">
-        <b>Without Ohana</b>
+        <b>{{ $t('without_ohana') }}</b>
       </div>
       <FilterStatusBriefTags :filterStatus="item.movieContent" :align="'left'" />
     </div>
@@ -14,9 +14,11 @@
       style="margin-top: 15px"
     >
       <div style="margin-bottom: 10px">
-        <b>With Ohana</b>
+        <b>{{ $t('with_ohana') }}</b>
         <br />
-        <span style="color: grey; font-size: 90%; font-weight: 400">Applying your settings</span>
+        <span style="color: grey; font-size: 90%; font-weight: 400">{{
+          $t('applying_your_settings')
+        }}</span>
       </div>
       <FilterStatusBriefTags :filterStatus="item.filterStatus" :align="'left'" />
     </div>
@@ -24,7 +26,7 @@
     <!-- expansion panels -->
     <div style="margin-top: 30px; margin-bottom: 30px">
       <div style="margin-bottom: 10px">
-        <b>Filters Status</b>
+        <b>{{ $t('filters_status') }}</b>
       </div>
 
       <v-expansion-panels>
@@ -52,10 +54,10 @@
             <!-- table with info -->
             <table style="margin-top: 5px">
               <tr>
-                <th>Skip</th>
-                <th>What</th>
-                <th>Status</th>
-                <th>My Vote</th>
+                <th>{{ $t('skip') }}</th>
+                <th>{{ $t('what') }}</th>
+                <th>{{ $t('status') }}</th>
+                <th>{{ $t('my_vote') }}</th>
               </tr>
               <tr v-for="(sev, s) in severities[c]" :key="s">
                 <td style="padding: 0px">
@@ -98,7 +100,7 @@
       </v-expansion-panels>
     </div>
 
-    <!-- save my vote-->
+    <!-- save my vote -->
     <div style="margin-top: 0px; margin-bottom: 30px; text-align: center">
       <v-btn
         color="primary"
@@ -106,7 +108,7 @@
         @click="saveVote"
         :disabled="!loggedIn || !voteChanged"
         :loading="loading"
-        >save my vote</v-btn
+        >{{ $t('save_my_vote') }}</v-btn
       >
     </div>
 

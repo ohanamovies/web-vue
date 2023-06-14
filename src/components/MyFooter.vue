@@ -14,27 +14,28 @@
             max-width: 80%;
           "
         ></div>
-        <h1 style="font-size: 24pt; color: white; font-weight: 500">Want more?</h1>
+        <h1 style="font-size: 24pt; color: white; font-weight: 500">{{ $t('want_more') }}</h1>
 
         <article style="max-width: 500px; margin: auto">
           <p>
-            The ongoing development of Ohana is made possible by its communnity of volunteers,
-            donors, and sponsors. Want to help?
+            {{ $t('the_ongoing_development_of') }}
           </p>
           <a
             class="button special"
             href="https://www.paypal.com/donate/?hosted_button_id=NKWWBA9FYGPTU"
             target="_blank"
             style="color: #469ae8"
-            >Donate</a
+            >{{ $t('donate') }}</a
           >
           <br />
-          <router-link to="/community" class="modern-link">Discover other ways to help</router-link>
+          <router-link to="/community" class="modern-link">{{
+            $t('discover_other_ways_to')
+          }}</router-link>
         </article>
 
         <div v-if="false" style="margin-top: 90px">
           <h3 style="font-size: 16pt; color: white; font-weight: 500; margin-top: 30px">
-            Sponsors
+            {{ $t('sponsors') }}
           </h3>
 
           <div class="flex flex-3">
@@ -68,15 +69,16 @@
 
         <br />
         <p>
-          Ohana TV uses data from
+          {{ $t('ohana_tv_uses_data') }}
           <a href="https://www.themoviedb.org/" rel="noopener noreferrer" target="_blank">TMDB</a>
-          and <a href="https://imdb.com" target="_blank" rel="noopener noreferrer">IMDb</a> but is
-          not endorsed nor certified by TMDB or IMDb.
+          {{ $t('and') }}
+          <a href="https://imdb.com" target="_blank" rel="noopener noreferrer">IMDb</a>
+          {{ $t('ohana_tv_uses_data_2') }}
         </p>
         <p>
-          <router-link to="terms-of-use">Terms of use</router-link> |
-          <router-link to="/privacy-policy">Privacy Policy</router-link> |
-          <router-link to="/contact-us">Contact us</router-link>
+          <router-link to="terms-of-use">{{ $t('terms_of_use') }}</router-link> |
+          <router-link to="/privacy-policy">{{ $t('privacy_policy') }}</router-link> |
+          <router-link to="/contact-us">{{ $t('contact_us') }}</router-link>
         </p>
       </div>
     </section>

@@ -1,53 +1,48 @@
 <template>
   <div>
-    <h4>Install Ohana TV</h4>
+    <h4>{{ $t('install_ohana_tv') }}</h4>
     <p>
-      Our
+      {{ $t('our') }}
       <a
         href="https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf"
         class="modern-link"
         target="_blank"
         style="font-size: 100%"
       >
-        Ohana Chrome Extension</a
+        {{ $t('our_2') }}</a
       >
-      automagically skips the unhealthy content, based on your preferences. It only works while
-      watching from a Chrome Browser.
+      {{ $t('our_3') }}
     </p>
 
     <v-alert v-if="hasApp" type="success" outlined
-      >Well done! You have our
+      >{{ $t('well_done_you_have') }}
       <a
         href="https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf"
         target="_blank"
         class="modern-link"
         style="font-size: 100%"
-        >Chrome Extension</a
+        >{{ $t('well_done_you_have_2') }}</a
       >
       installed in this browser (version {{ extension_version }}).
     </v-alert>
 
     <div v-else-if="isChrome && !isMobile">
-      <v-alert type="warning" outlined
-        >Ohana extension is not yet installed in this browser.
-      </v-alert>
-      To install Ohana TV, go to
+      <v-alert type="warning" outlined>{{ $t('ohana_extension_is_not') }} </v-alert>
+      {{ $t('to_install_ohana_tv') }}
       <a
         href="https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf"
         target="_blank"
       >
-        our Chrome Store page</a
+        {{ $t('to_install_ohana_tv_2') }}</a
       >
-      and click on "Add to Chrome".
+      {{ $t('to_install_ohana_tv_3') }}
     </div>
 
     <div v-else>
-      <v-alert type="error" outlined
-        >It seems this browser is not compatible with our Chrome Extension.
-      </v-alert>
+      <v-alert type="error" outlined>{{ $t('it_seems_this_browser') }} </v-alert>
 
       <p>
-        Please make sure you are using
+        {{ $t('please_make_sure_you') }}
         <a
           href="https://www.google.com/chrome/"
           target="_blank"
@@ -55,14 +50,13 @@
           style="font-size: 100%"
           >Google Chrome</a
         >
-        on a desktop computer (Windows, Mac, or Linux...).
+        {{ $t('please_make_sure_you_2') }}
       </p>
     </div>
     <div v-if="!hasApp">
       <p>
         <br />
-        Without the Chrome Extension, you can't watch edited content. You can still check this
-        website for information about movies.
+        {{ $t('without_the_chrome_extension') }}
       </p>
     </div>
   </div>

@@ -24,12 +24,12 @@
         <v-card-text>
           <div>
             <span
-              ><b>Without Ohana</b> health: {{ movieContent.health }} | trust:
+              ><b>{{ $t('without_ohana') }}</b> health: {{ movieContent.health }} | trust:
               {{ movieContent.trust }} | cuts: 0</span
             >
             <br />
             <span>
-              <b>With Ohana</b> health: {{ filterStatus.health }} | trust:
+              <b>{{ $t('with_ohana') }}</b> health: {{ filterStatus.health }} | trust:
               {{ filterStatus.trust }} | cuts: {{ filterStatus.scenes.length }}
             </span>
           </div>

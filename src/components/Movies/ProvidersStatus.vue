@@ -54,9 +54,11 @@
         <v-card-text style="word-break: break-word" v-html="dialog_data.text"></v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn width="50%" color="green darken-1" text @click="dialog = false"> Cancel </v-btn>
+          <v-btn width="50%" color="green darken-1" text @click="dialog = false">
+            {{ $t('cancel') }}
+          </v-btn>
           <v-btn width="50%" color="red darken-1" text @click="openMovie(dialog_data.link)">
-            Continue
+            {{ $t('continue') }}
           </v-btn>
         </v-card-actions>
       </v-card>

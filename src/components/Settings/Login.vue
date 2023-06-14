@@ -4,24 +4,24 @@
     <div v-if="loggedIn">
       <span style="font-size: 2rem">Hello {{ settings.username }}!</span>
       <br />
-      <span class="modern-link" @click="logout()">logout</span>
+      <span class="modern-link" @click="logout()">{{ $t('logout') }}</span>
     </div>
 
     <div v-else>
-      <h4>Log in or sign up</h4>
+      <h4>{{ $t('log_in_or_sign') }}</h4>
       <p>
-        With an Ohana TV account, you will be able to contribute to the community. Also, your
-        preferences will follow you along if you switch devices.
+        {{ $t('with_an_ohana_tv') }}
       </p>
 
       <!-- Change form -->
       <div style="margin-left: 12px">
         <span v-if="page == 'signup'" style="font-size: 10pt"
-          >Already a user? <span class="modern-link" @click="page = 'login'">Log in</span></span
+          >{{ $t('already_a_user') }}
+          <span class="modern-link" @click="page = 'login'">{{ $t('log_in') }}</span></span
         >
         <span v-else-if="page == 'login'" style="font-size: 10pt"
-          >Don't have an account?
-          <span class="modern-link" @click="page = 'signup'">Sign up</span></span
+          >{{ $t('dont_have_an_account') }}
+          <span class="modern-link" @click="page = 'signup'">{{ $t('sign_up') }}</span></span
         >
       </div>
 
@@ -100,10 +100,14 @@
             <v-checkbox hide-details v-model="agree" ref="termsCheckbox">
               <template v-slot:label>
                 <div style="font-size: 90%; padding-top: 15px">
-                  I agree with the
-                  <a @click.stop href="/terms-of-use" target="_blank">Terms of use</a>
-                  and the
-                  <a @click.stop href="/privacy-policy" target="_blank">Privacy Policy</a>
+                  {{ $t('i_agree_with_the') }}
+                  <a @click.stop href="/terms-of-use" target="_blank">{{
+                    $t('i_agree_with_the_2')
+                  }}</a>
+                  {{ $t('i_agree_with_the_3') }}
+                  <a @click.stop href="/privacy-policy" target="_blank">{{
+                    $t('i_agree_with_the_4')
+                  }}</a>
                 </div>
               </template>
             </v-checkbox>
@@ -130,8 +134,8 @@
       <br />
 
       <p v-if="false" style="margin-left: 12px">
-        Not feeling like identifying now?
-        <span class="modern-link" @click="bemyguest()">Continue as guest</span>
+        {{ $t('not_feeling_like_identifying') }}
+        <span class="modern-link" @click="bemyguest()">{{ $t('continue_as_guest') }}</span>
       </p>
     </div>
   </div>

@@ -29,7 +29,7 @@
             "
           >
             Your vote for {{ tag }}
-            <span style="font-size: 85%; color: rgb(170, 170, 170)">(before edits)</span>
+            <span style="font-size: 85%; color: rgb(170, 170, 170)">{{ $t('before_edits') }}</span>
           </div>
           <v-list dense class="pa-0">
             <v-list-item
@@ -60,13 +60,13 @@
               font-weight: 500;
             "
           >
-            Remember to save!
+            {{ $t('remember_to_save') }}
           </div>
         </v-card-text>
         <v-card-text v-else>
-          You need to have an account and log in if you want to share your vote about this content
+          {{ $t('you_need_to_have') }}
           <br />
-          <router-link to="/settings">Log in</router-link>
+          <router-link to="/settings">{{ $t('log_in') }}</router-link>
         </v-card-text>
       </v-card>
     </v-menu>

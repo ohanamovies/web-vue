@@ -4,7 +4,7 @@
       <div class="inner">
         <!-- IF USER JUST INSTALLED OHANA -->
         <div v-if="welcoming" style="padding: 10px; margin-bottom: 50px">
-          <h1 style="font-size: 18pt; font-weight: 700">Thanks for installing Ohana!</h1>
+          <h1 style="font-size: 18pt; font-weight: 700">{{ $t('thanks_for_installing_ohana') }}</h1>
           <p>Here some next steps you may find useful:</p>
           <ul>
             <li>Review your settings below</li>

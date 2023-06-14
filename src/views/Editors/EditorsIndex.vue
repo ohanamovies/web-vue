@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Editors</h1>
+    <h1>{{ $t('editors') }}</h1>
     <div style="display: flex; font-size: 80%">
       <div v-for="(r, index) in routes" :key="index">
         <router-link :to="r.route" style="margin: 5px" :style="{ fontWeight: fw(r) }">{{

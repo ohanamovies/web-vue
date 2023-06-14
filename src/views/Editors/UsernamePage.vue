@@ -8,7 +8,7 @@
           <h1>{{ username }}</h1>
           <div v-if="page == 1">
             <p>
-              Here are <b>{{ username }}</b
+              {{ $t('here_are') }} <b>{{ username }}</b
               >'s last {{ items.length }} edited movies/shows:
             </p>
           </div>
@@ -16,16 +16,20 @@
             <p>{{ page * pageSize + 1 + '-' + (page * pageSize + pageSize) }}</p>
           </div>
 
-          <div v-if="error">Error. <button @click="getData()">try again</button></div>
-          <div v-if="loading">Loading...</div>
+          <div v-if="error">
+            {{ $t('error') }} <button @click="getData()">{{ $t('try_again') }}</button>
+          </div>
+          <div v-if="loading">{{ $t('loading') }}</div>
           <div v-else>
             <div v-for="(item, index) in items" :key="index">
               <MovieListItem :item="item" />
             </div>
           </div>
           <!-- pages -->
-          <button v-if="page > 1" @click="nextPage(-1)">previous page</button>
-          <button v-if="items.length >= pageSize" @click="nextPage(1)">next page</button>
+          <button v-if="page > 1" @click="nextPage(-1)">{{ $t('previous_page') }}</button>
+          <button v-if="items.length >= pageSize" @click="nextPage(1)">
+            {{ $t('next_page') }}
+          </button>
         </div>
       </section>
     </div>

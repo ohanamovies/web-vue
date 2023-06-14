@@ -1,13 +1,13 @@
 <template>
   <div>
     <div v-if="!imdb">
-      <b>Error: not imdb provided</b>
+      <b>{{ $t('error_not_imdb_provided') }}</b>
     </div>
 
-    <div v-else-if="loading"><b>Loading... Please wait a minute</b></div>
+    <div v-else-if="loading"><b>{{ $t('loading_please_wait_a') }}</b></div>
 
     <div v-else-if="userChips && sceneTags">
-      <b>This is work in progress</b>
+      <b>{{ $t('this_is_work_in') }}</b>
       <TagsSelector :items="userChips" v-model="userTags" />
       {{ userTags }}
     </div>

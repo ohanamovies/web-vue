@@ -1,7 +1,7 @@
 <!--  @deprecated -->
 <template>
   <div>
-    <b>A provider is missing? you can add it!</b>
+    <b>{{ $t('a_provider_is_missing') }}</b>
     <br />
 
     <v-text-field
@@ -13,7 +13,7 @@
     >
     </v-text-field>
     <p v-if="isValidLink">Provider: {{ providerName }} <br />id: {{ providerID }}</p>
-    <p v-else style="color: red">Invalid Link</p>
+    <p v-else style="color: red">{{ $t('invalid_link') }}</p>
     <div>
       <input type="checkbox" id="demo-human" name="demo-human" v-model="confirmCountry" />
       <label for="demo-human"
@@ -25,9 +25,9 @@
       @click="addProvider()"
       class="button special"
     >
-      Submit
+      {{ $t('submit') }}
     </button>
-    <v-alert type="warning">This doest work yet sorry</v-alert>
+    <v-alert type="warning">{{ $t('this_doest_work_yet') }}</v-alert>
   </div>
 </template>
 

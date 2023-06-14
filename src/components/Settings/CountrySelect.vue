@@ -62,7 +62,7 @@
                 </v-list-item-content>
               </v-list-item>
               <v-list-item v-if="filteredOptions.length === 0">
-                <v-list-item-title>No options found</v-list-item-title>
+                <v-list-item-title>{{ $t('no_options_found') }}</v-list-item-title>
               </v-list-item>
             </v-list>
           </div>

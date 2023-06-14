@@ -3,22 +3,22 @@
     <!-- intro about values-->
     <div style="margin-bottom: 10px">
       <span v-if="!movieValues || !movieValues.length">
-        No values known for this movies. Be the first one to add one!
+        {{ $t('no_values_known_for') }}
       </span>
       <span v-else> Let's dive deeper into the movie values - </span>
 
-      <span v-if="current == 'myvote'" class="modern-link" @click="current = 'community'"
-        >Stop editing</span
-      >
+      <span v-if="current == 'myvote'" class="modern-link" @click="current = 'community'">{{
+        $t('stop_editing')
+      }}</span>
       <span
         v-else-if="current == 'community'"
         class="modern-link"
         @click="current = loggedIn ? 'myvote' : 'needLogIn'"
-        >Edit</span
+        >{{ $t('edit') }}</span
       >
       <div v-else style="font-style: italic; font-size: smaller">
-        You need to have an account and log in if you want to share your vote about this content
-        <router-link to="/settings">Log in</router-link>
+        {{ $t('you_need_to_have') }}
+        <router-link to="/settings">{{ $t('log_in') }}</router-link>
       </div>
     </div>
 
@@ -29,7 +29,7 @@
       >
         <v-btn color="primary" dark @click="castVote()">
           <v-icon>mdi-send</v-icon>
-          cast values vote
+          {{ $t('cast_values_vote') }}
         </v-btn>
       </div>
 
@@ -47,8 +47,10 @@
             </span>
 
             <span :style="{ color: value.color, fontSize: 13 + 'px', fontWeight: 'normal' }">
-              <span v-if="!value.isHealthy" :style="{ color: value.color }">Unhealthy: </span>
-              <span v-else>Healthy: </span>
+              <span v-if="!value.isHealthy" :style="{ color: value.color }"
+                >{{ $t('unhealthy') }}
+              </span>
+              <span v-else>{{ $t('healthy') }} </span>
               {{ Math.round(value.health * 10) }} / 10
             </span>
           </v-card-title>

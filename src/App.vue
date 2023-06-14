@@ -23,14 +23,14 @@
             v-if="showDevMenu"
             style="background-color: lightblue; padding: 10px; border-radius: 5px"
           >
-            <b>Override:</b>
+            <b>{{ $t('override') }}</b>
             <v-switch v-model="hasApp_dev" hide-details :label="'hasApp: ' + hasApp_dev"></v-switch>
             <br />
-            User Feedback:
+            {{ $t('user_feedback') }}
             <a
               href="https://docs.google.com/forms/d/1zthFWG8OGugKAPxYpcKwBSbOnwfNRIGJ4Q66UIuJUvs/edit#responses"
               target="_blank"
-              >check responses</a
+              >{{ $t('check_responses') }}</a
             >
           </div>
         </div>

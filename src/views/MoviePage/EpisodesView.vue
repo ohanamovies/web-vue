@@ -5,7 +5,7 @@
     </div>
 
     <div v-else>
-      <div v-if="!episodes.length">Hmmm. No data?</div>
+      <div v-if="!episodes.length">{{ $t('hmmm_no_data') }}</div>
       <div v-else>
         <router-link
           class="no-link"

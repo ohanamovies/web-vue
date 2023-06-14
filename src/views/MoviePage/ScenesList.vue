@@ -1,7 +1,7 @@
 <template>
   <div>
     <TagsSelector :items="focusTags" v-model="filtersFocusTags" />
-    <p v-if="!items || Object.keys(items).length == 0">No filters so far.</p>
+    <p v-if="!items || Object.keys(items).length == 0">{{ $t('no_filters_so_far') }}</p>
     <div v-for="(scene, sid) in visibleScenes" :key="sid">
       <SceneItem :scene="scene" />
     </div>

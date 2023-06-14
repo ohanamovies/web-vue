@@ -1,7 +1,7 @@
 <template>
   <v-card class="pa-0" max-height="600px" height="600px">
     <v-card-title v-if="false" style="background-color: #141414; color: white">
-      Welcome to Ohana TV
+      {{ $t('welcome_to_ohana_tv') }}
     </v-card-title>
     <v-card-text class="pa-0" style="overflow-y: auto">
       <v-tabs-items
@@ -35,22 +35,7 @@
           @click="slide = slide + 1"
         >
           <div class="middlee">
-            <div class="innerr">
-              <p>
-                <b>What we watch affects us</b><br />Movies and shows may have unhealthy content.
-              </p>
-              <br />
-              <p>
-                <b>Ohana TV helps you avoding the unhealthy</b> <br />
-                In two ways: (1) we inform you, and (2) our chrome extension enables you to skip the
-                unhealthy.
-              </p>
-              <br />
-              <p>
-                <b>You define what to skip and what not.</b> <br />
-                Let's do that now.
-              </p>
-            </div>
+            <div class="innerr" v-html="$t('welcome_tour')"></div>
           </div>
         </v-tab-item>
 
@@ -89,8 +74,12 @@
     <v-card-actions style="display: flex; justify-content: space-between">
       <div>
         <v-btn v-if="slide > 0" text style="box-shadow: none" @click="slide--">Back</v-btn>
-        <v-btn v-else text style="box-shadow: none; visibility: hidden" @click="slide = nSlides + 1"
-          >Skip</v-btn
+        <v-btn
+          v-else
+          text
+          style="box-shadow: none; visibility: hidden"
+          @click="slide = nSlides + 1"
+          >{{ $t('skip') }}</v-btn
         >
       </div>
       <div style="display: flex">

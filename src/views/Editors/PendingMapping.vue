@@ -5,8 +5,8 @@
         <div class="inner">
           <EditorsIndex />
           <b>Votes pending provider id: {{ items.length }}</b>
-          <p>This should be fixed by opening the url and doing a manual mapping</p>
-          <div v-if="loading">Loading...</div>
+          <p>{{ $t('this_should_be_fixed') }}</p>
+          <div v-if="loading">{{ $t('loading') }}</div>
           <div v-else>
             <v-card>
               <v-card-title>

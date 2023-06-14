@@ -10,20 +10,6 @@
       :label="langLabel"
       @change="changeLanguage($event)"
     ></v-select>
-
-    <div
-      v-if="settings.language == 'es' && !hideDetails"
-      :style="{
-        marginTop: '10px',
-        fontSize: '85%',
-        color: dark ? 'white' : 'default',
-        lineHeight: '1.1',
-      }"
-    >
-      Nota: Algunas partes de la web están aún en inglés, pero estamos trabajando en ello.
-      <router-link v-if="!dark" to="/community" target="_blank">Ayudar</router-link>
-      <!-- FIXME: using dark here is an ugly workaround -->
-    </div>
   </div>
 </template>
 

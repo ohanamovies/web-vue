@@ -12,7 +12,7 @@
               <span style="font-size: 50%">({{ item.released }})</span>
             </h3>
             <span v-if="parentData" style="font-size: 75%; color: black"
-              >Part of
+              >{{ $t('part_of') }}
               <router-link :to="'/item/' + parentData.imdb">
                 {{ localize(parentData.title) }}</router-link
               ></span
@@ -28,7 +28,9 @@
           </td>
         </tr>
         <tr v-else style="color: black">
-          Unknown/Invalid item
+          {{
+            $t('unknowninvalid_item')
+          }}
         </tr>
       </router-link>
 
@@ -40,7 +42,7 @@
       <tr>
         <td colspan="2">
           <span style="font-size: 80%"
-            >Edited by:
+            >{{ $t('edited_by') }}
             <v-chip
               :to="'/editors/user/' + cleanContributor(contributor)"
               v-for="(contributor, index2) in item.contributors.split(' ')"

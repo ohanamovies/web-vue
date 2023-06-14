@@ -6,7 +6,7 @@
         <div class="inner">
           <EditorsIndex />
 
-          <v-btn v-if="fetchError" @click="getData()">Try again</v-btn>
+          <v-btn v-if="fetchError" @click="getData()">{{ $t('try_again') }}</v-btn>
 
           <div v-else>
             <p>

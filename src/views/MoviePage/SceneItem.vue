@@ -12,7 +12,7 @@
       <div v-if="scene.times">
         <b>Duration: {{ formatTime(averageDuration(scene.times)) }}</b>
         <span v-if="Object.keys(scene.times).length > 1" style="font-size: 80%">
-          (average between providers)
+          {{ $t('average_between_providers') }}
         </span>
         <ul style="margin-bottom: 5px">
           <li v-for="(time, provider) in scene.times" :key="provider">
@@ -39,20 +39,22 @@
 
       <div style="font-size: 80%; margin-top: 5px">
         <div style="margin-top: 5px">
-          <b>Contributors:</b>
+          <b>{{ $t('contributors') }}</b>
           <v-chip x-small class="ml-1" v-for="(contributor, c) of scene.contributors" :key="c">{{
             contributor
           }}</v-chip>
         </div>
-        <div><b>Last edited:</b> {{ new Date(scene.updatedAt).toISOString() }}</div>
+        <div>
+          <b>{{ $t('last_edited') }}</b> {{ new Date(scene.updatedAt).toISOString() }}
+        </div>
       </div>
 
       <div v-if="scene.draft">
-        <b style="color: red">DRAFT</b>
+        <b style="color: red">{{ $t('draft') }}</b>
       </div>
 
       <div v-if="scene.flags && scene.flags.length" style="font-size: 70%">
-        <b>Flags</b>
+        <b>{{ $t('flags') }}</b>
         <ul>
           <li v-for="(flag, index) in scene.flags" :key="index">
             {{ flag }}

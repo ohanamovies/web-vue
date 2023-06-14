@@ -2,7 +2,7 @@
   <div class="home">
     <!-- Header -->
 
-    <!--Settings dialog -->
+    <!-- settings dialog -->
     <v-dialog
       v-model="show_settings"
       max-width="600"
@@ -34,9 +34,9 @@
         <v-card-actions style="border-top: 1px solid gray"
           ><!--style="background-color: #141414; color: white"-->
           <span
-            >Ohana TV experience will adjust to your settings.
+            >{{ $t('ohana_tv_experience_will') }}
             <span @click="show_welcomeTour = true" class="modern-link" style="white-space: nowrap">
-              See tour</span
+              {{ $t('see_tour') }}</span
             ></span
           >
           <v-spacer></v-spacer>
@@ -121,7 +121,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn depressed @click="dialog_sensitivity = false">Done</v-btn>
+          <v-btn depressed @click="dialog_sensitivity = false">{{ $t('done') }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -161,7 +161,7 @@
           <div>
             <router-link to="/about" style="color: white; text-decoration: none">
               <v-icon style="color: white" v-if="isMobile">mdi-information-outline</v-icon>
-              <span v-else>About </span>
+              <span v-else>{{ $t('about') }} </span>
             </router-link>
           </div>
           <div>
@@ -170,7 +170,7 @@
               style="color: white; text-decoration: none; cursor: pointer"
             >
               <v-icon style="color: white" v-if="isMobile">mdi-account-cog-outline</v-icon>
-              <span v-else>Settings</span>
+              <span v-else>{{ $t('settings') }}</span>
             </div>
           </div>
         </div>
@@ -355,23 +355,25 @@
 
             <div style="color: white">
               <div v-if="index == 1 && skipTags.length == 0">
-                Define your
+                {{ $t('define_your') }}
 
                 <span class="modern-link" style="font-size: 100%" @click="show_settings = true">
-                  settings</span
+                  {{ $t('settings_l') }}</span
                 >
-                to see this section.
+                {{ $t('to_see_this_section') }}
               </div>
               <div v-else-if="index == 1 && section.finishLoading && visibleLength(section) == 0">
                 <div style="color: white; margin: auto">
-                  No titles found matching your settings.
+                  {{ $t('no_titles_found_matching') }}
                 </div>
               </div>
             </div>
             <!-- POSTERS (loading placeholder) -->
 
             <div v-show="index == 0 && !section.loading && !visibleLength(section)">
-              <div style="color: white; margin: auto">No titles found matching your search.</div>
+              <div style="color: white; margin: auto">
+                {{ $t('no_titles_found_matching_settings') }}
+              </div>
             </div>
           </div>
         </div>

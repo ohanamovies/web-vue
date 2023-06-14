@@ -2,11 +2,10 @@
   <div class="subpage">
     <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
       <div class="inner">
-        <h1>Ohana TV News</h1>
-        <p>Stay tuned! will soon start listing here news and updates about Ohana TV development</p>
+        <h1>{{ $t('ohana_tv_news') }}</h1>
+        <p>{{ $t('stay_tuned_will_soon') }}</p>
         <p>
-          Atento! pronto empezaremos a listar aquí actualizaciones y novedades sobre el desarrollo
-          de Ohana TV
+          {{ $t('stay_tuned_will_soon') }}
         </p>
       </div>
     </section>

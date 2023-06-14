@@ -3,9 +3,9 @@
     <div class="subpage">
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
         <div class="inner">
-          <h3 style="margin-bottom: 10px !important">Contact us</h3>
+          <h3 style="margin-bottom: 10px !important">{{ $t('contact_us') }}</h3>
 
-          <p style="font-size: 90%; opacity: 0.6">We'd love to hear from you</p>
+          <p style="font-size: 90%; opacity: 0.6">{{ $t('wed_love_to_hear') }}</p>
 
           <div id="reset">
             <v-row>
@@ -58,7 +58,9 @@
             {{ infoText }}
           </div>
 
-          <button :disabled="!canBeSent" class="button special" @click="sendMessage()">Send</button>
+          <button :disabled="!canBeSent" class="button special" @click="sendMessage()">
+            {{ $t('send') }}
+          </button>
           <br />
           <span>{{ infoText }}</span>
         </div>

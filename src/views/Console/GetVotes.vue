@@ -4,7 +4,7 @@
       <v-text-field v-model="id" label="id" hide-details placeholder="tt1480055"></v-text-field>
 
       <v-checkbox hide-details v-model="removedup" label="removedup"></v-checkbox>
-      <v-btn depressed @click="getVotes()">Get votes</v-btn>
+      <v-btn depressed @click="getVotes()">{{ $t('get_votes') }}</v-btn>
 
       <!--chips -->
       <div style="margin-top: 4px">
