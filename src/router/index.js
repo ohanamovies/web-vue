@@ -3,15 +3,14 @@ import VueRouter from 'vue-router'
 
 import ExtensionPopup from '@/views/Extension/ExtensionPopup'
 
-import Home from '@/views/Home.vue'
+//import Home from '@/views/Home.vue'
 //import AboutOld from '@/views/AboutOld.vue'
 import Home2 from '@/views/Home2.vue'
-import About2 from '@/views/About.vue'
+//import About2 from '@/views/Tutorials/About.vue'
 import Community from '@/views/Community.vue'
 //import Content from '@/views/Content.vue'
-import Elements from '@/views/Elements.vue'
 import Stats from '@/views/Stats.vue'
-import GetStarted from '@/views/Tutorials/GetStarted.vue'
+//import GetStarted from '@/views/Tutorials/GetStarted.vue'
 import FAQs from '@/views/Tutorials/FAQs.vue'
 import NotFoundComponent from '@/views/Tutorials/NotFoundComponent.vue'
 import SettingsPage2 from '@/views/SettingsPage2.vue'
@@ -43,11 +42,11 @@ const routes = [
     name: 'News',
     component: News,
   },
-  {
+  /*{
     path: '/old',
     name: 'Home',
     component: Home,
-  },
+  },*/
   {
     path: '/magic',
     redirect: '/',
@@ -94,12 +93,6 @@ const routes = [
     component: MoviePage,
     props: true,
   },
-
-  {
-    path: '/about',
-    name: 'About2',
-    component: About2,
-  },
   /*{
     path: '/about_old',
     name: 'AboutOld',
@@ -131,11 +124,6 @@ const routes = [
     component: OhanaConsole,
   },
   {
-    path: '/get-started',
-    name: 'GetStarted',
-    component: GetStarted,
-  },
-  {
     path: '/extension/bye',
     name: 'Bye',
     component: Bye,
@@ -163,6 +151,18 @@ const routes = [
     deprecated: true,
   },
   {
+    path: '/about',
+    name: 'About2',
+    component: FAQs,
+    props: { focus: '#about' },
+  },
+  {
+    path: '/get-started',
+    name: 'GetStarted',
+    component: FAQs,
+    props: { focus: '#get-started' },
+  },
+  {
     path: '/faqs',
     name: 'FAQs',
     component: FAQs,
@@ -171,11 +171,6 @@ const routes = [
     path: '/settings',
     name: 'SettingsPage2',
     component: SettingsPage2,
-  },
-  {
-    path: '/elements',
-    name: 'Elements',
-    component: Elements,
   },
   {
     path: '/privacy-policy',

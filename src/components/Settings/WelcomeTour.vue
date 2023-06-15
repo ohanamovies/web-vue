@@ -41,7 +41,7 @@
 
         <v-tab-item class="outerr">
           <div style="max-width: 500px; margin: auto">
-            <h4>What do you want to skip?</h4>
+            <h4>{{ $t('what_do_you_want') }}</h4>
             <Tags2 />
           </div>
         </v-tab-item>
@@ -62,9 +62,9 @@
         <!--<v-tab-item class="outerr">
           <div class="middlee">
             <div class="innerr" style="text-align: center">
-              <h2>You are all set</h2>
-              <p>We think you are going to love Ohana TV!</p>
-              <!- - <p class="modern-link" @click="slide++">Let's go</p> - ->
+              <h2>{{ $t('you_are_all_set') }}</h2>
+              <p>{{ $t('we_think_you_are') }}</p>
+              <!- - <p class="modern-link" @click="slide++">{{ $t('lets_go') }}</p> - ->
             </div>
           </div>
         </v-tab-item>-->
@@ -73,7 +73,9 @@
 
     <v-card-actions style="display: flex; justify-content: space-between">
       <div>
-        <v-btn v-if="slide > 0" text style="box-shadow: none" @click="slide--">Back</v-btn>
+        <v-btn v-if="slide > 0" text style="box-shadow: none" @click="slide--">{{
+          $t('back')
+        }}</v-btn>
         <v-btn
           v-else
           text
@@ -92,7 +94,7 @@
       </div>
       <div>
         <v-btn text style="box-shadow: none" @click="slide++">
-          {{ nextStepText }}
+          {{ $t(nextStepText) }}
         </v-btn>
       </div>
     </v-card-actions>
@@ -130,7 +132,7 @@ export default {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings', 'extension_version']),
 
     nextSteps() {
-      return ['Start', 'Next', 'Next', this.hasApp ? 'Go to catalog' : 'Skip to catalog']
+      return ['start', 'next', 'next', this.hasApp ? 'go_to_movies' : 'skip_to_movies']
     },
     nextStepText() {
       return this.nextSteps[this.slide]

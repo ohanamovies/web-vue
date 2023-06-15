@@ -273,14 +273,14 @@
 // @ is an alias to /src
 //import MyHeader from '@/components/MyHeader.vue' //now imported globally!
 import sharedjs from '@/sharedjs'
-import ScrollDownAnimation from '@/components/ScrollDownAnimation.vue'
+//import ScrollDownAnimation from '@/components/ScrollDownAnimation.vue'
 import { mapState } from 'vuex'
 
 export default {
   name: 'Home',
-  components: {
+  /*components: {
     ScrollDownAnimation,
-  },
+  },*/
 
   head: function () {
     //This is used to generate the meta tags needed for better SEO and stuff.

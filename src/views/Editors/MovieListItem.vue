@@ -56,7 +56,7 @@
           <br />
 
           <span style="font-size: 75%; color: black">
-            Last edited: {{ new Date(item.lastEdited).toLocaleString() }}
+            {{ $t('last_edited') }} {{ new Date(item.lastEdited).toLocaleString() }}
           </span>
           <br />
         </td>

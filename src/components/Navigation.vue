@@ -6,10 +6,10 @@
         $t(route.key)
       }}</router-link>
 
-      <!-- Other menu items -->
+      <!-- Other menu items
       <a style="text-transform: uppercase; cursor: pointer" @click="changeLang()"
         >{{ $i18n.locale }}
-      </a>
+      </a> -->
     </div>
 
     <div v-if="isMobile">
@@ -28,7 +28,7 @@
           </v-list-item-content>
         </v-list-item>
 
-        <!-- Other menu items -->
+        <!-- Other menu items
         <v-divider></v-divider>
 
         <v-list-item link to="">
@@ -38,7 +38,7 @@
               <span style="text-transform: uppercase"> {{ $i18n.locale }}</span>
             </v-list-item-title>
           </v-list-item-content>
-        </v-list-item>
+        </v-list-item>-->
       </v-list>
     </v-navigation-drawer>
   </div>
@@ -73,15 +73,11 @@ export default {
       showMenu: false,
       routes: [
         { to: '/', key: 'home' },
-        { to: '/get-started', key: 'getStarted' },
-
+        //{ to: '/get-started', key: 'getStarted' },
         { to: '/settings', key: 'settings' },
         { to: '/editors', key: 'editors' },
-
         { to: '/community', key: 'support_ohana' },
-
-        { to: '/about', key: 'about' },
-
+        { to: '/faqs', key: 'faqs' },
         //{to: '/community', key: 'community'}
       ],
     }

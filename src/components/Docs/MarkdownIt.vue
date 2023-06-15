@@ -4,10 +4,19 @@
 
 <script>
 import { mapState } from 'vuex'
+import faq_en from '@/assets/articles/faq_en.md'
+import faq_es from '@/assets/articles/faq_es.md'
+
+const slugify = function (s) {
+  return s
+    .toLowerCase()
+    .replaceAll(/[^a-z ]/g, '')
+    .replaceAll(' ', '-')
+}
+
 var md = require('markdown-it')({
   html: true,
-}).use(require('markdown-it-anchor').default)
-
+}).use(require('markdown-it-anchor').default, { slugify })
 /*
 var md = new MarkdownIt()
 md.use(require('markdown-it-anchor').default)
@@ -46,17 +55,11 @@ export default {
   },
   methods: {
     updateMarkdown() {
-      fetch('https://ohana.tv/articles/' + this.file + '_' + this.settings.language + '.md')
-        .then((response) => response.text())
-        .then((text) => {
-          this.mdtext = text
-        })
-        .catch(() => {
-          this.mdtext =
-            this.settings.language == 'es'
-              ? '[[toc]] \n## Error cargando contenido\n\nPrueba más tarde.'
-              : '## Error fetching content\n\nTry again later.'
-        })
+      if (this.settings.language == 'es') {
+        this.mdtext = faq_es.md
+      } else {
+        this.mdtext = faq_en.md
+      }
     },
     markdown(a) {
       let x = document.createElement('div')

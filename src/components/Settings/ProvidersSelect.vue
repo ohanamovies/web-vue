@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 400px; margin: auto; overflow: auto">
+  <div style="margin: auto; overflow: auto">
     <!-- Providers -->
 
     <div>
