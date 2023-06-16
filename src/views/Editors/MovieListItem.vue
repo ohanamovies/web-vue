@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 5px; margin: 5px; border-radius: 5px; border: 1px solid #e0e0e0">
+  <div style="padding: 10px; margin: 20px auto" class="card">
     <table style="margin: 0">
       <router-link :to="'/item/' + item.imdb" class="no_hover">
         <tr v-if="item.title && Object.keys(item.title).length">

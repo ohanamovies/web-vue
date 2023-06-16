@@ -7,7 +7,7 @@ Here you'll find a quick guide about how to use Ohana. This is:
 
 [[toc]]
 
-<span id="get-started" style="margin-top: 25px;"></span>
+<h1 id="get-started"></h1>
 
 ## How to watch a healthy movie
 
@@ -82,7 +82,7 @@ Repeat steps 3 and 4 until all the unhealthy scenes have been added. Last but no
 
 Click the "Set filter status" button and select, for each category & tag, the right status. Click on save and you are done! Now everyone in the world can enjoy a healthy movie/episode! In the name of everyone: **Thank you, you are a hero!**
 
-<span id="about" style="margin-top: 25px;"></span>
+<h1 id="about"></h1>
 
 ## What is Ohana?
 
@@ -96,7 +96,7 @@ Our Chrome extension embeds itself within Netflix, HBO, etc. enabling users to s
 
 If you enjoy great movies, but don't like watching unhealthy scenes, you will be pleased to meet Ohana.
 
-## Why be active about what to watch?
+## Why choosing what to watch?
 
 #### Values
 
@@ -113,7 +113,7 @@ In some cases, it is not about the ideas, but about graphic or explicit content 
 - Graphic violence & gore. Depending on your sensitivity, these scenes can ruin a good movie, or trigger flashbacks on people suffering from trauma...
 - Sex & nudtiy. If you believe people should be loved, not used; and want to approach sex as a way of showing love/giving yourself to the other person. Thus we try to avoid using other people (either physically or on a video) as a tool to obtain pleasure.
 
-## How do you plan to help people?
+## How do you help people?
 
 In Ohana we want to:
 

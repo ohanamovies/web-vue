@@ -1,6 +1,6 @@
 <template>
   <div class="subpage">
-    <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
+    <section id="main" class="wrapper" style="max-width: 700px; margin: -30px auto">
       <div class="inner">
         <!-- IF USER JUST INSTALLED OHANA -->
         <div v-if="welcoming" style="padding: 10px; margin-bottom: 50px">
@@ -60,8 +60,8 @@
         <div>
           <Settings2 style="margin-bottom: 30px" />
         </div>
-
-        <router-link class="button" to="/find-movies">{{ $t('discoverContent') }}</router-link>
+        <!--
+        <router-link class="button" to="/find-movies">{{ $t('discoverContent') }}</router-link>-->
       </div>
     </section>
   </div>

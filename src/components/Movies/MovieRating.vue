@@ -1,27 +1,28 @@
 <template>
   <div>
-    <!-- without ohana -->
-    <div style="margin-top: 15px">
-      <div style="margin-bottom: 10px">
-        <b>{{ $t('without_ohana') }}</b>
+    <v-card style="padding: 15px 25px 25px 25px">
+      <!-- without ohana -->
+      <div style="margin-top: 15px">
+        <div style="margin-bottom: 10px">
+          <b>{{ $t('without_ohana') }}</b>
+        </div>
+        <FilterStatusBriefTags :filterStatus="item.movieContent" :align="'left'" />
       </div>
-      <FilterStatusBriefTags :filterStatus="item.movieContent" :align="'left'" />
-    </div>
 
-    <!-- with ohana -->
-    <div
-      v-if="settings && settings.skip_tags && settings.skip_tags.length"
-      style="margin-top: 15px"
-    >
-      <div style="margin-bottom: 10px">
-        <b>{{ $t('with_ohana') }}</b>
-        <br />
-        <span style="color: grey; font-size: 90%; font-weight: 400">{{
-          $t('applying_your_settings')
-        }}</span>
+      <!-- with ohana -->
+      <div
+        v-if="settings && settings.skip_tags && settings.skip_tags.length"
+        style="margin-top: 15px"
+      >
+        <div style="margin-bottom: 10px">
+          <b>{{ $t('with_ohana') }}</b> -
+          <span style="color: grey; font-size: 90%; font-weight: 400">{{
+            $t('applying_your_settings')
+          }}</span>
+        </div>
+        <FilterStatusBriefTags :filterStatus="item.filterStatus" :align="'left'" />
       </div>
-      <FilterStatusBriefTags :filterStatus="item.filterStatus" :align="'left'" />
-    </div>
+    </v-card>
 
     <!-- expansion panels -->
     <div style="margin-top: 30px; margin-bottom: 30px">

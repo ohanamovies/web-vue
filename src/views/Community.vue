@@ -2,29 +2,26 @@
   <div class="subpage">
     <section id="main" class="wrapper" style="margin: auto">
       <div class="inner">
-        <header class="align-center">
-          <h2>{{ $t('community.title') }}</h2>
-          <p>{{ $t('community.subtitle') }}</p>
-        </header>
-        <!--
-        <div class="image round left">
-          <img src="images/pic01.jpg" alt="Pic 01" />
-        </div>
-        -->
-        <div style="max-width: 600px; margin: auto">
-          <p>
-            {{ $t('community.intro1') }}
-          </p>
-          <p>
-            {{ $t('community.intro2') }}
-          </p>
+        <div class="card" style="width: fit-content; padding: 20px; margin: -25px auto 50px auto">
+          <header class="align-center" style="margin-bottom: 25px">
+            <h2>{{ $t('community.title') }}</h2>
+            <p>{{ $t('community.subtitle') }}</p>
+          </header>
+          <div style="max-width: 600px; margin: auto">
+            <p>
+              {{ $t('community.intro1') }}
+            </p>
+            <p>
+              {{ $t('community.intro2') }}
+            </p>
+          </div>
         </div>
 
         <h2 style="text-align: center; font-size: 1.2rem">{{ $t('community.join') }}</h2>
         <div class="alex1-container">
           <!-- install / edit movies -->
 
-          <div class="alex1">
+          <div class="alex1 card" v-if="!hasApp">
             <div>
               <span v-html="$t('community.contribute.install_html')"></span>
             </div>
@@ -36,11 +33,7 @@
                 style="margin: 5px"
                 >{{ $t('install') }}</a
               >
-
-              <span v-if="hasApp" class="support-tip"
-                ><b>Well done!</b> It seems you already installed our extension</span
-              >
-              <span class="support-tip" v-else-if="isChrome"
+              <span class="support-tip" v-if="isChrome"
                 ><b>Note:</b> It seems your browser is compatible :)</span
               >
               <span class="support-tip" v-else><b>Note:</b> Ohana only works on Chrome</span>
@@ -48,11 +41,11 @@
           </div>
 
           <!-- use the app -->
-          <div class="alex1">
+          <div class="alex1 card" v-else>
             <div>
               <span v-html="$t('community.contribute.edit_html')"> </span>
             </div>
-            <footer>
+            <footer style="text-align: center">
               <router-link to="get-started" class="button special">{{
                 $t('learnMore')
               }}</router-link>
@@ -60,33 +53,39 @@
           </div>
 
           <!-- donate -->
-          <div class="alex1">
+          <div class="alex1 card">
             <div v-html="$t('community.contribute.donate_html')"></div>
-            <a
-              class="button"
-              href="https://www.paypal.com/donate/?hosted_button_id=NKWWBA9FYGPTU"
-              target="_blank"
-              >Via PayPal</a
-            >
-            <a class="button" href="https://www.patreon.com/ohanatv" target="_blank">Via Patreon</a>
+            <footer style="text-align: center">
+              <a
+                class="button"
+                href="https://www.paypal.com/donate/?hosted_button_id=NKWWBA9FYGPTU"
+                target="_blank"
+                >Via PayPal</a
+              >
+            </footer>
+            <!--<a class="button" href="https://www.patreon.com/ohanatv" target="_blank">Via Patreon</a>-->
           </div>
 
           <!-- TODO: confirm if use this one: feedback -->
-          <div class="alex1" v-if="false">
+          <div class="alex1 card" v-if="false">
             <div>Share your <b>feedback</b> and thoughts</div>
-            <a class="button" href="https://forms.gle/cPr7XQhdS7x1y9hx7" target="_blank"
-              >feedback</a
-            >
+            <footer style="text-align: center">
+              <a class="button" href="https://forms.gle/cPr7XQhdS7x1y9hx7" target="_blank"
+                >feedback</a
+              >
+            </footer>
           </div>
 
-          <!-- TODO: Help coding? -->
-          <div class="alex1">
+          <!-- TODO: Help coding?
+          <div class="alex1 card">
             <div v-html="$t('community.contribute.code_html')"></div>
-            <a class="button disabled" href="" disabled>github</a>
-          </div>
+            <footer style="text-align: center">
+              <a class="button disabled" href="" disabled>github</a>
+            </footer>
+          </div>-->
 
           <!-- share -->
-          <div class="alex1">
+          <div class="alex1 card">
             <div v-html="$t('community.contribute.spread_html')"></div>
             <!-- I got these buttons from simplesharebuttons.com -->
           </div>

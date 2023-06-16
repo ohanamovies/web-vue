@@ -29,7 +29,7 @@
           >
         </div>
         <v-card-text class="pa-1 pt-0">
-          <Settings2 :page="0" style="margin-top: 0px; background-color: white" />
+          <Settings2 :dialog="true" :page="0" style="margin-top: 0px; background-color: white" />
         </v-card-text>
         <v-card-actions style="border-top: 1px solid gray"
           ><!--style="background-color: #141414; color: white"-->
@@ -44,8 +44,6 @@
             {{ $t('language') }}:
             {{ settings.language ? settings.language.toUpperCase() : 'Loading' }}
           </span>
-
-          <!-- <LanguageSelect style="max-width: 250px" /> -->
         </v-card-actions>
       </v-card>
 

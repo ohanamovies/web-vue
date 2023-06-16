@@ -5,6 +5,7 @@
         v-model="tab"
         style="margin-top: 0px; position: sticky; top: 0px; z-index: 6"
         :fixed-tabs="isMobile"
+        :class="!dialog ? 'card' : ''"
         center-active
       >
         <v-tab><v-icon class="mr-2" small>mdi-movie-open</v-icon>{{ $t('filters') }}</v-tab>
@@ -19,14 +20,16 @@
 
       <div
         :style="{
-          maxHeight: isMobile ? '70vh' : '550px',
-          height: isMobile ? '70vh' : '550px',
+          maxHeight: isMobile ? '70vh' : '450px',
+          minHeight: isMobile ? '20vh' : '250px',
           overflowY: 'auto',
-          padding: '10px 20px',
+          padding: '20px',
+          marginTop: '15px',
         }"
+        :class="!dialog ? 'card' : ''"
         id="tabsElementSettings"
       >
-        <v-tabs-items v-model="tab" style="min-height: 400px">
+        <v-tabs-items v-model="tab">
           <!--sensitivity-->
           <v-tab-item>
             <Tags2 />
@@ -91,6 +94,10 @@ export default {
     page: {
       type: Number,
       default: 0,
+    },
+    dialog: {
+      type: Boolean,
+      default: false,
     },
   },
   watch: {

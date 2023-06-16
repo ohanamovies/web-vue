@@ -1,13 +1,5 @@
 <template>
-  <div
-    style="
-      border: 1px solid grey;
-      border-radius: 5px;
-      padding: 10px;
-      margin-bottom: 10px;
-      font-size: 0.8rem;
-    "
-  >
+  <div style="padding: 15px; margin: 15px auto; font-size: 0.8rem" class="card">
     <div v-if="scene">
       <div v-if="scene.times">
         <b>Duration: {{ formatTime(averageDuration(scene.times)) }}</b>

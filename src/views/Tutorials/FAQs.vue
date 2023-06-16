@@ -1,8 +1,6 @@
 <template>
   <div class="subpage">
-    <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
-      <MarkdownIt file="faqs" class="inner" scrollTo="scrollTo" />
-    </section>
+    <MarkdownIt file="faqs" class="inner" scrollTo="scrollTo" />
   </div>
 </template>
 

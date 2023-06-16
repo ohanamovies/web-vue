@@ -3,17 +3,9 @@
     <section
       id="sponsors"
       class="wrapper align-center"
-      style="background-color: #141414; color: white"
+      style="background-color: #141414; color: white; padding-top: 2em"
     >
       <div class="inner">
-        <div
-          style="
-            border-top: 1px solid rgba(200, 200, 200, 0.3);
-            margin: auto;
-            margin-bottom: 30px;
-            max-width: 80%;
-          "
-        ></div>
         <h1 style="font-size: 24pt; color: white; font-weight: 500">{{ $t('want_more') }}</h1>
 
         <article style="max-width: 500px; margin: auto">

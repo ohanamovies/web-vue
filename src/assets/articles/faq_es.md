@@ -7,7 +7,7 @@ Aquí encontrarás una introducción sobre como usar Ohana:
 
 [[toc]]
 
-<span id="get-started" style="margin-top: 25px;"></span>
+<h1 id="get-started"></h1>
 
 ## Cómo ver películas cortadas
 
@@ -84,7 +84,7 @@ Repite los pasos 3 y 4 hasta que hayas añadido todas las escenas no deseadas. P
 
 Haz clic en el botón "Establecer estado del filtro" y selecciona, para cada categoría y etiqueta, el estado correcto. Haga clic en guardar y ¡listo! ¡Ahora todo el mundo puede disfrutar de la película o episodio! En nombre de toda la comunidad de Ohana ¡Gracias, eres un héroe!
 
-<span id="about" style="margin-top: 25px"></span>
+<h1 id="about"></h1>
 
 ## ¿Qué es Ohana?
 

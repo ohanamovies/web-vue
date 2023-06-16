@@ -2,22 +2,24 @@
   <div>
     <div class="subpage">
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
-        <!--   SPANISH TEXT -->
         <div class="inner">
-          <EditorsIndex />
+          <div class="card" style="padding: 5px 15px">
+            <EditorsIndex />
 
-          <div v-if="page == 1">
-            <p>Here are the latest {{ items.length }} edited movies and shows:</p>
+            <div v-if="page == 1">
+              <p>Here are the latest {{ items.length }} edited movies and shows:</p>
+            </div>
+            <div v-if="page > 1">
+              <p>{{ page * pageSize + 1 + '-' + (page * pageSize + pageSize) }}</p>
+            </div>
+            <!-- {{ items }} -->
+            <div v-if="error">
+              {{ $t('error') }} <button @click="getData()">{{ $t('try_again_l') }}</button>
+            </div>
+
+            <div v-else-if="loading">{{ $t('loading') }}</div>
           </div>
-          <div v-if="page > 1">
-            <p>{{ page * pageSize + 1 + '-' + (page * pageSize + pageSize) }}</p>
-          </div>
-          <!-- {{ items }} -->
-          <div v-if="error">
-            {{ $t('error') }} <button @click="getData()">{{ $t('try_again_l') }}</button>
-          </div>
-          <div v-else-if="loading">{{ $t('loading') }}</div>
-          <div v-else style="max-width: 600px; margin: auto; padding: 5px">
+          <div v-if="!loading && !error" style="padding: 5px">
             <div v-for="(item, index) in items" :key="index">
               <MovieListItem :item="item" />
             </div>

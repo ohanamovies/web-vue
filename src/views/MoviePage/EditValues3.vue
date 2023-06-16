@@ -38,7 +38,7 @@
           v-for="value in movieValues"
           :key="value.key"
           variant="outlined"
-          style="margin: 15px"
+          style="margin: 15px auto"
         >
           <v-card-title style="display: flex; justify-content: space-between">
             <span
@@ -114,11 +114,11 @@
                   <div v-if="item.type == 'value'" style="margin-bottom: 30px">
                     <div>
                       <b>{{ item.title[lang] || item.key }}</b>
-                      <MenuTooltip v-if="item.tooltip[lang]" icon="mdi-information-outline">
+                      <!--<MenuTooltip v-if="item.tooltip[lang]" icon="mdi-information-outline">
                         <v-card>
                           <v-card-text>{{ item.tooltip[lang] }}</v-card-text>
                         </v-card>
-                      </MenuTooltip>
+                      </MenuTooltip>-->
                     </div>
 
                     <!-- slider -->
@@ -164,10 +164,10 @@
                         font-size: 80%;
                       "
                     >
-                      <div style="margin-right: 15px">
+                      <div style="width: 45%">
                         {{ item.vice[lang] || 'Unhealthy' }}
                       </div>
-                      <div style="margin-left: 15px; text-align: right">
+                      <div style="width: 45%; text-align: right">
                         {{ item.value[lang] || 'Healthy' }}
                       </div>
                     </div>
@@ -178,94 +178,21 @@
           </v-expansion-panel>
         </v-expansion-panels>
       </div>
-
-      <!-- only sliders (no expansion panels) -->
-      <div v-if="false">
-        <div v-for="(item, index) in items" :key="index">
-          <!--group -->
-          <div v-if="item.type == 'group'">
-            <h2>{{ item.title[lang] }}</h2>
-          </div>
-
-          <!-- value -->
-          <div v-if="item.type == 'value'" style="margin-bottom: 30px">
-            <div>
-              <b>{{ item.title[lang] || item.key }}</b>
-              <MenuTooltip v-if="item.tooltip[lang]" icon="mdi-information-outline">
-                <v-card>
-                  <v-card-text>{{ item.tooltip[lang] }}</v-card-text>
-                </v-card>
-              </MenuTooltip>
-            </div>
-
-            <!-- slider -->
-            <div style="width: 100%">
-              <v-slider
-                v-if="vote[item.key] !== undefined"
-                :readonly="current == 'community'"
-                hide-details
-                class="mb-0 pb-0"
-                ticks="always"
-                tick-size="4"
-                :min="-1"
-                :max="1"
-                :tick-labels-bah="['Unhealthy', 'Mild', 'None', 'Positive', 'Healthy']"
-                step="0.5"
-                :track-color="getColor(item.key)"
-                :color="getColor(item.key)"
-                v-model="vote[item.key]"
-              ></v-slider>
-              <v-slider
-                v-else
-                :readonly="current == 'community'"
-                :min="-1"
-                :max="1"
-                step="0.5"
-                :tick-size="4"
-                ticks="always"
-                class="mb-0 pb-0"
-                hide-details
-                track-color="gray"
-                color="gray"
-                :value="0"
-                @change="voteIt(item.key, $event)"
-              >
-              </v-slider>
-            </div>
-            <!-- text -->
-            <div
-              style="
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                font-size: 80%;
-              "
-            >
-              <div style="margin-right: 15px">
-                {{ item.vice[lang] || 'Unhealthy' }}
-              </div>
-              <div style="margin-left: 15px; text-align: right">
-                {{ item.value[lang] || 'Healthy' }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import MenuTooltip from '@/components/MenuTooltip.vue'
+//import MenuTooltip from '@/components/MenuTooltip.vue'
 import values_list from '@/assets/values'
 import { mapState } from 'vuex'
 
 import ohana from '@/assets/ohana/'
 
 export default {
-  components: {
+  /*components: {
     MenuTooltip,
-  },
+  },*/
   props: {
     imdb: {
       type: String,

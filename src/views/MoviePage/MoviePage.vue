@@ -11,7 +11,7 @@
       <div v-else>{{ $t('hmm_something_seems_off') }}</div>
     </div>
     <div v-else>
-      <v-tabs v-model="tab" class="mb-4" style="min-height: 50px">
+      <v-tabs v-model="tab" class="mb-4 card" style="min-height: 50px">
         <v-tab>{{ $t('content') }}</v-tab>
         <v-tab>{{ $t('values') }}</v-tab>
         <v-tab v-if="showEpisodes">{{ $t('episodes') }}</v-tab>
@@ -20,7 +20,7 @@
         <v-tab v-if="isAdmin">dev</v-tab>
       </v-tabs>
 
-      <v-tabs-items v-model="tab">
+      <v-tabs-items v-model="tab" style="background: transparent">
         <!-- CONTENT -->
         <v-tab-item>
           <!-- filterStatus -->

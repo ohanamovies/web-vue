@@ -69,6 +69,8 @@ export default {
       let toc = document.createElement('ol')
       toc.classList.add('toc')
 
+      //<v-card id="main" class="wrapper" style="max-width: 800px; margin: 30px auto; padding: 15px">
+
       let h2s = x.getElementsByTagName('h2')
       for (const h2 of h2s) {
         const link = this.file + '#' + h2.id
@@ -93,7 +95,17 @@ export default {
         '_' +
         this.settings.language +
         '.md'
-      return x.innerHTML.replace('[[toc]]', toc.outerHTML) + '<br>' + editGitHub.outerHTML
+
+      let html = x.innerHTML.replace('[[toc]]', toc.outerHTML)
+      //</v-card><v-card>
+
+      html = '<card>' + html.replaceAll('<h2', '</card><card> <h2') + '</card>'
+      return (
+        html +
+        '<br><span style="margin: -30px auto 40px auto; display: table;">' +
+        editGitHub.outerHTML +
+        '</span>'
+      )
     },
   },
   beforeMount() {
@@ -102,7 +114,61 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+h1,
+h2,
+h3 {
+  scroll-margin-top: 60px !important;
+}
+
+.card {
+  background-color: white;
+  display: block;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+card {
+  background-color: white;
+  margin: 50px auto;
+  max-width: 800px;
+  padding: 10px 40px 25px 40px;
+  display: block;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+#app {
+  background-color: #e3e9e9;
+}
+
+#app::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.04;
+  background-attachment: fixed !important;
+  background: url('/icons/apple-touch-icon-152x152.png');
+}
+
+h1 {
+  font-size: 2.5em;
+  margin-top: 30px !important;
+}
+h2 {
+  font-size: 2em;
+}
+h3 {
+  font-size: 1.5em;
+}
+h4 {
+  font-size: 1.2em;
+}
+
 /*https://stackoverflow.com/questions/34459841/show-child-element-on-parent-hover-in-css*/
 h2 * .header-anchor {
   visibility: hidden;

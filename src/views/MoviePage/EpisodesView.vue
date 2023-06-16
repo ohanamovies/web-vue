@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card" style="padding: 15px">
     <div v-if="loading" style="height: 80px; text-align: center">
       <v-progress-circular :size="40" indeterminate></v-progress-circular>
     </div>
