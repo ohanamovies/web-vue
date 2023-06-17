@@ -3,26 +3,26 @@
     <section
       id="sponsors"
       class="wrapper align-center"
-      style="background-color: #141414; color: white; padding-top: 2em"
+      style="background-color: #141414; color: white; padding: 2em 0; min-height: fit-content"
     >
       <div class="inner">
         <h1 style="font-size: 24pt; color: white; font-weight: 500">{{ $t('want_more') }}</h1>
 
-        <article style="max-width: 500px; margin: auto">
+        <article style="max-width: 600px; margin: auto">
           <p>
             {{ $t('the_ongoing_development_of') }}
           </p>
+
           <a
-            class="button special"
+            class="button"
             href="https://www.paypal.com/donate/?hosted_button_id=NKWWBA9FYGPTU"
             target="_blank"
-            style="color: #469ae8"
             >{{ $t('donate') }}</a
           >
-          <br />
-          <router-link to="/community" class="modern-link">{{
-            $t('discover_other_ways_to')
+          <router-link class="button special" style="margin: 15px" to="/contact-us">{{
+            $t('give_us_feedback')
           }}</router-link>
+          <router-link to="/community" class="button">{{ $t('community.join') }}</router-link>
         </article>
 
         <div v-if="false" style="margin-top: 90px">

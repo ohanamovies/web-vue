@@ -75,9 +75,11 @@ export default {
         { to: '/', key: 'home' },
         //{ to: '/get-started', key: 'getStarted' },
         { to: '/settings', key: 'settings' },
-        { to: '/editors', key: 'editors' },
+        //{ to: '/editors', key: 'editors' },
         { to: '/community', key: 'support_ohana' },
         { to: '/faqs', key: 'faqs' },
+        { to: '/contact-us', key: 'contact_us' },
+
         //{to: '/community', key: 'community'}
       ],
     }

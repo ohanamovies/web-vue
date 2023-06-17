@@ -100,6 +100,7 @@
           show_welcomeTour = false
           settingsPage = 0
         "
+        @updated="getAllData(true)"
         :page="settingsPage"
       />
     </v-dialog>
@@ -259,7 +260,7 @@
           <div
             v-show="
               (title && index == 0) ||
-              (!title && index != 0 && (visibleLength(section) > 0 || section.loading))
+              (!title && index != 0 && (visibleLength(section) > 0 || section.loading !== false))
             "
             :data-id="index"
           >
@@ -537,13 +538,6 @@ export default {
     }
   },
   watch: {
-    show_welcomeTour(newValue) {
-      if (!newValue) {
-        //tour closed
-
-        this.getAllData(true)
-      }
-    },
     showMovieDialog(newValue) {
       if (!newValue) this.selectedItemInfo = {} //to avoid previus data still rendered while opening different movie
     },
@@ -566,6 +560,7 @@ export default {
       this.sections[0].loading = true // Show loading placeholders
       this.sections[0].data = [] // Clean results
       this.sections[0].tries = 0
+      //if (this.title) window.location.hash = '#' + this.title
       clearTimeout(this.titleTimeout)
       this.titleTimeout = setTimeout(() => {
         // Override loading and finishLoading (to force loading even if already loading)
@@ -700,7 +695,13 @@ export default {
       query.newAPI = true
       // Add either title (index == 0) or tags we want to be clean
       if (index == 0) {
-        query.title = this.title
+        if (this.title == 'most-popular' || this.title == 'suggested-reviews') {
+          query.sort_by = 'popularity'
+          delete query.title
+        } else {
+          delete query.sort_by
+          query.title = this.title
+        }
       } else {
         let homeSkipTags = [...this.skipTags]
         if (!homeSkipTags.includes('Very erotic')) homeSkipTags.push('Very erotic')
@@ -732,7 +733,7 @@ export default {
       let data = await res.json()
 
       // Ignore results from deprecated search queries
-      if (index == 0 && query.title != this.title)
+      if (index == 0 && query.title != this.title && query.title)
         return console.log('ignoring results', query.title, this.title)
 
       // Mark loading as finished (when result length is shorter than page size)
@@ -750,6 +751,10 @@ export default {
             ['tt0314331', 'tt4593126'].includes(data[i].imdb) ||
             ohana.movies.isUgly(data[i]) ||
             data[i].status.status == 'missing'
+        }
+
+        if (this.title == 'suggested-reviews') {
+          data[i].hidden = data[i].hidden || ohana.movies.isHealthy(data[i].status)
         }
 
         if (ids.includes(data[i].imdb)) data[i].hidden = true
@@ -777,6 +782,11 @@ export default {
   },
 
   mounted() {
+    // User location hash as search query (usefull for links :)
+    if (window.location.hash) {
+      this.title = window.location.hash.replace('#', '')
+    }
+
     //load some data
     if (this.skipTags && this.skipTags.length) this.getAllData()
     // Detect when scrolled to bottom.

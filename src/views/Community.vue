@@ -34,21 +34,19 @@
                 >{{ $t('install') }}</a
               >
               <span class="support-tip" v-if="isChrome"
-                ><b>Note:</b> It seems your browser is compatible :)</span
+                >It seems your browser is compatible :)</span
               >
-              <span class="support-tip" v-else><b>Note:</b> Ohana only works on Chrome</span>
+              <span class="support-tip" v-else>So far, Ohana only works on Chrome</span>
             </footer>
           </div>
 
           <!-- use the app -->
-          <div class="alex1 card" v-else>
+          <div class="alex1 card">
             <div>
               <span v-html="$t('community.contribute.edit_html')"> </span>
             </div>
             <footer style="text-align: center">
-              <router-link to="get-started" class="button special">{{
-                $t('learnMore')
-              }}</router-link>
+              <router-link to="editors" class="button special">{{ $t('learnMore') }}</router-link>
             </footer>
           </div>
 
@@ -67,12 +65,15 @@
           </div>
 
           <!-- TODO: confirm if use this one: feedback -->
-          <div class="alex1 card" v-if="false">
-            <div>Share your <b>feedback</b> and thoughts</div>
+          <div class="alex1 card">
+            <div v-html="$t('community.contribute.share_feedback_html')"></div>
             <footer style="text-align: center">
-              <a class="button" href="https://forms.gle/cPr7XQhdS7x1y9hx7" target="_blank"
+              <router-link class="button special" style="margin: 15px" to="/contact-us">{{
+                $t('give_us_feedback')
+              }}</router-link>
+              <!--              <a class="button" href="https://forms.gle/cPr7XQhdS7x1y9hx7" target="_blank"
                 >feedback</a
-              >
+              >-->
             </footer>
           </div>
 
@@ -135,7 +136,7 @@ export default {
   max-width: 350px;
 }
 .alex1 > div {
-  height: 130px;
+  height: 150px;
   overflow-y: auto;
 }
 

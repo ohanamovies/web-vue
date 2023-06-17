@@ -3,7 +3,7 @@
     <div class="subpage">
       <!-- DRAFT: FOR NOW USE THE OTHER TERMS-OF-USE -->
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
-        <div class="inner">
+        <div class="inner card card-padded">
           <p style="font-size: 70%">
             By using Ohana TV website and apps, you agree to our
             <router-link to="/privacy-policy">privacy policy</router-link>, and to our

@@ -163,6 +163,12 @@ const routes = [
     props: { focus: '#get-started' },
   },
   {
+    path: '/start-editing',
+    name: 'StartEditing',
+    component: FAQs,
+    props: { focus: '#start-editing' },
+  },
+  {
     path: '/faqs',
     name: 'FAQs',
     component: FAQs,

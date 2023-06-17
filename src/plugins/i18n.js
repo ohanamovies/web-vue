@@ -20,7 +20,8 @@ const messages = {
     editors: 'Editors',
     learnMore: 'Learn more',
     discoverContent: 'Find movies',
-    support_ohana: 'Support Ohana',
+    support_ohana: 'Join Ohana',
+    learn_how_to_edit: 'Learn tips on how to edit content in our editors',
     discoverContent_long: 'Find something great to watch',
     language: 'Language',
     scroll_for_more: 'Scroll to learn more ;)',
@@ -58,6 +59,8 @@ const messages = {
     movies: 'Movies',
     shows: 'Shows',
     providers: 'Providers',
+    review_suggestions: 'Or have a look at our ',
+    review_suggestions_2: 'suggested reviews',
     genre: 'Genre | Genres',
     showOnlyClean: 'Show only healthy movies',
     showOnlyCertified: 'Show only Ohana certified movies',
@@ -66,6 +69,7 @@ const messages = {
     mild: 'Mild',
     slight: 'Slight',
     confidence: 'Confidence',
+    give_us_feedback: 'Give us your option',
     feedbackPopUp: 'Report an error',
     resultsBasedOn: ['Healthy movies for you', 'settings', 'and', 'filters'],
     manage_preferences: 'Manage preferences',
@@ -84,17 +88,20 @@ const messages = {
       title: 'Community',
       subtitle: 'Our heart and engine',
       intro1:
-        "A strong community is what makes the difference in a project like this. We need your help building the first open database of films' scenes.",
+        "A strong vibrant community is what makes the difference in a project like Ohana TV. We need your help building the first open database of films' scenes.",
       intro2: 'With your help, anyone in the world will be able to watch movies in a healthy way.',
       join: 'Join the community',
 
       contribute: {
-        install_html: 'Install our <b>Chrome extension</b> and start using it.',
+        share_feedback_html: '<h4>Feedback</h4>Share your <b>feedback</b> and thoughts',
+        install_html:
+          '<h4>Install</h4>Install our <b>Chrome extension</b> and discover all what it has to offer.',
         edit_html:
-          'Go ahead and <b>flag unhealthy content</b>. Next users will be able to skip it thanks to you!',
-        donate_html: '<b>Donate</b> to support the development of Ohana and pay the bills.',
-        code_html: 'Do you know how to <b>code</b>? We are looking for volunteers!',
-        spread_html: '<b>Spread the word</b> about Ohana, so others can enjoy and support it',
+          '<h4>Edit</h4> Join our community of editors, create new filters and flag (un)healthy content.',
+        donate_html: '<h4>Donate</h4>Donate to support the development of Ohana and pay the bills.',
+        code_html: '<h4>Code</h4> Do you know how to <b>code</b>? We are looking for volunteers!',
+        spread_html:
+          '<h4>Spread the word</h4> Spread the word about Ohana, so others can discover it and enjoy gret healthy cinema',
       },
     },
     popup: {
@@ -198,6 +205,7 @@ const messages = {
       'automagically skips the unhealthy content, based on your preferences. It only works while watching from a Chrome Browser.',
     well_done_you_have: 'Well done! You have our',
     well_done_you_have_2: 'Chrome Extension',
+    well_done_you_have_3: 'installed in this browser (version ',
     ohana_extension_is_not: 'Ohana extension is not yet installed in this browser.',
     to_install_ohana_tv: 'To install Ohana TV, go to',
     to_install_ohana_tv_2: 'our Chrome Store page',
@@ -210,8 +218,7 @@ const messages = {
     no_options_found: 'No options found',
     logout: 'Logout',
     log_in_or_sign: 'Log in or sign up',
-    with_an_ohana_tv:
-      'With an Ohana TV account, you will be able to contribute to the community. Also, your preferences will follow you along if you switch devices.',
+    with_an_ohana_tv: 'With an Ohana TV account, you will be able to contribute to the community.',
     already_a_user: 'Already a user?',
     dont_have_an_account: "Don't have an account?",
     sign_up: 'Sign up',
@@ -223,8 +230,9 @@ const messages = {
     continue_as_guest: 'Continue as guest',
     what_platforms_do_you: 'What platforms do you use?',
     ohana_tv_redirects_you:
-      "Ohana TV redirects you to the providers that offer the content. We don't offer content ourselves.",
-    we_will_prioritize_content: 'We will prioritize content available in your providers.',
+      'Ohana TV does not offer content, but redirects you to the providers that you like the most',
+    we_will_prioritize_content: 'We will prioritize content available for this country:',
+    we_will_prioritize_content_2: 'on the following providers:',
     note: 'Note:',
     content_providers_netflix_etc:
       "Content providers (Netflix, etc.) don't offer the same movies/shows in all countries. This setting is used to show you watch options available in your country.",
@@ -341,6 +349,7 @@ const messages = {
     learnMore: 'Aprende más',
     discoverContent: 'Buscar películas',
     support_ohana: 'Colabora',
+    learn_how_to_edit: 'Descubre como editar contenido en la sección para editores de nuestras',
     discoverContent_long: 'Encuentra algo genial para ver',
     language: 'Idioma',
     scroll_for_more: 'Desplázate para obtener más información ;)',
@@ -354,6 +363,8 @@ const messages = {
     movies: 'Películas',
     shows: 'Series',
     providers: 'Proveedores',
+    review_suggestions: 'O echa un vistazo a nuestras',
+    review_suggestions_2: 'sugerencias de edición',
     genre: 'Género | Géneros',
     showOnlyClean: 'Mostrar solo películas saludables',
     showOnlyCertified: 'Mostrar solo películas certificadas por Ohana',
@@ -362,6 +373,7 @@ const messages = {
     mild: 'Leve',
     slight: 'Muy leve',
     confidence: 'Confianza',
+    give_us_feedback: 'Danos tu opinion',
     feedbackPopUp: 'Informar de un error',
     resultsBasedOn: ['Películas saludables para tus', 'ajustes', 'y', 'filtros'],
     manage_preferences: 'Administrar preferencias',
@@ -376,16 +388,22 @@ const messages = {
     community: {
       title: 'Comunidad',
       subtitle: 'Nuestro corazón y motor',
-      intro1: 'Una comunidad fuerte es lo que marca la diferencia en un proyecto como este. ',
-      intro2: 'Con tu ayuda, cualquier persona en el mundo podrá ver películas de forma saludable.',
+      intro1:
+        'Una comunidad fuerte y vibrante es lo que marca la diferencia en un proyecto como Ohana TV.',
+      intro2:
+        'Unete para ayudarnos a que cualquier persona del mundo pueda disfruras del mejor cine de forma saludable.',
       join: 'Unete a la communidad',
       contribute: {
-        install_html: 'Instala nuestra <b>extensión de Chrome</b> y empezar a usarla.',
-        edit_html: 'Sigue adelante y <b>marca contenido no saludable</b>. ',
-        donate_html: '<b>Dona</b> para apoyar el desarrollo de Ohana y pagar las facturas.',
-        code_html: '¿Sabes <b>programar</b>? Estamos buscando voluntarios',
+        share_feedback_html:
+          '<h4>Feedback</h4>Tu <b>opinión</b> es importante para nosotros. ¿Cómo podemos hacer que Ohana ayude más a las familias y usuarios?',
+        install_html:
+          '<h4>Instalar</h4>Instala nuestra <b>extensión de Chrome</b> y descubre todo lo que ofrece.',
+        edit_html:
+          '<h4>Editar</h4>Unete a nuestro grupo de editores, crea filtros y marca contenido (no) saludable.',
+        donate_html: '<h4>Donar</h4>Dona para apoyar el desarrollo de Ohana y pagar las facturas.',
+        code_html: '<h4>Programar</h4>¿Sabes <b>programar</b>? Estamos buscando voluntarios',
         spread_html:
-          '<b>Difundir la palabra</b> sobre Ohana, para que otros puedan disfrutarlo y apoyarlo',
+          '<h4>Difundir</h4>¿Te gusta Ohana? Difunde Ohana, para que muchos otros puedan disfrutarlo y unirse a esta revolución.',
       },
     },
     popup: {
@@ -424,7 +442,7 @@ const messages = {
     },
     leaderboard: {
       intro:
-        'En esta mesa celebramos los aportes de nuestros usuarios, quienes hacen posible Ohana TV. ',
+        'En esta tabla celebramos los aportes de nuestros usuarios, quienes hacen posible Ohana TV. ',
     },
     override: 'Anular:',
     user_feedback: 'Comentarios del usuario:',
@@ -474,7 +492,7 @@ const messages = {
     and: 'y',
     ohana_tv_uses_data_2: 'pero no está respaldado ni certificado por TMDB o IMDb.',
     terms_of_use: 'Condiciones de uso',
-    privacy_policy: 'política de privacidad',
+    privacy_policy: 'Política de privacidad',
     contact_us: 'Contáctanos',
     get_in_touch: 'Ponte en contacto',
     wed_love_to_hear: 'Nos encantaría saber de usted',
@@ -486,8 +504,9 @@ const messages = {
     our: 'Nuestra',
     our_2: 'extensión de Google Chrome',
     our_3: 'omite automáticamente el contenido no saludable que tú nos indiques. ',
-    well_done_you_have: '¡Bien hecho! ',
-    well_done_you_have_2: 'Extensión de Chrome',
+    well_done_you_have: '¡Enhorabuena! Tines nuestra',
+    well_done_you_have_2: 'extensión de Chrome',
+    well_done_you_have_3: 'instalada en este navegador (version ',
     ohana_extension_is_not: 'La extensión Ohana aún no está instalada en este navegador.',
     to_install_ohana_tv: 'Para instalar Ohana TV, vete a',
     to_install_ohana_tv_2: 'nuestra página de Chrome Store',
@@ -501,22 +520,24 @@ const messages = {
     no_options_found: 'No se encontraron opciones',
     logout: 'Cerrar sesión',
     log_in_or_sign: 'Iniciar sesión o registrarse',
-    with_an_ohana_tv: 'Con una cuenta de Ohana TV, podrá contribuir a la comunidad. ',
+    with_an_ohana_tv: 'Con una cuenta de Ohana TV, podrás contribuir a la comunidad.',
     already_a_user: '¿Ya eres usuario?',
     dont_have_an_account: '¿No tienes una cuenta?',
     sign_up: 'Inscribirse',
-    i_agree_with_the: 'estoy de acuerdo con las',
+    i_agree_with_the: 'Estoy de acuerdo con las',
     i_agree_with_the_2: 'condiciones de uso',
     i_agree_with_the_3: 'y la',
     i_agree_with_the_4: 'política de privacidad',
     not_feeling_like_identifying: '¿No tienes ganas de identificarte ahora?',
     continue_as_guest: 'Continua como invitado',
     what_platforms_do_you: '¿Qué plataformas usas?',
-    ohana_tv_redirects_you: 'Ohana TV te redirige a los proveedores que ofrecen el contenido. ',
-    we_will_prioritize_content: 'Priorizaremos el contenido disponible en tus proveedores.',
+    ohana_tv_redirects_you:
+      'En Ohana TV no ofrecemos contenido, sino que te redirigimos a las plataformas de streaming que tu elijas.',
+    we_will_prioritize_content: 'Priorizaremos el contenido disponible para el siguiente pais:',
+    we_will_prioritize_content_2: 'en las siguientes plataformas:',
     note: 'Nota:',
     content_providers_netflix_etc:
-      'Los proveedores de contenido (Netflix, etc.) no ofrecen las mismas películas o programas en todos los países. ',
+      'Los proveedores de contenido (Netflix, etc.) no ofrecen las mismas películas o series en todos los países. ',
     filters: 'filtros',
     platforms: 'Plataformas',
     account: 'Cuenta',
@@ -530,7 +551,7 @@ const messages = {
     my_edits: 'mis ediciones',
     welcome_to_ohana_tv: 'Bienvenido a Ohana TV',
     what_we_watch_affects: 'Lo que vemos nos afecta',
-    movies_and_shows_may: 'Las películas y los programas pueden tener contenido poco saludable.',
+    movies_and_shows_may: 'Las series y películas pueden tener contenido poco saludable.',
     get_votes: 'Obtener votos',
     error: 'Error.',
     try_again_l: 'intentar otra vez',
@@ -591,7 +612,7 @@ const messages = {
     fear_not_you_can:
       '¡No temás! Puedes usar el menu para encontrar el contenido que estas buscando.',
     welcome_tour: `<p>
-                <b>Lo que vemos nos afecta</b><br />Las películas y programas pueden tener contenido poco saludable.
+                <b>Lo que vemos nos afecta</b><br />Las series y películas pueden tener contenido poco saludable.
               </p>
               <br />
               <p>

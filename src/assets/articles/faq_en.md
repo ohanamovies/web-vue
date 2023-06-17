@@ -24,7 +24,7 @@ With Ohana, you decide what to watch and what to skip. These settings will be us
 
 Check our catalog to discover healthy movies. You can search for any specific movie by title, or narrow the list to only action movies, for instance.
 
-[Find movies](/find-movies)
+[Find movies](/)
 
 To help you find a good healthy movie we use a set of icons to let you known if (based on your personal settings) a movie / show can be watched safely.
 
@@ -35,7 +35,7 @@ To help you find a good healthy movie we use a set of icons to let you known if 
 
 You will see these colors, in multiple places:
 
-1.  In the [movies](/find-movies) section of this website.
+1.  In the [movies](/) section of this website.
 2.  In the browser section of the content providers (like Netflix).
 3.  In the Chrome toolbar: the Ohana icon will be replaced by the filtering status icon when watching a movie
 
@@ -48,6 +48,8 @@ Grab some popcorn an enjoy the movie! We will skip any unhealthy content for you
 While watching a movie/show, the Ohana logo on the Chrome toolbar will change to let you know if, based on your settings, that movie/show is safe to watch.
 
 If you click on the icon, you will see a detailed list of scenes being skipped. Here you can manually define which scenes to skip and which ones to watch on a one to one basis
+
+<h1 id="start-editing"></h1>
 
 ## How to create new filters
 
@@ -148,41 +150,29 @@ A larger group of users, families and movie fans, that enjoy watching great heal
 
 ## How can I help?
 
-Ohana is a non-profit community of users that provides a free service to society. This is made possible thanks to the support of our members. Find out [ways to support our mission](https://ohana.tv/community)
+Ohana is a non-profit community of users providing a free service to society. This is made possible thanks to the support of our members. Find out [ways to support our mission](/community)
 
-## How can I get Ohana?
+## How can I get Ohana Extension?
 
-Ohana only works when you watch content on one of the following providers:
-
-- {{ item.text }}
-
-To get Ohana, just install the Chrome extension here:
-
-[Get Ohana](https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf)
-
-Then, make sure to pin the installed extension, so it's visible. The icon of the extension will change to adapt to the page you are in.
+Ohana only works when you watch content on one of our supported. To get Ohana, just install the Chrome extension here: [Install Ohana TV - Chrome Extension](https://chrome.google.com/webstore/detail/ohana-tv/nfkbclgkdifmoidnkapblfipbdkcppcf)
 
 ## Can I use it without Chrome?
 
-No to get content skipped automatically.
-
-But you can still leverage on our website to find content that can be wathed without skips. Just take a look at our Content page.
+No to skip unhealthy scenes automatically. But you can still leverage on our website to find content that can be wathed without skips. Just take a look at our Content page.
 
 ## What content can I skip with Ohana?
 
-First of all, remember that we can't tell you what to watch and what to skip. We believe that's your personal choice.
+First of all, remember with Ohana TV you hold to power, you decide what to watch and what to skip. What we work hard to do, is to classify the content so you can actually take the decision of skipping certain content.
 
-But what we can do -and we work hard to do-, is to classify the content so you can actually take the decision of skipping certain content:
-
-Both in the web and when you [download the extension](https://chrome.google.com/webstore/detail/family-cinema/nfkbclgkdifmoidnkapblfipbdkcppcf), you can let us know your sensitivity, to customize the Ohana experience.
-
-So far, we work with the following type of content
+To change your settings, go to:
+[settings](/settings)
 
 ## What do the icons mean?
 
 The icons are a visual way to summarize the filtering status of the movies. The status and the icons depends on your sensitivity.
 
-mdi-emoticon-happy**Healthy:** Content was originally safe, it didn't need to be cut. When the icon is blue mdi-emoticon-happy, it means it has been reviewed by Ohana trusted editors.
+<i class="mdi-emoticon-happy mdi icon"></i>
+**Healthy:** Content was originally safe, it didn't need to be cut. When the icon is blue mdi-emoticon-happy, it means it has been reviewed by Ohana trusted editors.
 
 mdi-content-cut**Edited:** There was unwanted content, but we will skip it all for you. When the icon is blue mdi-content-cut, it means it has been reviewed by Ohana trusted editors.
 
@@ -195,12 +185,6 @@ You will see those icons after telling us your sensitivity, in multiple places:
 1.  In the content section of this website.
 2.  In the browser section of the content providers (like Netflix).
 3.  In the Chrome toolbar: the Ohana icon will be replaced by the filtering status icon when watching a movie
-
-### What if the icons appear in blue? mdi-emoticon-happy | mdi-content-cut
-
-Anyone can join the community and contribute to the scenes classification.
-
-When we use the blue icons, it means that the filters have been created or reviewed by Ohana trusted editors, and therefore you can rely on those even more.
 
 `
 

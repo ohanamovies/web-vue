@@ -3,18 +3,21 @@
     <!-- Providers -->
 
     <div>
-      <h4>{{ $t('what_platforms_do_you') }}</h4>
+      <h3>{{ $t('what_platforms_do_you') }}</h3>
 
       <p>
         {{ $t('ohana_tv_redirects_you') }}
+        {{ $t('we_will_prioritize_content') }}
       </p>
-      <p>{{ $t('we_will_prioritize_content') }}</p>
 
-      <CountrySelect />
+      <div style="margin: -5px auto 10px auto; max-width: fit-content">
+        <CountrySelect />
+      </div>
 
-      <p style="margin-top: 10px; font-size: 80%; line-height: normal">
-        <b>{{ $t('note') }} </b>{{ $t('content_providers_netflix_etc') }}
-      </p>
+      {{ $t('we_will_prioritize_content_2') }}
+      <!--<fc-tooltip :text="$t('content_providers_netflix_etc')">
+        <v-icon size="medium">mdi-help-circle</v-icon>
+      </fc-tooltip>-->
 
       <v-list>
         <div v-for="(provider, index) in providersList" :key="index">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4>{{ $t('install_ohana_tv') }}</h4>
+    <h3>{{ $t('install_ohana_tv') }}</h3>
     <p>
       {{ $t('our') }}
       <a
@@ -12,6 +12,9 @@
         {{ $t('our_2') }}</a
       >
       {{ $t('our_3') }}
+      <span v-if="!hasApp">
+        {{ $t('without_the_chrome_extension') }}
+      </span>
     </p>
 
     <v-alert v-if="hasApp" type="success" outlined
@@ -23,7 +26,7 @@
         style="font-size: 100%"
         >{{ $t('well_done_you_have_2') }}</a
       >
-      installed in this browser (version {{ extension_version }}).
+      {{ $t('well_done_you_have_3') }}{{ extension_version }}).
     </v-alert>
 
     <div v-else-if="isChrome && !isMobile">
@@ -36,6 +39,16 @@
         {{ $t('to_install_ohana_tv_2') }}</a
       >
       {{ $t('to_install_ohana_tv_3') }}
+      <br />
+      <div class="align-center">
+        <br />
+        <a
+          class="button special"
+          href="https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf"
+          target="_blank"
+          >{{ $t('install_ohana_tv') }}
+        </a>
+      </div>
     </div>
 
     <div v-else>
@@ -51,12 +64,6 @@
           >Google Chrome</a
         >
         {{ $t('please_make_sure_you_2') }}
-      </p>
-    </div>
-    <div v-if="!hasApp">
-      <p>
-        <br />
-        {{ $t('without_the_chrome_extension') }}
       </p>
     </div>
   </div>

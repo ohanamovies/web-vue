@@ -3,9 +3,8 @@
     <div class="subpage">
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
         <div class="inner">
-          <div class="card" style="padding: 5px 15px">
+          <div>
             <EditorsIndex />
-
             <div v-if="page == 1">
               <p>Here are the latest {{ items.length }} edited movies and shows:</p>
             </div>
@@ -18,17 +17,18 @@
             </div>
 
             <div v-else-if="loading">{{ $t('loading') }}</div>
-          </div>
-          <div v-if="!loading && !error" style="padding: 5px">
-            <div v-for="(item, index) in items" :key="index">
-              <MovieListItem :item="item" />
-            </div>
-            <!-- pages -->
 
-            <button v-if="page > 1" @click="nextPage(-1)">{{ $t('previous_page') }}</button>
-            <button v-if="items.length >= pageSize" @click="nextPage(1)">
-              {{ $t('next_page') }}
-            </button>
+            <div v-else>
+              <div v-for="(item, index) in items" :key="index">
+                <MovieListItem :item="item" />
+              </div>
+              <!-- pages -->
+
+              <button v-if="page > 1" @click="nextPage(-1)">{{ $t('previous_page') }}</button>
+              <button v-if="items.length >= pageSize" @click="nextPage(1)">
+                {{ $t('next_page') }}
+              </button>
+            </div>
           </div>
         </div>
       </section>

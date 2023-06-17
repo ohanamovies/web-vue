@@ -52,13 +52,15 @@ Mientras ves una película / serie, el logotipo de Ohana en la barra de herramie
 
 Si haces clic en el icono, verás una lista detallada de las escenas que se van a saltar. Aquí puedes definir manualmente qué escenas omitir y cuáles poder ver.
 
+<h1 id="start-editing"></h1>
+
 ## Cómo crear nuevos filtros
 
 #### Paso 1. Preparación
 
 Asegúrate de haber instalado Ohana y de que has seleccionado una película o serie que quieras filtrar.
 
-Puedes identificar de forma fácil qué películas requieren edición mirando el icono de _Desconocido_ o _Inseguro_ , desde tu distribuidor de películas favorito: (Netflix, Disney+, HBO...); o bien desde la sección de [contenido](/find-movies) de esta web. (Si tu haces clic sobre la etiqueta _Desconocido_ o _Inseguro_ en la web, verás las películas que requieren edición).
+Puedes identificar de forma fácil qué películas requieren edición mirando el icono de _Desconocido_ o _Inseguro_ , desde tu distribuidor de películas favorito: (Netflix, Disney+, HBO...); o bien desde la sección de [contenido](/suggested-reviews) de esta web.
 
 #### Paso 2. Abre el editor de Ohana
 

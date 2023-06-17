@@ -8,7 +8,7 @@
     </div>
 
     <div v-else>
-      <h4>{{ $t('log_in_or_sign') }}</h4>
+      <h3>{{ $t('log_in_or_sign') }}</h3>
       <p>
         {{ $t('with_an_ohana_tv') }}
       </p>

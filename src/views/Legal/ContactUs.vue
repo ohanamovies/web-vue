@@ -2,7 +2,7 @@
   <div>
     <div class="subpage">
       <section id="main" class="wrapper" style="max-width: 700px; margin: auto">
-        <div class="inner">
+        <div class="inner card card-padded">
           <h3 style="margin-bottom: 10px !important">{{ $t('contact_us') }}</h3>
 
           <p style="font-size: 90%; opacity: 0.6">{{ $t('wed_love_to_hear') }}</p>
