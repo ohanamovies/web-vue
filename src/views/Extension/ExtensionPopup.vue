@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1>hellow there</h1>
-    <MoviePopupVue :imdb="imdb" :hide-close-button="true" />
+    <v-dialog v-model="showMovieDialog" scrollable width="750">
+      <MoviePopup :imdb="imdb" onExtensionIframe="true" @close="close()" @edit="edit()" />
+    </v-dialog>
   </div>
 </template>
 
 <script>
-import MoviePopupVue from '@/components/MoviePopup/MoviePopup.vue'
+import MoviePopup from '@/components/MoviePopup/MoviePopup.vue'
 
 export default {
   props: {
@@ -16,7 +17,20 @@ export default {
     },
   },
   components: {
-    MoviePopupVue,
+    MoviePopup,
+  },
+  methods: {
+    close() {
+      window.top.postMessage('close-ohana-iframe', '*')
+    },
+    edit() {
+      window.top.postMessage('edit-ohana-iframe', '*')
+    },
+  },
+  data() {
+    return {
+      showMovieDialog: true,
+    }
   },
 }
 </script>

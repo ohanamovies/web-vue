@@ -29,10 +29,7 @@
     <v-card v-else-if="item.title" @keydown.esc="closeMe()" style="position: relative">
       <!-- {{ close me }} -->
 
-      <span
-        style="margin: 0 5px auto auto; position: absolute; top: 5px; right: 5px"
-        v-if="!hideCloseButton"
-      >
+      <span style="margin: 0 5px auto auto; position: absolute; top: 5px; right: 5px">
         <v-icon @click="closeMe()">mdi-close</v-icon>
       </span>
 
@@ -214,8 +211,13 @@
                 </div>
 
                 <!-- Watch on -->
-                <div style="margin-top: 10px">
+                <div style="margin-top: 10px" v-if="!onExtensionIframe">
                   <movie-watch-options :selection="item"></movie-watch-options>
+                </div>
+                <div v-else style="margin-top: 10px" class="align-center">
+                  <a class="button special" @click="$emit('edit')"
+                    >{{ $t('edit') }} {{ mediaType }}</a
+                  >
                 </div>
               </div>
             </v-card-text>
@@ -316,7 +318,7 @@ export default {
       type: String,
       default: '',
     },
-    hideCloseButton: {
+    onExtensionIframe: {
       type: Boolean,
       default: false,
     },
@@ -454,10 +456,14 @@ export default {
       return ohana.providers.parseURL(this.item.watch_url) //TODO: taking the first URL because legacy we weren't using an array but a fixed value.
     },
 
+    mediaType() {
+      return this.$t('popup.types.' + this.item.type, { s: '' }).toLowerCase()
+    },
+
     ohanaSummary() {
       //TODO: Draft (shall we add here a link to watch, if healthy?)
       let status = this.item.join_status.status
-      let type = this.$t('popup.types.' + this.item.type, { s: '' }).toLowerCase()
+      let type = this.mediaType
       let edits = 0
       for (const tag of this.skipTags) {
         edits += this.item.filterStatus[tag] ? this.item.filterStatus[tag].scenes.length : 0

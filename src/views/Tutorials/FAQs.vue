@@ -40,7 +40,10 @@ export default {
     },
   },
   mounted() {
-    this.scrollTo(this.focus)
+    // https://stackoverflow.com/a/55488834
+    setTimeout(() => {
+      this.scrollTo(this.focus)
+    })
   },
   data() {
     return {

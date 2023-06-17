@@ -118,7 +118,7 @@ export default {
 h1,
 h2,
 h3 {
-  scroll-margin-top: 60px !important;
+  scroll-margin-top: 95px !important;
 }
 
 .card {

@@ -136,7 +136,8 @@ export default {
   max-width: 350px;
 }
 .alex1 > div {
-  height: 150px;
+  max-height: 150px;
+  min-width: 75px;
   overflow-y: auto;
 }
 

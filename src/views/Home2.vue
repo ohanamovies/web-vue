@@ -560,7 +560,7 @@ export default {
       this.sections[0].loading = true // Show loading placeholders
       this.sections[0].data = [] // Clean results
       this.sections[0].tries = 0
-      //if (this.title) window.location.hash = '#' + this.title
+      if (this.title) window.location.hash = '#' + this.title
       clearTimeout(this.titleTimeout)
       this.titleTimeout = setTimeout(() => {
         // Override loading and finishLoading (to force loading even if already loading)
@@ -784,7 +784,7 @@ export default {
   mounted() {
     // User location hash as search query (usefull for links :)
     if (window.location.hash) {
-      this.title = window.location.hash.replace('#', '')
+      this.title = decodeURI(window.location.hash.replace('#', ''))
     }
 
     //load some data
