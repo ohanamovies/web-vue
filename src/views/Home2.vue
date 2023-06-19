@@ -392,7 +392,7 @@
 
 <script>
 // @ is an alias to /src
-import tags_excel from '@/assets/tags_excel'
+import tags_excel from '@/assets/ohana/tags_excel'
 import sharedjs from '@/sharedjs'
 import ohana from '@/assets/ohana'
 import { mapState } from 'vuex'

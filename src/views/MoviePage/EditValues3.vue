@@ -184,7 +184,7 @@
 
 <script>
 //import MenuTooltip from '@/components/MenuTooltip.vue'
-import values_list from '@/assets/values'
+import values_list from '@/assets/ohana/values'
 import { mapState } from 'vuex'
 
 import ohana from '@/assets/ohana/'

@@ -26,6 +26,23 @@ export default {
     edit() {
       window.top.postMessage('edit-ohana-iframe', '*')
     },
+    inIframe() {
+      try {
+        return window.self !== window.top
+      } catch (e) {
+        return true
+      }
+    },
+  },
+  mounted() {
+    //if (this.inIframe()) { // Should we inject only on iframe?
+
+    const style = document.createElement('style')
+    document.head.append(style)
+    style.textContent = `
+      #app, .v-application { background: transparent !important; }
+      #app:before { display: none !important }
+      `
   },
   data() {
     return {
@@ -34,10 +51,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-body,
-.v-application {
-  background: transparent !important;
-}
-</style>

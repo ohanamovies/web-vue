@@ -57,7 +57,7 @@
 
 <script>
 import ohana from '@/assets/ohana/index'
-import tags_excel from '@/assets/tags_excel'
+import tags_excel from '@/assets/ohana/tags_excel'
 import TagsSelector from '@/components/TagsSelector.vue'
 import { mapState } from 'vuex'
 export default {

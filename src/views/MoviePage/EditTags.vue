@@ -4,7 +4,9 @@
       <b>{{ $t('error_not_imdb_provided') }}</b>
     </div>
 
-    <div v-else-if="loading"><b>{{ $t('loading_please_wait_a') }}</b></div>
+    <div v-else-if="loading">
+      <b>{{ $t('loading_please_wait_a') }}</b>
+    </div>
 
     <div v-else-if="userChips && sceneTags">
       <b>{{ $t('this_is_work_in') }}</b>
@@ -18,7 +20,7 @@
 import { mapState } from 'vuex'
 //import ohana from '@/assets/ohana/index'
 import TagsSelector from '@/components/TagsSelector.vue'
-import tags_excel from '@/assets/tags_excel'
+import tags_excel from '@/assets/ohana/tags_excel'
 export default {
   components: {
     TagsSelector,

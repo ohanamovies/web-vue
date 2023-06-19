@@ -22,7 +22,7 @@
 //import VoteIcon from './VoteIcon.vue'
 import { mapState } from 'vuex'
 import ohana from '@/assets/ohana/'
-const rawTags = require('@/assets/raw_tags')
+const rawTags = require('@/assets/ohana/raw_tags')
 export default {
   components: {
     //VoteIcon,

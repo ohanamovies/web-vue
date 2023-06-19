@@ -133,7 +133,7 @@ import StatusIconVue from './StatusIcon.vue'
 import VoteIcon from './VoteIcon.vue'
 import FilterStatusBriefTags from './FilterStatusBriefTags.vue'
 
-const rawTags = require('@/assets/raw_tags')
+const rawTags = require('@/assets/ohana/raw_tags')
 export default {
   components: {
     StatusIconVue,

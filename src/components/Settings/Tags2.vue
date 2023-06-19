@@ -99,7 +99,7 @@
 <script>
 import { mapState } from 'vuex'
 
-const rawTags = require('@/assets/raw_tags2')
+const rawTags = require('@/assets/ohana/raw_tags2')
 export default {
   components: {},
   data() {

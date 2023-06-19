@@ -1,4 +1,4 @@
-let rawTags = require('./../../raw_tags.js')
+let rawTags = require('./../raw_tags.js')
 
 const movies = {
   sevText: [

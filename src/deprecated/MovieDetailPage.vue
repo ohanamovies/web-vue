@@ -255,7 +255,7 @@
 </template>
 
 <script>
-const rawTags = require('@/assets/raw_tags')
+const rawTags = require('@/assets/ohana/raw_tags')
 import ohana from '@/assets/ohana'
 
 import MovieWatchOptions from './MoviePopup/MovieWatchOptions2.vue'
