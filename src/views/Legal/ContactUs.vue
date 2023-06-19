@@ -12,7 +12,7 @@
               <v-col cols="12" md="6">
                 <v-text-field
                   v-model="name"
-                  label="name"
+                  label="Name"
                   hide-details
                   type="vuetify"
                   outlined
@@ -21,7 +21,7 @@
               <v-col>
                 <v-text-field
                   ref="email"
-                  label="email"
+                  label="Email"
                   type="vuetify"
                   v-model="email"
                   outlined
@@ -33,11 +33,38 @@
             </v-row>
             <v-row>
               <v-col>
+                <v-select
+                  label="Reason"
+                  :items="[
+                    'Bug report',
+                    'Suggest improvement',
+                    'Movie feedback',
+                    'Give thanks',
+                    'Start collaboration',
+                    'Other',
+                  ]"
+                  type="vuetify"
+                  v-model="reason"
+                  outlined
+                ></v-select>
+              </v-col>
+              <v-col v-if="reason == 'Movie feedback'">
+                <v-text-field
+                  ref="movieID"
+                  label="Movie title, link or IMDB ID"
+                  outlined
+                  hide-details
+                >
+                </v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
                 <v-textarea
                   v-model="message"
                   label="Your message"
                   type="vuetify"
-                  counter="500"
+                  counter="2000"
                   multiline
                   ref="message"
                   outlined
@@ -83,10 +110,11 @@ export default {
       name: '',
       message: '',
       infoText: '',
+      reason: '',
       agree: false,
 
       form_rules: {
-        len: (value) => value.length < 500 || 'Please, keep it shorter',
+        len: (value) => value.length < 2000 || 'Please, keep it short',
         required: (value) => !!value || 'Required.' || 'Please fill this field',
         username: (value) =>
           /^[\d\w]+$/.test(value) || 'Invalid username. Only letters, numbers and underscore',
@@ -108,9 +136,6 @@ export default {
         !this.$refs['email'].hasError &&
         !this.$refs['message'].hasError
       )
-    },
-    no_magic() {
-      return !(window.location.href.includes('magic') || window.location.href.includes('item/'))
     },
   },
   methods: {

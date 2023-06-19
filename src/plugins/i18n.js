@@ -409,7 +409,7 @@ const messages = {
         movie: 'Película{s}',
         show: 'Series{s}',
         episode: 'Episodio{s}',
-        series: 'Mostrar{s}',
+        series: 'Serie{s}',
       },
       poweredBy: 'Powered by',
       movieValues: 'Valores fomentados',
@@ -429,7 +429,7 @@ const messages = {
         mixed_with_edits:
           'Aunque tenemos {edits} filtro{s} para esta {type}, es posible que aún contenga contenido que considere no saludable.',
         mixed_no_edits: 'Esta {type} puede contener escenas poco saludables. ',
-        unknown: '¡Ay! ',
+        unknown: '¡Ay! No sabemos sí el contenido es saludable...',
       },
     },
     restore_deafult_values: 'Restaurar valores predeterminados',
@@ -442,7 +442,7 @@ const messages = {
       intro:
         'En esta tabla celebramos los aportes de nuestros usuarios, quienes hacen posible Ohana TV. ',
     },
-    override: 'Anular:',
+    override: 'Sobrescribir:',
     user_feedback: 'Comentarios del usuario:',
     check_responses: 'comprobar las respuestas',
     for_a_guide_and:

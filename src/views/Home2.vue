@@ -560,7 +560,6 @@ export default {
       this.sections[0].loading = true // Show loading placeholders
       this.sections[0].data = [] // Clean results
       this.sections[0].tries = 0
-      if (this.title) window.location.hash = '#' + this.title
       clearTimeout(this.titleTimeout)
       this.titleTimeout = setTimeout(() => {
         // Override loading and finishLoading (to force loading even if already loading)
@@ -733,8 +732,12 @@ export default {
       let data = await res.json()
 
       // Ignore results from deprecated search queries
-      if (index == 0 && query.title != this.title && query.title)
+      if (index == 0 && query.title && query.title != this.title)
         return console.log('ignoring results', query.title, this.title)
+
+      if (index == 0 && query.title) {
+        window.location.hash = '#' + query.title
+      }
 
       // Mark loading as finished (when result length is shorter than page size)
       if (data.length < this.pageSize) section.finishLoading = true

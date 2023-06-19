@@ -229,11 +229,7 @@
           class="modern-link"
           target="_blank"
           :href="
-            'https://docs.google.com/forms/d/e/1FAIpQLScnTNbXu79Sbinmlw6QhBIa5T76T0QCEMFLt4OIiSN08aHQKw/viewform?usp=pp_url&entry.2077317668=' +
-            '[feedback]' +
-            item.metadata.title +
-            ' - imdb:' +
-            item.metadata.imdb
+            '/contact-us/?reason=movie&title=' + item.metadata.title + '&imdb=' + item.metadata.imdb
           "
           >{{ $t('feedbackPopUp') }}</a
         >

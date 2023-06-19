@@ -62,7 +62,7 @@ export default {
 </script>
 
 <style>
-input#languageSelect {
+.v-select__slot input {
   max-height: 0px !important;
 }
 </style>

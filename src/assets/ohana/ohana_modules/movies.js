@@ -45,6 +45,7 @@ const movies = {
       if (this.isAdult(movie)) return true
       if (movie.genres.includes('Horror')) return true
       if (movie.tmdbGenres && movie.tmdbGenres.includes('Horror')) return true
+      if (movie.imdbRating < 5) return true
     } catch (e) {
       console.error('catched error on isUgly ', e)
     }
@@ -59,7 +60,8 @@ const movies = {
         let text = JSON.stringify(movie.title).toLowerCase()
         text += JSON.stringify(movie.plot).toLowerCase()
         // This test all languages, so there should be no need to translate the filters
-        return /porn|sex|nude|naked|nudity|erotic|gay/.test(text)
+        if (movie.imdbRating < 4) return true
+        return /porn|sex|nude|naked|nudity|erotic|gay|lust|whore/.test(text)
       }
     } catch (e) {
       console.error('catched error on isAdult ', e, movie)

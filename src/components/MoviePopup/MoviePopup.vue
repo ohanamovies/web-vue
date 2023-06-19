@@ -28,8 +28,10 @@
     </v-card>
     <v-card v-else-if="item.title" @keydown.esc="closeMe()" style="position: relative">
       <!-- {{ close me }} -->
-
-      <span style="margin: 0 5px auto auto; position: absolute; top: 5px; right: 5px">
+      <span
+        v-if="!hideCloseButton"
+        style="margin: 0 5px auto auto; position: absolute; top: 5px; right: 5px"
+      >
         <v-icon @click="closeMe()">mdi-close</v-icon>
       </span>
 
@@ -97,7 +99,7 @@
             <!-- SUBTITLE -->
             <v-card-subtitle style="display: flex">
               <div style="font-size: 110%">
-                <fc-tooltip text="IMDb rating">
+                <fc-tooltip v-if="item.imdbRating" text="IMDb rating">
                   <v-icon class="star">mdi-star</v-icon><span>{{ item.imdbRating }}</span
                   ><span style="font-size: 70%">/10</span>
                 </fc-tooltip>
@@ -153,7 +155,7 @@
                 <div style="text-align: center; margin: 15px 0px 5px; font-weight: 500">
                   <!-- icon -->
                   <v-icon
-                    v-if="item.join_status.icon != 'none'"
+                    v-if="item.join_status.use_icon"
                     :color="item.join_status.color"
                     style="margin-right: 5px"
                   >
@@ -318,6 +320,10 @@ export default {
       type: String,
       default: '',
     },
+    hideCloseButton: {
+      type: Boolean,
+      default: false,
+    },
     onExtensionIframe: {
       type: Boolean,
       default: false,
@@ -382,7 +388,9 @@ export default {
     },
     item() {
       if (this.raw_item.movieContent) {
-        return ohana.movies.addInfo(this.raw_item, this.skipTags)
+        let movie = this.raw_item
+        movie.join_status = ohana.movies.getMovieHealth(movie, this.skipTags)
+        return movie
       } else {
         return {}
       }
@@ -400,18 +408,8 @@ export default {
 
     feedback_link() {
       return (
-        'https://docs.google.com/forms/d/e/1FAIpQLScnTNbXu79Sbinmlw6QhBIa5T76T0QCEMFLt4OIiSN08aHQKw/viewform?usp=pp_url&entry.2077317668=' +
-        '[request]: ' +
-        this.item.title.primary +
-        ' - imdb:' +
-        this.item.imdb
+        '/contact-us/?reason=movie&title=' + this.item.title.primary + '&imdb=' + this.item.imdb
       )
-    },
-    is_unknown() {
-      return this.item.join_status.status == 'unknown' || this.item.join_status.status == 'unkown'
-    },
-    is_missing() {
-      return this.item.join_status.status == 'missing'
     },
 
     lang() {
@@ -475,18 +473,14 @@ export default {
       } else if (status == 'clean') {
         text = this.$t('popup.ohanaSummary.clean', { type, s })
       } else if (status == 'done') {
-        text = this.$t('popup.ohanaSummary.done', { type, edits, s: edits > 1 ? 's' : '' })
+        text = this.$t('popup.ohanaSummary.done', { type, edits, s })
       } else if (status == 'missing') {
         text = text = this.$t('popup.ohanaSummary.missing', { type })
       } else if (status == 'mixed') {
         if (edits == 0) {
           text = this.$t('popup.ohanaSummary.mixed_no_edits', { type })
         } else {
-          text = this.$t('popup.ohanaSummary.mixed_with_edits', {
-            type,
-            edits,
-            s: edits > 1 ? 's' : '',
-          })
+          text = this.$t('popup.ohanaSummary.mixed_with_edits', { type, edits, s })
         }
       } else {
         text = this.$t('popup.ohanaSummary.unknown')
