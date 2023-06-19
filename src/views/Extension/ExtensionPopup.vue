@@ -34,13 +34,13 @@ export default {
       }
     },
   },
-  mounted() {
+  beforeMount() {
     //if (this.inIframe()) { // Should we inject only on iframe?
 
     const style = document.createElement('style')
     document.head.append(style)
     style.textContent = `
-      #app, .v-application { background: transparent !important; }
+      #app, .v-application, body { background: transparent !important; }
       #app:before { display: none !important }
       `
   },
