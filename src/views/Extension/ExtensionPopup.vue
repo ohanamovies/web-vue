@@ -16,6 +16,13 @@ export default {
       default: '',
     },
   },
+  watch: {
+    showMovieDialog: function (newValue, old) {
+      console.log(old) // just to enable compile -> "unused parameter..."
+      if (!newValue) this.close()
+    },
+  },
+
   components: {
     MoviePopup,
   },

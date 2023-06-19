@@ -214,11 +214,11 @@
                 <div style="margin-top: 10px" v-if="!onExtensionIframe">
                   <movie-watch-options :selection="item"></movie-watch-options>
                 </div>
-                <div v-else style="margin-top: 10px" class="align-center">
-                  <a class="button special" @click="$emit('edit')"
-                    >{{ $t('edit') }} {{ mediaType }}</a
-                  >
-                </div>
+              </div>
+              <div v-if="onExtensionIframe" style="margin-top: 10px" class="align-center">
+                <a class="button special" @click="$emit('edit')"
+                  >{{ $t('edit') }} {{ mediaType }}</a
+                >
               </div>
             </v-card-text>
           </v-col>
