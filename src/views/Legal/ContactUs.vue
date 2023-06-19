@@ -12,7 +12,7 @@
               <v-col cols="12" md="6">
                 <v-text-field
                   v-model="name"
-                  label="Name"
+                  :label="$t('name')"
                   hide-details
                   type="vuetify"
                   outlined
@@ -21,7 +21,7 @@
               <v-col>
                 <v-text-field
                   ref="email"
-                  label="Email"
+                  :label="$t('email')"
                   type="vuetify"
                   v-model="email"
                   outlined
@@ -34,7 +34,7 @@
             <v-row>
               <v-col>
                 <v-select
-                  label="Reason"
+                  :label="$t('reason')"
                   :items="[
                     'Bug report',
                     'Suggest improvement',
@@ -51,7 +51,8 @@
               <v-col v-if="reason == 'Movie feedback'">
                 <v-text-field
                   ref="movieID"
-                  label="Movie title, link or IMDB ID"
+                  :label="$t('movie_id')"
+                  v-model="movieID"
                   outlined
                   hide-details
                 >
@@ -62,7 +63,7 @@
               <v-col>
                 <v-textarea
                   v-model="message"
-                  label="Your message"
+                  :label="$t('message')"
                   type="vuetify"
                   counter="2000"
                   multiline
@@ -73,23 +74,19 @@
               </v-col>
             </v-row>
           </div>
-          <br />
-          <v-checkbox
-            v-model="agree"
-            label="I agree Ohana will record my email address, with the sole purpose of contacting me about this message."
-            hide-details
-          >
+          <v-checkbox v-model="agree" :label="$t('i_agree_ohana_contact')" hide-details>
           </v-checkbox>
           <br />
-          <div>
-            {{ infoText }}
-          </div>
 
-          <button :disabled="!canBeSent" class="button special" @click="sendMessage()">
+          <button
+            :disabled="!canBeSent"
+            class="button special"
+            style="margin-right: 25px"
+            @click="sendMessage()"
+          >
             {{ $t('send') }}
           </button>
-          <br />
-          <span>{{ infoText }}</span>
+          <span :style="{ fontSize: '80%', color: color }">{{ infoText }}</span>
         </div>
       </section>
     </div>
@@ -111,7 +108,9 @@ export default {
       message: '',
       infoText: '',
       reason: '',
+      movieID: '',
       agree: false,
+      color: 'red',
 
       form_rules: {
         len: (value) => value.length < 2000 || 'Please, keep it short',
@@ -161,6 +160,8 @@ export default {
       fd.append('email', this.email)
       fd.append('name', this.name)
       fd.append('message', this.message)
+      fd.append('reason', this.reason)
+      fd.append('movieID', this.movieID)
 
       fetch(murl, {
         method: 'post',
@@ -172,6 +173,7 @@ export default {
         .then((myJson) => {
           console.log(myJson) //message sent
           this.infoText = 'Message sent. Thank you!'
+          this.color = 'blue'
         })
     },
   },

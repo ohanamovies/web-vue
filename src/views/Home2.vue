@@ -557,6 +557,7 @@ export default {
       //this.getAllData()
     },
     title() {
+      if (!this.title) window.location.hash = ''
       this.sections[0].loading = true // Show loading placeholders
       this.sections[0].data = [] // Clean results
       this.sections[0].tries = 0

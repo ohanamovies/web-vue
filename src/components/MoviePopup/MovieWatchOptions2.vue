@@ -41,7 +41,7 @@
     </v-dialog>
 
     <!-- WARNINGS -->
-    <div style="text-align: center" v-if="!bypass">
+    <div style="text-align: center">
       <!-- no settings -->
       <div v-if="no_settings">
         <a class="button special" @click="dialog_sensitivity = true"
