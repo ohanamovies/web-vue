@@ -17,12 +17,15 @@
             class="button"
             href="https://www.paypal.com/donate/?hosted_button_id=NKWWBA9FYGPTU"
             target="_blank"
+            style="margin: 5px"
             >{{ $t('donate') }}</a
           >
-          <router-link class="button special" style="margin: 15px" to="/contact-us">{{
+          <router-link class="button special" style="margin: 5px" to="/contact-us">{{
             $t('give_us_feedback')
           }}</router-link>
-          <router-link to="/community" class="button">{{ $t('community.join') }}</router-link>
+          <router-link to="/community" class="button" style="margin: 5px">{{
+            $t('community.join')
+          }}</router-link>
         </article>
 
         <div v-if="false" style="margin-top: 90px">

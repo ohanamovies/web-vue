@@ -9,45 +9,37 @@ Here you'll find a quick guide about how to use Ohana. This is:
 
 <h1 id="get-started"></h1>
 
-## How to watch a healthy movie
+## What do the colors and icons mean?
 
-#### Step 1. Install Ohana
+We use a simple "traffic light" system to quicktly let you know if a movie is healthy for your settings:
 
-1.  **Important:** Make sure you are using [Google Chrome](https://www.google.com/chrome/) on a computer. ✓
-2.  Follow [this link](https://chrome.google.com/webstore/detail/ohana/nfkbclgkdifmoidnkapblfipbdkcppcf) and click on 'Add to Chrome' to install our Chrome extension. ✓
+<b style="color:green">Healthy:</b> This movie is healthy to watch! Either because it doesn't have any unhealthy scenes, or because they can be removed <i class="v-icon mdi mdi-content-cut green--text"></i> with the magic of our [Chrome Extension](faqs#how-to-install)<br>
 
-#### Step 2. Define your sensitivity
+<b style="color:orange">Mixed: <i class="small v-icon mdi mdi-flag-variant orange--text"></i></b> Edge or mixed content case. Some users say it is healthy, others say it is not...<br>
 
-With Ohana, you decide what to watch and what to skip. These settings will be used all around to customize your Ohana experience. [Manage preferences](/settings)
+<b style="color:red"> Unhealthy: <i class="v-icon mdi mdi-flag-variant red--text"></i></b> This movie includes unhealthy scenes or values you have told us you want to skip<br>
 
-#### Step 3. Find a good healthy movie to watch
+<b style="color:gray">Unknown: <i class="v-icon mdi mdi-progress-question lightgray--text"></i></b> We try our best, but in some cases we must admit we don't have all the anwsers :)
 
-Check our catalog to discover healthy movies. You can search for any specific movie by title, or narrow the list to only action movies, for instance.
+## How to enjoy a healthy movie
 
-[Find movies](/)
+#### Step 1. Define what content you want to avoid
 
-To help you find a good healthy movie we use a set of icons to let you known if (based on your personal settings) a movie / show can be watched safely.
+With Ohana, you choose what to watch and what to skip. These settings will be used all around to customize your Ohana experience. If you haven't done that already [manage your preferences](/settings)
 
-**Healthy:** Content was originally safe, it didn't need to be edited.  
-**Edited:** There was unwanted content, but we will skip it all for you.  
-**Unsafe:** Unwanted content was flagged, but movie hasn't been edited yet.  
-**Unknown:** We can't help as we don't have information yet.
+#### Step 2. Find a good healthy movie to watch
 
-You will see these colors, in multiple places:
+Check our [great catalog](/) to discover healthy movies. You can discover healthy movies by genre, fostered values, popularity... You can also search by title if you want to check whether a given movie is healthy or not to watch.
 
-1.  In the [movies](/) section of this website.
-2.  In the browser section of the content providers (like Netflix).
-3.  In the Chrome toolbar: the Ohana icon will be replaced by the filtering status icon when watching a movie
-
-#### Step 4. Enjoy the movie!
+#### Step 3. Enjoy the movie!
 
 Grab some popcorn an enjoy the movie! We will skip any unhealthy content for you!
 
-#### Step 5. Pro tip
+#### Step 5. Pro tip (Ohana Extension)
 
-While watching a movie/show, the Ohana logo on the Chrome toolbar will change to let you know if, based on your settings, that movie/show is safe to watch.
+If the movie has unhealthy scenes to be removed <i class="v-icon mdi mdi-content-cut green--text"></i>, our powerful [Chrome Extension](faqs#how-to-install) will automagically remove them for you :)
 
-If you click on the icon, you will see a detailed list of scenes being skipped. Here you can manually define which scenes to skip and which ones to watch on a one to one basis
+Moreover, While watching a movie, a floating header will let you know if, based on your settings, that movie is safe to watch. If you click on the header, you will see a more in depth explanation of the movie content.
 
 <h1 id="start-editing"></h1>
 
@@ -130,15 +122,16 @@ We do so with two key principles in mind:
 
 ## What do you do to help?
 
-In particular, we:
+We try to help families and users enjoy movies in all possible ways, so far we:
 
 1. Run this website with movie recommendations based on users preference (style, type of scenes to remove...)
 2. Provide information about values and graphic or explicit content on movies
 3. Promote discussion by providing reviews and resources for post-film discussions, helping people dig deeper...
 4. Allow people to skip scenes, by providing a chrome extension that enables users to filter out the scenes they do not want to watch. Tools to skip graphic or explicit content on movies and tv series.
-5. Add an extra layer to different platforms (eg. on Netflix, justwatch... add icon with type of content)
-6. Promote the creation of healthy movies. By giving visibility to healthy content By bringing the discussion about content to the public
-7. Pave the way for future projects by providing an open API where people can find good content and access filters
+5. Promote the creation of healthy movies. By giving visibility to healthy content By bringing the discussion about content to the public
+6. Pave the way for future projects by providing an open API where people can find good content and access filters
+
+<!--5. Add an extra layer to different platforms (eg. on Netflix, justwatch... add icon with type of content)-->
 
 ## How is Ohana organised
 
@@ -152,11 +145,13 @@ A larger group of users, families and movie fans, that enjoy watching great heal
 
 Ohana is a non-profit community of users providing a free service to society. This is made possible thanks to the support of our members. Find out [ways to support our mission](/community)
 
-## How can I get Ohana Extension?
+<h2 id="how-to-install">What is "Ohana Extension" and how can I get it?</h2>
 
-Ohana only works when you watch content on one of our supported. To get Ohana, just install the Chrome extension here: [Install Ohana TV - Chrome Extension](https://chrome.google.com/webstore/detail/ohana-tv/nfkbclgkdifmoidnkapblfipbdkcppcf)
+Ohana Extension is our powerful Google Chrome Extension, that will give you the power to automagically skip unwanted scenes on the moview you watch.
 
-## Can I use it without Chrome?
+To install Ohana visit our page at the [Google Chrome Store](https://chrome.google.com/webstore/detail/ohana-tv/nfkbclgkdifmoidnkapblfipbdkcppcf) and click on 'Add to Chrome' to install it.
+
+## Can I use Ohana without Chrome?
 
 No to skip unhealthy scenes automatically. But you can still leverage on our website to find content that can be wathed without skips. Just take a look at our Content page.
 
@@ -164,27 +159,7 @@ No to skip unhealthy scenes automatically. But you can still leverage on our web
 
 First of all, remember with Ohana TV you hold to power, you decide what to watch and what to skip. What we work hard to do, is to classify the content so you can actually take the decision of skipping certain content.
 
-To change your settings, go to:
-[settings](/settings)
-
-## What do the icons mean?
-
-The icons are a visual way to summarize the filtering status of the movies. The status and the icons depends on your sensitivity.
-
-<i class="mdi-emoticon-happy mdi icon"></i>
-**Healthy:** Content was originally safe, it didn't need to be cut. When the icon is blue mdi-emoticon-happy, it means it has been reviewed by Ohana trusted editors.
-
-mdi-content-cut**Edited:** There was unwanted content, but we will skip it all for you. When the icon is blue mdi-content-cut, it means it has been reviewed by Ohana trusted editors.
-
-mdi-flag-variant**Unsafe:** Unwanted content was flagged, but it's not cut yet.
-
-mdi-progress-question**Unknown:** We can't help as we don't have information yet.
-
-You will see those icons after telling us your sensitivity, in multiple places:
-
-1.  In the content section of this website.
-2.  In the browser section of the content providers (like Netflix).
-3.  In the Chrome toolbar: the Ohana icon will be replaced by the filtering status icon when watching a movie
+To change your settings, go to: [settings](/settings)
 
 `
 

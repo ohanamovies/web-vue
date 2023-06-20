@@ -1,6 +1,6 @@
 <template>
   <div class="subpage">
-    <MarkdownIt file="faqs" class="inner" scrollTo="scrollTo" />
+    <MarkdownIt file="faqs" class="inner faqs" scrollTo="scrollTo" />
   </div>
 </template>
 
@@ -54,11 +54,19 @@ export default {
         { text: 'Disney+', value: 'disneyplus' },
         { text: 'Movistar', value: 'movistar' },
         { text: 'Rakuten', value: 'rakuten' },
-        { text: 'Youtube', value: 'youtube' },
       ],
     }
   },
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+.faqs h3,
+.faqs h4 {
+  font-weight: bold;
+}
+
+.faqs .v-icon {
+  font-size: 20px !important;
+}
+</style>
