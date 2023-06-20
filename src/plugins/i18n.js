@@ -28,7 +28,7 @@ const messages = {
     prop1: 'Health',
     prop1Desc: 'Mental health aware',
     prop2: 'Choice',
-    prop2Desc: 'You decide what you watch',
+    prop2Desc: 'You choose what you watch',
     prop3: 'Community',
     prop3Desc: 'Built by people like you',
     value1: 'Mental health',
@@ -198,7 +198,7 @@ const messages = {
     email: 'Email',
     message: 'Your message',
     reason: 'Reason',
-    movie_id: 'Movie title, link or IMDB ID',
+    movie_id: 'Movie title or link',
     i_agree_ohana_contact:
       'I agree Ohana will record my email address, with the sole purpose of contacting me about this message.',
     send: 'Send',
@@ -428,12 +428,12 @@ const messages = {
       ohanaSummary: {
         unset: 'Para saber si esta {type} es saludable para ti, haznos saber tus preferencias',
         clean: 'Esta {type} es saludable para tus ajustes. ',
-        done: 'Hemos creado {edits} filter{s} para que este {type} sea saludable para tus ajustes',
+        done: 'Hemos creado {edits} filtro{s} para que esta {type} sea saludable para tus ajustes',
         missing: 'Esta {type} contiene escenas poco saludables que has marcado para omitir. ',
         mixed_with_edits:
-          'Aunque tenemos {edits} filtro{s} para esta {type}, es posible que aún contenga contenido que considere no saludable.',
+          'Aunque tenemos {edits} filtro{s} para esta {type}, es posible que aún tenga más contenido no saludable.',
         mixed_no_edits: 'Esta {type} puede contener escenas poco saludables. ',
-        unknown: '¡Ay! No sabemos sí el contenido es saludable...',
+        unknown: '¡Ay! Todavía no sabemos sí el contenido es saludable...',
       },
     },
     restore_deafult_values: 'Restaurar valores predeterminados',
@@ -502,7 +502,7 @@ const messages = {
     email: 'Correo electrónico',
     message: 'Tu mensaje',
     reason: 'Razón',
-    movie_id: 'Título, link o ID de IMDB de al película',
+    movie_id: 'Título o link a la película',
     send: 'Enviar',
     i_agree_ohana_contact:
       'Acepto que Ohana registre mi dirección de correo electrónico, con el único propósito de contactarme acerca de este mensaje.',
@@ -626,7 +626,7 @@ const messages = {
               </p>
               <br />
               <p>
-                <b>Tú decides qué omitir y qué no.</b> <br />
+                <b>Tú eliges qué ver y qué omitir.</b> <br />
                 ¡Vamos a ellos!
               </p>`,
     what_do_you_want: '¿Qué quieres saltar?',

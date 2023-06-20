@@ -35,14 +35,7 @@
               <v-col>
                 <v-select
                   :label="$t('reason')"
-                  :items="[
-                    'Bug report',
-                    'Suggest improvement',
-                    'Movie feedback',
-                    'Give thanks',
-                    'Start collaboration',
-                    'Other',
-                  ]"
+                  :items="possibleReasons"
                   type="vuetify"
                   v-model="reason"
                   outlined
@@ -78,12 +71,7 @@
           </v-checkbox>
           <br />
 
-          <button
-            :disabled="!canBeSent"
-            class="button special"
-            style="margin-right: 25px"
-            @click="sendMessage()"
-          >
+          <button class="button special" style="margin-right: 25px" @click="sendMessage()">
             {{ $t('send') }}
           </button>
           <span :style="{ fontSize: '80%', color: color }">{{ infoText }}</span>
@@ -93,6 +81,7 @@
   </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
     isChrome: {
@@ -111,6 +100,14 @@ export default {
       movieID: '',
       agree: false,
       color: 'red',
+      possibleReasons: [
+        'Bug report',
+        'Suggest improvement',
+        'Movie feedback',
+        'Give thanks',
+        'Start collaboration',
+        'Other',
+      ],
 
       form_rules: {
         len: (value) => value.length < 2000 || 'Please, keep it short',
@@ -136,25 +133,51 @@ export default {
         !this.$refs['message'].hasError
       )
     },
+    ...mapState(['settings']),
+  },
+  mounted() {
+    //        '/contact-us/?reason=movie&title=' + this.item.title.primary + '&imdb=' + this.item.imdb
+    let urlParams = new URLSearchParams(window.location.search)
+    let reason = urlParams.get('reason')
+    if (reason == 'movie') {
+      this.reason = 'Movie feedback'
+      let id = urlParams.get('imdb') || ''
+      let title = urlParams.get('title') || ''
+      this.movieID = title + ' - ' + id
+    }
+    if (this.settings.username) {
+      this.name = this.settings.username
+    }
   },
   methods: {
     sendMessage() {
-      if (this.$refs['email'].hasError) {
-        this.infoText = 'Please, provide a valid email'
-        return console.log('invalid emali')
-      }
-
-      var murl = 'https://www.arrietaeguren.es/movies/app/email.php'
-
-      if (this.email == '' || this.name == '' || this.message == '') {
-        this.infoText = 'Please, fill all the data'
+      if (this.name == '') {
+        this.infoText = 'We love humans, please give us a name or alias so we can refer to you'
         return
       }
 
-      if (!this.email.includes('@')) {
+      if (this.$refs['email'].hasError || !this.email.includes('@')) {
         this.infoText = 'Invalid email. Please, fix and try again.'
         return
       }
+
+      if (this.reason == '') {
+        this.infoText = 'Please, let us know the reason your are contacting us'
+        return
+      }
+
+      if (this.message == '') {
+        this.infoText =
+          'Please, write us a bit on the message field, we will love reading what you have to say'
+        return
+      }
+
+      if (this.email && !this.agree) {
+        this.infoText = 'We need you to accept our mailing conditions in order to contact you back'
+        return
+      }
+
+      var murl = 'https://www.arrietaeguren.es/movies/app/email.php'
 
       var fd = new FormData()
       fd.append('email', this.email)
@@ -174,6 +197,12 @@ export default {
           console.log(myJson) //message sent
           this.infoText = 'Message sent. Thank you!'
           this.color = 'blue'
+          this.email = ''
+          this.name = ''
+          this.movieID = ''
+          this.reason = ''
+          this.message = ''
+          this.agree = false
         })
     },
   },
