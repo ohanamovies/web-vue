@@ -595,6 +595,13 @@ export default {
     },
   },
   methods: {
+    updateQuery(json) {
+      if (!json) return (window.location.search = '')
+      if (typeof json !== 'string') json = JSON.stringify(json)
+      let searchParams = new URLSearchParams(window.location.search)
+      searchParams.set('q', json)
+      window.location.search = searchParams.toString()
+    },
     visibleLength(section) {
       return section.data.filter((x) => !x.hidden).length
     },
@@ -738,6 +745,7 @@ export default {
 
       if (index == 0 && query.title) {
         window.location.hash = '#' + query.title
+        //this.updateQuery({ title: query.title })
       }
 
       // Mark loading as finished (when result length is shorter than page size)
