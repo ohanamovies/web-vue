@@ -635,8 +635,8 @@ const messages = {
                 ¡Vamos a ellos!
               </p>`,
     what_do_you_want: '¿Qué quieres saltar?',
-    you_are_all_set: 'You are all set',
-    we_think_you_are: 'We think you are going to love Ohana TV!',
+    you_are_all_set: 'Todo listo',
+    we_think_you_are: 'Creemos que Ohana TV te va a encantar',
     lets_go: '¡Vamos a ello!',
     back: 'Atras',
     start: 'Empezar',

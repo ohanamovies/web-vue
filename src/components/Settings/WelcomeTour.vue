@@ -54,20 +54,21 @@
             <Login />
           </div>
         </v-tab-item>-->
-        <v-tab-item class="outerr">
+        <v-tab-item class="outerr" v-if="!hasApp">
           <div style="max-width: 500px; margin: auto">
             <CheckExtension />
           </div>
         </v-tab-item>
-        <!--<v-tab-item class="outerr">
+        <!-- YOU ARE ALL SET -->
+        <v-tab-item class="outerr">
           <div class="middlee">
             <div class="innerr" style="text-align: center">
               <h2>{{ $t('you_are_all_set') }}</h2>
               <p>{{ $t('we_think_you_are') }}</p>
-              <!- - <p class="modern-link" @click="slide++">{{ $t('lets_go') }}</p> - ->
+              <p class="modern-link" @click="slide++">{{ $t('lets_go') }}</p>
             </div>
           </div>
-        </v-tab-item>-->
+        </v-tab-item>
       </v-tabs-items>
     </v-card-text>
 
@@ -174,6 +175,17 @@ export default {
       slide: 0,
       emitted: null,
     }
+  },
+
+  mounted() {
+    setTimeout(() => {
+      if (this.$route.redirectedFrom == '/extension/welcome') {
+        console.log('justInstalled!')
+        if (this.settings.skip_tags) {
+          this.slide = this.nSlides - 1
+        }
+      }
+    }, 0)
   },
 
   methods: {

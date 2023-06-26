@@ -352,22 +352,6 @@
                 </div>
               </div>
             </div>
-
-            <div style="color: white">
-              <div v-if="index == 1 && skipTags.length == 0">
-                {{ $t('define_your') }}
-
-                <span class="modern-link" style="font-size: 100%" @click="show_settings = true">
-                  {{ $t('settings_l') }}</span
-                >
-                {{ $t('to_see_this_section') }}
-              </div>
-              <div v-else-if="index == 1 && section.finishLoading && visibleLength(section) == 0">
-                <div style="color: white; margin: auto">
-                  {{ $t('no_titles_found_matching') }}
-                </div>
-              </div>
-            </div>
             <!-- POSTERS (loading placeholder) -->
 
             <div v-show="index == 0 && !section.loading && !visibleLength(section)">
@@ -680,13 +664,6 @@ export default {
       let section = this.sections[index]
       if (!section) return console.log('no section ', index)
 
-      //cleaned only if user have settings
-      if (index == 1 && this.skipTags.length == 0) {
-        section.loading = false
-        section.finishLoading = true
-        return console.log('No settings to offer filtered content')
-      }
-
       //reset means we remove all data and start over.
       if (resetSection) {
         section.data = []
@@ -795,41 +772,43 @@ export default {
       section.tries = 0
     },
   },
-  created() {
-    setTimeout(() => {
-      //Ask for settings if no settings.
-      console.log('[alex] home2 created')
-      if (this.skipTags && this.skipTags.length == 0 && this.settings.username == '') {
-        console.log('[alex] Showing welcome tour')
-        this.show_welcomeTour = true
-      } else {
-        console.log('[alex] grr', this.skipTags, this.settings.username)
-        this.getAllData()
-      }
-    }, 1000)
-  },
 
   mounted() {
-    // User location hash as search query (usefull for links :)
-    if (window.location.hash) {
-      this.title = decodeURI(window.location.hash.replace('#', ''))
-    }
+    // 0ms timeout required so that settings are mapped...
+    setTimeout(() => {
+      // User location hash as search query (usefull for links :)
+      if (window.location.hash) {
+        this.title = decodeURI(window.location.hash.replace('#', ''))
+      }
 
-    //load some data
-    if (this.skipTags && this.skipTags.length) this.getAllData()
-    // Detect when scrolled to bottom.
-    const wrappers = document.querySelectorAll('.posters_wrapper2')
-    for (var i = 0; i < wrappers.length; i++) {
-      wrappers[i].onscroll = (event) => {
-        let target = event.target
-        let remaining = target.scrollWidth - (target.scrollLeft + target.offsetWidth)
-        if (remaining < 1000) {
-          let id = target.parentElement.parentElement.dataset.id
-          console.log('Scroll left:', remaining, '. Get data from: ', id)
-          this.getData(id)
+      // If user just install the extension, show welcome tour
+      if (this.$route.redirectedFrom == '/extension/welcome') {
+        this.show_welcomeTour = true
+        return
+      }
+
+      //Ask for settings if no settings
+      if (this.skipTags && this.skipTags.length == 0 && !this.settings.web_tour) {
+        this.show_welcomeTour = true
+        return
+      } else {
+        this.getAllData()
+      }
+
+      // Detect when scrolled to bottom.
+      const wrappers = document.querySelectorAll('.posters_wrapper2')
+      for (var i = 0; i < wrappers.length; i++) {
+        wrappers[i].onscroll = (event) => {
+          let target = event.target
+          let remaining = target.scrollWidth - (target.scrollLeft + target.offsetWidth)
+          if (remaining < 1000) {
+            let id = target.parentElement.parentElement.dataset.id
+            console.log('Scroll left:', remaining, '. Get data from: ', id)
+            this.getData(id)
+          }
         }
       }
-    }
+    }, 0)
   },
 }
 </script>

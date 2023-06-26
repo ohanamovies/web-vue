@@ -15,7 +15,7 @@ import FAQs from '@/views/Tutorials/FAQs.vue'
 import NotFoundComponent from '@/views/Tutorials/NotFoundComponent.vue'
 import SettingsPage2 from '@/views/SettingsPage2.vue'
 import Bye from '@/views/Extension/Bye.vue'
-import Welcome from '@/views/Extension/Welcome.vue'
+//import Welcome from '@/views/Extension/Welcome.vue'
 import ReleaseNotes from '@/views/Extension/ReleaseNotes.vue'
 import MoviePage from '@/views/MoviePage/MoviePage.vue'
 import Privacy from '@/views/Legal/Privacy.vue'
@@ -36,6 +36,7 @@ const routes = [
     path: '/',
     name: 'Home2',
     component: Home2,
+    props: true,
   },
   {
     path: '/news',
@@ -131,7 +132,7 @@ const routes = [
   {
     path: '/extension/welcome',
     name: 'Welcome',
-    component: Welcome,
+    redirect: '/',
   },
   {
     path: '/extension/release-notes',
