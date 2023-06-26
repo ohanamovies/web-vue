@@ -335,6 +335,11 @@ const messages = {
     next: 'Next',
     go_to_movies: 'Go to healthy movies!',
     skip_to_movies: 'Skip to healthy movies',
+    icons_explained: `<p>Remember, we use a simple "traffic light" system to quicktly let you know if a movie is healthy for your settings:</p>
+<p><b style="color:green">Healthy:</b> This movie is healthy to watch! Either because it doesn't have any unhealthy scenes, or because they can be removed <i class="v-icon mdi mdi-content-cut green--text"></i> with the magic of our <a style="color: inherit !important; text-decoration: underline;" href="faqs#how-to-install">Chrome Extension</a><br></p>
+<p><b style="color:orange">Mixed: <i class="small v-icon mdi mdi-flag-variant orange--text"></i></b> Edge or mixed content case. Some users say it is healthy, others say it is not...<br></p>
+<p><b style="color:red"> Unhealthy: <i class="v-icon mdi mdi-flag-variant red--text"></i></b> This movie includes unhealthy scenes or values you have told us you want to skip<br></p>
+<p><b style="color:gray">Unknown: <i class="v-icon mdi mdi-progress-question lightgray--text"></i></b> We try our best, but in some cases we must admit we don't have all the anwsers :)</p>`,
   },
   es: {
     whatIsOhana: '¿Qué es Ohana?',
@@ -638,6 +643,11 @@ const messages = {
     next: 'Siguiente',
     go_to_movies: 'Ir al catálogo',
     skip_to_movies: 'Saltar al catálogo',
+    icons_explained: `<p>Recuerda, utilizamos un sencillo sistema de "semáforo" para informarte rápidamente si una película es adecuada para tus preferencias:</p>
+<p><b style="color:green">Saludable:</b> ¡Esta película es saludable para ver! Ya sea porque no tiene escenas inapropiadas o porque se pueden eliminar <i class="v-icon mdi mdi-content-cut green--text"></i> con la magia de nuestra <a style="color: inherit !important; text-decoration: underline;" href="faqs#how-to-install">Extensión para Chrome</a><br></p>
+<p><b style="color:orange">Mixta: <i class="small v-icon mdi mdi-flag-variant orange--text"></i></b> Caso de contenido mixto o dudoso. Algunos usuarios dicen que es saludable, otros dicen que no lo es...<br></p>
+<p><b style="color:red">No saludable: <i class="v-icon mdi mdi-flag-variant red--text"></i></b> Esta película incluye escenas inapropiadas o valores que nos has indicado que deseas omitir<br></p>
+<p><b style="color:gray">Desconocido: <i class="v-icon mdi mdi-progress-question lightgray--text"></i></b> Hacemos nuestro mejor esfuerzo, pero en algunos casos debemos admitir que no tenemos todas las respuestas :)</p>`,
   },
 }
 

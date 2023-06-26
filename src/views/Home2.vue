@@ -299,6 +299,7 @@
                     <img
                       :src="poster(item)"
                       :alt="getTitle(item)"
+                      loading="lazy"
                       :class="[item.status.status == 'missing' ? 'blur_image' : '']"
                     />
                     <div class="shield">
@@ -375,6 +376,21 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- Explain icons -->
+        <div
+          v-if="title && (visibleLength(sections[0]) || sections[0].loading)"
+          class="card"
+          style="
+            padding: 20px;
+            margin: 90px auto 20px auto;
+            width: 80%;
+            color: white;
+            background: #333;
+          "
+        >
+          <div v-html="$t('icons_explained')"></div>
         </div>
       </div>
     </section>
