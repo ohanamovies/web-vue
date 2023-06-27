@@ -701,40 +701,44 @@ export default {
       // Do some data formatting and push to data array
       let ids = section.data.map((x) => x.imdb)
       for (var i = 0; i < data.length; i++) {
-        data[i].status = ohana.movies.getMovieHealth(data[i], this.skipTags)
+        try {
+          data[i].status = ohana.movies.getMovieHealth(data[i], this.skipTags)
 
-        // Hide adult content (always, everywhere)
-        data[i].hidden = ohana.movies.isAdult(data[i])
+          // Hide adult content (always, everywhere)
+          data[i].hidden = ohana.movies.isAdult(data[i])
 
-        // Hide unhealthy content, unless explicity searched
-        if (index != 0) {
-          data[i].hidden =
-            data[i].hidden ||
-            //['tt0314331', 'tt4593126'].includes(data[i].imdb) ||
-            data[i].status.status == 'missing'
-        }
+          // Hide unhealthy content, unless explicity searched
+          if (index != 0) {
+            data[i].hidden =
+              data[i].hidden ||
+              //['tt0314331', 'tt4593126'].includes(data[i].imdb) ||
+              data[i].status.status == 'missing'
+          }
 
-        // Hide horror movies on the trending section
-        if (index == 2) {
-          data[i].hidden =
-            data[i].hidden ||
-            (data[i].genres && data[i].genres.includes('Horror')) ||
-            (data[i].tmdbGenres && data[i].tmdbGenres.includes('Horror'))
-        }
+          // Hide horror movies on the trending section
+          if (index == 2) {
+            data[i].hidden =
+              data[i].hidden ||
+              (data[i].genres && data[i].genres.includes('Horror')) ||
+              (data[i].tmdbGenres && data[i].tmdbGenres.includes('Horror'))
+          }
 
-        // Hide healthy movies from suggested reviews
-        if (this.title == 'suggested reviews') {
-          data[i].hidden = data[i].hidden || ohana.movies.isHealthy(data[i].status)
-        }
+          // Hide healthy movies from suggested reviews
+          if (this.title == 'suggested reviews') {
+            data[i].hidden = data[i].hidden || ohana.movies.isHealthy(data[i].status)
+          }
 
-        // Warn we are hidding data, to support devs mental health
-        if (data[i].hidden) {
-          console.warn('Hidding movie: ', section.title, data[i].title, data[i].plot, data[i])
-        }
+          // Warn we are hidding data, to support devs mental health
+          if (data[i].hidden) {
+            console.warn('Hidding movie: ', section.title, data[i].title, data[i].plot, data[i])
+          }
 
-        // Hide duplicated items (cache sometimes mess things up a bit)
-        if (ids.includes(data[i].imdb)) {
-          data[i].hidden = true
+          // Hide duplicated items (cache sometimes mess things up a bit)
+          if (ids.includes(data[i].imdb)) {
+            data[i].hidden = true
+          }
+        } catch (e) {
+          console.error(e)
         }
       }
       section.data = [...section.data, ...data]
