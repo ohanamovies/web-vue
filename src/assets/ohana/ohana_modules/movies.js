@@ -61,8 +61,8 @@ const movies = {
         let text = title + JSON.stringify(movie.plot).toLowerCase()
         // This test all languages, so there should be no need to translate the filters
         //if (movie.imdbRating && movie.imdbRating < 3) return true
-        if (/\bhot\b/.test(title)) return true
-        return /\bporn|\bsex|\bnude|\bnaked|\bnudity|\berotic|\bgay|\blust|\bwhore|\bbreast|\btetas|\bslut|\bvagina|\bpenis|\blingerie|\btits|\bfuck/.test(
+        //if (/hot/.test(title)) return true
+        return /porn|sex|nude|naked|nudity|erotic|gay|lust|whore|breast|tetas|slut|vagina|penis|lingerie|tits|fuck/.test(
           text
         )
       }
