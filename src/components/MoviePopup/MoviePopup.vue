@@ -83,9 +83,12 @@
               <!-- part of show -->
               <div v-if="item.parent" style="font-size: 70%; margin-bottom: 10px">
                 <b>
-                  <router-link :to="'./' + item.parent" v-if="item.parent">{{
-                    item.parentData.title.primary
-                  }}</router-link></b
+                  <router-link
+                    :target="onExtensionIframe ? '_blank' : '_self'"
+                    :to="'./' + item.parent"
+                    v-if="item.parent"
+                    >{{ item.parentData.title.primary }}</router-link
+                  ></b
                 >
               </div>
               <div>
@@ -101,9 +104,9 @@
               <div style="font-size: 110%">
                 <fc-tooltip v-if="item.imdbRating" text="IMDb rating">
                   <v-icon class="star">mdi-star</v-icon><span>{{ item.imdbRating }}</span
-                  ><span style="font-size: 70%">/10</span>
+                  ><span style="font-size: 70%">/10</span> -
                 </fc-tooltip>
-                - {{ item.runtime + ' mins' }}
+                {{ item.runtime + ' mins' }}
               </div>
 
               <div style="margin-left: 10px">
@@ -260,9 +263,12 @@
 
             <!-- +info link (not visible if alraedy in detail page)-->
             <span v-if="!isDetailPage">
-              <router-link :to="'/item/' + item.imdb" class="modern-link">{{
-                $t('popup.goToFullDetails')
-              }}</router-link>
+              <router-link
+                :target="onExtensionIframe ? '_blank' : '_self'"
+                :to="'/item/' + item.imdb"
+                class="modern-link"
+                >{{ $t('popup.goToFullDetails') }}</router-link
+              >
             </span>
             <a v-else class="modern-link" :href="feedback_link" target="_blank">{{
               $t('feedbackPopUp')
