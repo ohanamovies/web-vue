@@ -257,6 +257,10 @@
         </div>
 
         <div v-for="(section, index) in sections" :key="index" style="max-width: 90%; margin: auto">
+          <div v-if="settings.username == 'miguel'">
+            {{ section.loading }} | {{ section.finishLoading }} | {{ section.data.length }} |
+            {{ section.tries }}
+          </div>
           <div
             v-show="
               (title && index == 0) ||
