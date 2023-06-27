@@ -370,7 +370,6 @@
             padding: 20px;
             margin: 90px auto 20px auto;
             width: 80%;
-            font-size: 14px;
             color: white;
             background: #333;
           "
@@ -455,6 +454,58 @@ export default {
         { text: 'Youtube', value: 'youtube' },*/
       ],
 
+      sections_old: [
+        {
+          title: 'Search results',
+          data: [],
+          query: {},
+        },
+        {
+          title: 'Recently reviewed',
+          data: [],
+          query: { sort_by: 'last_edited' },
+        },
+
+        {
+          title: 'Watch with kids',
+          data: [],
+          query: { genres: JSON.stringify(['Animation']) },
+        },
+        {
+          title: 'Forgiveness',
+          data: [],
+          query: { values: JSON.stringify(['Forgiveness']) },
+        },
+        {
+          title: 'Caring',
+          data: [],
+          query: { values: JSON.stringify(['Caring']) },
+        },
+        {
+          title: 'Best rated',
+          data: [],
+          query: { imdbRating: 8 }, // sort is done by number of votes
+        },
+        /*
+        {
+          title: 'Healthy TV Shows (for your settings) ',
+          data: [],
+          query: { type: 'series', clean: JSON.stringify(this.skipTags) },
+        },
+        */
+        {
+          title: 'Documentaries',
+          data: [],
+          query: { genres: JSON.stringify(['Documentary']) },
+        },
+
+        {
+          title: 'Classic movies',
+          data: [],
+          query: { releasedBefore: 1970 },
+        },
+      ],
+
       title: '',
       titleTimeout: null,
 
@@ -521,11 +572,8 @@ export default {
   },
   computed: {
     ...mapState(['isChrome', 'hasApp', 'isMobile', 'settings']),
-    language() {
-      return this.settings.language
-    },
     sections() {
-      const sectionsAux = tags_excel.getTagsLocal(this.settings.language).sections
+      const sectionsAux = tags_excel.getTagsLocal('en').sections
       let sections = []
       for (let i = 0; i < sectionsAux.length; i++) {
         const s = sectionsAux[i]
@@ -538,6 +586,9 @@ export default {
       }
       return sections //.splice(0, 5)
       //return tags_excel.adaptTags(s)
+    },
+    language() {
+      return this.settings.language
     },
     skipTags() {
       return this.$store.state.settings.skip_tags || []
@@ -644,7 +695,7 @@ export default {
       query.newAPI = true
       // Add either title (index == 0) or tags we want to be clean
       if (index == 0) {
-        if (this.title == 'most popular' || this.title == 'suggested reviews') {
+        if (this.title == 'most-popular' || this.title == 'suggested-reviews') {
           query.sort_by = 'popularity'
           delete query.title
         } else {
@@ -686,7 +737,7 @@ export default {
         return console.log('ignoring results', query.title, this.title)
 
       if (index == 0 && query.title) {
-        window.location.hash = encodeURI('#' + query.title.trim().replaceAll(' ', '-'))
+        window.location.hash = '#' + query.title
         //this.updateQuery({ title: query.title })
       }
 
@@ -698,30 +749,20 @@ export default {
       for (var i = 0; i < data.length; i++) {
         data[i].status = ohana.movies.getMovieHealth(data[i], this.skipTags)
 
-        // Hide adult content from search
         if (index == 0) {
           data[i].hidden = ohana.movies.isAdult(data[i])
-        }
-
-        // Hide "ugly" content from popular
-        if (index == 2) {
+        } else {
           data[i].hidden =
             ['tt0314331', 'tt4593126'].includes(data[i].imdb) ||
             ohana.movies.isUgly(data[i]) ||
             data[i].status.status == 'missing'
         }
 
-        // Hide healthy movies from suggested reviews
-        if (this.title == 'suggested reviews') {
+        if (this.title == 'suggested-reviews') {
           data[i].hidden = data[i].hidden || ohana.movies.isHealthy(data[i].status)
         }
 
-        // Hide duplicated items (cache sometimes mess things up a bit)
         if (ids.includes(data[i].imdb)) data[i].hidden = true
-
-        // Warn we are hidding data, to support devs mental health
-        if (data[i].hidden)
-          console.warn('Hidding movie: ', section.title, data[i].title, data[i].plot, data[i])
       }
       section.data = [...section.data, ...data]
 
@@ -737,7 +778,7 @@ export default {
     setTimeout(() => {
       // User location hash as search query (usefull for links :)
       if (window.location.hash) {
-        this.title = decodeURI(window.location.hash.replace('#', '').replaceAll('-', ' '))
+        this.title = decodeURI(window.location.hash.replace('#', ''))
       }
 
       // If user just install the extension, show welcome tour

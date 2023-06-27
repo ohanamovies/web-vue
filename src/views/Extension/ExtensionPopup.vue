@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-dialog v-model="showMovieDialog" scrollable width="750">
-      <MoviePopup :imdb="imdb" :onExtensionIframe="true" @close="close()" @edit="edit()" />
+      <MoviePopup :imdb="imdb" onExtensionIframe="true" @close="close()" @edit="edit()" />
     </v-dialog>
   </div>
 </template>
@@ -41,7 +41,7 @@ export default {
       }
     },
   },
-  created() {
+  beforeMount() {
     //if (this.inIframe()) { // Should we inject only on iframe?
 
     const style = document.createElement('style')
