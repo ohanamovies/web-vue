@@ -552,7 +552,12 @@ export default {
       window.location.search = searchParams.toString()
     },
     visibleLength(section) {
-      return section.data.filter((x) => !x.hidden).length
+      try {
+        return section.data.filter((x) => !x.hidden).length
+      } catch (e) {
+        console.error(e)
+        return section.data.length
+      }
     },
     status(item) {
       //TODO: we can use something like this instead of item.status to ensure things are reactive, but maybe too much computing cost...
