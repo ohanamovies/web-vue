@@ -509,7 +509,9 @@ export default {
       if (ohana.utils.deepEqual(newValue, oldValue)) return
       console.error('updated skipTags', newValue, oldValue)
       this.updatedTags = true
-      this.getAllData(true)
+      setTimeout(() => {
+        this.getAllData(true)
+      }, 20)
     },
     title() {
       if (!this.title) window.location.hash = ''
