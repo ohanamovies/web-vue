@@ -446,6 +446,7 @@ export default {
       showSidebarFilters: true,
       pageSize: 25,
       updatedTags: false,
+      lastReset: 0,
 
       statusFilter: [],
 
@@ -609,8 +610,12 @@ export default {
       this.selectedItemInfo = item
     },
     async getAllData(resetSections = false) {
+      let time = Date.now()
+      this.lastReset = time
       console.error('[getAllData] ', resetSections)
       for (var i = 1; i < this.sections.length; i++) {
+        if (time < this.lastReset)
+          return console.error('[getAllData] do not request deprecated data...')
         this.getData(i, resetSections)
         await this.sleep(500)
       }
