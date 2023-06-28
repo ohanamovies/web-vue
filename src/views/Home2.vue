@@ -511,7 +511,7 @@ export default {
       this.updatedTags = true
       setTimeout(() => {
         this.getAllData(true)
-      }, 20)
+      }, 500)
     },
     title() {
       if (!this.title) window.location.hash = ''
