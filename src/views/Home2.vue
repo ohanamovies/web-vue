@@ -506,6 +506,7 @@ export default {
     },*/
     skipTags(newValue, oldValue) {
       if (!newValue) return
+      if (ohana.utils.deepEqual(newValue, oldValue)) return
       console.error('updated skipTags', newValue, oldValue)
       this.updatedTags = true
       this.getAllData(true)

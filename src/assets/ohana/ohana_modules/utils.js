@@ -39,6 +39,16 @@ const utils = {
     }
     return true
   },
+
+  //https://stackoverflow.com/a/32922084
+  deepEqual: function (x, y) {
+    const ok = Object.keys,
+      tx = typeof x,
+      ty = typeof y
+    return x && y && tx === 'object' && tx === ty
+      ? ok(x).length === ok(y).length && ok(x).every((key) => this.deepEqual(x[key], y[key]))
+      : x === y
+  },
 }
 
 module.exports = { utils }
