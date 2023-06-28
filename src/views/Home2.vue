@@ -444,7 +444,7 @@ export default {
 
       seeAllGenreChips: false,
       showSidebarFilters: true,
-      pageSize: 25,
+      pageSize: 20,
       updatedTags: false,
       lastReset: 0,
 
@@ -617,7 +617,7 @@ export default {
         if (time < this.lastReset)
           return console.error('[getAllData] do not request deprecated data...')
         this.getData(i, resetSections)
-        await this.sleep(500)
+        await this.sleep(600)
       }
     },
     sleep(time) {

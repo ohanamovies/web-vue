@@ -40,6 +40,13 @@ const providers = {
       return `https://tv.apple.com/${settings.country ? settings.country.toLowerCase() : 'us'}/${
         type == 'episode' ? 'show' : type //TODO: do they have a link to the series? (in ohana we use movie, episode, series)
       }/-/umc.cmc.${providerID}`
+    if (provider == 'hbomax') {
+      if (type == 'show') {
+        return 'https://play.hbomax.com/page/urn:hbo:page:' + providerID + ':type:episode'
+      } else {
+        return 'https://play.hbomax.com/page/urn:hbo:page:' + providerID + ':type:feature'
+      }
+    }
   },
   getLink2(id) {
     let provider = id.split('_')[0]

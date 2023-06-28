@@ -31,6 +31,15 @@
           </div>
         </a>
       </div>
+      <div style="margin: auto 5px auto 20px; font-size: smaller" v-if="item.tmdb">
+        {{ $t('popup.more_providers')[0] }}
+        <a
+          class="modern-link"
+          target="_blank"
+          :href="'https://www.themoviedb.org/' + item.tmdb + '/watch?&locale=' + settings.country"
+          >{{ $t('popup.more_providers')[1] }}.
+        </a>
+      </div>
     </div>
     <div v-else style="padding-bottom: 5px">
       {{ $t('popup.no_providers')[0] }}
