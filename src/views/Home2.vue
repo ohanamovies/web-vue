@@ -100,7 +100,6 @@
           show_welcomeTour = false
           settingsPage = 0
         "
-        @updated="getAllData(true)"
         :page="settingsPage"
       />
     </v-dialog>
@@ -257,10 +256,10 @@
         </div>
 
         <div v-for="(section, index) in sections" :key="index" style="max-width: 90%; margin: auto">
-          <div v-if="settings.username == 'miguel'">
+          <!--<div v-if="settings.username != 'miguel'">
             {{ section.loading }} | {{ section.finishLoading }} | {{ section.data.length }} |
             {{ section.tries }}
-          </div>
+          </div>-->
           <div
             v-show="
               (title && index == 0) ||
@@ -446,6 +445,7 @@ export default {
       seeAllGenreChips: false,
       showSidebarFilters: true,
       pageSize: 25,
+      updatedTags: false,
 
       statusFilter: [],
 
@@ -495,19 +495,20 @@ export default {
       if (!newValue) this.selectedItemInfo = {} //to avoid previus data still rendered while opening different movie
     },
     providers() {
-      console.log('updated providers')
+      console.warn('updated providers')
       this.getAllData(true)
     },
-    show_settings(newValue) {
+    /*show_settings(newValue) {
       if (!newValue) {
-        console.log('closed settings')
+        console.warn('closed settings')
         this.getAllData(true)
       }
-    },
+    },*/
     skipTags() {
       //TODO: right changed to refresh when closing settings instead.
-      //console.log('updated skipTags')
-      //this.getAllData()
+      console.warn('updated skipTags')
+      this.updatedTags = true
+      this.getAllData(true)
     },
     title() {
       if (!this.title) window.location.hash = ''
@@ -606,7 +607,7 @@ export default {
       this.selectedItemInfo = item
     },
     async getAllData(resetSections = false) {
-      console.log('[getAllData] ')
+      //console.warn('[getAllData] ')
       for (var i = 1; i < this.sections.length; i++) {
         this.getData(i, resetSections)
         await this.sleep(500)
@@ -620,20 +621,22 @@ export default {
     async getData(index, resetSection = false) {
       console.log('getData', index)
       let section = this.sections[index]
-      if (!section) return console.log('no section ', index)
+      if (index === undefined || !section) return console.error('no section ', index)
 
       //reset means we remove all data and start over.
       if (resetSection) {
+        console.warn('resetSection', section)
         section.data = []
         section.finishLoading = false
         section.tries = 0
+        await this.sleep(section.tries * 10)
       }
 
-      if (!section.tries) section.tries = 0
+      /*if (!section.tries) section.tries = 0
       if (section.tries > 3) return console.log('tried too many times to reload section ' + index)
 
       await this.sleep(section.tries * 1000)
-      section.tries++
+      section.tries++*/
 
       // Handle loading status (avoid loading multiple times)
       if (section.loading && !resetSection) return console.log('already loading index ' + index)
@@ -671,7 +674,7 @@ export default {
       if (!query.type) query.type = 'movie' //TODO: Remove this once we clarify series!
       */
 
-      //Preapare request a bit (stringify stuff)
+      //Prepare request a bit (stringify stuff)
       for (const key in query) {
         if (Array.isArray(query[key])) query[key] = JSON.stringify(query[key])
         if (typeof query[key] == 'object') query[key] = JSON.stringify(query[key])
@@ -682,10 +685,10 @@ export default {
       if (!res.ok) {
         console.log('[alex] error loading section ' + index)
         section.loading = false
-        console.log('retrying index ' + index)
+        /*console.log('retrying index ' + index)
         setTimeout(() => {
           this.getData(index) //retry, no forcing
-        }, (Math.floor(Math.random() * index) + 3) * 1000)
+        }, (Math.floor(Math.random() * index) + 3) * 1000)*/
         return
       }
       let data = await res.json()
@@ -705,52 +708,49 @@ export default {
       // Do some data formatting and push to data array
       let ids = section.data.map((x) => x.imdb)
       for (var i = 0; i < data.length; i++) {
-        try {
-          data[i].status = ohana.movies.getMovieHealth(data[i], this.skipTags)
+        data[i].status = ohana.movies.getMovieHealth(data[i], this.skipTags)
 
-          // Hide adult content (always, everywhere)
-          data[i].hidden = ohana.movies.isAdult(data[i])
+        // Hide adult content (always, everywhere)
+        data[i].hidden = ohana.movies.isAdult(data[i])
 
-          // Hide unhealthy content, unless explicity searched
-          if (index != 0) {
-            data[i].hidden =
-              data[i].hidden ||
-              //['tt0314331', 'tt4593126'].includes(data[i].imdb) ||
-              data[i].status.status == 'missing'
-          }
+        // Hide unhealthy content, unless explicity searched
+        if (index != 0) {
+          data[i].hidden =
+            data[i].hidden ||
+            //['tt0314331', 'tt4593126'].includes(data[i].imdb) ||
+            data[i].status.status == 'missing'
+        }
 
-          // Hide horror movies on the trending section
-          if (index == 2) {
-            data[i].hidden =
-              data[i].hidden ||
-              (data[i].genres && data[i].genres.includes('Horror')) ||
-              (data[i].tmdbGenres && data[i].tmdbGenres.includes('Horror'))
-          }
+        // Hide horror movies on the trending section
+        if (index == 2) {
+          data[i].hidden =
+            data[i].hidden ||
+            (data[i].genres && data[i].genres.includes('Horror')) ||
+            (data[i].tmdbGenres && data[i].tmdbGenres.includes('Horror'))
+        }
 
-          // Hide healthy movies from suggested reviews
-          if (this.title == 'suggested reviews') {
-            data[i].hidden = data[i].hidden || ohana.movies.isHealthy(data[i].status)
-          }
+        // Hide healthy movies from suggested reviews
+        if (this.title == 'suggested reviews') {
+          data[i].hidden = data[i].hidden || ohana.movies.isHealthy(data[i].status)
+        }
 
-          // Warn we are hidding data, to support devs mental health
-          if (data[i].hidden) {
-            console.warn('Hidding movie: ', section.title, data[i].title, data[i].plot, data[i])
-          }
+        // Warn we are hidding data, to support devs mental health
+        if (data[i].hidden) {
+          console.warn('Hidding movie: ', section.title, data[i].title, data[i].plot, data[i])
+        }
 
-          // Hide duplicated items (cache sometimes mess things up a bit)
-          if (ids.includes(data[i].imdb)) {
-            data[i].hidden = true
-          }
-        } catch (e) {
-          console.error(e)
+        // Hide duplicated items (cache sometimes mess things up a bit)
+        if (ids.includes(data[i].imdb)) {
+          data[i].hidden = true
         }
       }
+      //console.error(section.data.length, section)
       section.data = [...section.data, ...data]
-
-      console.log(section.data)
+      console.log(section.data.length, section)
       this.$forceUpdate()
       section.loading = false
-      section.tries = 0
+      //section.tries = 0
+      //console.error(section.data.length, section)
     },
   },
 
@@ -768,13 +768,16 @@ export default {
         return
       }
 
-      //Ask for settings if no settings
-      if (this.skipTags && this.skipTags.length == 0 && !this.settings.web_tour) {
-        this.show_welcomeTour = true
-        return
-      } else {
-        this.getAllData()
-      }
+      setTimeout(() => {
+        //Ask for settings if no settings
+        if (this.skipTags && this.skipTags.length == 0 && !this.settings.web_tour) {
+          this.show_welcomeTour = true
+          return
+        } else if (!this.updatedTags) {
+          console.error('mounted!', this.$store.state.settings.skip_tags, this.skipTags)
+          this.getAllData(true)
+        }
+      }, 200)
 
       // Detect when scrolled to bottom.
       const wrappers = document.querySelectorAll('.posters_wrapper2')

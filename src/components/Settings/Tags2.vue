@@ -140,7 +140,7 @@ export default {
       this.$store.dispatch('updateSettings', settings)
     },
     getIcon(tag) {
-      console.log(tag)
+      //console.log(tag)
       //return this.skipTags.includes(tag) ? 'mdi-leaf-off' : 'mdi-leaf'
       //return this.skipTags.includes(tag) ? 'mdi-close' : 'mdi-check'
       //return 'mdi-checkbox-blank-circle'

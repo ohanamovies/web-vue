@@ -152,11 +152,11 @@ export default {
     slide(newValue) {
       document.getElementById('tour_tabsElement').scrollIntoView(true)
 
-      // Send update signal ASAP, so that everything is ready to welcome the user
+      /* Send update signal ASAP, so that everything is ready to welcome the user
       if (newValue >= this.nSlides - 1) {
         if (!this.emitted) this.$emit('updated')
         this.emitted = true
-      }
+      }*/
 
       if (newValue >= this.nSlides) {
         this.slide = 0 //reset (in case reopened!)
@@ -165,7 +165,7 @@ export default {
         let s = this.settings
         s.web_tour = new Date()
         this.$store.dispatch('updateSettings', s)
-        if (!this.emitted) this.$emit('updated')
+        //if (!this.emitted) this.$emit('updated')
         this.$emit('exit')
       }
     },
@@ -173,7 +173,7 @@ export default {
   data() {
     return {
       slide: 0,
-      emitted: null,
+      //emitted: null,
     }
   },
 
