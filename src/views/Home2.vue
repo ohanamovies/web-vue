@@ -495,7 +495,7 @@ export default {
       if (!newValue) this.selectedItemInfo = {} //to avoid previus data still rendered while opening different movie
     },
     providers() {
-      console.warn('updated providers')
+      console.error('updated providers')
       this.getAllData(true)
     },
     /*show_settings(newValue) {
@@ -504,9 +504,9 @@ export default {
         this.getAllData(true)
       }
     },*/
-    skipTags() {
-      //TODO: right changed to refresh when closing settings instead.
-      console.warn('updated skipTags')
+    skipTags(newValue, oldValue) {
+      if (!newValue) return
+      console.error('updated skipTags', newValue, oldValue)
       this.updatedTags = true
       this.getAllData(true)
     },
@@ -607,7 +607,7 @@ export default {
       this.selectedItemInfo = item
     },
     async getAllData(resetSections = false) {
-      //console.warn('[getAllData] ')
+      console.error('[getAllData] ', resetSections)
       for (var i = 1; i < this.sections.length; i++) {
         this.getData(i, resetSections)
         await this.sleep(500)
