@@ -62,7 +62,7 @@ const movies = {
         // This test all languages, so there should be no need to translate the filters
         //if (movie.imdbRating && movie.imdbRating < 3) return true
         //if (/hot/.test(title)) return true
-        return /porn|sex|nude|naked|nudity|erotic|gay|lust|whore|breast|tetas|slut|vagina|penis|lingerie|tits|fuck/.test(
+        return /\bfetish|\bporn|\bsex|\bnude|\bnaked|\bnudity|\berotic|\bgay|\blust|\bwhore|\bbreast|\btetas|\bslut|\bvagina|\bpenis|\blingerie|\btits|\bfuck/.test(
           text
         )
       }
