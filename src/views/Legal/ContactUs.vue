@@ -98,6 +98,7 @@ export default {
       infoText: '',
       reason: '',
       movieID: '',
+      ref: '',
       agree: false,
       color: 'red',
       possibleReasons: [
@@ -148,6 +149,9 @@ export default {
     if (this.settings.username) {
       this.name = this.settings.username
     }
+    if (urlParams.get('ref')) {
+      this.ref = urlParams.get('ref')
+    }
   },
   methods: {
     sendMessage() {
@@ -185,6 +189,8 @@ export default {
       fd.append('message', this.message)
       fd.append('reason', this.reason)
       fd.append('movieID', this.movieID)
+      fd.append('username', this.settings.username)
+      fd.append('ref', this.ref)
 
       fetch(murl, {
         method: 'post',
