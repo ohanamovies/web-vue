@@ -9,6 +9,9 @@
 - Finish values
 - Common files (git submodule)
 - Load more on scroll home
+- Add FAQs
+  - Q: Where does the info coming from? A: users
+  - Q: What to do if I don't agree with the info about a movie? A: contribute voting!
 
 ## Nice to have [P2]
 
