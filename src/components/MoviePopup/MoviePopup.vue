@@ -414,7 +414,11 @@ export default {
 
     feedback_link() {
       return (
-        '/contact-us/?reason=movie&title=' + this.item.title.primary + '&imdb=' + this.item.imdb
+        '/contact-us/?reason=movie&title=' +
+        this.item.title.primary +
+        '&imdb=' +
+        this.item.imdb +
+        '&ref=feedbackPopUp'
       )
     },
 
