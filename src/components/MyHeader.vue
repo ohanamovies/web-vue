@@ -14,7 +14,7 @@
           marginTop: isHome && !isMobile ? '40px' : '0px',
         }"
       >
-        <router-link to="/" style="font-size: 20px">Ohana TV</router-link>
+        <router-link to="/" style="font-size: 20px">Ohana Movies</router-link>
 
         <v-spacer></v-spacer>
         <Navigation />
