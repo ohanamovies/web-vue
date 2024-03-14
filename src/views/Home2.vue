@@ -128,10 +128,11 @@
     <div v-if="true" class="sticky1">
       <div class="sticky2">
         <!-- logo -->
+        <!-- TODO: change from "Ohana Movies" to "Ohana TV" -->
         <div v-if="!isMobile" style="font-size: 20px; cursor: pointer; white-space: nowrap">
-          Ohana TV
+          Ohana Movies
         </div>
-        <div v-else style="font-size: 16px; cursor: pointer; white-space: nowrap">Ohana TV</div>
+        <div v-else style="font-size: 16px; cursor: pointer; white-space: nowrap">Ohana Movies</div>
 
         <!--search-->
         <div>
