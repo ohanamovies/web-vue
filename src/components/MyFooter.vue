@@ -53,7 +53,7 @@
         style="margin-top: 70px; color: white; padding: 10px; font-size: 80%; text-align: center"
       >
         <div class="copyright">
-          &copy; Ohana {{ new Date().getFullYear() }}
+          &copy; Ohana Movies {{ new Date().getFullYear() }}
           <!-- Design:
         <a href="https://templated.co">TEMPLATED</a>. -->
           <br />
