@@ -9,7 +9,7 @@ const messages = {
   en: {
     whatIsOhana: 'What is Ohana?',
     welcome: 'Welcome to Ohana Movies', //TODO: remove "movies"
-    homeHeroText1: 'Ohana TV',
+    homeHeroText1: 'Ohana Movies',
     homeHeroText2: 'Enjoy your favourite movies in a healthy way',
     install: 'Install',
     home: 'Home',
@@ -346,7 +346,7 @@ const messages = {
   es: {
     whatIsOhana: '¿Qué es Ohana?',
     welcome: 'Bienvenido a Ohana Movies', //TODO: remove "movies",
-    homeHeroText1: 'Ohana TV',
+    homeHeroText1: 'Ohana Movies',
     homeHeroText2: 'Disfruta de tus películas favoritas de forma saludable',
     install: 'Instalar',
     home: 'Portada',
