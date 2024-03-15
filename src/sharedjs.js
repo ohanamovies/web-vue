@@ -55,7 +55,7 @@ function searchMatch(searchText, searchInText) {
  * @returns
  */
 function headObject(title, description, path) {
-  let siteName = 'Ohana TV'
+  let siteName = 'Ohana Movies'
   //let url = window.location.host + '/#' + path
 
   let url = window.location.href
@@ -94,12 +94,12 @@ function headObject(title, description, path) {
     xx.title = {
       inner: title, // || 'Ohana TV',
       separator: '-',
-      complement: 'Ohana TV',
+      complement: 'Ohana Movies',
       id: 'meta-title',
     }
   } else {
     xx.title = {
-      inner: 'Ohana TV',
+      inner: 'Ohana Movies',
       id: 'meta-title',
       separator: false,
       complement: false,
